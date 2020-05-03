@@ -15,23 +15,16 @@ async def new_contest(contest_type, end_time, post_id):
     last_index = meta_data.child("current_contest_index").get()
     if last_index is None:
         last_index = 0
-    meta_data.child("current_contest_index").set(last_index+1)
-    # set contest active to true
-    meta_data.child("is_contest_active").set(True)
-    # set contest type
-    meta_data.child("current_contest_type").set(str(contest_type))
-    # set end time
-    meta_data.child("current_contest_end_time").set(end_time)
-    # set post id
-    meta_data.child("current_contest_post_id").set(post_id)
 
-    return {
+    new_data = {
         "current_contest_index": meta_data.child("current_contest_index").get(),
         "is_contest_active": True,
         "current_contest_type": str(contest_type),
         "current_contest_end_time": end_time,
         "current_contest_post_id": post_id,
     }
+    meta_data.update(new_data)
+    return new_data;
 
 async def get_all_metadata():
     ret = db.reference("meta_data").get()
@@ -41,18 +34,15 @@ async def get_all_metadata():
 
 async def end_contest():
     meta_data = db.reference("meta_data")
-    meta_data.child("is_contest_active").set(False)
-    meta_data.child("current_contest_type").set("")
-    meta_data.child("current_contest_end_time").set(-1)
-    meta_data.child("current_contest_post_id").set(-1)
-
-    return {
+    new_data = {
         "current_contest_index": meta_data.child("current_contest_index").get(),
         "is_contest_active": False,
         "current_contest_type": "",
         "current_contest_end_time": -1,
         "current_contest_post_id": -1,
     }
+    meta_data.update(new_data)
+    return new_data
 
 async def set_user_class_select_dialog(contest_index, user_id, dialog_id):
     db.reference("contest_"+str(contest_index)).child("user_to_class_select_dialog").child(str(user_id)).set(dialog_id)
@@ -61,6 +51,14 @@ async def set_user_class_select_dialog(contest_index, user_id, dialog_id):
 async def get_class_select_dialog(contest_index, user_id):
     # remember to check if it's none
     return db.reference("contest_"+str(contest_index)).child("user_to_class_select_dialog").child(str(user_id)).get()
+
+async def delete_user_class_select_dialog(contest_index, user_id):
+    try:
+        dialog_id = db.reference("contest_"+str(contest_index)).child("user_to_class_select_dialog").child(str(user_id)).get()
+        db.reference("contest_"+str(contest_index)).child("user_to_class_select_dialog").child(str(user_id)).delete()
+        db.reference("contest_"+str(contest_index)).child("class_select_dialog_to_user").child(str(dialog_id)).delete()
+    except:
+        print("Failed to delete dialog from database.")
 
 async def set_user_submission_dialog(contest_index, user_id, dialog_id):
     db.reference("contest_"+str(contest_index)).child("user_to_submission_dialog").child(str(user_id)).set(dialog_id)

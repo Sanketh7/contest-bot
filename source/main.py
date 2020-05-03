@@ -55,6 +55,7 @@ async def on_message(message: discord.Message):
 
     if message.author != bot.user:
         if message.guild is None: # in DM
+
             if len(message.attachments) > 0:
                 img_url = message.attachments[0].url
                 if img_url is not None:
@@ -74,7 +75,7 @@ async def on_raw_reaction_add(payload):
         return
     guid_id = payload.guild_id
 
-    is_contest_active = await db.is_contest_active()
+    is_contest_active = states["is_contest_active"]
     contest_post_id = states["current_contest_post_id"]
     contest_index = states["current_contest_index"]
     is_on_contest_post = contest_post_id == msg_id
@@ -83,7 +84,7 @@ async def on_raw_reaction_add(payload):
     if reaction == other_emojis["gravestone"] and is_contest_active and is_on_contest_post:
 
         # send class select dialog
-        embed = discord.Embed(title="Class Selection for contest #`"+str(contest_index)+"`.")
+        embed = discord.Embed(title="Class Selection.")
         embed.add_field(
             name="Note",
             value=
@@ -119,7 +120,7 @@ async def on_raw_reaction_add(payload):
 
         # create submission dialog
         class_name = next((name for name, emoji_str in player_emojis.items() if emoji_str == reaction), None)
-        embed = discord.Embed(title="Submission for class `" + class_name + "` and contest #`"+str(contest_index)+"`.")
+        embed = discord.Embed(title="Submission for class `" + class_name + "`.")
         embed.add_field(
             name="Instructions",
             value=
@@ -161,7 +162,7 @@ async def start_contest(ctx, contest_type: str, days: int, hours: int, minutes: 
     embed = discord.Embed(title="A New `" + contest_type.upper() + "` Contest Has Started!")
     embed.add_field(name="How to Join", value="idk", inline=False)
 
-    is_contest_active = await db.is_contest_active()
+    is_contest_active = states["is_contest_active"]
     if is_contest_active:
         await ctx.channel.send("A contest is already active. This bot only supports 1 contest at a time.")
         return
@@ -184,8 +185,18 @@ async def start_contest(ctx, contest_type: str, days: int, hours: int, minutes: 
 async def force_end_contest(ctx):
     if states["is_contest_active"]:
         ch = discord.utils.get(bot.get_guild(int(GUILD)).text_channels, name=SIGN_UP_CHANNEL)
-        msg = await ch.fetch_message(states["current_contest_post_id"])
-        await msg.delete()
+        try:
+            msg = await ch.fetch_message(states["current_contest_post_id"])
+            await msg.delete()
+        except:
+            print("Failed to retrieve/delete message.")
+
+        result = await db.end_contest()
+
+        states["states_read"] = False
+        for key, value in result.items():
+            states[key] = value
+        states["states_read"] = True
     else:
         ctx.channel.send("No contests are active right now.")
 
@@ -198,8 +209,12 @@ async def end_current_contest_loop():
             print(curr_time >= float(states["current_contest_end_time"]))
             if curr_time >= float(states["current_contest_end_time"]):
                 ch = discord.utils.get(bot.get_guild(int(GUILD)).text_channels, name=SIGN_UP_CHANNEL)
-                msg = await ch.fetch_message(states["current_contest_post_id"])
-                await msg.delete()
+                try:
+                    msg = await ch.fetch_message(states["current_contest_post_id"])
+                    await msg.delete()
+                except:
+                    print("Failed to retrieve/delete message.")
+
                 result = await db.end_contest()
 
                 states["states_read"] = False
