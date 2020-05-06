@@ -44,26 +44,6 @@ async def end_contest():
     meta_data.update(new_data)
     return new_data
 
-async def set_user_class_select_dialog(contest_index, user_id, dialog_id):
-    db.reference("contest_"+str(contest_index)).child("user_to_class_select_dialog").child(str(user_id)).set(dialog_id)
-    db.reference("contest_"+str(contest_index)).child("class_select_dialog_to_user").child(str(dialog_id)).set(user_id)
-
-async def get_class_select_dialog(contest_index, user_id):
-    # remember to check if it's none
-    return db.reference("contest_"+str(contest_index)).child("user_to_class_select_dialog").child(str(user_id)).get()
-
-async def delete_user_class_select_dialog(contest_index, user_id):
-    try:
-        dialog_id = db.reference("contest_"+str(contest_index)).child("user_to_class_select_dialog").child(str(user_id)).get()
-        db.reference("contest_"+str(contest_index)).child("user_to_class_select_dialog").child(str(user_id)).delete()
-        db.reference("contest_"+str(contest_index)).child("class_select_dialog_to_user").child(str(dialog_id)).delete()
-    except:
-        print("Failed to delete dialog from database.")
-
-async def set_user_submission_dialog(contest_index, user_id, dialog_id):
-    db.reference("contest_"+str(contest_index)).child("user_to_submission_dialog").child(str(user_id)).set(dialog_id)
-    db.reference("contest_"+str(contest_index)).child("submission_dialog_to_user").child(str(dialog_id)).set(user_id)
-
-async def get_submission_dialog(contest_index, user_id):
-    # remember to check if it's none
-    return db.reference("contest_"+str(contest_index)).child("user_to_submission_dialog").get()
+async def add_submission_to_user(contest_id, user_id, submission_data: dict):
+    db.reference("contest_"+str(contest_id)).child("submissions").child(str(user_id)).set(submission_data)
+    db.reference("contest_"+str(contest_id)).child("leaderboard").child(str(user_id)).set(submission_data["points"])

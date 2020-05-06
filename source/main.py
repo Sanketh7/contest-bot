@@ -5,8 +5,13 @@ from discord.ext import commands
 import asyncio
 import datetime
 
-import source.database as db
+import submission
+import points_data
+import leaderboard
+
+import database as db
 db.init_database()
+
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -34,6 +39,10 @@ states = {
     "states_read": False
 }
 
+points_data_manager = points_data.PointsDataManager()
+
+leaderboard = leaderboard.Leaderboard(bot=bot)
+
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected!')
@@ -49,20 +58,6 @@ async def on_ready():
                 player_emojis[player_class] = str(emoji)
         if emoji.name == os.getenv("EMOJI_GRAVESTONE"):
             other_emojis["gravestone"] = str(emoji)
-
-@bot.event
-async def on_message(message: discord.Message):
-
-    if message.author != bot.user:
-        if message.guild is None: # in DM
-
-            if len(message.attachments) > 0:
-                img_url = message.attachments[0].url
-                if img_url is not None:
-                    ch = discord.utils.get(bot.get_guild(int(GUILD)).text_channels, name=CONTEST_SUBMISSION_CHANNEL)
-                    await ch.send(img_url)
-
-    await bot.process_commands(message)
 
 @bot.event
 async def on_raw_reaction_add(payload):
@@ -82,59 +77,10 @@ async def on_raw_reaction_add(payload):
 
     # gravestone for creating a submission
     if reaction == other_emojis["gravestone"] and is_contest_active and is_on_contest_post:
-
-        # send class select dialog
-        embed = discord.Embed(title="Class Selection.")
-        embed.add_field(
-            name="Note",
-            value=
-            '''
-            **This will ERASE previous submissions for this contest, regardless of class.**
-            ''',
-            inline=False
-        )
-        # TODO: add owner ping
-        embed.add_field(
-            name="Instructions",
-            value=
-            '''
-            React to one of the class reactions below to select a class for this contest.
-            After selecting a class you should see a dialog which allows you to submit a screenshot.
-            **Contact @vexor if you do not see the dialog after selecting a class.**
-            '''
-        )
-
-        dm_msg = await user.send(embed=embed)
-        for e in player_emojis.values():
-            await dm_msg.add_reaction(e)
-
-        await db.set_user_class_select_dialog(contest_index, user_id, dm_msg.id)
-
-        return
-
-    # user selected player class in class select dialog (dm)
-    current_class_select_dialog = await db.get_class_select_dialog(contest_index, user_id)
-    is_on_class_select_dialog = (current_class_select_dialog is not None) and (current_class_select_dialog == msg_id)
-
-    if reaction in player_emojis.values() and is_contest_active and is_on_class_select_dialog:
-
-        # create submission dialog
-        class_name = next((name for name, emoji_str in player_emojis.items() if emoji_str == reaction), None)
-        embed = discord.Embed(title="Submission for class `" + class_name + "`.")
-        embed.add_field(
-            name="Instructions",
-            value=
-            '''
-            Send a message with a screenshot **in this DM** as specified in the contest rules. 
-            Click the **plus button** next to where you type a message to attach an image \
-            or **copy and paste** and image into the message box.
-            If you do not use either of the methods above, the bot **cannot** detect it.
-            ''',
-            inline=False
-        )
-
-        dm_msg = await user.send(embed=embed)
-        await db.set_user_submission_dialog(contest_index, user_id, dm_msg.id)
+        new_submission = submission.Submission(bot, user, player_emojis, GUILD, CONTEST_SUBMISSION_CHANNEL,
+                                               points_data_manager.keywords, points_data_manager.points_data,
+                                               states["current_contest_index"])
+        await new_submission.start_process()
         return
 
 # Checks
@@ -159,7 +105,11 @@ async def start_contest(ctx, contest_type: str, days: int, hours: int, minutes: 
         ctx.channel.send("Not a valid contest type.")
         return
 
+    curr_time = datetime.datetime.utcnow()
+    end_time = curr_time + datetime.timedelta(days=days, hours=hours, minutes=minutes)
+
     embed = discord.Embed(title="A New `" + contest_type.upper() + "` Contest Has Started!")
+    embed.description = "Ends on " + f'{end_time:%B %d, %Y}' + " at " + f'{end_time: %H:%M:%S%z}' + " (UTC)"
     embed.add_field(name="How to Join", value="idk", inline=False)
 
     is_contest_active = states["is_contest_active"]
@@ -171,8 +121,6 @@ async def start_contest(ctx, contest_type: str, days: int, hours: int, minutes: 
     ch = discord.utils.get(bot.get_guild(int(GUILD)).text_channels, name=SIGN_UP_CHANNEL)
     post = await ch.send(embed=embed)
 
-    curr_time = datetime.datetime.utcnow()
-    end_time = curr_time + datetime.timedelta(days=days, hours=hours, minutes=minutes)
     result = await db.new_contest(contest_type, end_time.timestamp(), post.id)
     await post.add_reaction(other_emojis["gravestone"])
 
@@ -197,8 +145,10 @@ async def force_end_contest(ctx):
         for key, value in result.items():
             states[key] = value
         states["states_read"] = True
+
+        await ctx.channel.send("Contest forcefully ended.")
     else:
-        ctx.channel.send("No contests are active right now.")
+        await ctx.channel.send("No contests are active right now.")
 
 # Special Event Loops
 
@@ -206,7 +156,6 @@ async def end_current_contest_loop():
     while True:
         if states["current_contest_end_time"] != -1 and states["states_read"] and states["is_contest_active"]:
             curr_time = datetime.datetime.utcnow().timestamp()
-            print(curr_time >= float(states["current_contest_end_time"]))
             if curr_time >= float(states["current_contest_end_time"]):
                 ch = discord.utils.get(bot.get_guild(int(GUILD)).text_channels, name=SIGN_UP_CHANNEL)
                 try:
