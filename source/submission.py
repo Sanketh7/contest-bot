@@ -2,10 +2,11 @@ import discord
 import asyncio
 from flashtext import KeywordProcessor
 import database as db
+from util import error_embed, success_embed
 
 class Submission:
     def __init__(self, bot: discord.Client, user: discord.User, player_reacts: dict,
-                 guild_id: str, sub_channel_name: str, keyword_data: dict, points_data: dict, contest_id: int):
+                 guild_id: str, sub_channel_name: str, keyword_data: dict, points_data: dict, contest_id: int, points_doc: str):
 
         self.bot = bot
         self.user = user
@@ -15,6 +16,7 @@ class Submission:
         self.keyword_data = keyword_data
         self.points_data = points_data
         self.contest_id = contest_id
+        self.points_doc = points_doc
 
         self.class_name = ""  # will be resolved in class_select_menu
         self.img_url = ""
@@ -25,7 +27,8 @@ class Submission:
         await self.class_select_menu()
 
     async def timed_out_response(self):
-        await self.user.send("Uh oh! You did not respond in time so the process timed out.")
+        # await self.user.send("Uh oh! You did not respond in time so the process timed out.")
+        await self.user.send(embed=error_embed("Uh oh! You did not respond in time so the process timed out."))
 
     async def do_player_reacts(self, dm_msg):
         for e in self.player_reacts.values():
@@ -34,7 +37,6 @@ class Submission:
     async def do_confirm_reacts(self, dm_msg):
         for e in ["✅", "❌"]:
             await dm_msg.add_reaction(e)
-
 
     async def class_select_menu(self):
         embed = discord.Embed(title="Class Selection.")
@@ -117,13 +119,13 @@ class Submission:
             name="Instructions",
             value=
             '''
-            Using this document as reference, enter the keywords that correspond to your items/achievements.
+            Using this [document]({}) as reference, enter the keywords that correspond to your items/achievements.
             This is how you will get your points.
             
             **If points are not entered correctly, your submission will be denied.**
             
             (You have **15 minutes** to complete this.)
-            '''
+            '''.format(self.points_doc)
         )
         dm_msg = await self.user.send(embed=embed)
 
@@ -145,14 +147,17 @@ class Submission:
 
         self.points = 0
         self.user_keywords = set()
+
         for item in items:
-            self.points += self.points_data[item][self.class_name]
             self.user_keywords.add(item)
+
+        for item in self.user_keywords:
+            self.points += self.points_data[item][self.class_name]
 
     async def confirm_keywords_menu(self):
         item_str = ""
         if len(self.user_keywords) > 0:
-            item_str = str(item_str)
+            item_str = str(self.user_keywords)
         else:
             item_str = "**NONE**"
         embed = discord.Embed(title="Confirm Keywords")
@@ -212,24 +217,48 @@ class Submission:
         else:
             await react_task
             if str(reaction) == "❌":
-                await self.user.send("You cancelled the submission.")
-                return
+                # await self.user.send("You cancelled the submission.")
+                return await self.user.send(embed=success_embed("Submission cancelled."))
             await self.upload_submission()
 
     async def upload_submission(self):
         member: discord.Member = discord.utils.get(self.bot.get_guild(int(self.guild_id)).members, id=self.user.id)
-        embed = discord.Embed(title=member.nick)
+        if member is None:
+            return
+        embed = discord.Embed(title=member.nick + "    (" + str(self.class_name) + ")")
         embed.add_field(name="Items/Achievements", value="`"+str(self.user_keywords)+"`", inline=False)
         embed.add_field(name="Points", value=("**" + str(self.points) + "**"))
         embed.set_image(url=self.img_url)
 
-        await db.add_submission_to_user(self.contest_id, self.user.id, {
+        ch: discord.TextChannel = discord.utils.get(self.bot.get_guild(int(self.guild_id)).text_channels, name=self.sub_channel_name)
+        post = await ch.send(embed=embed)
+        await post.add_reaction("✅")
+        await post.add_reaction("❌")
+
+        prev_post = await db.add_submission_to_user(self.contest_id, self.user.id, post.id, {
             "class": self.class_name,
             "keywords": list(self.user_keywords),
             "points": self.points,
             "img_url": self.img_url
         })
 
-        ch: discord.TextChannel = discord.utils.get(self.bot.get_guild(int(self.guild_id)).text_channels, name=self.sub_channel_name)
-        await ch.send(embed=embed)
-        await self.user.send("Submission was successful!")
+        # await self.user.send("Submission was successful!")
+        await self.user.send(embed=success_embed(
+            '''
+            Submission submitted.
+            You will be notified soon if your submission is accepted.
+            
+            **ID:** `{}`
+            (The acceptance message will contain this ID.)
+            '''.format(post.id)
+        ))
+
+        # Now delete the previous submission verification post if it exists
+        if prev_post is None:
+            return
+
+        try:
+            msg = await ch.fetch_message(int(prev_post))
+            await msg.delete()
+        except:
+            print("Couldn't delete previous verification post. This could be because it was deleted normally.")
