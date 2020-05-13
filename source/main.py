@@ -241,7 +241,7 @@ async def start_contest(contest_type: str, end_time: float):
         return
 
     embed = discord.Embed(title="A New `" + contest_type.upper() + "` Contest Has Started!")
-    embed.description = "Ends on " + f'{end_time:%B %d, %Y}' + " at " + f'{end_time: %H:%M%z}' + " (UTC)"
+    embed.description = "Ends on " + f'{end_time:%B %d, %Y}' + " at " + f'{end_time: %H:%M}' + " (UTC)"
     embed.add_field(
         name="Instructions",
         value=
