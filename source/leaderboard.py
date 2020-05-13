@@ -12,7 +12,6 @@ class Leaderboard:
 
     async def update(self):
         self.top = await db.get_top_users(100)
-        print(self.top)
 
     async def display(self):
         if self.top is None:
