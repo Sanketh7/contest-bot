@@ -236,9 +236,11 @@ async def remove_contest(ctx, contest_id: str):
     await ctx.channel.send(embed=success_embed("Contest removed (if it existed). \
     Use `+view_schedule` to view scheduled contests."))
 
-async def start_contest(contest_type: str, end_time: float):
+async def start_contest(contest_type: str, end_time_num: float):
     if contest_type not in contest_types:
         return
+
+    end_time = datetime.datetime.utcfromtimestamp(end_time_num)
 
     embed = discord.Embed(title="A New `" + contest_type.upper() + "` Contest Has Started!")
     embed.description = "Ends on " + f'{end_time:%B %d, %Y}' + " at " + f'{end_time: %H:%M}' + " (UTC)"
@@ -260,7 +262,7 @@ async def start_contest(contest_type: str, end_time: float):
     ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=SIGN_UP_CHANNEL)
     post = await ch.send(embed=embed)
 
-    result = await db.new_contest(contest_type, end_time, post.id)
+    result = await db.new_contest(contest_type, end_time_num, post.id)
     await post.add_reaction("✅")
     await post.add_reaction(other_emojis["gravestone"])
 
