@@ -297,7 +297,7 @@ async def contest_schedule_loop():
                 states["states_read"] = True
 
         # start new contest if it is time to do so
-        elif not states["is_contest_active"]:
+        elif not states["is_contest_active"] and states["states_read"]:
             schedule = await db.get_scheduled_contest_list()
             curr_time = datetime.datetime.utcnow().timestamp()
             if schedule is not None:
