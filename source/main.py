@@ -298,10 +298,11 @@ async def contest_schedule_loop():
         elif not states["is_contest_active"]:
             schedule = await db.get_scheduled_contest_list()
             curr_time = datetime.datetime.utcnow().timestamp()
-            for _, contest_data in schedule.items():
-                if float(contest_data["start_time"]) <= curr_time <= float(contest_data["end_time"]):
-                    await start_contest(contest_data["contest_type"], float(contest_data["end_time"]))
-                    break
+            if schedule is not None:
+                for _, contest_data in schedule.items():
+                    if float(contest_data["start_time"]) <= curr_time <= float(contest_data["end_time"]):
+                        await start_contest(contest_data["contest_type"], float(contest_data["end_time"]))
+                        break
 
         await asyncio.sleep(60)
 
