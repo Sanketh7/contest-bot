@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import datetime
+from tabulate import tabulate
 
 import submission
 import points_data
@@ -142,50 +143,8 @@ def to_lower(arg):
 
 # Commands
 
-@bot.command(name='start_contest')
-@is_admin()
-async def start_contest(ctx, contest_type: str, days: int, hours: int, minutes: int):
-    if contest_type not in contest_types:
-        # await ctx.channel.send("Not a valid contest type.")
-        return await ctx.channel.send(embed=error_embed("Not a valid contest type."))
-
-    curr_time = datetime.datetime.utcnow()
-    end_time = curr_time + datetime.timedelta(days=days, hours=hours, minutes=minutes)
-
-    embed = discord.Embed(title="A New `" + contest_type.upper() + "` Contest Has Started!")
-    embed.description = "Ends on " + f'{end_time:%B %d, %Y}' + " at " + f'{end_time: %H:%M:%S%z}' + " (UTC)"
-    embed.add_field(
-        name="Instructions",
-        value=
-        '''
-        ✅ - Sign up for the contest. (Let's you view all the channels and submit a character.)
-        {} - Submit a character. The bot will send instructions and a way to submit a character along with proof.
-        '''.format(str(other_emojis["gravestone"])),
-        inline=False
-    )
-
-    is_contest_active = states["is_contest_active"]
-    if is_contest_active:
-        # await ctx.channel.send("A contest is already active. This bot only supports 1 contest at a time.")
-        return await ctx.channel.send(embed=error_embed("A contest is already active. This bot only supports 1 contest at a time."))
-
-    states["states_read"] = False
-    ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=SIGN_UP_CHANNEL)
-    post = await ch.send(embed=embed)
-
-    result = await db.new_contest(contest_type, end_time.timestamp(), post.id)
-    await post.add_reaction("✅")
-    await post.add_reaction(other_emojis["gravestone"])
-
-    await db.clear_leaderboard()
-
-    for key, value in result.items():
-        states[key] = value
-    states["states_read"] = True
-
-    points_data_manager.parse_data(contest_type)
-
-    await ctx.channel.send(embed=success_embed("Contest started."))
+# @bot.command(name='start_contest')
+# @is_admin()
 
 @bot.command(name='force_end_contest')
 @is_admin()
@@ -227,10 +186,94 @@ async def set_points_document(ctx, contest_type: str, url: str):
     await db.set_points_document(contest_type, url)
     await ctx.channel.send(embed=success_embed("Document set for contest type: `" + str(contest_type) + "`"))
 
+@bot.command(name='add_contest')
+@is_admin()
+async def add_contest(ctx, contest_type: str, start_string: str, end_string: str):
+    if contest_type not in contest_types:
+        return await ctx.channel.send(embed=error_embed("Invalid contest type."))
+
+    start_time = datetime.datetime.strptime(start_string, "%m/%d/%y %H:%M")
+    end_time = datetime.datetime.strptime(end_string, "%m/%d/%y %H:%M")
+    start_time = start_time.replace(tzinfo=datetime.timezone.utc).timestamp()
+    end_time = end_time.replace(tzinfo=datetime.timezone.utc).timestamp()
+    await db.schedule_contest(contest_type, start_time, end_time)
+
+    start_time_str = datetime.datetime.utcfromtimestamp(float(start_time)).strftime("%m/%d/%y %H:%M")
+    end_time_str = datetime.datetime.utcfromtimestamp(float(end_time)).strftime("%m/%d/%y %H:%M")
+
+    await ctx.channel.send(embed=success_embed(
+        "Contest added. \nStart time (UTC): {}\n End time (UTC): {}".format(start_time_str, end_time_str)
+    ))
+
+@bot.command(name='view_schedule')
+@is_admin()
+async def view_schedule(ctx):
+    schedule = await db.get_scheduled_contest_list()
+    if schedule is None:
+        return await ctx.channel.send(embed=error_embed("No upcoming contests."))
+
+    table = []
+    for uid, data in schedule.items():
+        start_time_str = datetime.datetime.utcfromtimestamp(float(data["start_time"])).strftime("%m/%d/%y %H:%M")
+        end_time_str = datetime.datetime.utcfromtimestamp(float(data["end_time"])).strftime("%m/%d/%y %H:%M")
+        table.append([str(uid), data["contest_type"], start_time_str, end_time_str])
+
+    embed = discord.Embed(title="Upcoming Contests", color=0x00FF00)
+    embed.description = "All times are in UTC."
+    table_str = tabulate(table, headers=["ID", "Contest Type", "Start Time", "End Time"])
+    embed.add_field(name="Schedule", value="```"+str(table_str)+"```", inline=False)
+
+    await ctx.channel.send(embed=embed)
+
+@bot.command(name='remove_contest')
+@is_admin()
+async def remove_contest(ctx, contest_id: str):
+    await db.remove_contest_with_id(contest_id)
+
+    await ctx.channel.send(embed=success_embed("Contest removed (if it existed). \
+    Use `+view_schedule` to view scheduled contests."))
+
+async def start_contest(contest_type: str, end_time: float):
+    if contest_type not in contest_types:
+        return
+
+    embed = discord.Embed(title="A New `" + contest_type.upper() + "` Contest Has Started!")
+    embed.description = "Ends on " + f'{end_time:%B %d, %Y}' + " at " + f'{end_time: %H:%M%z}' + " (UTC)"
+    embed.add_field(
+        name="Instructions",
+        value=
+        '''
+        ✅ - Sign up for the contest. (Let's you view all the channels and submit a character.)
+        {} - Submit a character. The bot will send instructions and a way to submit a character along with proof.
+        '''.format(str(other_emojis["gravestone"])),
+        inline=False
+    )
+
+    is_contest_active = states["is_contest_active"]
+    if is_contest_active:
+        return
+
+    states["states_read"] = False
+    ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=SIGN_UP_CHANNEL)
+    post = await ch.send(embed=embed)
+
+    result = await db.new_contest(contest_type, end_time, post.id)
+    await post.add_reaction("✅")
+    await post.add_reaction(other_emojis["gravestone"])
+
+    await db.clear_leaderboard()
+
+    for key, value in result.items():
+        states[key] = value
+    states["states_read"] = True
+
+    points_data_manager.parse_data(contest_type)
+
 # Special Event Loops
 
-async def end_current_contest_loop():
+async def contest_schedule_loop():
     while True:
+        # end current contest if it's done
         if states["current_contest_end_time"] != -1 and states["states_read"] and states["is_contest_active"]:
             curr_time = datetime.datetime.utcnow().timestamp()
             if curr_time >= float(states["current_contest_end_time"]):
@@ -247,6 +290,16 @@ async def end_current_contest_loop():
                 for key, value in result.items():
                     states[key] = value
                 states["states_read"] = True
+
+            # start new contest if it is time to do so
+            elif not states["is_contest_active"]:
+                schedule = await db.get_scheduled_contest_list()
+                curr_time = datetime.datetime.utcnow().timestamp()
+                for _, contest_data in schedule.items():
+                    if float(contest_data["start_time"]) <= curr_time <= float(contest_data["end_time"]):
+                        await start_contest(contest_data["contest_type"], float(contest_data["end_time"]))
+                        break
+
         await asyncio.sleep(60)
 
 async def update_leaderboard_loop():
@@ -256,7 +309,7 @@ async def update_leaderboard_loop():
             await leaderboard.display()
         await asyncio.sleep(60*60)
 
-bot.loop.create_task(end_current_contest_loop())
+bot.loop.create_task(contest_schedule_loop())
 bot.loop.create_task(update_leaderboard_loop())
 
 bot.run(TOKEN)

@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+import uuid
 
 def init_database():
     cred = credentials.Certificate("../db-key.json")
@@ -92,3 +93,19 @@ async def replace_leaderboard(new_post_id):
 
 async def clear_leaderboard():
     db.reference("leaderboard").delete()
+
+async def schedule_contest(contest_type, start_time, end_time):
+    uid = uuid.uuid4().hex[:8]
+
+    new_contest_ref = db.reference("scheduled_contests").child(str(uid))
+    new_contest_ref.set({
+        "contest_type": str(contest_type),
+        "start_time": float(start_time),
+        "end_time": float(end_time)
+    })
+
+async def get_scheduled_contest_list():
+    return db.reference("scheduled_contests").get()
+
+async def remove_contest_with_id(contest_id: str):
+    db.reference("scheduled_contests").child(contest_id).delete()
