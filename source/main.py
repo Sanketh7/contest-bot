@@ -23,6 +23,7 @@ CONTEST_SUBMISSION_CHANNEL = os.getenv('CONTEST_SUBMISSION_CHANNEL')
 SIGN_UP_CHANNEL = os.getenv('SIGN_UP_CHANNEL')
 IN_CONTEST_ROLE = os.getenv('IN_CONTEST_ROLE')
 LEADERBOARD_CHANNEL = os.getenv('LEADERBOARD_CHANNEL')
+ADMIN_ROLE_NAME = os.getenv('ADMIN_ROLE_NAME')
 
 bot = commands.Bot(command_prefix=CMD_PREFIX)
 
@@ -132,7 +133,7 @@ async def on_raw_reaction_add(payload):
 
 def is_admin():
     async def predicate(ctx):
-        admin_role = discord.utils.get(ctx.guild.roles, name="Admin")
+        admin_role = discord.utils.get(ctx.guild.roles, name=ADMIN_ROLE_NAME)
         return ctx.author.id == 343142603996528641 or (admin_role in ctx.author.roles)
     return commands.check(predicate)
 
