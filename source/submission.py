@@ -225,7 +225,7 @@ class Submission:
         member: discord.Member = discord.utils.get(self.bot.get_guild(int(self.guild_id)).members, id=self.user.id)
         if member is None:
             return
-        embed = discord.Embed(title=member.nick + "    (" + str(self.class_name) + ")")
+        embed = discord.Embed(title=member.display_name + "    (" + str(self.class_name) + ")")
         embed.add_field(name="Items/Achievements", value="`"+str(self.user_keywords)+"`", inline=False)
         embed.add_field(name="Points", value=("**" + str(self.points) + "**"))
         embed.set_image(url=self.img_url)
