@@ -4,7 +4,7 @@ from firebase_admin import db
 import uuid
 
 def init_database():
-    cred = credentials.Certificate("../db-key.json")
+    cred = credentials.Certificate("db-key.json")
     firebase_admin.initialize_app(cred, {
         "databaseURL": "https://contest-bot-test.firebaseio.com"
     })
