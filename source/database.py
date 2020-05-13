@@ -6,7 +6,7 @@ import uuid
 def init_database():
     cred = credentials.Certificate("db-key.json")
     firebase_admin.initialize_app(cred, {
-        "databaseURL": "https://contest-bot-test.firebaseio.com"
+        "databaseURL": "https://alpha-bot-57599.firebaseio.com"
     })
 
 async def new_contest(contest_type, end_time, post_id):
