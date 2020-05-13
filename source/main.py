@@ -194,8 +194,10 @@ async def add_contest(ctx, contest_type: str, start_string: str, end_string: str
 
     start_time = datetime.datetime.strptime(start_string, "%m/%d/%y %H:%M")
     end_time = datetime.datetime.strptime(end_string, "%m/%d/%y %H:%M")
-    start_time = start_time.replace(tzinfo=datetime.timezone.utc).timestamp()
-    end_time = end_time.replace(tzinfo=datetime.timezone.utc).timestamp()
+    # start_time = start_time.replace(tzinfo=datetime.timezone.utc).timestamp()
+    # end_time = end_time.replace(tzinfo=datetime.timezone.utc).timestamp()
+    start_time = start_time.timestamp()
+    end_time = end_time.timestamp()
     await db.schedule_contest(contest_type, start_time, end_time)
 
     start_time_str = datetime.datetime.utcfromtimestamp(float(start_time)).strftime("%m/%d/%y %H:%M")
