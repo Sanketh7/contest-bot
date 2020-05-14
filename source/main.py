@@ -193,8 +193,12 @@ async def add_contest(ctx, contest_type: str, start_string: str, end_string: str
     if contest_type not in contest_types:
         return await ctx.channel.send(embed=error_embed("Invalid contest type."))
 
-    start_time = datetime.datetime.strptime(start_string, "%m/%d/%y %H:%M")
-    end_time = datetime.datetime.strptime(end_string, "%m/%d/%y %H:%M")
+    try:
+        start_time = datetime.datetime.strptime(start_string, "%m/%d/%y %H:%M")
+        end_time = datetime.datetime.strptime(end_string, "%m/%d/%y %H:%M")
+    except ValueError:
+        return await ctx.channel.send(embed=error_embed("Invalid time input."))
+
     # start_time = start_time.replace(tzinfo=datetime.timezone.utc).timestamp()
     # end_time = end_time.replace(tzinfo=datetime.timezone.utc).timestamp()
     start_time = start_time.timestamp()
