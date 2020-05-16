@@ -250,7 +250,7 @@ class Submission:
             Submission submitted.
             You will be notified soon if your submission is accepted.
             
-            You have **{}** submissions left.
+            You have **{}** submission attempts left.
             
             **ID:** `{}`
             (The acceptance message will contain this ID.)
