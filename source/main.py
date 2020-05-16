@@ -271,8 +271,8 @@ async def start_contest(contest_type: str, end_time_num: float):
         name="Instructions",
         value=
         '''
-        ✅ - Sign up for the contest. (Let's you view all the channels and submit a character.)
-        {} - Submit a character. The bot will send instructions and a way to submit a character along with proof.
+        ✅ - Sign up for the contest. (Let's you view all the channels and submit.)
+        {} - Submit a character. The bot will send instructions and a way to submit a screenshot of your character.
         '''.format(str(other_emojis["gravestone"])),
         inline=False
     )
