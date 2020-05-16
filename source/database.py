@@ -96,13 +96,17 @@ async def clear_leaderboard():
 
 async def schedule_contest(contest_type, start_time, end_time):
     uid = uuid.uuid4().hex[:8]
-
-    new_contest_ref = db.reference("scheduled_contests").child(str(uid))
-    new_contest_ref.set({
+    data = {
         "contest_type": str(contest_type),
         "start_time": float(start_time),
         "end_time": float(end_time)
-    })
+    }
+    new_contest_ref = db.reference("scheduled_contests").child(str(uid))
+    new_contest_ref.set(data)
+    return {
+        "key": str(uid),
+        "data": data
+    }
 
 async def get_scheduled_contest_list():
     return db.reference("scheduled_contests").get()
