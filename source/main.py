@@ -59,8 +59,9 @@ async def on_ready():
     for key, value in meta_data.items():
         states[key] = value
     schedule = await db.get_scheduled_contest_list()
-    for key, value in schedule.items():
-        schedule_cache[key] = value
+    if schedule is not None:
+        for key, value in schedule.items():
+            schedule_cache[key] = value
 
     states["states_read"] = True
 
