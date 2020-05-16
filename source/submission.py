@@ -254,7 +254,7 @@ class Submission:
             
             **ID:** `{}`
             (The acceptance message will contain this ID.)
-            '''.format(str(5-cnt), post.id)
+            '''.format(str(cnt), post.id)
         ))
 
         # Now delete the previous submission verification post if it exists
