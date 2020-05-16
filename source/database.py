@@ -96,16 +96,33 @@ async def clear_leaderboard():
 
 async def schedule_contest(contest_type, start_time, end_time):
     uid = uuid.uuid4().hex[:8]
-
-    new_contest_ref = db.reference("scheduled_contests").child(str(uid))
-    new_contest_ref.set({
+    data = {
         "contest_type": str(contest_type),
         "start_time": float(start_time),
         "end_time": float(end_time)
-    })
+    }
+    new_contest_ref = db.reference("scheduled_contests").child(str(uid))
+    new_contest_ref.set(data)
+    return {
+        "key": str(uid),
+        "data": data
+    }
 
 async def get_scheduled_contest_list():
     return db.reference("scheduled_contests").get()
 
 async def remove_contest_with_id(contest_id: str):
     db.reference("scheduled_contests").child(contest_id).delete()
+
+async def add_submission_count(contest_id, user_id):
+    old_value = db.reference("contest_" + str(contest_id)).child("user_to_submission_count").child(str(user_id)).get()
+    if old_value is None:
+        old_value = 0
+    db.reference("contest_" + str(contest_id)).child("user_to_submission_count").child(str(user_id)).set(old_value+1)
+    return 5-(old_value+1)
+
+async def allowed_to_submit(contest_id, user_id):
+    val = db.reference("contest_" + str(contest_id)).child("user_to_submission_count").child(str(user_id)).get()
+    if val is None:
+        val = 0
+    return val < 5

@@ -242,15 +242,19 @@ class Submission:
             "img_url": self.img_url
         })
 
+        cnt = await db.add_submission_count(self.contest_id, self.user.id)
+
         # await self.user.send("Submission was successful!")
         await self.user.send(embed=success_embed(
             '''
             Submission submitted.
             You will be notified soon if your submission is accepted.
             
+            You have **{}** submission attempts left.
+            
             **ID:** `{}`
             (The acceptance message will contain this ID.)
-            '''.format(post.id)
+            '''.format(str(cnt), post.id)
         ))
 
         # Now delete the previous submission verification post if it exists

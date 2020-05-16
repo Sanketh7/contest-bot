@@ -45,6 +45,8 @@ states = {
     "states_read": False
 }
 
+schedule_cache: dict = {}
+
 points_data_manager = points_data.PointsDataManager()
 
 leaderboard = leaderboard.Leaderboard(bot, GUILD_ID, LEADERBOARD_CHANNEL)
@@ -56,6 +58,11 @@ async def on_ready():
     meta_data = await db.get_all_metadata()
     for key, value in meta_data.items():
         states[key] = value
+    schedule = await db.get_scheduled_contest_list()
+    if schedule is not None:
+        for key, value in schedule.items():
+            schedule_cache[key] = value
+
     states["states_read"] = True
 
     if states["current_contest_type"] != "":
@@ -88,10 +95,14 @@ async def on_raw_reaction_add(payload):
     if reaction == other_emojis["gravestone"] and is_contest_active and is_on_contest_post:
         role = discord.utils.get(bot.get_guild(guild_id).roles, name=IN_CONTEST_ROLE)
         if role in bot.get_guild(guild_id).get_member(user_id).roles:
-            new_submission = submission.Submission(bot, user, player_emojis, guild_id, CONTEST_SUBMISSION_CHANNEL,
-                                                   points_data_manager.keywords, points_data_manager.points_data,
-                                                   states["current_contest_index"], states["current_points_document"])
-            return await new_submission.start_process()
+            allowed = await db.allowed_to_submit(states["current_contest_index"], user_id)
+            if allowed:
+                new_submission = submission.Submission(bot, user, player_emojis, guild_id, CONTEST_SUBMISSION_CHANNEL,
+                                                       points_data_manager.keywords, points_data_manager.points_data,
+                                                       states["current_contest_index"], states["current_points_document"])
+                return await new_submission.start_process()
+            else:
+                return await user.send(embed=error_embed("You have used up your 5 submissions."))
         else:
             return await user.send(embed=error_embed("You need to sign up before you can submit a character."))
 
@@ -133,6 +144,8 @@ async def on_raw_reaction_add(payload):
 
 def is_admin():
     async def predicate(ctx):
+        if ctx.guild is None:
+            return False
         admin_role = discord.utils.get(ctx.guild.roles, name=ADMIN_ROLE_NAME)
         return ctx.author.id == 343142603996528641 or (admin_role in ctx.author.roles)
     return commands.check(predicate)
@@ -203,7 +216,8 @@ async def add_contest(ctx, contest_type: str, start_string: str, end_string: str
     # end_time = end_time.replace(tzinfo=datetime.timezone.utc).timestamp()
     start_time = start_time.timestamp()
     end_time = end_time.timestamp()
-    await db.schedule_contest(contest_type, start_time, end_time)
+    res = await db.schedule_contest(contest_type, start_time, end_time)
+    schedule_cache[res["key"]] = res["data"]
 
     start_time_str = datetime.datetime.utcfromtimestamp(float(start_time)).strftime("%m/%d/%y %H:%M")
     end_time_str = datetime.datetime.utcfromtimestamp(float(end_time)).strftime("%m/%d/%y %H:%M")
@@ -215,12 +229,12 @@ async def add_contest(ctx, contest_type: str, start_string: str, end_string: str
 @bot.command(name='view_schedule')
 @is_admin()
 async def view_schedule(ctx):
-    schedule = await db.get_scheduled_contest_list()
-    if schedule is None:
+    # schedule = await db.get_scheduled_contest_list()
+    if not schedule_cache:
         return await ctx.channel.send(embed=error_embed("No upcoming contests."))
 
     table = []
-    for uid, data in schedule.items():
+    for uid, data in schedule_cache.items():
         start_time_str = datetime.datetime.utcfromtimestamp(float(data["start_time"])).strftime("%m/%d/%y %H:%M")
         end_time_str = datetime.datetime.utcfromtimestamp(float(data["end_time"])).strftime("%m/%d/%y %H:%M")
         table.append([str(uid), data["contest_type"], start_time_str, end_time_str])
@@ -236,6 +250,7 @@ async def view_schedule(ctx):
 @is_admin()
 async def remove_contest(ctx, contest_id: str):
     await db.remove_contest_with_id(contest_id)
+    schedule_cache.pop(contest_id)
 
     await ctx.channel.send(embed=success_embed("Contest removed (if it existed). \
     Use `+view_schedule` to view scheduled contests."))
@@ -302,12 +317,14 @@ async def contest_schedule_loop():
 
         # start new contest if it is time to do so
         elif not states["is_contest_active"] and states["states_read"]:
-            schedule = await db.get_scheduled_contest_list()
+            # schedule = await db.get_scheduled_contest_list()
             curr_time = datetime.datetime.utcnow().timestamp()
-            if schedule is not None:
-                for _, contest_data in schedule.items():
+            if schedule_cache:
+                for uid, contest_data in schedule_cache.items():
                     if float(contest_data["start_time"]) <= curr_time <= float(contest_data["end_time"]):
                         await start_contest(contest_data["contest_type"], float(contest_data["end_time"]))
+                        await db.remove_contest_with_id(str(uid))
+                        schedule_cache.pop(str(uid))
                         break
 
         await asyncio.sleep(60)
