@@ -56,8 +56,12 @@ async def on_ready():
     print(f'{bot.user.name} has connected!')
 
     meta_data = await db.get_all_metadata()
-    for key, value in meta_data.items():
-        states[key] = value
+    if meta_data is None:
+        await db.reset_meta_data()
+    else:
+        for key, value in meta_data.items():
+            states[key] = value
+    
     schedule = await db.get_scheduled_contest_list()
     if schedule is not None:
         for key, value in schedule.items():

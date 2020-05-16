@@ -53,6 +53,18 @@ async def end_contest():
     meta_data.update(new_data)
     return new_data
 
+async def reset_meta_data():
+    meta_data = db.reference("meta_data")
+    new_data = {
+        "current_contest_index": 0,
+        "is_contest_active": False,
+        "current_contest_type": "",
+        "current_contest_end_time": -1,
+        "current_contest_post_id": -1,
+        "current_points_document": ""
+    }
+    meta_data.update(new_data)
+
 async def add_submission_to_user(contest_id, user_id, post_id, submission_data: dict):
     db.reference("contest_"+str(contest_id)).child("submissions").child(str(user_id)).set(submission_data)
 
