@@ -94,10 +94,14 @@ async def on_raw_reaction_add(payload):
     if reaction == other_emojis["gravestone"] and is_contest_active and is_on_contest_post:
         role = discord.utils.get(bot.get_guild(guild_id).roles, name=IN_CONTEST_ROLE)
         if role in bot.get_guild(guild_id).get_member(user_id).roles:
-            new_submission = submission.Submission(bot, user, player_emojis, guild_id, CONTEST_SUBMISSION_CHANNEL,
-                                                   points_data_manager.keywords, points_data_manager.points_data,
-                                                   states["current_contest_index"], states["current_points_document"])
-            return await new_submission.start_process()
+            allowed = await db.allowed_to_submit(states["current_contest_index"], user_id)
+            if allowed:
+                new_submission = submission.Submission(bot, user, player_emojis, guild_id, CONTEST_SUBMISSION_CHANNEL,
+                                                       points_data_manager.keywords, points_data_manager.points_data,
+                                                       states["current_contest_index"], states["current_points_document"])
+                return await new_submission.start_process()
+            else:
+                return await user.send(embed=error_embed("You have used up your 5 submissions."))
         else:
             return await user.send(embed=error_embed("You need to sign up before you can submit a character."))
 
@@ -139,6 +143,8 @@ async def on_raw_reaction_add(payload):
 
 def is_admin():
     async def predicate(ctx):
+        if ctx.guild is None:
+            return False
         admin_role = discord.utils.get(ctx.guild.roles, name=ADMIN_ROLE_NAME)
         return ctx.author.id == 343142603996528641 or (admin_role in ctx.author.roles)
     return commands.check(predicate)
@@ -219,7 +225,7 @@ async def add_contest(ctx, contest_type: str, start_string: str, end_string: str
 @is_admin()
 async def view_schedule(ctx):
     # schedule = await db.get_scheduled_contest_list()
-    if schedule_cache is None and len(schedule_cache.items()) > 0:
+    if not schedule_cache:
         return await ctx.channel.send(embed=error_embed("No upcoming contests."))
 
     table = []
@@ -308,7 +314,7 @@ async def contest_schedule_loop():
         elif not states["is_contest_active"] and states["states_read"]:
             # schedule = await db.get_scheduled_contest_list()
             curr_time = datetime.datetime.utcnow().timestamp()
-            if schedule_cache is not None and len(schedule_cache.items()) > 0:
+            if not schedule_cache:
                 for uid, contest_data in schedule_cache.items():
                     if float(contest_data["start_time"]) <= curr_time <= float(contest_data["end_time"]):
                         await start_contest(contest_data["contest_type"], float(contest_data["end_time"]))
