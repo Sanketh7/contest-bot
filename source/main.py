@@ -206,7 +206,7 @@ async def add_contest(ctx, contest_type: str, start_string: str, end_string: str
     start_time = start_time.timestamp()
     end_time = end_time.timestamp()
     res = await db.schedule_contest(contest_type, start_time, end_time)
-    schedule_cache[res["key"]] = schedule_cache[res["data"]]
+    schedule_cache[res["key"]] = res["data"]
 
     start_time_str = datetime.datetime.utcfromtimestamp(float(start_time)).strftime("%m/%d/%y %H:%M")
     end_time_str = datetime.datetime.utcfromtimestamp(float(end_time)).strftime("%m/%d/%y %H:%M")
