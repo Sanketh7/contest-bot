@@ -315,7 +315,7 @@ async def contest_schedule_loop():
         elif not states["is_contest_active"] and states["states_read"]:
             # schedule = await db.get_scheduled_contest_list()
             curr_time = datetime.datetime.utcnow().timestamp()
-            if not schedule_cache:
+            if schedule_cache:
                 for uid, contest_data in schedule_cache.items():
                     if float(contest_data["start_time"]) <= curr_time <= float(contest_data["end_time"]):
                         await start_contest(contest_data["contest_type"], float(contest_data["end_time"]))
