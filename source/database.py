@@ -119,7 +119,7 @@ async def add_submission_count(contest_id, user_id):
     if old_value is None:
         old_value = 0
     db.reference("contest_" + str(contest_id)).child("user_to_submission_count").child(str(user_id)).set(old_value+1)
-    return old_value+1
+    return 5-(old_value+1)
 
 async def allowed_to_submit(contest_id, user_id):
     val = db.reference("contest_" + str(contest_id)).child("user_to_submission_count").child(str(user_id)).get()
