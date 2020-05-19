@@ -56,8 +56,12 @@ async def on_ready():
     print(f'{bot.user.name} has connected!')
 
     meta_data = await db.get_all_metadata()
-    for key, value in meta_data.items():
-        states[key] = value
+    if not meta_data:
+        await db.reset_meta_data()
+    else:
+        for key, value in meta_data.items():
+            states[key] = value
+
     schedule = await db.get_scheduled_contest_list()
     if schedule is not None:
         for key, value in schedule.items():
@@ -206,8 +210,12 @@ async def add_contest(ctx, contest_type: str, start_string: str, end_string: str
     if contest_type not in contest_types:
         return await ctx.channel.send(embed=error_embed("Invalid contest type."))
 
-    start_time = datetime.datetime.strptime(start_string, "%m/%d/%y %H:%M")
-    end_time = datetime.datetime.strptime(end_string, "%m/%d/%y %H:%M")
+    try:
+        start_time = datetime.datetime.strptime(start_string, "%m/%d/%y %H:%M")
+        end_time = datetime.datetime.strptime(end_string, "%m/%d/%y %H:%M")
+    except ValueError:
+        return await ctx.channel.send(embed=error_embed("Invalid time input."))
+
     # start_time = start_time.replace(tzinfo=datetime.timezone.utc).timestamp()
     # end_time = end_time.replace(tzinfo=datetime.timezone.utc).timestamp()
     start_time = start_time.timestamp()
@@ -263,8 +271,8 @@ async def start_contest(contest_type: str, end_time_num: float):
         name="Instructions",
         value=
         '''
-        ✅ - Sign up for the contest. (Let's you view all the channels and submit a character.)
-        {} - Submit a character. The bot will send instructions and a way to submit a character along with proof.
+        ✅ - Sign up for the contest. (Let's you view all the channels and submit.)
+        {} - Submit a character. The bot will send instructions and a way to submit a screenshot of your character.
         '''.format(str(other_emojis["gravestone"])),
         inline=False
     )
