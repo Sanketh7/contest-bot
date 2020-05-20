@@ -4,7 +4,7 @@ from firebase_admin import db
 import uuid
 
 def init_database():
-    cred = credentials.Certificate("db-key.json")
+    cred = credentials.Certificate("../db-key.json")
     firebase_admin.initialize_app(cred, {
         "databaseURL": "https://alpha-bot-57599.firebaseio.com/"
     })
@@ -75,6 +75,10 @@ async def add_submission_to_user(contest_id, user_id, post_id, submission_data: 
 
     return prev_post
 
+async def get_submission_from_user(contest_id, user_id):
+    ref = db.reference("contest_"+str(contest_id)).child("submissions").child(str(user_id))
+    return ref.get()
+
 async def get_user_from_verification(post_id, contest_id):
     # check to make sure it's not None
     return db.reference("contest_"+str(contest_id)).child("verification_to_user").child(str(post_id)).get()
@@ -93,6 +97,8 @@ async def accept_submission(contest_id, post_id):
         "points": submission["points"],
         "class": submission["class"]
     })
+
+    return user_id
 
 async def get_top_users(count):
     return db.reference("leaderboard").order_by_child("points").limit_to_last(count).get()

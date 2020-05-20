@@ -6,7 +6,8 @@ import asyncio
 import datetime
 from tabulate import tabulate
 
-import submission
+import new_submission
+import edit_submission
 import points_data
 import leaderboard
 from util import success_embed, error_embed
@@ -50,6 +51,8 @@ schedule_cache: dict = {}
 points_data_manager = points_data.PointsDataManager()
 
 leaderboard = leaderboard.Leaderboard(bot, GUILD_ID, LEADERBOARD_CHANNEL)
+
+active_processes = set()  # holds user id for users that have an active process going on
 
 @bot.event
 async def on_ready():
@@ -99,16 +102,37 @@ async def on_raw_reaction_add(payload):
     if reaction == other_emojis["gravestone"] and is_contest_active and is_on_contest_post:
         role = discord.utils.get(bot.get_guild(guild_id).roles, name=IN_CONTEST_ROLE)
         if role in bot.get_guild(guild_id).get_member(user_id).roles:
-            allowed = await db.allowed_to_submit(states["current_contest_index"], user_id)
+            allowed = user_id not in active_processes
             if allowed:
-                new_submission = submission.Submission(bot, user, player_emojis, guild_id, CONTEST_SUBMISSION_CHANNEL,
-                                                       points_data_manager.keywords, points_data_manager.points_data,
-                                                       states["current_contest_index"], states["current_points_document"])
-                return await new_submission.start_process()
+                active_processes.add(user_id)
+                submission = new_submission.NewSubmission(bot, user, player_emojis, guild_id, CONTEST_SUBMISSION_CHANNEL,
+                                                              points_data_manager.keywords, points_data_manager.points_data,
+                                                              states["current_contest_index"], states["current_points_document"])
+                await submission.start_process()
+                active_processes.remove(user_id)
+                return
             else:
-                return await user.send(embed=error_embed("You have used up your 5 submissions."))
+                return await user.send(embed=error_embed("You can only have one process running at a time. Please cancel or complete the other process."))
         else:
-            return await user.send(embed=error_embed("You need to sign up before you can submit a character."))
+            return await user.send(embed=error_embed("You need to sign up before you can submit or edit a character."))
+
+    # pencil for editing submission
+    if reaction == "✏" and is_contest_active and is_on_contest_post:
+        role = discord.utils.get(bot.get_guild(guild_id).roles, name=IN_CONTEST_ROLE)
+        if role in bot.get_guild(guild_id).get_member(user_id).roles:
+            allowed = user_id not in active_processes
+            if allowed:
+                active_processes.add(user_id)
+                submission = edit_submission.EditSubmission(bot, user, guild_id, CONTEST_SUBMISSION_CHANNEL,
+                                                            points_data_manager.keywords, points_data_manager.points_data,
+                                                            states["current_contest_index"], states["current_points_document"])
+                await submission.start_process()
+                active_processes.remove(user_id)
+                return
+            else:
+                return await user.send(embed=error_embed("You can only have one process running at a time. Please cancel or complete the other process."))
+        else:
+            return await user.send(embed=error_embed("You need to sign up before you can submit or edit a character."))
 
     # Give user "contest" role
     if reaction == "✅" and is_contest_active and is_on_contest_post:
@@ -123,25 +147,29 @@ async def on_raw_reaction_add(payload):
 
         # Accept points/submission
         if reaction == "✅" and ch_id == sub_channel.id:
-            await db.accept_submission(states["current_contest_index"], msg_id)
+            submission_user_id = await db.accept_submission(states["current_contest_index"], msg_id)
             try:
                 ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=CONTEST_SUBMISSION_CHANNEL)
+                submission_user = bot.get_guild(int(GUILD_ID)).get_member(int(submission_user_id))
                 msg = await ch.fetch_message(msg_id)
                 await msg.delete()
-                await user.send(embed=success_embed("Your submission with ID `" + str(msg_id) + "` was accepted!"))
+                await submission_user.send(embed=success_embed("Your submission with ID `" + str(msg_id) + "` was accepted!"))
             except:
-                print("Failed to fetch/delete message.")
+                print("Failed to fetch/delete message or user doesn't exist.")
             return
 
         # Reject points/submission
         if reaction == "❌" and ch_id == sub_channel.id:
+
+            submission_user_id = await db.get_user_from_verification(msg_id, states["current_contest_index"])
             try:
                 ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=CONTEST_SUBMISSION_CHANNEL)
+                submission_user = bot.get_guild(int(GUILD_ID)).get_member(int(submission_user_id))
                 msg = await ch.fetch_message(msg_id)
                 await msg.delete()
-                await user.send(embed=error_embed("Your submission with ID `" + str(msg_id) + "` was denied."))
+                await submission_user.send(embed=error_embed("Your submission with ID `" + str(msg_id) + "` was denied."))
             except:
-                print("Failed to fetch/delete message.")
+                print("Failed to fetch/delete message or user doesn't exist.")
             return
 
 # Checks
@@ -184,6 +212,8 @@ async def force_end_contest(ctx):
 
         # await ctx.channel.send("Contest forcefully ended.")
         await ctx.channel.send(embed=success_embed("Contest forcefully ended."))
+
+        await remove_contest_role()
     else:
         # await ctx.channel.send("No contests are active right now.")
         await ctx.channel.send(embed=error_embed("No contests are active right now."))
@@ -273,6 +303,7 @@ async def start_contest(contest_type: str, end_time_num: float):
         '''
         ✅ - Sign up for the contest. (Let's you view all the channels and submit.)
         {} - Submit a character. The bot will send instructions and a way to submit a screenshot of your character.
+        ✏ - Edit a character. This will edit your last submission (not always your last *accepted* submission).
         '''.format(str(other_emojis["gravestone"])),
         inline=False
     )
@@ -288,6 +319,7 @@ async def start_contest(contest_type: str, end_time_num: float):
     result = await db.new_contest(contest_type, end_time_num, post.id)
     await post.add_reaction("✅")
     await post.add_reaction(other_emojis["gravestone"])
+    await post.add_reaction("✏")
 
     await db.clear_leaderboard()
 
@@ -296,6 +328,12 @@ async def start_contest(contest_type: str, end_time_num: float):
     states["states_read"] = True
 
     points_data_manager.parse_data(contest_type)
+
+async def remove_contest_role():
+    role = discord.utils.get(bot.get_guild(int(GUILD_ID)).roles, name=IN_CONTEST_ROLE)
+    members = role.members
+    for member in members:
+        await member.remove_roles(role)
 
 # Special Event Loops
 
@@ -318,6 +356,8 @@ async def contest_schedule_loop():
                 for key, value in result.items():
                     states[key] = value
                 states["states_read"] = True
+
+                await remove_contest_role()
 
         # start new contest if it is time to do so
         elif not states["is_contest_active"] and states["states_read"]:
