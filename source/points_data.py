@@ -10,7 +10,7 @@ class PointsDataManager:
         self.points_data = {}
 
     def parse_data(self, contest_type):
-        data_file = open("../"+contest_type + "_data.csv", "r")
+        data_file = open(contest_type + "_data.csv", "r")
         data_reader = csv.reader(data_file)
         data = []
         for row in data_reader:
