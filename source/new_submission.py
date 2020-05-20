@@ -129,9 +129,9 @@ class NewSubmission:
             for future in asyncio.as_completed(tasks):
                 res = await future
 
-                if type(res[0]) == discord.Reaction:
+                if type(res) is tuple and type(res[0]) is discord.Reaction:
                     await self.cancelled_response()
-                elif type(res) == discord.Message:
+                elif type(res) is discord.Message:
                     self.img_url = res.attachments[0].url
                     await self.keyword_menu()
 
@@ -177,9 +177,9 @@ class NewSubmission:
             for future in asyncio.as_completed(tasks):
                 res = await future
 
-                if type(res[0]) == discord.Reaction:
+                if type(res) is tuple and type(res[0]) is discord.Reaction:
                     await self.cancelled_response()
-                elif type(res) == discord.Message:
+                elif type(res) is discord.Message:
                     self.parse_keywords(res.content)
                     await self.confirm_keywords_menu()
 
