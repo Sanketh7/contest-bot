@@ -229,7 +229,7 @@ async def force_refresh_schedule(ctx):
     if states["is_contest_active"] or not states["states_read"]:
         return await ctx.channel.send(embed=error_embed("A contest is already active."))
 
-    res = start_new_contest_from_schedule()
+    res = await start_new_contest_from_schedule()
     if res:
         return await ctx.channel.send(embed=success_embed("Contest started."))
     else:
