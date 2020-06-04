@@ -6,11 +6,11 @@ import asyncio
 import datetime
 from tabulate import tabulate
 
-import new_submission
-import edit_submission
+import new_character
+import edit_character
 import points_data
 import leaderboard
-from util import success_embed, error_embed
+from util import success_embed, error_embed, Logger
 
 import database as db
 db.init_database()
@@ -25,6 +25,7 @@ SIGN_UP_CHANNEL = os.getenv('SIGN_UP_CHANNEL')
 IN_CONTEST_ROLE = os.getenv('IN_CONTEST_ROLE')
 LEADERBOARD_CHANNEL = os.getenv('LEADERBOARD_CHANNEL')
 ADMIN_ROLE_NAME = os.getenv('ADMIN_ROLE_NAME')
+LOG_CHANNEL = os.getenv('LOG_CHANNEL')
 
 bot = commands.Bot(command_prefix=CMD_PREFIX)
 
@@ -51,6 +52,7 @@ schedule_cache: dict = {}
 points_data_manager = points_data.PointsDataManager()
 
 leaderboard = leaderboard.Leaderboard(bot, GUILD_ID, LEADERBOARD_CHANNEL)
+Logger.init(bot, GUILD_ID, LOG_CHANNEL)
 
 active_processes = set()  # holds user id for users that have an active process going on
 
@@ -88,7 +90,10 @@ async def on_raw_reaction_add(payload):
     msg_id = payload.message_id
     ch_id = payload.channel_id
     user_id = payload.user_id
-    user: discord.User = bot.get_user(user_id)
+    try:
+        user: discord.User = bot.get_user(user_id)
+    except:
+        return
     if user == bot.user or user is None:
         return
     guild_id = payload.guild_id
@@ -105,9 +110,8 @@ async def on_raw_reaction_add(payload):
             allowed = user_id not in active_processes
             if allowed:
                 active_processes.add(user_id)
-                submission = new_submission.NewSubmission(bot, user, player_emojis, guild_id, CONTEST_SUBMISSION_CHANNEL,
-                                                              points_data_manager.keywords, points_data_manager.points_data,
-                                                              states["current_contest_index"], states["current_points_document"])
+
+                submission = new_character.NewCharacter(bot, user, player_emojis, guild_id, states["current_contest_index"])
                 await submission.start_process()
                 active_processes.remove(user_id)
                 return
@@ -123,9 +127,10 @@ async def on_raw_reaction_add(payload):
             allowed = user_id not in active_processes
             if allowed:
                 active_processes.add(user_id)
-                submission = edit_submission.EditSubmission(bot, user, guild_id, CONTEST_SUBMISSION_CHANNEL,
-                                                            points_data_manager.keywords, points_data_manager.points_data,
-                                                            states["current_contest_index"], states["current_points_document"])
+
+                submission = edit_character.EditCharacter(bot, user, guild_id, CONTEST_SUBMISSION_CHANNEL,
+                                                          points_data_manager.keywords, points_data_manager.points_data,
+                                                          states["current_contest_index"], states["current_points_document"])
                 await submission.start_process()
                 active_processes.remove(user_id)
                 return
@@ -147,21 +152,21 @@ async def on_raw_reaction_add(payload):
 
         # Accept points/submission
         if reaction == "✅" and ch_id == sub_channel.id:
-            submission_user_id = await db.accept_submission(states["current_contest_index"], msg_id)
+            submission_user_id = await db.accept_pending_submission(states["current_contest_index"], msg_id, points_data_manager.points_data, user_id)
             try:
                 ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=CONTEST_SUBMISSION_CHANNEL)
                 submission_user = bot.get_guild(int(GUILD_ID)).get_member(int(submission_user_id))
                 msg = await ch.fetch_message(msg_id)
                 await msg.delete()
-                await submission_user.send(embed=success_embed("Your submission with ID `" + str(msg_id) + "` was accepted!"))
+                await submission_user.send(
+                    embed=success_embed("Your submission with ID `" + str(msg_id) + "` was accepted!"))
             except:
                 print("Failed to fetch/delete message or user doesn't exist.")
             return
 
         # Reject points/submission
         if reaction == "❌" and ch_id == sub_channel.id:
-
-            submission_user_id = await db.get_user_from_verification(msg_id, states["current_contest_index"])
+            submission_user_id = await db.get_user_from_verification(states["current_contest_index"], msg_id)
             try:
                 ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=CONTEST_SUBMISSION_CHANNEL)
                 submission_user = bot.get_guild(int(GUILD_ID)).get_member(int(submission_user_id))
@@ -218,12 +223,25 @@ async def force_end_contest(ctx):
         # await ctx.channel.send("No contests are active right now.")
         await ctx.channel.send(embed=error_embed("No contests are active right now."))
 
+@bot.command(name='force_refresh_schedule')
+@is_admin()
+async def force_refresh_schedule(ctx):
+    if states["is_contest_active"] or not states["states_read"]:
+        return await ctx.channel.send(embed=error_embed("A contest is already active."))
+
+    res = start_new_contest_from_schedule()
+    if res:
+        return await ctx.channel.send(embed=success_embed("Contest started."))
+    else:
+        return await ctx.channel.send(embed=error_embed("No new contest to start."))
+
 @bot.command(name='force_update_leaderboard')
 @is_admin()
 async def force_update_leaderboard(ctx):
     await leaderboard.update()
     await leaderboard.display()
     await ctx.channel.send(embed=success_embed("Leaderboard updated."))
+    await Logger.force_update_leaderboard(ctx.author)
 
 @bot.command(name='set_points_document')
 @is_admin()
@@ -302,8 +320,8 @@ async def start_contest(contest_type: str, end_time_num: float):
         value=
         '''
         ✅ - Sign up for the contest. (Let's you view all the channels and submit.)
-        {} - Submit a character. The bot will send instructions and a way to submit a screenshot of your character.
-        ✏ - Edit a character. This will edit your last submission (not always your last *accepted* submission).
+        {} - Start a new character. Completing this will ERASE your previous character for the contest.
+        ✏ - Edit a character. This will add items/achievements to your current character.
         '''.format(str(other_emojis["gravestone"])),
         inline=False
     )
@@ -335,6 +353,18 @@ async def remove_contest_role():
     for member in members:
         await member.remove_roles(role)
 
+async def start_new_contest_from_schedule():
+    if not states["is_contest_active"] and states["states_read"]:
+        curr_time = datetime.datetime.utcnow().timestamp()
+        if schedule_cache:
+            for uid, contest_data in schedule_cache.items():
+                if float(contest_data["start_time"]) <= curr_time <= float(contest_data["end_time"]):
+                    await start_contest(contest_data["contest_type"], float(contest_data["end_time"]))
+                    await db.remove_contest_with_id(str(uid))
+                    schedule_cache.pop(str(uid))
+                    return True
+    return False
+
 # Special Event Loops
 
 async def contest_schedule_loop():
@@ -361,15 +391,7 @@ async def contest_schedule_loop():
 
         # start new contest if it is time to do so
         elif not states["is_contest_active"] and states["states_read"]:
-            # schedule = await db.get_scheduled_contest_list()
-            curr_time = datetime.datetime.utcnow().timestamp()
-            if schedule_cache:
-                for uid, contest_data in schedule_cache.items():
-                    if float(contest_data["start_time"]) <= curr_time <= float(contest_data["end_time"]):
-                        await start_contest(contest_data["contest_type"], float(contest_data["end_time"]))
-                        await db.remove_contest_with_id(str(uid))
-                        schedule_cache.pop(str(uid))
-                        break
+            await start_new_contest_from_schedule()
 
         await asyncio.sleep(60)
 

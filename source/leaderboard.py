@@ -29,11 +29,17 @@ class Leaderboard:
 
         guild = self.bot.get_guild(int(self.guild_id))
 
+        sorted_data = []  # (ign, points)
         for user, data in self.top.items():
             player = guild.get_member(int(user))
             if player is None:
                 continue
             ign = player.nick
+            sorted_data.append((ign, data["points"]))
+
+        sorted_data = sorted(sorted_data, key=lambda tup: tup[1], reverse=True)
+
+        for ign, points in sorted_data:
             # TODO: make sure all occurrences where you're looking for a player are validated
 
             if player_count >= 20:  # maxed out players for this table
@@ -42,11 +48,11 @@ class Leaderboard:
             if table_ind >= 5:  # maxed out tables
                 break
 
-            if data["points"] >= prev_points:  # continue with same place
-                table_list[table_ind].append([None, ign, data["points"]])
+            if points >= prev_points:  # continue with same place
+                table_list[table_ind].append([None, ign, points])
             else:  # move down a place
                 place += 1
-                table_list[table_ind].append([place, ign, data["points"]])
+                table_list[table_ind].append([place, ign, points])
 
         embed = discord.Embed(title="Leaderboard", color=0x00FF00)
         embed.description = "Updated every hour during a contest."

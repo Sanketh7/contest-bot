@@ -5,7 +5,7 @@ from flashtext import KeywordProcessor
 import database as db
 
 
-class EditSubmission:
+class EditCharacter:
     def __init__(self, bot: discord.Client, user: discord.User, guild_id: str, sub_channel_name: str,
                  keyword_data: dict, points_data: dict, contest_id: int, points_doc: str):
         self.bot = bot
@@ -20,10 +20,11 @@ class EditSubmission:
         self.class_name = ""
         self.img_url = ""
         self.original_user_keywords = set()
-        self.points = 0
+        self.original_points = 0
         self.new_points = 0
-        self.submitted_user_keywords = set()
-        self.new_user_keywords = set()
+        self.submitted_user_keywords_accepted = set()  # ones that aren't duplicates of original
+        self.submitted_user_keywords_rejected = set()  # removed ones already in original
+        self.new_user_keywords = set()  # keywords after union of submitted and old
 
     async def timed_out_response(self):
         await self.user.send(embed=error_embed("Uh oh! You did not respond in time so the process timed out."))
@@ -40,28 +41,43 @@ class EditSubmission:
             await dm_msg.add_reaction(e)
 
     async def start_process(self):
-        await self.show_submission_menu()
+        has_char = await db.has_current_character(self.contest_id, self.user.id)
+        if has_char:
+            return await self.show_old_character_menu()
+        else:
+            return await self.user.send(embed=error_embed("You don't have a character to edit."))
 
-    async def show_submission_menu(self):
-        old_data = await db.get_submission_from_user(self.contest_id, self.user.id)
-        if not old_data:
-            return await self.user.send(embed=error_embed("You don't have a submission I can edit."))
-        if not old_data["class"] or not old_data["keywords"] or not old_data["points"]:
+    async def show_old_character_menu(self):
+        old_char = await db.get_character(self.contest_id, self.user.id)
+        if not old_char:
+            return await self.user.send(embed=error_embed("You don't have a character to edit."))
+        if "class" not in old_char or "points" not in old_char:
             return await self.user.send(embed=error_embed("Not able to read previous submission. Please report this."))
 
-        self.class_name = old_data["class"]
-        self.original_user_keywords = set(old_data["keywords"])
-        self.new_user_keywords = set(old_data["keywords"])
-        self.points = old_data["points"]
+        self.class_name = old_char["class"]
+        if "keywords" in old_char:
+            self.original_user_keywords = set(old_char["keywords"])
+            self.new_user_keywords = set(old_char["keywords"])
+        else:
+            self.original_user_keywords = set()
+            self.new_user_keywords = set()
+        self.original_points = old_char["points"]
+
+        item_str = ""
+        if len(self.original_user_keywords) > 0:
+            item_str = str(self.original_user_keywords)
+        else:
+            item_str = "**NONE**"
 
         embed = discord.Embed(title="Current Character")
-        embed.add_field(name="Items/Achievements", value="`" + str(self.original_user_keywords) + "`", inline=False)
-        embed.add_field(name="Points", value=("**" + str(self.points) + "**"), inline=False)
+        embed.add_field(name="Class", value="**"+self.class_name+"**", inline=False)
+        embed.add_field(name="Items/Achievements", value="`" + item_str + "`", inline=False)
+        embed.add_field(name="Points", value=("**" + str(self.original_points) + "**"), inline=False)
         embed.add_field(name="Instructions", value='''
-        React ✅ to confirm you want to edit this character, ❌ to cancel.
-        
-        (You have **5 minutes** to complete this.)
-        ''', inline=False)
+                React ✅ to confirm you want to edit this character, ❌ to cancel.
+
+                (You have **5 minutes** to complete this.)
+                ''', inline=False)
         dm_msg = await self.user.send(embed=embed)
 
         valid_reactions = ['✅', '❌']
@@ -73,14 +89,14 @@ class EditSubmission:
             return user_got.id == self.user.id and str(react_got) in valid_reactions
 
         try:
-            reaction, user2 = await self.bot.wait_for('reaction_add', timeout=(60.0*5), check=check)
+            reaction, user2 = await self.bot.wait_for('reaction_add', timeout=(60.0 * 5), check=check)
         except asyncio.TimeoutError:
             await react_task
             await self.timed_out_response()
         else:
             await react_task
             if str(reaction) == "❌":
-                return await self.user.send(embed=success_embed("Cancelled."))
+                return await self.cancelled_response()
             await self.proof_menu()
 
     async def proof_menu(self):
@@ -101,7 +117,7 @@ class EditSubmission:
             - fame gained
 
             **If you do not include all these items, your submission may be denied.**
-            
+
             ❌ - cancel submission
 
             (You have **15 minutes** to complete this.)
@@ -124,9 +140,9 @@ class EditSubmission:
             for future in asyncio.as_completed(tasks):
                 res = await future
 
-                if type(res[0]) == discord.Reaction:
+                if type(res) is tuple and type(res[0]) is discord.Reaction:
                     await self.cancelled_response()
-                elif type(res) == discord.Message:
+                elif type(res) is discord.Message:
                     self.img_url = res.attachments[0].url
                     await self.keyword_menu()
 
@@ -147,6 +163,8 @@ class EditSubmission:
             This is how you will get your points.
 
             **If points are not entered correctly, your submission will be denied.**
+            
+            ❌ - Cancel submission
 
             (You have **15 minutes** to complete this.)
             '''.format(self.points_doc)
@@ -169,9 +187,9 @@ class EditSubmission:
             for future in asyncio.as_completed(tasks):
                 res = await future
 
-                if type(res[0]) == discord.Reaction:
+                if type(res) is tuple and type(res[0]) is discord.Reaction:
                     await self.cancelled_response()
-                elif type(res) == discord.Message:
+                elif type(res) is discord.Message:
                     self.parse_keywords(res.content)
                     await self.confirm_keywords_menu()
 
@@ -188,30 +206,63 @@ class EditSubmission:
         items = proc.extract_keywords(data)
 
         self.new_points = 0
-        self.submitted_user_keywords = set()
+        self.submitted_user_keywords_accepted = set()
+        self.submitted_user_keywords_rejected = set()
+        self.new_user_keywords = set()
 
         for item in items:
-            self.submitted_user_keywords.add(item)
+            if item not in self.original_user_keywords:
+                self.submitted_user_keywords_accepted.add(item)
+            else:
+                self.submitted_user_keywords_rejected.add(item)
 
-        self.new_user_keywords = self.submitted_user_keywords.union(self.original_user_keywords)
+        self.new_user_keywords = self.submitted_user_keywords_accepted.union(self.original_user_keywords)
 
         for item in self.new_user_keywords:
             self.new_points += self.points_data[item][self.class_name]
 
     async def confirm_keywords_menu(self):
-        item_str = ""
-        if len(self.submitted_user_keywords) > 0:
-            item_str = str(self.submitted_user_keywords)
+        accepted_items_str = ""
+        rejected_items_str = ""
+
+        if len(self.submitted_user_keywords_accepted):
+            accepted_items_str = str(self.submitted_user_keywords_accepted)
         else:
-            item_str = "**NONE**"
+            accepted_items_str = "**NONE**"
+
+        if len(self.submitted_user_keywords_rejected):
+            rejected_items_str = str(self.submitted_user_keywords_rejected)
+
         embed = discord.Embed(title="Confirm Keywords")
         embed.add_field(
-            name="Found Keywords:",
-            value="`" + item_str + "`"
-                  + "\n\nReact with ✅ if these are correct, ✏ to type in keywords again."
-                  + "\n❌ - cancel submission"
-                  + "\n(You have **5 minutes** to complete this.)"
+            name="Accepted Keywords:",
+            value="`" + accepted_items_str + "`",
+            inline=False
         )
+
+        if rejected_items_str != "":
+            embed.add_field(
+                name="Rejected Keywords",
+                value='''
+                These keywords were rejected since your character already has them:
+                `{}`
+                '''.format(rejected_items_str),
+                inline=False
+            )
+
+        embed.add_field(
+            name="Instructions",
+            value='''
+            ✅ - Confirm keywords and **confirm submission**
+            ✏ - Input keywords again
+            ❌ - Cancel submission
+            
+            (You have **5 minutes** to complete this.)
+            ''',
+            inline=False
+        )
+
+        # TODO: forbid empty keyword list
 
         dm_msg = await self.user.send(embed=embed)
         valid_reactions = ['✅', '✏', '❌']
@@ -232,38 +283,6 @@ class EditSubmission:
                 return await self.cancelled_response()
             if str(reaction) == "✏":
                 return await self.keyword_menu()
-            await self.confirm_menu()
-
-    async def confirm_menu(self):
-        embed = discord.Embed(title="Confirm Submission")
-        embed.description = \
-            '''
-            ✅ - Confirm submission (**overwrites** previous submissions)
-            ❌ - Cancel submission
-    
-            If you do NOT get a message after this, that means your submission **failed**.
-    
-            (You have **5 minutes** to complete this.)
-            '''
-        dm_msg = await self.user.send(embed=embed)
-
-        valid_reactions = ['✅', '❌']
-
-        react_task = asyncio.create_task(self.do_confirm_reacts(dm_msg=dm_msg))
-        await asyncio.sleep(0)
-
-        def check(react_got: discord.Reaction, user_got: discord.User):
-            return user_got.id == self.user.id and str(react_got) in valid_reactions
-
-        try:
-            reaction, user2 = await self.bot.wait_for('reaction_add', timeout=(60.0 * 5), check=check)
-        except asyncio.TimeoutError:
-            await react_task
-            await self.timed_out_response()
-        else:
-            await react_task
-            if str(reaction) == "❌":
-                return await self.cancelled_response()
             await self.upload_submission()
 
     async def upload_submission(self):
@@ -271,43 +290,39 @@ class EditSubmission:
         if member is None:
             return
 
+        delta_points = self.new_points - self.original_points
+
+        if len(self.submitted_user_keywords_accepted) > 0:
+            item_str = str(self.submitted_user_keywords_accepted)
+        else:
+            item_str = "**NONE**"
+
         embed = discord.Embed(title=member.display_name + "    (" + str(self.class_name) + ")")
-        embed.add_field(name="Items/Achievements", value="`" + str(self.new_user_keywords) + "`", inline=False)
-        embed.add_field(name="Points", value=("**" + str(self.new_points) + "**"))
+        embed.add_field(name="Items/Achievements", value="`" + item_str + "`", inline=False)
+        embed.add_field(name="Points", value=("**" + str(delta_points) + "**"))
         embed.set_image(url=self.img_url)
 
         ch: discord.TextChannel = discord.utils.get(self.bot.get_guild(int(self.guild_id)).text_channels,
                                                     name=self.sub_channel_name)
+
         post = await ch.send(embed=embed)
         await post.add_reaction("✅")
         await post.add_reaction("❌")
 
-        prev_post = await db.add_submission_to_user(self.contest_id, self.user.id, post.id, {
+        await db.add_pending_submission(self.contest_id, post.id, {
+            "user": int(self.user.id),
             "class": self.class_name,
-            "keywords": list(self.new_user_keywords),
-            "points": self.new_points,
+            "keywords": list(self.submitted_user_keywords_accepted),
+            "points": delta_points,
             "img_url": self.img_url
         })
 
-        # cnt = await db.add_submission_count(self.contest_id, self.user.id)
-
-        # await self.user.send("Submission was successful!")
         await self.user.send(embed=success_embed(
             '''
             Submission submitted.
             You will be notified soon if your submission is accepted.
-
+            
             **ID:** `{}`
             (The acceptance message will contain this ID.)
             '''.format(post.id)
         ))
-
-        # Now delete the previous submission verification post if it exists
-        if prev_post is None:
-            return
-
-        try:
-            msg = await ch.fetch_message(int(prev_post))
-            await msg.delete()
-        except:
-            print("Couldn't delete previous verification post. This could be because it was deleted normally.")
