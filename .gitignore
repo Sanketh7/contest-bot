@@ -1,2 +1,3 @@
 /venv/
 /rethinkdb_data/
+*.pyc
