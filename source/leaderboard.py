@@ -57,6 +57,8 @@ class Leaderboard:
         embed = discord.Embed(title="Leaderboard", color=0x00FF00)
         embed.description = "Updated every hour during a contest."
 
+        print("here")
+
         for i in range(0, 5):
             if len(table_list[i]) == 0:
                 break
@@ -65,6 +67,8 @@ class Leaderboard:
 
         ch: discord.TextChannel = discord.utils.get(self.bot.get_guild(int(self.guild_id)).text_channels, name=self.leaderboard_channel)
         new_post = await ch.send(embed=embed)
+
+        print(new_post.id)
 
         old_post_id = await db.replace_leaderboard(new_post.id)
         if old_post_id is None:
