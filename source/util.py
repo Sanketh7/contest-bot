@@ -42,11 +42,11 @@ class Logger:
         except:
             return
 
-        if "keywords" in pending_submission_data:
-            if len(pending_submission_data["keywords"]) > 0:
-                item_str = str(pending_submission_data)
-            else:
-                item_str = "**NONE**"
+        if "keywords" not in pending_submission_data:
+            pending_submission_data["keywords"] = set()
+
+        if len(pending_submission_data["keywords"]) > 0:
+            item_str = str(pending_submission_data["keywords"])
         else:
             item_str = "**NONE**"
 
