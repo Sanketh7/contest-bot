@@ -24,16 +24,19 @@ class Logger:
         Logger.log_channel_name = log_channel
 
     @staticmethod
-    async def send_log(text: str):
+    async def send_log(text: str, embed_color, image_url = ""):
         ch: discord.TextChannel = discord.utils.get(Logger.bot.get_guild(int(Logger.guild_id)).text_channels,
                                                     name=Logger.log_channel_name)
-        embed = discord.Embed(color=0x0000FF)
+        embed = discord.Embed(color=embed_color)
         embed.description = text
+
+        if image_url != "":
+            embed.set_image(url=image_url)
 
         await ch.send(embed=embed)
 
     @staticmethod
-    async def accepted_submission(staff_user_id: int, player_user_id: int, pending_submission_data: object):
+    async def accepted_submission(staff_user_id: int, player_user_id: int, pending_submission_data):
         # pending_submission_data is the data that was stored in contests/pending/{post_id}/
 
         try:
@@ -58,11 +61,39 @@ class Logger:
         '''.format(staff_user.mention, player_user.mention, pending_submission_data["class"],
                    item_str, pending_submission_data["points"])
 
-        await Logger.send_log(text)
+        await Logger.send_log(text, 0x00FF00, pending_submission_data["img_url"])
+
+    @staticmethod
+    async def rejected_submission(staff_user_id: int, player_user_id: int, pending_submission_data):
+        # pending_submission_data is the data that was stored in contests/pending/{post_id}/
+
+        try:
+            staff_user = Logger.bot.get_user(staff_user_id)
+            player_user = Logger.bot.get_user(player_user_id)
+        except:
+            return
+
+        if "keywords" not in pending_submission_data:
+            pending_submission_data["keywords"] = set()
+
+        if len(pending_submission_data["keywords"]) > 0:
+            item_str = str(pending_submission_data["keywords"])
+        else:
+            item_str = "**NONE**"
+
+        text = '''
+        {} rejected {}'s submission:
+        Class: {}
+        Items/Achievements: `{}`
+        Points: {}
+        '''.format(staff_user.mention, player_user.mention, pending_submission_data["class"],
+                   item_str, pending_submission_data["points"])
+
+        await Logger.send_log(text, 0xFF0000, pending_submission_data["img_url"])
 
     @staticmethod
     async def force_update_leaderboard(user: discord.User):
         text = '''
         {} forcibly updated the leaderboard.
         '''.format(user.mention)
-        await Logger.send_log(text)
+        await Logger.send_log(text, 0x0000FF)
