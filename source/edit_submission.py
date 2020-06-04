@@ -208,8 +208,9 @@ class EditSubmission:
         embed.add_field(
             name="Found Keywords:",
             value="`" + item_str + "`"
-            + "\n\nReact with ✅ if these are correct, ❌ to type in keywords again."
-            + "\n(You have **5 minutes** to complete this.)"
+                  + "\n\nReact with ✅ if these are correct, ✏ to type in keywords again."
+                  + "\n❌ - cancel submission"
+                  + "\n(You have **5 minutes** to complete this.)"
         )
 
         dm_msg = await self.user.send(embed=embed)
