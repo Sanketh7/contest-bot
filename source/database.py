@@ -2,6 +2,8 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 import uuid
+from util import Logger
+import discord
 
 def init_database():
     cred = credentials.Certificate("db-key.json")
@@ -65,39 +67,84 @@ async def reset_meta_data():
     }
     meta_data.update(new_data)
 
-async def add_submission_to_user(contest_id, user_id, post_id, submission_data: dict):
-    db.reference("contest_"+str(contest_id)).child("submissions").child(str(user_id)).set(submission_data)
+async def create_character(contest_id, user_id, character_class: str):
+    contest = db.reference("contest_" + str(contest_id))
+    contest.child("characters").child(str(user_id)).set({
+        "class": str(character_class),
+        "keywords": [],
+        "points": 0,
+    })
 
-    prev_post = db.reference("contest_"+str(contest_id)).child("user_to_verification").child(str(user_id)).get()
+async def get_character(contest_id, user_id):
+    contest = db.reference("contest_" + str(contest_id))
+    return contest.child("characters").child(str(user_id)).get()
 
-    db.reference("contest_"+str(contest_id)).child("verification_to_user").child(str(post_id)).set(user_id)
-    db.reference("contest_"+str(contest_id)).child("user_to_verification").child(str(user_id)).set(post_id)
+async def has_current_character(contest_id, user_id):
+    contest = db.reference("contest_" + str(contest_id))
+    data = contest.child("characters").child(str(user_id)).get()
+    if data is None:
+        return False
+    else:
+        return True
 
-    return prev_post
+async def add_pending_submission(contest_id, post_id, submission_data: dict):
+    contest = db.reference("contest_"+str(contest_id))
+    contest.child("pending").child(str(post_id)).set(submission_data)
 
-async def get_submission_from_user(contest_id, user_id):
-    ref = db.reference("contest_"+str(contest_id)).child("submissions").child(str(user_id))
-    return ref.get()
+async def accept_pending_submission(contest_id, post_id, points_data, staff_user_id: int):
+    contest = db.reference("contest_"+str(contest_id))
 
-async def get_user_from_verification(post_id, contest_id):
-    # check to make sure it's not None
-    return db.reference("contest_"+str(contest_id)).child("verification_to_user").child(str(post_id)).get()
-
-async def accept_submission(contest_id, post_id):
-    user_id = db.reference("contest_"+str(contest_id)).child("verification_to_user").child(str(post_id)).get()
+    submission_data = contest.child("pending").child(str(post_id)).get()
+    if submission_data is None:
+        return
+    user_id = submission_data["user"]
     if user_id is None:
         return
 
-    submission = db.reference("contest_"+str(contest_id)).child("submissions").child(str(user_id)).get()
-    if submission is None:
-        return
+    # move this submission to accepted
+    contest.child("accepted").child(str(post_id)).set(submission_data)
 
-    db.reference("contest_" + str(contest_id)).child("accepted").child(str(user_id)).set(submission)
-    db.reference("leaderboard").child(str(user_id)).set({
-        "points": submission["points"],
-        "class": submission["class"]
+    old_character_data = contest.child("characters").child(str(user_id)).get()
+    if old_character_data is None or old_character_data["class"] != submission_data["class"]:
+        await create_character(contest_id, user_id, submission_data["class"])
+
+    # do this to remove duplicates
+    if "keywords" not in old_character_data:
+        old_character_data["keywords"] = set()
+    if "keywords" not in submission_data:
+        submission_data["keywords"] = set()
+
+    new_keywords = set(old_character_data["keywords"]).union(set(submission_data["keywords"]))
+
+    new_points = 0
+    for item in new_keywords:
+        new_points += points_data[item][submission_data["class"]]
+
+    contest.child("characters").child(str(user_id)).update({
+        "points": new_points,
+        "keywords": list(new_keywords)
     })
 
+    db.reference("leaderboard").child(str(user_id)).set({
+        "points": int(new_points),
+        "class": str(old_character_data["class"])
+    })
+
+    contest.child("pending").child(str(post_id)).delete()
+
+    await Logger.accepted_submission(staff_user_id, user_id, submission_data)
+
+    return user_id
+
+async def get_user_from_verification(contest_id, post_id):
+    contest = db.reference("contest_" + str(contest_id))
+
+    submission_data = contest.child("pending").child(str(post_id)).get()
+    if submission_data is None:
+        return
+    user_id = submission_data["user"]
+    if user_id is None:
+        return
     return user_id
 
 async def get_top_users(count):
@@ -131,16 +178,3 @@ async def get_scheduled_contest_list():
 
 async def remove_contest_with_id(contest_id: str):
     db.reference("scheduled_contests").child(contest_id).delete()
-
-async def add_submission_count(contest_id, user_id):
-    old_value = db.reference("contest_" + str(contest_id)).child("user_to_submission_count").child(str(user_id)).get()
-    if old_value is None:
-        old_value = 0
-    db.reference("contest_" + str(contest_id)).child("user_to_submission_count").child(str(user_id)).set(old_value+1)
-    return 5-(old_value+1)
-
-async def allowed_to_submit(contest_id, user_id):
-    val = db.reference("contest_" + str(contest_id)).child("user_to_submission_count").child(str(user_id)).get()
-    if val is None:
-        val = 0
-    return val < 5
