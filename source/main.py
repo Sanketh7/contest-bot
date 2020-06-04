@@ -167,12 +167,14 @@ async def on_raw_reaction_add(payload):
         # Reject points/submission
         if reaction == "❌" and ch_id == sub_channel.id:
             submission_user_id = await db.get_user_from_verification(states["current_contest_index"], msg_id)
+            pending_data = await db.get_pending_submission_data(states["current_contest_index"], msg_id)
             try:
                 ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=CONTEST_SUBMISSION_CHANNEL)
                 submission_user = bot.get_guild(int(GUILD_ID)).get_member(int(submission_user_id))
                 msg = await ch.fetch_message(msg_id)
                 await msg.delete()
                 await submission_user.send(embed=error_embed("Your submission with ID `" + str(msg_id) + "` was denied."))
+                await Logger.rejected_submission(user_id, submission_user_id, pending_data)
             except:
                 print("Failed to fetch/delete message or user doesn't exist.")
             return

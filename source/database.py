@@ -91,6 +91,10 @@ async def add_pending_submission(contest_id, post_id, submission_data: dict):
     contest = db.reference("contest_"+str(contest_id))
     contest.child("pending").child(str(post_id)).set(submission_data)
 
+async def get_pending_submission_data(contest_id, post_id):
+    contest = db.reference("contest_"+str(contest_id))
+    return contest.child("pending").child(str(post_id)).get()
+
 async def accept_pending_submission(contest_id, post_id, points_data, staff_user_id: int):
     contest = db.reference("contest_"+str(contest_id))
 
