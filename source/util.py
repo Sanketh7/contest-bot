@@ -33,7 +33,7 @@ class Logger:
         await ch.send(embed=embed)
 
     @staticmethod
-    async def accepted_submission(staff_user_id: int, player_user_id: int, pending_submission_data: dict):
+    async def accepted_submission(staff_user_id: int, player_user_id: int, pending_submission_data: object):
         # pending_submission_data is the data that was stored in contests/pending/{post_id}/
 
         try:
