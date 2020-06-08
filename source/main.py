@@ -32,7 +32,7 @@ bot = commands.Bot(command_prefix=CMD_PREFIX)
 player_emojis = {}
 other_emojis = {}
 player_classes = ['archer', 'assassin', 'huntress', 'knight', 'mystic', 'necromancer', 'ninja', 'paladin', 'priest',
-                  'rogue', 'samurai', 'sorcerer', 'trickster', 'warrior', 'wizard']
+                  'rogue', 'samurai', 'sorcerer', 'trickster', 'warrior', 'wizard', 'bard']
 
 contest_types = ['ppe']
 
