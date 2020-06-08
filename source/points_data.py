@@ -1,7 +1,7 @@
 import csv
 
 class_order = ['knight', 'warrior', 'paladin', 'assassin', 'rogue', 'trickster', 'archer', 'huntress', 'mystic',
-               'wizard', 'necromancer', 'ninja', 'samurai', 'priest', 'sorcerer']
+               'wizard', 'necromancer', 'ninja', 'samurai', 'priest', 'sorcerer', 'bard']
 # TODO: fix the issue with class order changing depending on the contest type
 
 class PointsDataManager:
