@@ -3,58 +3,142 @@ from firebase_admin import credentials
 from firebase_admin import db
 import uuid
 from util import Logger
-import discord
+import dataset
 
-def init_database():
-    cred = credentials.Certificate("../db-key.json")
-    firebase_admin.initialize_app(cred, {
-        "databaseURL": "https://contest-bot-test.firebaseio.com/"
-    })
 
-async def new_contest(contest_type, end_time, post_id):
-    meta_data = db.reference("meta_data")
+class Database:
+    '''
+    def init_database():
+        cred = credentials.Certificate("../db-key.json")
+        firebase_admin.initialize_app(cred, {
+            "databaseURL": "https://contest-bot-test.firebaseio.com/"
+        })
+    '''
+    db: dataset.Database
 
-    # update index of current contest
-    last_index = meta_data.child("current_contest_index").get()
-    if last_index is None:
-        last_index = 0
+    @staticmethod
+    def init_database(url: str):
+        Database.db = dataset.connect(url)
 
-    new_data = {
-        "current_contest_index": last_index+1,
-        "is_contest_active": True,
-        "current_contest_type": str(contest_type),
-        "current_contest_end_time": end_time,
-        "current_contest_post_id": post_id,
-        "current_points_document": await get_points_document(contest_type)
-    }
-    meta_data.update(new_data)
-    return new_data
+    '''
+    async def new_contest(contest_type, end_time, post_id):
+        meta_data = db.reference("meta_data")
+    
+        # update index of current contest
+        last_index = meta_data.child("current_contest_index").get()
+        if last_index is None:
+            last_index = 0
+    
+        new_data = {
+            "current_contest_index": last_index+1,
+            "is_contest_active": True,
+            "current_contest_type": str(contest_type),
+            "current_contest_end_time": end_time,
+            "current_contest_post_id": post_id,
+            "current_points_document": await get_points_document(contest_type)
+        }
+        meta_data.update(new_data)
+        return new_data
+    '''
+    @staticmethod
+    def new_contest(contest_type, end_time, post_id):
+        ref: dataset.Table = Database.db["meta_data"]
+        old_data = ref.find_one()
 
-async def get_all_metadata():
-    ret = db.reference("meta_data").get()
-    if ret is None:
+        if old_data is None:
+            Database.reset_meta_data()
+            old_data = ref.find_one()
+
+        new_data = {
+            "current_contest_index": old_data["current_contest_index"] + 1,
+            "is_contest_active": True,
+            "current_contest_type": str(contest_type),
+            "current_contest_end_time": end_time,
+            "current_contest_post_id": post_id,
+            "current_points_document": Database.get_points_document(contest_type)
+        }
+
+        ref.update(dict(
+            name="main",
+            current_contest_index=new_data["current_contest_index"],
+            is_contest_active=new_data["is_contest_active"],
+            current_contest_type=new_data["current_contest_type"],
+            current_contest_end_time=new_data["current_contest_end_time"],
+            current_contest_post_id=new_data["current_contest_post_id"],
+            current_points_document=new_data["current_points_document"]
+        ))
+
+    '''
+    async def get_all_metadata():
+        ret = db.reference("meta_data").get()
+        if ret is None:
+            ret = {}
+        return ret
+    '''
+    @staticmethod
+    def get_all_metadata():
+        ref: dataset.Table = Database.db["meta_data"]
+        data = ref.find_one()
+        if data is None:
+            return {}
+
+        col = ref.columns
         ret = {}
-    return ret
+        for key in col:
+            ret[key] = data[key]
+        return ret
 
-async def get_points_document(contest_type):
-    return db.reference("points_documents").child(str(contest_type)).get()
 
-async def set_points_document(contest_type, url):
-    db.reference("points_documents").child(str(contest_type)).set(str(url))
+    '''
+    async def get_points_document(contest_type):
+        return db.reference("points_documents").child(str(contest_type)).get()
+    '''
+    @staticmethod
+    def get_points_document(contest_type):
+        pass
 
-async def end_contest():
-    meta_data = db.reference("meta_data")
-    new_data = {
-        "current_contest_index": meta_data.child("current_contest_index").get(),
-        "is_contest_active": False,
-        "current_contest_type": "",
-        "current_contest_end_time": -1,
-        "current_contest_post_id": -1,
-        "current_points_document": ""
-    }
-    meta_data.update(new_data)
-    return new_data
+    '''
+    async def set_points_document(contest_type, url):
+        db.reference("points_documents").child(str(contest_type)).set(str(url))
+    
+    '''
+    @staticmethod
+    def set_points_document(contest_type, url):
+        pass
 
+    '''
+    async def end_contest():
+        meta_data = db.reference("meta_data")
+        new_data = {
+            "current_contest_index": meta_data.child("current_contest_index").get(),
+            "is_contest_active": False,
+            "current_contest_type": "",
+            "current_contest_end_time": -1,
+            "current_contest_post_id": -1,
+            "current_points_document": ""
+        }
+        meta_data.update(new_data)
+        return new_data
+    '''
+    @staticmethod
+    def end_contest():
+        ref: dataset.Table = Database.db["meta_data"]
+        old_data = ref.find_one()
+        if old_data is None:
+            Database.reset_meta_data()
+            old_data = ref.find_one()
+
+        new_data = {
+            "current_contest_index": old_data["current_contest_index"],
+            "is_current_contest_active": False,
+            "current_contest_type": "",
+            "current_contest_end_time": -1,
+            "current_contest_post_id": -1,
+            "current_points_document": ""
+        }
+
+
+'''
 async def reset_meta_data():
     meta_data = db.reference("meta_data")
     new_data = {
@@ -182,3 +266,4 @@ async def get_scheduled_contest_list():
 
 async def remove_contest_with_id(contest_id: str):
     db.reference("scheduled_contests").child(contest_id).delete()
+'''
