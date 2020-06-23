@@ -4,6 +4,7 @@ from firebase_admin import db
 import uuid
 from util import Logger
 import dataset
+from sqlalchemy.sql import select
 
 
 class Database:
@@ -66,7 +67,9 @@ class Database:
             current_contest_end_time=new_data["current_contest_end_time"],
             current_contest_post_id=new_data["current_contest_post_id"],
             current_points_document=new_data["current_points_document"]
-        ))
+        ), ["name"])
+
+        return new_data
 
     '''
     async def get_all_metadata():
@@ -95,7 +98,11 @@ class Database:
     '''
     @staticmethod
     def get_points_document(contest_type):
-        pass
+        ref: dataset.Table = Database.db["contest_type_data"]
+        data = ref.find_one(contest_type="ppe")
+        if data is None:
+            return ""
+        return str(data["points_document"])
 
     '''
     async def set_points_document(contest_type, url):
@@ -104,7 +111,9 @@ class Database:
     '''
     @staticmethod
     def set_points_document(contest_type, url):
-        pass
+        ref: dataset.Table = Database.db["contest_type_data"]
+        data = dict(contest_type=contest_type, points_document=url)
+        ref.update(data, ["contest_type"])
 
     '''
     async def end_contest():
@@ -137,93 +146,240 @@ class Database:
             "current_points_document": ""
         }
 
+        ref.update(dict(
+            name="main",
+            current_contest_index=new_data["current_contest_index"],
+            is_contest_active=new_data["is_contest_active"],
+            current_contest_type=new_data["current_contest_type"],
+            current_contest_end_time=new_data["current_contest_end_time"],
+            current_contest_post_id=new_data["current_contest_post_id"],
+            current_points_document=new_data["current_points_document"]
+        ), ["name"])
+
+        return new_data
+
+    '''
+    async def reset_meta_data():
+        meta_data = db.reference("meta_data")
+        new_data = {
+            "current_contest_index": 0,
+            "is_contest_active": False,
+            "current_contest_type": "",
+            "current_contest_end_time": -1,
+            "current_contest_post_id": -1,
+            "current_points_document": ""
+        }
+        meta_data.update(new_data)
+    '''
+    @staticmethod
+    def reset_meta_data():
+        Database.db["meta_data"].drop()
+        ref: dataset.Table = Database.db["meta_data"]
+
+        new_data = {
+            "current_contest_index": 0,
+            "is_current_contest_active": False,
+            "current_contest_type": "",
+            "current_contest_end_time": -1,
+            "current_contest_post_id": -1,
+            "current_points_document": ""
+        }
+
+        ref.update(dict(
+            name="main",
+            current_contest_index=new_data["current_contest_index"],
+            is_contest_active=new_data["is_contest_active"],
+            current_contest_type=new_data["current_contest_type"],
+            current_contest_end_time=new_data["current_contest_end_time"],
+            current_contest_post_id=new_data["current_contest_post_id"],
+            current_points_document=new_data["current_points_document"]
+        ), ["name"])
+
+        return new_data
+
+    '''
+    async def create_character(contest_id, user_id, character_class: str):
+        contest = db.reference("contest_" + str(contest_id))
+        contest.child("characters").child(str(user_id)).set({
+            "class": str(character_class),
+            "keywords": [],
+            "points": 0,
+        })
+    '''
+    @staticmethod
+    def create_character(contest_id, user_id, character_class: str):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        old_chars = ref.find(user_id=int(user_id))
+        for row in old_chars:
+            row["is_active"] = False
+            ref.update(row, ["id"])
+        new_data = dict({
+            "user_id": int(user_id),
+            "character_id": str(uuid.uuid4().hex),
+            "class": str(character_class),
+            "keywords": [],
+            "points": 0,
+            "is_active": True
+        })
+        ref.insert(new_data)
+
+    '''
+    async def get_character(contest_id, user_id):
+        contest = db.reference("contest_" + str(contest_id))
+        return contest.child("characters").child(str(user_id)).get()
+    '''
+    @staticmethod
+    def get_character(contest_id, user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        curr_char = ref.find_one(user_id=int(user_id), is_active=True)
+        if curr_char is None:
+            return None
+        return dict({
+            "class": str(curr_char["class"]),
+            "keywords": list(curr_char["keywords"]),
+            "points": int(curr_char["points"]),
+        })
+
+    '''
+    async def has_current_character(contest_id, user_id):
+        contest = db.reference("contest_" + str(contest_id))
+        data = contest.child("characters").child(str(user_id)).get()
+        if data is None:
+            return False
+        else:
+            return True
+    '''
+    @staticmethod
+    def has_current_character(contest_id, user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        curr_char = ref.find_one(user_id=str(user_id), is_active=True)
+        if curr_char is None:
+            return False
+        else:
+            return True
+
+    @staticmethod
+    def update_character(contest_id, character_id, keywords, points):
+        pass
+
+    '''
+    async def add_pending_submission(contest_id, post_id, submission_data: dict):
+        contest = db.reference("contest_"+str(contest_id))
+        contest.child("pending").child(str(post_id)).set(submission_data)
+    '''
+    @staticmethod
+    def get_uuid_of_current_character(contest_id, user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        curr_char = ref.find_one(user_id=int(user_id), is_active=True)
+        if curr_char is None:
+            return None
+        return curr_char["character_id"]
+
+    @staticmethod
+    def add_pending_submission(contest_id, post_id, user_id, class_str, keywords, points, img_url):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_pending"]
+        # get uuid of current character
+        curr_uuid = Database.get_uuid_of_current_character(contest_id, user_id)
+        if curr_uuid is None:
+            return
+        ref.insert(dict({
+            "post_id": str(post_id),
+            "character_id": str(curr_uuid),
+            "user_id": int(user_id),
+            "class": str(class_str),
+            "keywords": list(keywords),
+            "points": int(points),
+            "img_url": str(img_url)
+        }))
+
+    '''
+    async def get_pending_submission_data(contest_id, post_id):
+        contest = db.reference("contest_"+str(contest_id))
+        return contest.child("pending").child(str(post_id)).get()
+    '''
+    @staticmethod
+    def get_pending_submission_data(contest_id, post_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_pending"]
+        data = ref.find_one(post_id=str(post_id))
+        return dict({
+            "user": int(data["user_id"]),
+            "class": str(data["class"]),
+            "keywords": list(data["keywords"]),
+            "points": int(data["points"]),
+            "img_url": str(data["img_url"])
+        })
+
+    '''
+    async def accept_pending_submission(contest_id, post_id, points_data, staff_user_id: int):
+        contest = db.reference("contest_"+str(contest_id))
+    
+        submission_data = contest.child("pending").child(str(post_id)).get()
+        if submission_data is None:
+            return
+        user_id = submission_data["user"]
+        if user_id is None:
+            return
+    
+        # move this submission to accepted
+        contest.child("accepted").child(str(post_id)).set(submission_data)
+    
+        old_character_data = contest.child("characters").child(str(user_id)).get()
+        if old_character_data is None or old_character_data["class"] != submission_data["class"]:
+            await create_character(contest_id, user_id, submission_data["class"])
+    
+        # do this to remove duplicates
+        if "keywords" not in old_character_data:
+            old_character_data["keywords"] = set()
+        if "keywords" not in submission_data:
+            submission_data["keywords"] = set()
+    
+        new_keywords = set(old_character_data["keywords"]).union(set(submission_data["keywords"]))
+    
+        new_points = 0
+        for item in new_keywords:
+            new_points += points_data[item][submission_data["class"]]
+    
+        contest.child("characters").child(str(user_id)).update({
+            "points": new_points,
+            "keywords": list(new_keywords)
+        })
+    
+        db.reference("leaderboard").child(str(user_id)).set({
+            "points": int(new_points),
+            "class": str(old_character_data["class"])
+        })
+    
+        contest.child("pending").child(str(post_id)).delete()
+    
+        await Logger.accepted_submission(staff_user_id, user_id, submission_data)
+    
+        return user_id
+    '''
+    @staticmethod
+    def accept_pending_submission(contest_id, post_id, points_data, staff_user_id: int):
+        ref_pending: dataset.Table = Database.db["contest_" + str(contest_id) + "_pending"]
+        submission_data = ref_pending.find_one(post_id=str(post_id))
+        if submission_data is None:
+            return
+        user_id = submission_data["user_id"]
+        if user_id is None:
+            return
+
+        # move this to accepted
+        ref_accepted: dataset.Table = Database.db["contest_" + str(contest_id) + "_accepted"]
+        ref_accepted.insert_ignore(dict({
+            "post_id": str(submission_data["post_id"]),
+            "character_id": str(submission_data["character_id"]),
+            "user_id": int(submission_data["user_id"]),
+            "class": str(submission_data["class"]),
+            "keywords": list(submission_data["keywords"]),
+            "points": int(submission_data["points"]),
+            "img_url": str(submission_data["img_url"])
+        }), ["post_id"])
+
+
 
 '''
-async def reset_meta_data():
-    meta_data = db.reference("meta_data")
-    new_data = {
-        "current_contest_index": 0,
-        "is_contest_active": False,
-        "current_contest_type": "",
-        "current_contest_end_time": -1,
-        "current_contest_post_id": -1,
-        "current_points_document": ""
-    }
-    meta_data.update(new_data)
-
-async def create_character(contest_id, user_id, character_class: str):
-    contest = db.reference("contest_" + str(contest_id))
-    contest.child("characters").child(str(user_id)).set({
-        "class": str(character_class),
-        "keywords": [],
-        "points": 0,
-    })
-
-async def get_character(contest_id, user_id):
-    contest = db.reference("contest_" + str(contest_id))
-    return contest.child("characters").child(str(user_id)).get()
-
-async def has_current_character(contest_id, user_id):
-    contest = db.reference("contest_" + str(contest_id))
-    data = contest.child("characters").child(str(user_id)).get()
-    if data is None:
-        return False
-    else:
-        return True
-
-async def add_pending_submission(contest_id, post_id, submission_data: dict):
-    contest = db.reference("contest_"+str(contest_id))
-    contest.child("pending").child(str(post_id)).set(submission_data)
-
-async def get_pending_submission_data(contest_id, post_id):
-    contest = db.reference("contest_"+str(contest_id))
-    return contest.child("pending").child(str(post_id)).get()
-
-async def accept_pending_submission(contest_id, post_id, points_data, staff_user_id: int):
-    contest = db.reference("contest_"+str(contest_id))
-
-    submission_data = contest.child("pending").child(str(post_id)).get()
-    if submission_data is None:
-        return
-    user_id = submission_data["user"]
-    if user_id is None:
-        return
-
-    # move this submission to accepted
-    contest.child("accepted").child(str(post_id)).set(submission_data)
-
-    old_character_data = contest.child("characters").child(str(user_id)).get()
-    if old_character_data is None or old_character_data["class"] != submission_data["class"]:
-        await create_character(contest_id, user_id, submission_data["class"])
-
-    # do this to remove duplicates
-    if "keywords" not in old_character_data:
-        old_character_data["keywords"] = set()
-    if "keywords" not in submission_data:
-        submission_data["keywords"] = set()
-
-    new_keywords = set(old_character_data["keywords"]).union(set(submission_data["keywords"]))
-
-    new_points = 0
-    for item in new_keywords:
-        new_points += points_data[item][submission_data["class"]]
-
-    contest.child("characters").child(str(user_id)).update({
-        "points": new_points,
-        "keywords": list(new_keywords)
-    })
-
-    db.reference("leaderboard").child(str(user_id)).set({
-        "points": int(new_points),
-        "class": str(old_character_data["class"])
-    })
-
-    contest.child("pending").child(str(post_id)).delete()
-
-    await Logger.accepted_submission(staff_user_id, user_id, submission_data)
-
-    return user_id
-
 async def get_user_from_verification(contest_id, post_id):
     contest = db.reference("contest_" + str(contest_id))
 
