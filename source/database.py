@@ -1,46 +1,15 @@
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import db
 import uuid
 from util import Logger
 import dataset
-from sqlalchemy.sql import select
-
+import json
 
 class Database:
-    '''
-    def init_database():
-        cred = credentials.Certificate("../db-key.json")
-        firebase_admin.initialize_app(cred, {
-            "databaseURL": "https://contest-bot-test.firebaseio.com/"
-        })
-    '''
     db: dataset.Database
 
     @staticmethod
     def init_database(url: str):
         Database.db = dataset.connect(url)
 
-    '''
-    async def new_contest(contest_type, end_time, post_id):
-        meta_data = db.reference("meta_data")
-    
-        # update index of current contest
-        last_index = meta_data.child("current_contest_index").get()
-        if last_index is None:
-            last_index = 0
-    
-        new_data = {
-            "current_contest_index": last_index+1,
-            "is_contest_active": True,
-            "current_contest_type": str(contest_type),
-            "current_contest_end_time": end_time,
-            "current_contest_post_id": post_id,
-            "current_points_document": await get_points_document(contest_type)
-        }
-        meta_data.update(new_data)
-        return new_data
-    '''
     @staticmethod
     def new_contest(contest_type, end_time, post_id):
         ref: dataset.Table = Database.db["meta_data"]
@@ -59,7 +28,7 @@ class Database:
             "current_points_document": Database.get_points_document(contest_type)
         }
 
-        ref.update(dict(
+        ref.upsert(dict(
             name="main",
             current_contest_index=new_data["current_contest_index"],
             is_contest_active=new_data["is_contest_active"],
@@ -71,19 +40,12 @@ class Database:
 
         return new_data
 
-    '''
-    async def get_all_metadata():
-        ret = db.reference("meta_data").get()
-        if ret is None:
-            ret = {}
-        return ret
-    '''
     @staticmethod
     def get_all_metadata():
         ref: dataset.Table = Database.db["meta_data"]
-        data = ref.find_one()
+        data = ref.find_one(name="main")
         if data is None:
-            return {}
+            return None
 
         col = ref.columns
         ret = {}
@@ -91,11 +53,6 @@ class Database:
             ret[key] = data[key]
         return ret
 
-
-    '''
-    async def get_points_document(contest_type):
-        return db.reference("points_documents").child(str(contest_type)).get()
-    '''
     @staticmethod
     def get_points_document(contest_type):
         ref: dataset.Table = Database.db["contest_type_data"]
@@ -104,31 +61,12 @@ class Database:
             return ""
         return str(data["points_document"])
 
-    '''
-    async def set_points_document(contest_type, url):
-        db.reference("points_documents").child(str(contest_type)).set(str(url))
-    
-    '''
     @staticmethod
     def set_points_document(contest_type, url):
         ref: dataset.Table = Database.db["contest_type_data"]
         data = dict(contest_type=contest_type, points_document=url)
-        ref.update(data, ["contest_type"])
+        ref.upsert(data, ["contest_type"])
 
-    '''
-    async def end_contest():
-        meta_data = db.reference("meta_data")
-        new_data = {
-            "current_contest_index": meta_data.child("current_contest_index").get(),
-            "is_contest_active": False,
-            "current_contest_type": "",
-            "current_contest_end_time": -1,
-            "current_contest_post_id": -1,
-            "current_points_document": ""
-        }
-        meta_data.update(new_data)
-        return new_data
-    '''
     @staticmethod
     def end_contest():
         ref: dataset.Table = Database.db["meta_data"]
@@ -139,14 +77,14 @@ class Database:
 
         new_data = {
             "current_contest_index": old_data["current_contest_index"],
-            "is_current_contest_active": False,
+            "is_contest_active": False,
             "current_contest_type": "",
             "current_contest_end_time": -1,
             "current_contest_post_id": -1,
             "current_points_document": ""
         }
 
-        ref.update(dict(
+        ref.upsert(dict(
             name="main",
             current_contest_index=new_data["current_contest_index"],
             is_contest_active=new_data["is_contest_active"],
@@ -158,19 +96,6 @@ class Database:
 
         return new_data
 
-    '''
-    async def reset_meta_data():
-        meta_data = db.reference("meta_data")
-        new_data = {
-            "current_contest_index": 0,
-            "is_contest_active": False,
-            "current_contest_type": "",
-            "current_contest_end_time": -1,
-            "current_contest_post_id": -1,
-            "current_points_document": ""
-        }
-        meta_data.update(new_data)
-    '''
     @staticmethod
     def reset_meta_data():
         Database.db["meta_data"].drop()
@@ -178,14 +103,14 @@ class Database:
 
         new_data = {
             "current_contest_index": 0,
-            "is_current_contest_active": False,
-            "current_contest_type": "",
+            "is_contest_active": False,
+            "current_contest_type": " ",
             "current_contest_end_time": -1,
             "current_contest_post_id": -1,
-            "current_points_document": ""
+            "current_points_document": " "
         }
 
-        ref.update(dict(
+        ref.upsert(dict(
             name="main",
             current_contest_index=new_data["current_contest_index"],
             is_contest_active=new_data["is_contest_active"],
@@ -197,37 +122,25 @@ class Database:
 
         return new_data
 
-    '''
-    async def create_character(contest_id, user_id, character_class: str):
-        contest = db.reference("contest_" + str(contest_id))
-        contest.child("characters").child(str(user_id)).set({
-            "class": str(character_class),
-            "keywords": [],
-            "points": 0,
-        })
-    '''
     @staticmethod
     def create_character(contest_id, user_id, character_class: str):
         ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
         old_chars = ref.find(user_id=int(user_id))
         for row in old_chars:
             row["is_active"] = False
-            ref.update(row, ["id"])
+            ref.upsert(row, ["id"])
+
+        serial_keywords = json.dumps([])
         new_data = dict({
             "user_id": int(user_id),
             "character_id": str(uuid.uuid4().hex),
             "class": str(character_class),
-            "keywords": [],
+            "keywords": serial_keywords,
             "points": 0,
             "is_active": True
         })
         ref.insert(new_data)
 
-    '''
-    async def get_character(contest_id, user_id):
-        contest = db.reference("contest_" + str(contest_id))
-        return contest.child("characters").child(str(user_id)).get()
-    '''
     @staticmethod
     def get_character(contest_id, user_id):
         ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
@@ -236,19 +149,10 @@ class Database:
             return None
         return dict({
             "class": str(curr_char["class"]),
-            "keywords": list(curr_char["keywords"]),
+            "keywords": json.loads(curr_char["keywords"]),
             "points": int(curr_char["points"]),
         })
 
-    '''
-    async def has_current_character(contest_id, user_id):
-        contest = db.reference("contest_" + str(contest_id))
-        data = contest.child("characters").child(str(user_id)).get()
-        if data is None:
-            return False
-        else:
-            return True
-    '''
     @staticmethod
     def has_current_character(contest_id, user_id):
         ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
@@ -262,11 +166,6 @@ class Database:
     def update_character(contest_id, character_id, keywords, points):
         pass
 
-    '''
-    async def add_pending_submission(contest_id, post_id, submission_data: dict):
-        contest = db.reference("contest_"+str(contest_id))
-        contest.child("pending").child(str(post_id)).set(submission_data)
-    '''
     @staticmethod
     def get_uuid_of_current_character(contest_id, user_id):
         ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
@@ -282,81 +181,31 @@ class Database:
         curr_uuid = Database.get_uuid_of_current_character(contest_id, user_id)
         if curr_uuid is None:
             return
+        serial_keywords = json.dumps(list(keywords))
         ref.insert(dict({
             "post_id": str(post_id),
             "character_id": str(curr_uuid),
             "user_id": int(user_id),
             "class": str(class_str),
-            "keywords": list(keywords),
+            "keywords": serial_keywords,
             "points": int(points),
             "img_url": str(img_url)
         }))
 
-    '''
-    async def get_pending_submission_data(contest_id, post_id):
-        contest = db.reference("contest_"+str(contest_id))
-        return contest.child("pending").child(str(post_id)).get()
-    '''
     @staticmethod
     def get_pending_submission_data(contest_id, post_id):
         ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_pending"]
         data = ref.find_one(post_id=str(post_id))
         return dict({
-            "user": int(data["user_id"]),
+            "user_id": int(data["user_id"]),
             "class": str(data["class"]),
-            "keywords": list(data["keywords"]),
+            "keywords": json.loads(data["keywords"]),
             "points": int(data["points"]),
             "img_url": str(data["img_url"])
         })
 
-    '''
-    async def accept_pending_submission(contest_id, post_id, points_data, staff_user_id: int):
-        contest = db.reference("contest_"+str(contest_id))
-    
-        submission_data = contest.child("pending").child(str(post_id)).get()
-        if submission_data is None:
-            return
-        user_id = submission_data["user"]
-        if user_id is None:
-            return
-    
-        # move this submission to accepted
-        contest.child("accepted").child(str(post_id)).set(submission_data)
-    
-        old_character_data = contest.child("characters").child(str(user_id)).get()
-        if old_character_data is None or old_character_data["class"] != submission_data["class"]:
-            await create_character(contest_id, user_id, submission_data["class"])
-    
-        # do this to remove duplicates
-        if "keywords" not in old_character_data:
-            old_character_data["keywords"] = set()
-        if "keywords" not in submission_data:
-            submission_data["keywords"] = set()
-    
-        new_keywords = set(old_character_data["keywords"]).union(set(submission_data["keywords"]))
-    
-        new_points = 0
-        for item in new_keywords:
-            new_points += points_data[item][submission_data["class"]]
-    
-        contest.child("characters").child(str(user_id)).update({
-            "points": new_points,
-            "keywords": list(new_keywords)
-        })
-    
-        db.reference("leaderboard").child(str(user_id)).set({
-            "points": int(new_points),
-            "class": str(old_character_data["class"])
-        })
-    
-        contest.child("pending").child(str(post_id)).delete()
-    
-        await Logger.accepted_submission(staff_user_id, user_id, submission_data)
-    
-        return user_id
-    '''
     @staticmethod
-    def accept_pending_submission(contest_id, post_id, points_data, staff_user_id: int):
+    async def accept_pending_submission(contest_id, post_id, points_data, staff_user_id: int):
         ref_pending: dataset.Table = Database.db["contest_" + str(contest_id) + "_pending"]
         submission_data = ref_pending.find_one(post_id=str(post_id))
         if submission_data is None:
@@ -372,54 +221,114 @@ class Database:
             "character_id": str(submission_data["character_id"]),
             "user_id": int(submission_data["user_id"]),
             "class": str(submission_data["class"]),
-            "keywords": list(submission_data["keywords"]),
+            "keywords": submission_data["keywords"],
             "points": int(submission_data["points"]),
             "img_url": str(submission_data["img_url"])
         }), ["post_id"])
 
+        ref_characters: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        old_character_data = ref_characters.find_one(character_id=str(submission_data["character_id"]))
 
+        new_keywords = set(json.loads(old_character_data["keywords"])).union(set(json.loads(submission_data["keywords"])))
 
-'''
-async def get_user_from_verification(contest_id, post_id):
-    contest = db.reference("contest_" + str(contest_id))
+        new_points = 0
+        for item in new_keywords:
+            new_points += points_data[item][submission_data["class"]]
 
-    submission_data = contest.child("pending").child(str(post_id)).get()
-    if submission_data is None:
-        return
-    user_id = submission_data["user"]
-    if user_id is None:
-        return
-    return user_id
+        new_data = dict(
+            character_id=str(submission_data["character_id"]),
+            points=int(new_points),
+            keywords=json.dumps(list(new_keywords))
+        )
 
-async def get_top_users(count):
-    return db.reference("leaderboard").order_by_child("points").limit_to_last(count).get()
+        ref_characters.upsert(new_data, ['character_id'])
 
-async def replace_leaderboard(new_post_id):
-    # check to make sure it's not None
-    old_id = db.reference("leaderboard_id").get()
-    db.reference("leaderboard_id").set(new_post_id)
-    return old_id
+        ref_pending.delete(post_id=str(submission_data["post_id"]))
 
-async def clear_leaderboard():
-    db.reference("leaderboard").delete()
+        await Logger.accepted_submission(staff_user_id, user_id, submission_data)
 
-async def schedule_contest(contest_type, start_time, end_time):
-    uid = uuid.uuid4().hex[:8]
-    data = {
-        "contest_type": str(contest_type),
-        "start_time": float(start_time),
-        "end_time": float(end_time)
-    }
-    new_contest_ref = db.reference("scheduled_contests").child(str(uid))
-    new_contest_ref.set(data)
-    return {
-        "key": str(uid),
-        "data": data
-    }
+        return user_id
 
-async def get_scheduled_contest_list():
-    return db.reference("scheduled_contests").get()
+    @staticmethod
+    def get_user_from_verification(contest_id, post_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_pending"]
+        submission_data = ref.find_one(post_id=str(post_id))
+        if submission_data is None:
+            return
+        user_id = submission_data["user_id"]
+        if user_id is None:
+            return
+        return user_id
 
-async def remove_contest_with_id(contest_id: str):
-    db.reference("scheduled_contests").child(contest_id).delete()
-'''
+    '''
+    async def get_top_users(count):
+        return db.reference("leaderboard").order_by_child("points").limit_to_last(count).get()
+    '''
+    @staticmethod
+    def get_top_users(contest_id, count):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        ret = []  # dict of username, class, points
+        for character in ref.all():
+            ret.append({
+                "user_id": character["user_id"],
+                "class": character["class"],
+                "points": character["points"]
+            })
+        ret = sorted(ret, key=lambda i: i["points"], reverse=True)
+        ret = ret[:count]
+        return ret
+
+    '''
+    async def replace_leaderboard(new_post_id):
+        # check to make sure it's not None
+        old_id = db.reference("leaderboard_id").get()
+        db.reference("leaderboard_id").set(new_post_id)
+        return old_id
+    '''
+    @staticmethod
+    def replace_leaderboard_DEPRECATED(new_post_id):
+        pass
+
+    '''
+    async def clear_leaderboard():
+        db.reference("leaderboard").delete()
+    '''
+    @staticmethod
+    def clear_leaderboard_DEPRECATED():
+        pass
+
+    @staticmethod
+    def schedule_contest(contest_type, start_time, end_time):
+        uid = uuid.uuid4().hex[:8]
+        data = dict(
+            schedule_id=str(uid),
+            contest_type=str(contest_type),
+            start_time=float(start_time),
+            end_time=float(end_time)
+        )
+        ref: dataset.Table = Database.db["scheduled_contests"]
+        ref.upsert(data, ["schedule_id"])
+        return {
+            "key": str(uid),
+            "data": data
+        }
+
+    @staticmethod
+    def get_scheduled_contest_list():
+        ref: dataset.Table = Database.db["scheduled_contests"]
+        data = ref.all()
+        ret = dict()
+        for contest in data:
+            ret[contest["schedule_id"]] = dict(
+                contest_type=str(contest["contest_type"]),
+                start_time=float(contest["start_time"]),
+                end_time=float(contest["end_time"])
+            )
+        if len(ret.keys()) == 0:
+            return None
+        return ret
+
+    @staticmethod
+    def remove_contest_with_id(contest_id: str):
+        ref: dataset.Table = Database.db["scheduled_contests"]
+        ref.delete(schedule_id=contest_id)
