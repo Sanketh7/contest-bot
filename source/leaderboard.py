@@ -1,5 +1,5 @@
 import discord
-import database as db
+from database import *
 from tabulate import tabulate
 
 class Leaderboard:
@@ -10,8 +10,11 @@ class Leaderboard:
         self.guild_id = guild_id
         self.leaderboard_channel = leaderboard_channel
 
+    def set_contest_id(self, new_contest_id):
+        self.contest_id = new_contest_id
+
     async def update(self):
-        self.top = await db.get_top_users(100)
+        self.top = Database.get_top_users(self.contest_id, 100)
 
     async def display(self):
         if self.top is None:
@@ -29,17 +32,17 @@ class Leaderboard:
 
         guild = self.bot.get_guild(int(self.guild_id))
 
-        sorted_data = []  # (ign, points)
-        for user, data in self.top.items():
-            player = guild.get_member(int(user))
+        sorted_data = []  # (ign, class, points)
+        for character in self.top:
+            player = guild.get_member(int(character["user_id"]))
             if player is None:
                 continue
             ign = player.nick
-            sorted_data.append((ign, data["points"]))
+            sorted_data.append((ign, character["class"], character["points"]))
 
-        sorted_data = sorted(sorted_data, key=lambda tup: tup[1], reverse=True)
+        sorted_data = sorted(sorted_data, key=lambda tup: tup[2], reverse=True)
 
-        for ign, points in sorted_data:
+        for ign, class_str, points in sorted_data:
             # TODO: make sure all occurrences where you're looking for a player are validated
 
             if player_count >= 20:  # maxed out players for this table
@@ -49,10 +52,10 @@ class Leaderboard:
                 break
 
             if points >= prev_points:  # continue with same place
-                table_list[table_ind].append([None, ign, points])
+                table_list[table_ind].append([None, ign, points, class_str])
             else:  # move down a place
                 place += 1
-                table_list[table_ind].append([place, ign, points])
+                table_list[table_ind].append([place, ign, points, class_str])
 
         embed = discord.Embed(title="Leaderboard", color=0x00FF00)
         embed.description = "Updated every hour during a contest."
@@ -60,18 +63,17 @@ class Leaderboard:
         for i in range(0, 5):
             if len(table_list[i]) == 0:
                 break
-            table_str = tabulate(table_list[i], headers=["Rank", "Player", "Points"])
+            table_str = tabulate(table_list[i], headers=["Rank", "Player", "Points", "Class"])
             embed.add_field(name='\u200b', value="```" + table_str + "```", inline=False)
 
         ch: discord.TextChannel = discord.utils.get(self.bot.get_guild(int(self.guild_id)).text_channels, name=self.leaderboard_channel)
-        new_post = await ch.send(embed=embed)
 
-        old_post_id = await db.replace_leaderboard(new_post.id)
-        if old_post_id is None:
-            return
+        def is_me(m):
+            return m.author == self.bot.user
 
         try:
-            old_post = await ch.fetch_message(old_post_id)
-            await old_post.delete()
+            await ch.purge(limit=100, check=is_me)
         except:
             print("Failed to delete old leaderboard.")
+
+        new_post = await ch.send(embed=embed)
