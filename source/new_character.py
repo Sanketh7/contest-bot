@@ -1,6 +1,6 @@
 import discord
 import asyncio
-import database as db
+from database import *
 from util import error_embed, success_embed
 
 
@@ -15,7 +15,7 @@ class NewCharacter:
         self.class_name = "" # resolved in class selection menu
 
     async def start_process(self):
-        has_char = await db.has_current_character(self.contest_id, self.user.id)
+        has_char = Database.has_current_character(self.contest_id, self.user.id)
         if has_char:
             await self.previous_char_menu()
         else:
@@ -40,7 +40,7 @@ class NewCharacter:
             await dm_msg.add_reaction(e)
 
     async def previous_char_menu(self):
-        old_char = await db.get_character(self.contest_id, self.user.id)
+        old_char = Database.get_character(self.contest_id, self.user.id)
         if not old_char:
             return
         if "class" not in old_char or "points" not in old_char:
@@ -74,7 +74,7 @@ class NewCharacter:
             value=
             '''
             You already have a character for this contest (shown below).
-            **Creating a new character will ERASE this old character.**
+            **Creating a new character will prevent you from adding items to this old character.**
 
             ✅ - Continue to create a character.
             ❌ - Cancel
@@ -134,5 +134,5 @@ class NewCharacter:
                 return await self.cancelled_response()
             self.class_name = next((name for name, emoji_str in self.class_reacts.items() if emoji_str == str(reaction)), None)
 
-            await db.create_character(self.contest_id, self.user.id, self.class_name)
+            Database.create_character(self.contest_id, self.user.id, self.class_name)
             await self.success_response()
