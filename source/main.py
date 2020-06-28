@@ -312,6 +312,9 @@ async def remove_contest(ctx, contest_id: str):
 
 @bot.command(name='profile')
 async def profile(ctx):
+    if not states["is_contest_active"]:
+        return await ctx.author.send(embed=error_embed("There are no active contests at the moment."))
+
     char_embeds = []
     char_data = Database.get_all_characters_from_user(states["current_contest_index"], ctx.author.id)
     embeds_index = 0
