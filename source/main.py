@@ -13,7 +13,7 @@ import leaderboard
 from util import success_embed, error_embed, Logger
 
 from database import *
-Database.init_database("sqlite:///~/apps/database.db")
+Database.init_database("sqlite:////home/sanketh/apps/database.db")
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
