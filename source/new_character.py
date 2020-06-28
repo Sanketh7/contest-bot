@@ -12,7 +12,7 @@ class NewCharacter:
         self.guild_id = guild_id
         self.contest_id = contest_id
 
-        self.class_name = "" # resolved in class selection menu
+        self.class_name = ""  # resolved in class selection menu
 
     async def start_process(self):
         has_char = Database.has_current_character(self.contest_id, self.user.id)

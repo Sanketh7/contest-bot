@@ -310,6 +310,35 @@ async def remove_contest(ctx, contest_id: str):
     await ctx.channel.send(embed=success_embed("Contest removed (if it existed). \
     Use `+view_schedule` to view scheduled contests."))
 
+@bot.command(name='profile')
+async def profile(ctx):
+    char_embeds = []
+    char_data = Database.get_all_characters_from_user(states["current_contest_index"], ctx.author.id)
+    embeds_index = 0
+    field_count = 0
+
+    char_embeds.append(discord.Embed(title='''Your Characters (page {})'''.format(embeds_index+1)))
+    for c in char_data:
+        if field_count >= 25:
+            embeds_index += 1
+            field_count = 0
+            char_embeds.append(discord.Embed(title='''Your Characters (page {})'''.format(embeds_index + 1)))
+
+        char_embeds[embeds_index].add_field(
+            name=str(c["class"]).capitalize() + "    " + player_emojis[c["class"]] + (
+                "  - ACTIVE :white_check_mark:" if c["is_active"] else ""),
+            value=
+            '''
+            **Items/Achievements**: `{}`
+            **Points**: `{}`
+            '''.format(c["keywords"], c["points"]),
+            inline=False
+        )
+        field_count += 1
+
+    for e in char_embeds:
+        await ctx.author.send(embed=e)
+
 async def start_contest(contest_type: str, end_time_num: float):
     if contest_type not in contest_types:
         return

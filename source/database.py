@@ -332,3 +332,17 @@ class Database:
     def remove_contest_with_id(contest_id: str):
         ref: dataset.Table = Database.db["scheduled_contests"]
         ref.delete(schedule_id=contest_id)
+
+    @staticmethod
+    def get_all_characters_from_user(contest_id, user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        char_data = ref.find(user_id=int(user_id))
+        ret = []
+        for char in char_data:
+            ret.append({
+                "class": str(char["class"]),
+                "keywords": json.loads(char["keywords"]),
+                "points": int(char["points"]),
+                "is_active": bool(char["is_active"])
+            })
+        return ret
