@@ -3,3 +3,4 @@
 *.pyc
 *.pyc
 source/database.db
+.env
