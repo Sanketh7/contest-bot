@@ -104,10 +104,10 @@ class Database:
         new_data = {
             "current_contest_index": 0,
             "is_contest_active": False,
-            "current_contest_type": " ",
+            "current_contest_type": "",
             "current_contest_end_time": -1,
             "current_contest_post_id": -1,
-            "current_points_document": " "
+            "current_points_document": ""
         }
 
         ref.upsert(dict(
