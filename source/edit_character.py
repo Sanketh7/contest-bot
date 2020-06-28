@@ -2,7 +2,7 @@ import discord
 from util import error_embed, success_embed
 import asyncio
 from flashtext import KeywordProcessor
-import database as db
+from database import *
 
 
 class EditCharacter:
@@ -41,14 +41,14 @@ class EditCharacter:
             await dm_msg.add_reaction(e)
 
     async def start_process(self):
-        has_char = await db.has_current_character(self.contest_id, self.user.id)
+        has_char = Database.has_current_character(self.contest_id, self.user.id)
         if has_char:
             return await self.show_old_character_menu()
         else:
             return await self.user.send(embed=error_embed("You don't have a character to edit."))
 
     async def show_old_character_menu(self):
-        old_char = await db.get_character(self.contest_id, self.user.id)
+        old_char = Database.get_character(self.contest_id, self.user.id)
         if not old_char:
             return await self.user.send(embed=error_embed("You don't have a character to edit."))
         if "class" not in old_char or "points" not in old_char:
@@ -309,13 +309,17 @@ class EditCharacter:
         await post.add_reaction("✅")
         await post.add_reaction("❌")
 
-        await db.add_pending_submission(self.contest_id, post.id, {
-            "user": int(self.user.id),
-            "class": self.class_name,
-            "keywords": list(self.submitted_user_keywords_accepted),
-            "points": delta_points,
-            "img_url": self.img_url
-        })
+        if delta_points == 0:
+            await self.user.send(embed=error_embed(
+                '''
+                Your submission was not submitted since you did not add any points.
+                '''
+            ))
+            return
+
+
+        Database.add_pending_submission(self.contest_id, post.id, int(self.user.id), self.class_name,
+                                        list(self.submitted_user_keywords_accepted), delta_points, self.img_url)
 
         await self.user.send(embed=success_embed(
             '''

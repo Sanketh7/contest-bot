@@ -12,9 +12,8 @@ import points_data
 import leaderboard
 from util import success_embed, error_embed, Logger
 
-import database as db
-db.init_database()
-
+from database import *
+Database.init_database("sqlite:///database.db")
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -60,19 +59,21 @@ active_processes = set()  # holds user id for users that have an active process 
 async def on_ready():
     print(f'{bot.user.name} has connected!')
 
-    meta_data = await db.get_all_metadata()
+    meta_data = Database.get_all_metadata()
     if not meta_data:
-        await db.reset_meta_data()
+        Database.reset_meta_data()
     else:
         for key, value in meta_data.items():
             states[key] = value
 
-    schedule = await db.get_scheduled_contest_list()
+    schedule = Database.get_scheduled_contest_list()
     if schedule is not None:
         for key, value in schedule.items():
             schedule_cache[key] = value
 
     states["states_read"] = True
+
+    leaderboard.set_contest_id(states["current_contest_index"])
 
     if states["current_contest_type"] != "":
         points_data_manager.parse_data(states["current_contest_type"])
@@ -152,7 +153,7 @@ async def on_raw_reaction_add(payload):
 
         # Accept points/submission
         if reaction == "✅" and ch_id == sub_channel.id:
-            submission_user_id = await db.accept_pending_submission(states["current_contest_index"], msg_id, points_data_manager.points_data, user_id)
+            submission_user_id = await Database.accept_pending_submission(states["current_contest_index"], msg_id, points_data_manager.points_data, user_id)
             try:
                 ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=CONTEST_SUBMISSION_CHANNEL)
                 submission_user = bot.get_guild(int(GUILD_ID)).get_member(int(submission_user_id))
@@ -166,8 +167,8 @@ async def on_raw_reaction_add(payload):
 
         # Reject points/submission
         if reaction == "❌" and ch_id == sub_channel.id:
-            submission_user_id = await db.get_user_from_verification(states["current_contest_index"], msg_id)
-            pending_data = await db.get_pending_submission_data(states["current_contest_index"], msg_id)
+            submission_user_id = Database.get_user_from_verification(states["current_contest_index"], msg_id)
+            pending_data = Database.get_pending_submission_data(states["current_contest_index"], msg_id)
             try:
                 ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=CONTEST_SUBMISSION_CHANNEL)
                 submission_user = bot.get_guild(int(GUILD_ID)).get_member(int(submission_user_id))
@@ -210,7 +211,7 @@ async def force_end_contest(ctx):
         except:
             print("Failed to retrieve/delete message.")
 
-        result = await db.end_contest()
+        result = Database.end_contest()
 
         states["states_read"] = False
         for key, value in result.items():
@@ -240,6 +241,7 @@ async def force_refresh_schedule(ctx):
 @bot.command(name='force_update_leaderboard')
 @is_admin()
 async def force_update_leaderboard(ctx):
+    leaderboard.set_contest_id(states["current_contest_index"])
     await leaderboard.update()
     await leaderboard.display()
     await ctx.channel.send(embed=success_embed("Leaderboard updated."))
@@ -251,7 +253,7 @@ async def set_points_document(ctx, contest_type: str, url: str):
     if contest_type not in contest_types:
         return await ctx.channel.send(embed=error_embed("Invalid contest type."))
 
-    await db.set_points_document(contest_type, url)
+    Database.set_points_document(contest_type, url)
     await ctx.channel.send(embed=success_embed("Document set for contest type: `" + str(contest_type) + "`"))
 
 @bot.command(name='add_contest')
@@ -270,7 +272,7 @@ async def add_contest(ctx, contest_type: str, start_string: str, end_string: str
     # end_time = end_time.replace(tzinfo=datetime.timezone.utc).timestamp()
     start_time = start_time.timestamp()
     end_time = end_time.timestamp()
-    res = await db.schedule_contest(contest_type, start_time, end_time)
+    res = Database.schedule_contest(contest_type, start_time, end_time)
     schedule_cache[res["key"]] = res["data"]
 
     start_time_str = datetime.datetime.utcfromtimestamp(float(start_time)).strftime("%m/%d/%y %H:%M")
@@ -283,7 +285,6 @@ async def add_contest(ctx, contest_type: str, start_string: str, end_string: str
 @bot.command(name='view_schedule')
 @is_admin()
 async def view_schedule(ctx):
-    # schedule = await db.get_scheduled_contest_list()
     if not schedule_cache:
         return await ctx.channel.send(embed=error_embed("No upcoming contests."))
 
@@ -303,7 +304,7 @@ async def view_schedule(ctx):
 @bot.command(name='remove_contest')
 @is_admin()
 async def remove_contest(ctx, contest_id: str):
-    await db.remove_contest_with_id(contest_id)
+    Database.remove_contest_with_id(contest_id)
     schedule_cache.pop(contest_id)
 
     await ctx.channel.send(embed=success_embed("Contest removed (if it existed). \
@@ -336,12 +337,12 @@ async def start_contest(contest_type: str, end_time_num: float):
     ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=SIGN_UP_CHANNEL)
     post = await ch.send(embed=embed)
 
-    result = await db.new_contest(contest_type, end_time_num, post.id)
+    result = Database.new_contest(contest_type, end_time_num, post.id)
     await post.add_reaction("✅")
     await post.add_reaction(other_emojis["gravestone"])
     await post.add_reaction("✏")
 
-    await db.clear_leaderboard()
+    # Database.clear_leaderboard()
 
     for key, value in result.items():
         states[key] = value
@@ -362,7 +363,7 @@ async def start_new_contest_from_schedule():
             for uid, contest_data in schedule_cache.items():
                 if float(contest_data["start_time"]) <= curr_time <= float(contest_data["end_time"]):
                     await start_contest(contest_data["contest_type"], float(contest_data["end_time"]))
-                    await db.remove_contest_with_id(str(uid))
+                    Database.remove_contest_with_id(str(uid))
                     schedule_cache.pop(str(uid))
                     return True
     return False
@@ -382,7 +383,7 @@ async def contest_schedule_loop():
                 except:
                     print("Failed to retrieve/delete message.")
 
-                result = await db.end_contest()
+                result = Database.end_contest()
 
                 states["states_read"] = False
                 for key, value in result.items():
@@ -400,6 +401,7 @@ async def contest_schedule_loop():
 async def update_leaderboard_loop():
     while True:
         if states["is_contest_active"]:
+            leaderboard.set_contest_id(states["current_contest_index"])
             await leaderboard.update()
             await leaderboard.display()
         await asyncio.sleep(60*60)
