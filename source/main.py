@@ -111,10 +111,13 @@ async def on_raw_reaction_add(payload):
             allowed = user_id not in active_processes
             if allowed:
                 active_processes.add(user_id)
+                print("Active processes: " + str(len(active_processes)))
 
                 submission = new_character.NewCharacter(bot, user, player_emojis, guild_id, states["current_contest_index"])
                 await submission.start_process()
                 active_processes.remove(user_id)
+                print("Active processes: " + str(len(active_processes)))
+
                 return
             else:
                 return await user.send(embed=error_embed("You can only have one process running at a time. Please cancel or complete the other process."))
