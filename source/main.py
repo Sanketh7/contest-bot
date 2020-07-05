@@ -441,7 +441,7 @@ async def update_leaderboard_loop():
             leaderboard.set_contest_id(states["current_contest_index"])
             await leaderboard.update()
             await leaderboard.display()
-        await asyncio.sleep(60*60)
+        await asyncio.sleep(60*10)
 
 bot.loop.create_task(contest_schedule_loop())
 bot.loop.create_task(update_leaderboard_loop())

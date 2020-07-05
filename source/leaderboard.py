@@ -58,7 +58,7 @@ class Leaderboard:
                 table_list[table_ind].append([place, ign, points, class_str])
 
         embed = discord.Embed(title="Leaderboard", color=0x00FF00)
-        embed.description = "Updated every hour during a contest."
+        embed.description = "Updated every 10 minutes during a contest."
 
         for i in range(0, 5):
             if len(table_list[i]) == 0:
