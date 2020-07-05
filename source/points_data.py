@@ -21,7 +21,7 @@ class PointsDataManager:
         self.points_data = {}
 
         for row in data:
-            self.keywords[row[0].lower()] = [row[1].lower()]
+            self.keywords[row[0].lower()] = [row[0].lower(), row[1].lower()]
             self.points_data[row[0].lower()] = {}
             for i in range(0, len(class_order)):
                 self.points_data[row[0].lower()][class_order[i].lower()] = int(row[2+i])
