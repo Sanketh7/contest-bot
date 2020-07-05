@@ -45,12 +45,12 @@ class Leaderboard:
         for ign, class_str, points in sorted_data:
             # TODO: make sure all occurrences where you're looking for a player are validated
 
-            if player_count >= 20:  # maxed out players for this table
+            if player_count >= 15:  # maxed out players for this table
                 table_ind += 1
                 player_count = 0
             if table_ind >= 5:  # maxed out tables
                 break
-
+            player_count += 1
             if points >= prev_points:  # continue with same place
                 table_list[table_ind].append([None, ign, points, class_str])
             else:  # move down a place
