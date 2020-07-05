@@ -358,8 +358,10 @@ async def start_contest(contest_type: str, end_time_num: float):
         value=
         '''
         ✅ - Sign up for the contest. (Let's you view all the channels and submit.)
-        {} - Start a new character. Completing this will ERASE your previous character for the contest.
+        {} - Start a new character. Completing this will STOP your previous character (so you can't edit it anymore).
         ✏ - Edit a character. This will add items/achievements to your current character.
+        
+        Use the command `+profile` to view all your characters for this contest.
         '''.format(str(other_emojis["gravestone"])),
         inline=False
     )
