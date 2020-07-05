@@ -3,6 +3,7 @@ from util import error_embed, success_embed
 import asyncio
 from flashtext import KeywordProcessor
 from database import *
+import mimetypes
 
 
 class EditCharacter:
@@ -105,30 +106,31 @@ class EditCharacter:
             name="Instructions",
             value=
             '''
+            Use this [document]({}) for a list of items and achievements.
+            
             Send a message with a screenshot **in this DM** as specified in the contest rules. 
             Click the **plus button** next to where you type a message to attach an image \
             or **copy and paste** and image into the message box.
             If you do not use either of the methods above, the bot **cannot** detect it.
 
-            **You MUST have the following things present in your screenshot:**
-            - username
-            - equipped items + inventory
-            - player stats (i.e. defense, wisdom, etc)
-            - fame gained
-
-            **If you do not include all these items, your submission may be denied.**
+            **You MUST have your ENTIRE game screenshotted (i.e. not just your inventory).**
+            If you don't follow this, your submission will likely be denied.
 
             ❌ - cancel submission
 
             (You have **15 minutes** to complete this.)
-            ''',
+            '''.format(self.points_doc),
             inline=False
         )
         dm_msg = await self.user.send(embed=embed)
         await dm_msg.add_reaction("❌")
 
+        def is_url_image(url):
+            mimetype, encoding = mimetypes.guess_type(url)
+            return (mimetype and mimetype.startswith('image'))
+
         def check_msg(m: discord.Message):
-            return len(m.attachments) > 0 and m.attachments[0].url is not None and m.author.id == self.user.id
+            return len(m.attachments) > 0 and m.attachments[0].url is not None and is_url_image(m.attachments[0].url) and m.author.id == self.user.id
 
         def check_react(react_got: discord.Reaction, user_got: discord.User):
             return user_got.id == self.user.id and str(react_got) == "❌"
@@ -143,6 +145,9 @@ class EditCharacter:
                 if type(res) is tuple and type(res[0]) is discord.Reaction:
                     await self.cancelled_response()
                 elif type(res) is discord.Message:
+                    if len(res.attachments) <= 0:
+                        print("hi")
+                        continue
                     self.img_url = res.attachments[0].url
                     await self.keyword_menu()
 
@@ -292,6 +297,14 @@ class EditCharacter:
 
         delta_points = self.new_points - self.original_points
 
+        if delta_points == 0:
+            await self.user.send(embed=error_embed(
+                '''
+                Your submission was not submitted since you did not add any points.
+                '''
+            ))
+            return
+
         if len(self.submitted_user_keywords_accepted) > 0:
             item_str = str(self.submitted_user_keywords_accepted)
         else:
@@ -309,13 +322,7 @@ class EditCharacter:
         await post.add_reaction("✅")
         await post.add_reaction("❌")
 
-        if delta_points == 0:
-            await self.user.send(embed=error_embed(
-                '''
-                Your submission was not submitted since you did not add any points.
-                '''
-            ))
-            return
+
 
 
         Database.add_pending_submission(self.contest_id, post.id, int(self.user.id), self.class_name,
