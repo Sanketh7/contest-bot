@@ -358,6 +358,7 @@ async def notify_active_users(ctx):
         user = bot.get_user(int(user_id))
         await user.send(embed=error_embed('''
         **STOP**. The bot is being **restarted**. 
+        (If you're not in the middle of a process, ignore this.)
         
         Once the bot is back online, **you will have to start this process from the beginning**.
         If you ignore this and continue, your changes will likely not be saved.
