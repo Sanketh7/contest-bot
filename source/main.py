@@ -24,6 +24,7 @@ SIGN_UP_CHANNEL = os.getenv('SIGN_UP_CHANNEL')
 IN_CONTEST_ROLE = os.getenv('IN_CONTEST_ROLE')
 LEADERBOARD_CHANNEL = os.getenv('LEADERBOARD_CHANNEL')
 ADMIN_ROLE_NAME = os.getenv('ADMIN_ROLE_NAME')
+BOT_OWNER = int(os.getenv('BOT_OWNER'))
 LOG_CHANNEL = os.getenv('LOG_CHANNEL')
 
 bot = commands.Bot(command_prefix=CMD_PREFIX)
@@ -190,7 +191,12 @@ def is_admin():
         if ctx.guild is None:
             return False
         admin_role = discord.utils.get(ctx.guild.roles, name=ADMIN_ROLE_NAME)
-        return ctx.author.id == 343142603996528641 or (admin_role in ctx.author.roles)
+        return ctx.author.id == BOT_OWNER or (admin_role in ctx.author.roles)
+    return commands.check(predicate)
+
+def is_bot_owner():
+    async def predicate(ctx):
+        return ctx.author.id == BOT_OWNER
     return commands.check(predicate)
 
 # Custom Converters
@@ -344,6 +350,21 @@ async def profile(ctx):
 
     for e in char_embeds:
         await ctx.author.send(embed=e)
+
+@bot.command(name='notify_active_users')
+@is_bot_owner()
+async def notify_active_users(ctx):
+    for user_id in active_processes:
+        user = bot.get_user(int(user_id))
+        await user.send(embed=error_embed('''
+        **STOP**. The bot is being **restarted**. 
+        
+        Once the bot is back online, **you will have to start this process from the beginning**.
+        If you ignore this and continue, your changes will likely not be saved.
+        
+        Sorry for the inconvenience.
+        '''))
+    await ctx.author.send(embed=success_embed("Notified!"))
 
 async def start_contest(contest_type: str, end_time_num: float):
     if contest_type not in contest_types:
