@@ -272,7 +272,8 @@ class Database:
             ret.append({
                 "user_id": character["user_id"],
                 "class": character["class"],
-                "points": character["points"]
+                "points": character["points"],
+                "is_active": character["is_active"]
             })
         ret = sorted(ret, key=lambda i: i["points"], reverse=True)
         ret = ret[:count]
