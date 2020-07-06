@@ -365,7 +365,7 @@ async def notify_active_users(ctx):
         
         Sorry for the inconvenience.
         '''))
-    await ctx.author.send(embed=success_embed("Notified!"))
+    await ctx.author.send(embed=success_embed("Notified " + str(len(active_processes)) + " users."))
 
 async def start_contest(contest_type: str, end_time_num: float):
     if contest_type not in contest_types:
