@@ -215,17 +215,19 @@ def is_contest_staff():
 
         user_roles = guild.get_member(int(ctx.author.id)).roles
 
-        print(ctx.author.id == BOT_OWNER or len(role_set.intersection(set(user_roles))) > 0)
         return ctx.author.id == BOT_OWNER or len(role_set.intersection(set(ctx.author.roles))) > 0
     return commands.check(predicate)
 
 def is_contest_staff_not_command_check(ctx):
-    if ctx.guild is None:
-        return False
-    admin_role = discord.utils.get(ctx.guild.roles, name=ADMIN_ROLE_NAME)
-    mod_role = discord.utils.get(ctx.guild.roles, name=MODERATOR_ROLE_NAME)
-    contest_staff_role = discord.utils.get(ctx.guild.roles, name=CONTEST_STAFF_ROLE_NAME)
+    guild: discord.Guild = bot.get_guild(int(GUILD_ID))
+
+    admin_role = discord.utils.get(guild.roles, name=ADMIN_ROLE_NAME)
+    mod_role = discord.utils.get(guild.roles, name=MODERATOR_ROLE_NAME)
+    contest_staff_role = discord.utils.get(guild.roles, name=CONTEST_STAFF_ROLE_NAME)
     role_set: set = {admin_role, mod_role, contest_staff_role}
+
+    user_roles = guild.get_member(int(ctx.author.id)).roles
+
     return ctx.author.id == BOT_OWNER or len(role_set.intersection(set(ctx.author.roles))) > 0
 
 # Custom Converters
