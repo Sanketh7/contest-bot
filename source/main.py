@@ -5,9 +5,12 @@ from discord.ext import commands
 import asyncio
 import datetime
 from tabulate import tabulate
+import typing
+import codecs
 
 import new_character
 import edit_character
+import remove_keywords
 import points_data
 import leaderboard
 from util import success_embed, error_embed, Logger
@@ -24,6 +27,8 @@ SIGN_UP_CHANNEL = os.getenv('SIGN_UP_CHANNEL')
 IN_CONTEST_ROLE = os.getenv('IN_CONTEST_ROLE')
 LEADERBOARD_CHANNEL = os.getenv('LEADERBOARD_CHANNEL')
 ADMIN_ROLE_NAME = os.getenv('ADMIN_ROLE_NAME')
+MODERATOR_ROLE_NAME = os.getenv('MODERATOR_ROLE_NAME')
+CONTEST_STAFF_ROLE_NAME = os.getenv('CONTEST_STAFF_ROLE_NAME')
 BOT_OWNER = int(os.getenv('BOT_OWNER'))
 LOG_CHANNEL = os.getenv('LOG_CHANNEL')
 
@@ -177,9 +182,9 @@ async def on_raw_reaction_add(payload):
                 ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=CONTEST_SUBMISSION_CHANNEL)
                 submission_user = bot.get_guild(int(GUILD_ID)).get_member(int(submission_user_id))
                 msg = await ch.fetch_message(msg_id)
-                await msg.delete()
                 await submission_user.send(embed=error_embed("Your submission with ID `" + str(msg_id) + "` was denied."))
                 await Logger.rejected_submission(user_id, submission_user_id, pending_data)
+                await msg.delete()
             except:
                 print("Failed to fetch/delete message or user doesn't exist.")
             return
@@ -198,6 +203,30 @@ def is_bot_owner():
     async def predicate(ctx):
         return ctx.author.id == BOT_OWNER
     return commands.check(predicate)
+
+def is_contest_staff():
+    async def predicate(ctx):
+        guild: discord.Guild = bot.get_guild(int(GUILD_ID))
+
+        admin_role = discord.utils.get(guild.roles, name=ADMIN_ROLE_NAME)
+        mod_role = discord.utils.get(guild.roles, name=MODERATOR_ROLE_NAME)
+        contest_staff_role = discord.utils.get(guild.roles, name=CONTEST_STAFF_ROLE_NAME)
+        role_set: set = {admin_role, mod_role, contest_staff_role}
+
+        user_roles = guild.get_member(int(ctx.author.id)).roles
+
+        print(ctx.author.id == BOT_OWNER or len(role_set.intersection(set(user_roles))) > 0)
+        return ctx.author.id == BOT_OWNER or len(role_set.intersection(set(ctx.author.roles))) > 0
+    return commands.check(predicate)
+
+def is_contest_staff_not_command_check(ctx):
+    if ctx.guild is None:
+        return False
+    admin_role = discord.utils.get(ctx.guild.roles, name=ADMIN_ROLE_NAME)
+    mod_role = discord.utils.get(ctx.guild.roles, name=MODERATOR_ROLE_NAME)
+    contest_staff_role = discord.utils.get(ctx.guild.roles, name=CONTEST_STAFF_ROLE_NAME)
+    role_set: set = {admin_role, mod_role, contest_staff_role}
+    return ctx.author.id == BOT_OWNER or len(role_set.intersection(set(ctx.author.roles))) > 0
 
 # Custom Converters
 
@@ -320,36 +349,88 @@ async def remove_contest(ctx, contest_id: str):
     Use `+view_schedule` to view scheduled contests."))
 
 @bot.command(name='profile')
-async def profile(ctx):
+async def profile(ctx, other_user: typing.Optional[discord.Member] = None):
     if not states["is_contest_active"]:
-        return await ctx.author.send(embed=error_embed("There are no active contests at the moment."))
+        return await ctx.send(embed=error_embed("There are no active contests at the moment."))
+
+    if other_user is not None and other_user is not ctx.author and not is_contest_staff_not_command_check(ctx):
+        return await ctx.send(embed=error_embed("You don't have permission to view other people's profiles."))
+
+    user: discord.Member
+    if other_user is not None:
+        user = other_user
+    else:
+        user = ctx.author
+
+    if user is None:
+        return
 
     char_embeds = []
-    char_data = Database.get_all_characters_from_user(states["current_contest_index"], ctx.author.id)
+    char_data = Database.get_all_characters_from_user(states["current_contest_index"], user.id)
     embeds_index = 0
     field_count = 0
 
-    char_embeds.append(discord.Embed(title='''Your Characters (page {})'''.format(embeds_index+1)))
+    char_embeds.append(discord.Embed(title='''{}'s Characters (page {})'''.format(user.display_name, embeds_index + 1)))
     for c in char_data:
         if field_count >= 25:
             embeds_index += 1
             field_count = 0
-            char_embeds.append(discord.Embed(title='''Your Characters (page {})'''.format(embeds_index + 1)))
+            char_embeds.append(discord.Embed(title='''{}'s Characters (page {})'''.format(user.display_name, embeds_index + 1)))
 
         char_embeds[embeds_index].add_field(
             name=str(c["class"]).capitalize() + "    " + player_emojis[c["class"]] + (
-                "  - ACTIVE :white_check_mark:" if c["is_active"] else ""),
+                "  - ACTIVE :white_check_mark:" if c["is_active"] else "") + " (ID: `" + c["character_id"] + "`)",
             value=
             '''
             **Items/Achievements**: `{}`
             **Points**: `{}`
-            '''.format(c["keywords"], c["points"]),
+            '''.format(c["keywords"], c["points"], c["character_id"]),
             inline=False
         )
         field_count += 1
 
     for e in char_embeds:
         await ctx.author.send(embed=e)
+
+@bot.command(name='remove_items')
+@is_contest_staff()
+async def remove_items(ctx, char_id: str):
+    allowed = ctx.author.id not in active_processes
+    if allowed:
+        active_processes.add(ctx.author.id)
+        print("Active processes: " + str(len(active_processes)))
+
+        remove_items_proc = remove_keywords.RemoveKeywords(bot, ctx.author, char_id, states["current_points_document"],
+                                                           points_data_manager.keywords, True, states["current_contest_index"],
+                                                           points_data_manager.points_data)
+        await remove_items_proc.start_process()
+        active_processes.remove(ctx.author.id)
+        print("Active processes: " + str(len(active_processes)))
+
+        return
+    else:
+        return await ctx.author.send(embed=error_embed(
+            "You can only have one process running at a time. Please cancel or complete the other process."))
+
+@bot.command(name='add_items')
+@is_contest_staff()
+async def add_items(ctx, char_id: str):
+    allowed = ctx.author.id not in active_processes
+    if allowed:
+        active_processes.add(ctx.author.id)
+        print("Active processes: " + str(len(active_processes)))
+
+        add_items_proc = remove_keywords.RemoveKeywords(bot, ctx.author, char_id, states["current_points_document"],
+                                                        points_data_manager.keywords, False, states["current_contest_index"],
+                                                        points_data_manager.points_data)
+        await add_items_proc.start_process()
+        active_processes.remove(ctx.author.id)
+        print("Active processes: " + str(len(active_processes)))
+
+        return
+    else:
+        return await ctx.author.send(embed=error_embed(
+            "You can only have one process running at a time. Please cancel or complete the other process."))
 
 @bot.command(name='notify_active_users')
 @is_bot_owner()

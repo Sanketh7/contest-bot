@@ -154,6 +154,18 @@ class Database:
         })
 
     @staticmethod
+    def get_character_from_uuid(contest_id, uuid):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        char = ref.find_one(character_id=str(uuid))
+        if char is None:
+            return None
+        return dict({
+            "class": str(char["class"]),
+            "keywords": json.loads(char["keywords"]),
+            "points": int(char["points"]),
+        })
+
+    @staticmethod
     def has_current_character(contest_id, user_id):
         ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
         curr_char = ref.find_one(user_id=str(user_id), is_active=True)
@@ -250,6 +262,71 @@ class Database:
         return user_id
 
     @staticmethod
+    async def remove_items_from_character(contest_id, char_id, items_to_remove, points_data, staff_user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        old_char_data = ref.find_one(character_id=str(char_id))
+        if old_char_data is None:
+            return
+
+        items_removed = set()
+
+        old_keywords = set(json.loads(old_char_data["keywords"]))
+        print(old_keywords)
+        for item in items_to_remove:
+            if item in old_keywords:
+                items_removed.add(item)
+            old_keywords.remove(item)
+
+
+        new_points = 0
+        for item in old_keywords:
+            new_points += points_data[item][old_char_data["class"]]
+
+        new_data = dict(
+            character_id=str(char_id),
+            points=int(new_points),
+            keywords=json.dumps(list(old_keywords))
+        )
+
+        ref.upsert(new_data, ['character_id'])
+
+        await Logger.removed_items(staff_user_id, old_char_data["user_id"], char_id, items_removed)
+
+        return items_removed
+
+    async def add_items_to_character(contest_id, char_id, items_to_add, points_data, staff_user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        old_char_data = ref.find_one(character_id=str(char_id))
+        if old_char_data is None:
+            return
+
+        items_added = set()
+
+        old_keywords = set(json.loads(old_char_data["keywords"]))
+        print(old_keywords)
+        for item in items_to_add:
+            if item not in old_keywords:
+                items_added.add(item)
+            old_keywords.add(item)
+
+
+        new_points = 0
+        for item in old_keywords:
+            new_points += points_data[item][old_char_data["class"]]
+
+        new_data = dict(
+            character_id=str(char_id),
+            points=int(new_points),
+            keywords=json.dumps(list(old_keywords))
+        )
+
+        ref.upsert(new_data, ['character_id'])
+
+        await Logger.added_items(staff_user_id, old_char_data["user_id"], char_id, items_added)
+
+        return items_added
+
+    @staticmethod
     def get_user_from_verification(contest_id, post_id):
         ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_pending"]
         submission_data = ref.find_one(post_id=str(post_id))
@@ -341,6 +418,7 @@ class Database:
         ret = []
         for char in char_data:
             ret.append({
+                "character_id": str(char["character_id"]),
                 "class": str(char["class"]),
                 "keywords": json.loads(char["keywords"]),
                 "points": int(char["points"]),
