@@ -24,13 +24,13 @@ class Logger:
         Logger.log_channel_name = log_channel
 
     @staticmethod
-    async def send_log(text: str, embed_color, image_url = ""):
+    async def send_log(text: str, embed_color, image_url = None):
         ch: discord.TextChannel = discord.utils.get(Logger.bot.get_guild(int(Logger.guild_id)).text_channels,
                                                     name=Logger.log_channel_name)
         embed = discord.Embed(color=embed_color)
         embed.description = text
 
-        if image_url != "":
+        if image_url != None:
             embed.set_image(url=image_url)
 
         await ch.send(embed=embed)
@@ -58,8 +58,9 @@ class Logger:
         Class: {}
         Items/Achievements: `{}`
         Points: {}
+        Proof: [image]({})
         '''.format(staff_user.mention, player_user.mention, pending_submission_data["class"],
-                   item_str, pending_submission_data["points"])
+                   item_str, pending_submission_data["points"], pending_submission_data["img_url"])
 
         await Logger.send_log(text, 0x00FF00, pending_submission_data["img_url"])
 
@@ -86,8 +87,9 @@ class Logger:
         Class: {}
         Items/Achievements: `{}`
         Points: {}
+        Proof: [image]({})
         '''.format(staff_user.mention, player_user.mention, pending_submission_data["class"],
-                   item_str, pending_submission_data["points"])
+                   item_str, pending_submission_data["points"], pending_submission_data["img_url"])
 
         await Logger.send_log(text, 0xFF0000, pending_submission_data["img_url"])
 
@@ -97,3 +99,33 @@ class Logger:
         {} forcibly updated the leaderboard.
         '''.format(user.mention)
         await Logger.send_log(text, 0x0000FF)
+
+    @staticmethod
+    async def removed_items(staff_user_id, player_user_id, char_id, items_removed):
+        try:
+            staff_user = Logger.bot.get_user(staff_user_id)
+            player_user = Logger.bot.get_user(player_user_id)
+        except:
+            return
+
+        text = '''
+        {} removed these keywords from {}'s character (ID: `{}`):
+        `{}`
+        '''.format(staff_user.mention, player_user.mention, char_id, items_removed)
+
+        await Logger.send_log(text, 0xFF0000)
+
+    @staticmethod
+    async def added_items(staff_user_id, player_user_id, char_id, items_added):
+        try:
+            staff_user = Logger.bot.get_user(staff_user_id)
+            player_user = Logger.bot.get_user(player_user_id)
+        except:
+            return
+
+        text = '''
+        {} added these keywords to {}'s character (ID: `{}`):
+        `{}`
+        '''.format(staff_user.mention, player_user.mention, char_id, items_added)
+
+        await Logger.send_log(text, 0x00FF00)

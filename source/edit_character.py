@@ -312,7 +312,8 @@ class EditCharacter:
 
         embed = discord.Embed(title=member.display_name + "    (" + str(self.class_name) + ")")
         embed.add_field(name="Items/Achievements", value="`" + item_str + "`", inline=False)
-        embed.add_field(name="Points", value=("**" + str(delta_points) + "**"))
+        embed.add_field(name="Points", value=("**" + str(delta_points) + "**"), inline=False)
+        embed.add_field(name="Proof", value='''[image]({})'''.format(str(self.img_url)), inline=False)
         embed.set_image(url=self.img_url)
 
         ch: discord.TextChannel = discord.utils.get(self.bot.get_guild(int(self.guild_id)).text_channels,
