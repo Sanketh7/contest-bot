@@ -485,11 +485,6 @@ async def view_ban_list(ctx):
         user_mention_string += i + "\n"
     await ctx.send(embed=success_embed("Banned users:\n " + user_mention_string))
 
-@bot.command(name='fix_characters')
-@is_bot_owner()
-async def fix_leaderboard(ctx):
-    Database.fix_characters(states["current_contest_index"])
-
 @bot.command(name='notify_active_users')
 @is_bot_owner()
 async def notify_active_users(ctx):
