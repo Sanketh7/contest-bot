@@ -110,6 +110,9 @@ async def on_raw_reaction_add(payload):
     contest_index = states["current_contest_index"]
     is_on_contest_post = contest_post_id == msg_id
 
+    if Database.is_user_banned(states["current_contest_index"], user_id) and is_on_contest_post:
+        return await user.send(embed=error_embed("You have been banned from this contest."))
+
     # gravestone for creating a submission
     if reaction == other_emojis["gravestone"] and is_contest_active and is_on_contest_post:
         role = discord.utils.get(bot.get_guild(guild_id).roles, name=IN_CONTEST_ROLE)
@@ -433,6 +436,54 @@ async def add_items(ctx, char_id: str):
     else:
         return await ctx.author.send(embed=error_embed(
             "You can only have one process running at a time. Please cancel or complete the other process."))
+
+@bot.command(name='ban_from_contest')
+@is_admin()
+async def ban_from_contest(ctx, user: discord.Member):
+    if states["is_contest_active"] is not True:
+        return await ctx.send(embed=error_embed("No active contest to ban from."))
+    if user is None:
+        return await ctx.send(embed=error_embed("Invalid user."))
+
+    Database.add_user_to_ban_list(states["current_contest_index"], user.id)
+    Database.ban_user_characters(states["current_contest_index"], user.id)
+
+    role = discord.utils.get(bot.get_guild(int(GUILD_ID)).roles, name=IN_CONTEST_ROLE)
+    await user.remove_roles(role)
+    await ctx.send(embed=error_embed("{} is now banned from the current contest.".format(user.display_name)))
+    await Logger.user_banned(ctx.author, user)
+
+@bot.command(name='unban_from_contest')
+@is_admin()
+async def unban_from_contest(ctx, user: discord.Member):
+    if states["is_contest_active"] is not True:
+        return await ctx.send(embed=error_embed("No active contest to unban from."))
+    if user is None:
+        return await ctx.send(embed=error_embed("Invalid user."))
+
+    Database.remove_user_from_ban_list(states["current_contest_index"], user.id)
+    Database.unban_user_characters(states["current_contest_index"], user.id)
+
+    await ctx.send(embed=error_embed("{} is now unbanned from the current contest and their characters have been restored.".format(user.display_name)))
+    await Logger.user_unbanned(ctx.author, user)
+
+@bot.command(name='view_ban_list')
+@is_admin()
+async def view_ban_list(ctx):
+    if states["is_contest_active"] is not True:
+        return await ctx.send(embed=error_embed("No active contest to view bans from."))
+
+    data = Database.get_ban_list(states["current_contest_index"])
+    user_mentions = []
+    for i in data:
+        user = bot.get_user(int(i))
+        if user is None:
+            continue
+        user_mentions.append(user.mention)
+    user_mention_string = ""
+    for i in user_mentions:
+        user_mention_string += i + "\n"
+    await ctx.send(embed=success_embed("Banned users:\n " + user_mention_string))
 
 @bot.command(name='notify_active_users')
 @is_bot_owner()

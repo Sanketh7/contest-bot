@@ -129,3 +129,31 @@ class Logger:
         '''.format(staff_user.mention, player_user.mention, char_id, items_added)
 
         await Logger.send_log(text, 0x00FF00)
+
+    @staticmethod
+    async def user_banned(staff_user, player_user):
+        try:
+            staff_mention = staff_user.mention
+            player_mention = player_user.mention
+        except:
+            return
+
+        text = '''
+        {} banned {} from the current contest.
+        '''.format(staff_mention, player_mention)
+
+        await Logger.send_log(text, 0xFF0000)
+
+    @staticmethod
+    async def user_unbanned(staff_user, player_user):
+        try:
+            staff_mention = staff_user.mention
+            player_mention = player_user.mention
+        except:
+            return
+
+        text = '''
+            {} unbanned {} from the current contest.
+            '''.format(staff_mention, player_mention)
+
+        await Logger.send_log(text, 0x00FF00)

@@ -137,7 +137,8 @@ class Database:
             "class": str(character_class),
             "keywords": serial_keywords,
             "points": 0,
-            "is_active": True
+            "is_active": True,
+            "is_banned": False,
         })
         ref.insert(new_data)
 
@@ -345,7 +346,7 @@ class Database:
     def get_top_users(contest_id, count):
         ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
         ret = []  # dict of username, class, points
-        for character in ref.all():
+        for character in ref.find(is_banned=False):
             ret.append({
                 "user_id": character["user_id"],
                 "class": character["class"],
@@ -424,4 +425,50 @@ class Database:
                 "points": int(char["points"]),
                 "is_active": bool(char["is_active"])
             })
+        return ret
+
+    @staticmethod
+    def add_user_to_ban_list(contest_id, user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_ban_list"]
+        ref.upsert(dict(
+            user_id=int(user_id)
+        ), ['user_id'])
+
+    @staticmethod
+    def remove_user_from_ban_list(contest_id, user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_ban_list"]
+        ref.delete(user_id=int(user_id))
+
+    @staticmethod
+    def is_user_banned(contest_id, user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_ban_list"]
+        data = ref.find_one(user_id=int(user_id))
+        if data is None:
+            return False
+        return True
+
+    @staticmethod
+    def ban_user_characters(contest_id, user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        new_data = dict(
+            user_id=int(user_id),
+            is_banned=True
+        )
+        ref.update(new_data, ['user_id'])
+
+    @staticmethod
+    def unban_user_characters(contest_id, user_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        new_data = dict(
+            user_id=int(user_id),
+            is_banned=False
+        )
+        ref.update(new_data, ['user_id'])
+
+    @staticmethod
+    def get_ban_list(contest_id):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_ban_list"]
+        ret = []
+        for i in ref.all():
+            ret.append(i["user_id"])
         return ret

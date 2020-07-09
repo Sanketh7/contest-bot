@@ -37,7 +37,7 @@ class Leaderboard:
             player = guild.get_member(int(character["user_id"]))
             if player is None:
                 continue
-            ign = player.nick
+            ign = player.display_name
             sorted_data.append((ign, character["class"], character["points"], character["is_active"]))
 
         sorted_data = sorted(sorted_data, key=lambda tup: tup[2], reverse=True)
