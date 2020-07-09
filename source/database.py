@@ -143,18 +143,6 @@ class Database:
         ref.insert(new_data)
 
     @staticmethod
-    def fix_characters(contest_id):
-        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
-        ref.create_column('is_banned', Database.db.types.boolean)
-        class_order = ['knight', 'warrior', 'paladin', 'assassin', 'rogue', 'trickster', 'archer', 'huntress', 'mystic',
-                       'wizard', 'necromancer', 'ninja', 'samurai', 'priest', 'sorcerer', 'bard']
-        for c in class_order:
-            ref.update({
-                "class": c,
-                "is_banned": False
-            }, ['class'])
-
-    @staticmethod
     def get_character(contest_id, user_id):
         ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
         curr_char = ref.find_one(user_id=int(user_id), is_active=True)
