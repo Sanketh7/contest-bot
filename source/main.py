@@ -375,12 +375,54 @@ async def profile(ctx, other_user: typing.Optional[discord.Member] = None):
     embeds_index = 0
     field_count = 0
 
-    char_embeds.append(discord.Embed(title='''{}'s Characters (page {})'''.format(user.display_name, embeds_index + 1)))
+    char_embeds.append(discord.Embed(title='''{}'s Characters'''.format(user.display_name)))
+
     for c in char_data:
-        if field_count >= 25:
+        title_str = str(c["class"]).capitalize() + "    " + player_emojis[c["class"]] + (
+                "  - ACTIVE :white_check_mark:" if c["is_active"] else "") + " (ID: `" + c["character_id"] + "`)"
+        char_embeds.append(discord.Embed(title=title_str))
+
+        if len(str(c["keywords"])) >= 800:
+            curr_arr = []
+            curr_len = 3
+            counter = 1
+            for k in c["keywords"]:
+                curr_len += len(str(k)) + 3
+                if curr_len >= 800:
+                    char_embeds[len(char_embeds) - 1].add_field(
+                        name="**More Items/Achievements:**" if counter > 1 else "**Items/Achievements:**",
+                        value="`{}`".format(curr_arr),
+                        inline=False
+                    )
+                    curr_len = 0
+                    curr_arr = []
+                    counter += 1
+                curr_arr.append(k)
+            if len(curr_arr) > 0:
+                char_embeds[len(char_embeds) - 1].add_field(
+                    name='**More Items/Achievements:**' if counter > 1 else "**Items/Achievements:**",
+                    value="`{}`".format(curr_arr),
+                    inline=False
+                )
+        else:
+            char_embeds[len(char_embeds) - 1].add_field(
+                name='**Items/Achievements**:',
+                value="`{}`".format(c["keywords"]),
+                inline=False
+            )
+
+        char_embeds[len(char_embeds)-1].add_field(
+            name="**Points**:",
+            value="`{}`".format(c["points"]),
+            inline=False
+        )
+    """
+    for c in char_data:
+        if field_count >= 10:
             embeds_index += 1
             field_count = 0
             char_embeds.append(discord.Embed(title='''{}'s Characters (page {})'''.format(user.display_name, embeds_index + 1)))
+
 
         char_embeds[embeds_index].add_field(
             name=str(c["class"]).capitalize() + "    " + player_emojis[c["class"]] + (
@@ -393,7 +435,7 @@ async def profile(ctx, other_user: typing.Optional[discord.Member] = None):
             inline=False
         )
         field_count += 1
-
+    """
     for e in char_embeds:
         await ctx.author.send(embed=e)
 

@@ -71,10 +71,34 @@ class EditCharacter:
             item_str = "**NONE**"
 
         embed = discord.Embed(title="Current Character")
-        embed.add_field(name="Class", value="**"+self.class_name+"**", inline=False)
-        embed.add_field(name="Items/Achievements", value="`" + item_str + "`", inline=False)
-        embed.add_field(name="Points", value=("**" + str(self.original_points) + "**"), inline=False)
-        embed.add_field(name="Instructions", value='''
+        embed.add_field(name="Class:", value="**"+self.class_name+"**", inline=False)
+        if len(str(self.original_user_keywords)) >= 800:
+            curr_arr = []
+            curr_len = 3
+            counter = 1
+            for k in self.original_user_keywords:
+                curr_len += len(str(k)) + 3
+                if curr_len >= 800:
+                    embed.add_field(
+                        name="More Items/Achievements:" if counter > 1 else "Items/Achievements:",
+                        value="`{}`".format(curr_arr),
+                        inline=False
+                    )
+                    curr_len = 0
+                    curr_arr = []
+                    counter += 1
+                curr_arr.append(k)
+            if len(curr_arr) > 0:
+                embed.add_field(
+                    name="More Items/Achievements:" if counter > 1 else "Items/Achievements:",
+                    value="`{}`".format(curr_arr),
+                    inline=False
+                )
+        else:
+            embed.add_field(name="Items/Achievements:", value="`" + item_str + "`", inline=False)
+
+        embed.add_field(name="Points:", value=("**" + str(self.original_points) + "**"), inline=False)
+        embed.add_field(name="Instructions:", value='''
                 React ✅ to confirm you want to edit this character, ❌ to cancel.
 
                 (You have **5 minutes** to complete this.)
