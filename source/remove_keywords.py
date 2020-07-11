@@ -40,11 +40,35 @@ class RemoveKeywords:
             return await self.user.send(embed=error_embed("That character doesn't exist."))
 
         embed = discord.Embed(title="Current Keywords:")
-        embed.add_field(
-            name='Keywords',
-            value="`" + str(char["keywords"]) + "`",
-            inline=False
-        )
+        if len(str(char["keywords"])) >= 800:
+            curr_arr = []
+            curr_len = 3
+            counter = 1
+            for k in char["keywords"]:
+                curr_len += len(str(k)) + 3
+                if curr_len >= 800:
+                    embed.add_field(
+                        name="More Keywords:" if counter > 1 else "Keywords:",
+                        value="`{}`".format(curr_arr),
+                        inline=False
+                    )
+                    curr_len = 0
+                    curr_arr = []
+                    counter += 1
+                curr_arr.append(k)
+            if len(curr_arr) > 0:
+                embed.add_field(
+                    name="More Keywords:" if counter > 1 else "Keywords:",
+                    value="`{}`".format(curr_arr),
+                    inline=False
+                )
+        else:
+            embed.add_field(
+                name='Keywords:',
+                value="`" + str(char["keywords"]) + "`",
+                inline=False
+            )
+
         await self.user.send(embed=embed)
         await self.keyword_menu()
 
