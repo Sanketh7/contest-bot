@@ -68,10 +68,10 @@ Hivemind Circlet,,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5
 Akuma's Tears,Akumas Tears,6,6,6,6,6,6,6,6,6,6,6,6,10,6,6,6
 Seal of Blasphemous Prayer,Oreo,35,35,50,35,35,35,35,35,35,35,35,35,35,35,35,35
 Marble Seal,Mseal,20,20,25,20,20,20,20,20,20,20,20,20,20,20,20,20
-Seal of the Enchanted Forest,ST Seal,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15
+Seal of the Enchanted Forest,Fairyseal,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10
 Hivemaster Helm,Bee Helm,25,30,25,25,25,25,25,25,25,25,25,25,25,25,25,25
 Helm of the Juggernaut,Jugg,35,50,35,35,35,35,35,35,35,35,35,35,35,35,35,35
-Helm of Draconic Dominance,STHelm,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Helm of Draconic Dominance,Dragonhelm,15,25,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 Tome of Purification,Puri,20,20,20,20,20,20,20,20,20,20,20,20,20,30,20,20
 Tome of Pain,TPain,10,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10
 Tome of Holy Protection,Prot,15,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15
@@ -79,7 +79,7 @@ Book of Geb,Geb Tome,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10
 Penetrating Blast Spell,Thicket Spell,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15
 Tablet of the King's Avatar,Tablet,35,35,35,35,35,35,35,35,35,50,35,35,35,35,35,35
 Recurring Terror Spell,Parasite Spell,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15
-Ancient Spell: Pierce,ST Spell,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10
+Ancient Spell,,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10
 Random Spell Extraction Device,,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20
 Jade Storm,,30,30,30,30,30,30,30,30,30,35,30,30,30,30,30,30
 Beehemoth Quiver,Bee Quiver,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35
@@ -187,7 +187,7 @@ Ghostly Prism,,10,10,10,10,10,15,10,10,10,10,10,10,10,10,10,10
 Robe of the Star Mother,Star Mother,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15
 Wyrmhide Armor,Wyrmhide,10,10,10,15,15,15,15,15,10,10,10,15,10,10,10,10
 Deathless Crossbow,,15,15,15,15,15,15,25,20,15,15,15,15,15,15,15,25
-Quiver of Shrieking Specters,ST Quiver,20,20,20,20,20,20,25,20,20,20,20,20,20,20,20,20
+Quiver of Shrieking Specters,ST Quiver,20,20,20,20,20,20,30,20,20,20,20,20,20,20,20,20
 Wraith's Brigandine,Wraiths Brigandine,10,10,10,20,20,20,20,20,10,10,10,20,10,10,10,10
 Revenant Ring,,10,10,10,10,10,10,15,10,10,10,10,10,10,10,10,10
 Scholar's Seal,SSeal,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15
@@ -550,34 +550,34 @@ Squadron Sheathing,Oryx Hide Armor,10,10,10,20,20,20,20,20,10,10,10,20,10,10,10,
 Snake Charmer Pungi,Snake Lute,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20
 Wavecrest Concertina,Parrot,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
 Skward Lute,T6 Lute,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,15
-Toxin Tooth,Sew Dag,5,5,5,10,10,10,5,5,5,5,5,5,5,5,5,5
-Acidic Armor,Snake ST Armor,5,5,5,10,10,10,10,5,5,5,5,10,5,5,5,5
-Virulent Venom,Sew Venom,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5
-Pernicious Peridot,Snake ST Ring,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-Esben's Shaman Attire,Esben Robe,5,5,5,5,5,5,5,5,10,10,10,5,5,10,10,10
-Esben's Wedding Ring ,Esben Ring,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
-Swashbuckler's Sickle,Davy Sword,10,10,10,5,5,5,5,5,5,5,5,5,5,5,5,5
-Naval Uniform,Davy Armor,10,10,10,5,5,5,5,5,5,5,5,5,10,5,5,5
-Tricorne of the High Seas,DDock Helm,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-First Mate's Hook,PCave Ring,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-Bergenia Bow,Woodland Bow,5,5,5,5,5,5,10,10,5,5,5,5,5,5,5,10
-Hollyhock Hide,Woodland Robe,5,5,5,5,5,5,5,5,10,10,10,5,5,10,10,10
-Lifebringing Lotus,MWoods Trap,5,5,5,5,5,5,5,10,5,5,5,5,5,5,5,5
-Chrysanthemum Corsage,Woodland Ring,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
-Mighty Stein,Beer Poison,10,10,10,15,10,10,10,10,10,10,10,10,10,10,10,10
-Greaterhosen,Beer Armor,10,10,10,15,15,15,15,10,10,10,10,15,10,10,10,10
-Quartz Cutter,Crystal Katana,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15
-Luminous Armor,Crystal Armor,15,15,15,20,20,20,20,20,15,15,15,20,20,15,15,15
+Toxin Tooth,Sew Dag,5,5,5,15,10,10,5,5,5,5,5,5,5,5,5,5
+Acidic Armor,Snake ST Armor,5,5,5,15,10,10,10,5,5,5,5,10,5,5,5,5
+Virulent Venom,Sew Venom,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10
+Pernicious Peridot,Snake ST Ring,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10
+Esben's Shaman Attire,Esben Robe,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15
+Esben's Wedding Ring ,Esben Ring,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+Swashbuckler's Sickle,Davy Sword,10,15,10,5,5,5,5,5,5,5,5,5,5,5,5,5
+Naval Uniform,Davy Armor,10,15,10,5,5,5,5,5,5,5,5,5,10,5,5,5
+Tricorne of the High Seas,DDock Helm,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+First Mate's Hook,PCave Ring,1,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+Bergenia Bow,Woodland Bow,5,5,5,5,5,5,10,15,5,5,5,5,5,5,5,10
+Hollyhock Hide,Woodland Robe,10,10,10,15,15,15,15,20,10,10,10,15,10,10,10,10
+Lifebringing Lotus,MWoods Trap,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10
+Chrysanthemum Corsage,Woodland Ring,8,8,8,8,8,8,8,13,8,8,8,8,8,8,8,8
+Mighty Stein,Beer Poison,15,15,15,25,15,15,15,15,15,15,15,15,15,15,15,15
+Greaterhosen,Beer Armor,15,15,15,20,20,20,20,15,15,15,15,20,15,15,15,15
+Quartz Cutter,Crystal Katana,15,15,15,15,15,15,15,15,15,15,15,25,20,15,15,15
+Luminous Armor,Crystal Armor,15,15,15,20,20,20,20,20,15,15,15,25,20,15,15,15
 Crystalline Kunai,Crystal Star ,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15
 Radiant Heart,Crystal Ring,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10
-Ring of the Inferno,Red Demon Ring,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-Staff of Eruption,Shaitan Staff,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10
-Molten Mantle,Aby Robe,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15
-Scorchium Stone ,Aby Orb,5,5,5,5,5,5,5,5,10,5,5,5,5,5,5,5
-Soul's Guidance,Cem Wand,20,20,20,20,20,20,20,20,20,20,20,20,20,25,25,20
-Anointed Robe,Janus Robe,15,15,15,15,15,15,15,15,20,20,20,15,15,20,20,20
-Theurgy Wand,Guardian Wand,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10
-Ring of Pagan Favor,Oryx Castle Ring,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
+Ring of the Inferno,Red Demon Ring,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,10
+Staff of Eruption,Shaitan Staff,10,10,10,10,10,10,10,10,20,15,15,10,10,10,10,10
+Molten Mantle,Aby Robe,10,10,10,10,10,10,10,10,20,15,15,10,10,15,15,15
+Scorchium Stone ,Aby Orb,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10
+Soul's Guidance,Cem Wand,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10
+Anointed Robe,Janus Robe,15,15,15,15,15,15,15,15,20,20,20,15,15,25,20,20
+Theurgy Wand,Guardian Wand,10,10,10,10,10,10,10,10,10,10,10,10,10,20,15,10
+Ring of Pagan Favor,Oryx Castle Ring,4,4,4,4,4,4,4,4,4,4,4,4,4,9,4,4
 Ceremonial Merlot,Oryx Cup,15,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15
 Pharaoh's Requiem,Tomb Lute,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20
 Omni-Impotence Ring,Omni Impotence Ring,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
@@ -650,3 +650,15 @@ Siege Scepter,oryx scepter,15,15,15,15,15,15,15,15,15,15,15,15,15,15,25,15
 Rage Claws,oryx star,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15
 Amaterasu,oryx wakizashi,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15
 Chief’s War Horn,oryx lute,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,25
+Tideturner Trident,trident,5,5,5,5,5,5,5,5,10,15,10,5,5,5,5,5
+Slurpian Sea Scroll,sea scroll,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10
+Oceanic Apparel,,10,10,10,10,10,10,10,10,15,20,15,10,10,15,15,15
+Imperial Keepsake,,7,7,7,7,7,7,7,7,7,12,7,7,7,7,7,7
+Kiritsukeru,,10,10,10,10,10,10,10,10,10,10,10,15,20,10,10,10
+Watarimono,,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10
+Reinforced Root Armor,root armor,15,15,15,10,10,10,10,10,10,10,10,10,20,10,10,10
+Traveler's Trinket,,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10
+Magic Wand,,5,5,5,5,5,5,5,5,5,5,5,5,5,10,15,5
+Lightshow Scepter,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10
+Magician's Robe,,5,5,5,5,5,5,5,5,10,10,10,5,5,10,15,10
+Performer's Hat,,7,7,7,7,7,7,7,7,7,7,7,7,7,7,12,7
