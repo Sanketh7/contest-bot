@@ -2,7 +2,7 @@ import discord
 from util import error_embed, success_embed
 import asyncio
 from flashtext import KeywordProcessor
-from database import *
+from database.database import *
 import mimetypes
 
 

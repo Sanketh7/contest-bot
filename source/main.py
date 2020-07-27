@@ -6,16 +6,15 @@ import asyncio
 import datetime
 from tabulate import tabulate
 import typing
-import codecs
 
 import new_character
 import edit_character
 import remove_keywords
 import points_data
 import leaderboard
-from util import success_embed, error_embed, Logger
+from util import success_embed, error_embed
 
-from database import *
+from database.database import *
 Database.init_database("sqlite:///database.db")
 
 load_dotenv()
@@ -281,77 +280,6 @@ async def force_refresh_schedule(ctx):
     else:
         return await ctx.channel.send(embed=error_embed("No new contest to start."))
 
-@bot.command(name='force_update_leaderboard')
-@is_admin()
-async def force_update_leaderboard(ctx):
-    leaderboard.set_contest_id(states["current_contest_index"])
-    await leaderboard.update()
-    await leaderboard.display()
-    await ctx.channel.send(embed=success_embed("Leaderboard updated."))
-    await Logger.force_update_leaderboard(ctx.author)
-
-@bot.command(name='set_points_document')
-@is_admin()
-async def set_points_document(ctx, contest_type: str, url: str):
-    if contest_type not in contest_types:
-        return await ctx.channel.send(embed=error_embed("Invalid contest type."))
-
-    Database.set_points_document(contest_type, url)
-    await ctx.channel.send(embed=success_embed("Document set for contest type: `" + str(contest_type) + "`"))
-
-@bot.command(name='add_contest')
-@is_admin()
-async def add_contest(ctx, contest_type: str, start_string: str, end_string: str):
-    if contest_type not in contest_types:
-        return await ctx.channel.send(embed=error_embed("Invalid contest type."))
-
-    try:
-        start_time = datetime.datetime.strptime(start_string, "%m/%d/%y %H:%M")
-        end_time = datetime.datetime.strptime(end_string, "%m/%d/%y %H:%M")
-    except ValueError:
-        return await ctx.channel.send(embed=error_embed("Invalid time input."))
-
-    # start_time = start_time.replace(tzinfo=datetime.timezone.utc).timestamp()
-    # end_time = end_time.replace(tzinfo=datetime.timezone.utc).timestamp()
-    start_time = start_time.timestamp()
-    end_time = end_time.timestamp()
-    res = Database.schedule_contest(contest_type, start_time, end_time)
-    schedule_cache[res["key"]] = res["data"]
-
-    start_time_str = datetime.datetime.utcfromtimestamp(float(start_time)).strftime("%m/%d/%y %H:%M")
-    end_time_str = datetime.datetime.utcfromtimestamp(float(end_time)).strftime("%m/%d/%y %H:%M")
-
-    await ctx.channel.send(embed=success_embed(
-        "Contest added. \nStart time (UTC): {}\n End time (UTC): {}".format(start_time_str, end_time_str)
-    ))
-
-@bot.command(name='view_schedule')
-@is_admin()
-async def view_schedule(ctx):
-    if not schedule_cache:
-        return await ctx.channel.send(embed=error_embed("No upcoming contests."))
-
-    table = []
-    for uid, data in schedule_cache.items():
-        start_time_str = datetime.datetime.utcfromtimestamp(float(data["start_time"])).strftime("%m/%d/%y %H:%M")
-        end_time_str = datetime.datetime.utcfromtimestamp(float(data["end_time"])).strftime("%m/%d/%y %H:%M")
-        table.append([str(uid), data["contest_type"], start_time_str, end_time_str])
-
-    embed = discord.Embed(title="Upcoming Contests", color=0x00FF00)
-    embed.description = "All times are in UTC."
-    table_str = tabulate(table, headers=["ID", "Contest Type", "Start Time", "End Time"])
-    embed.add_field(name="Schedule", value="```"+str(table_str)+"```", inline=False)
-
-    await ctx.channel.send(embed=embed)
-
-@bot.command(name='remove_contest')
-@is_admin()
-async def remove_contest(ctx, contest_id: str):
-    Database.remove_contest_with_id(contest_id)
-    schedule_cache.pop(contest_id)
-
-    await ctx.channel.send(embed=success_embed("Contest removed (if it existed). \
-    Use `+view_schedule` to view scheduled contests."))
 
 @bot.command(name='profile')
 async def profile(ctx, other_user: typing.Optional[discord.Member] = None):

@@ -1,23 +1,23 @@
 import discord
-from database import *
+from database.database import *
 from tabulate import tabulate
+from cache import Cache
+
 
 class Leaderboard:
-    def __init__(self, bot: discord.Client, guild_id, leaderboard_channel):
-        self.bot = bot
-        self.top = {}  # user => points
-        self.contest_id = -1
-        self.guild_id = guild_id
-        self.leaderboard_channel = leaderboard_channel
+    bot: discord.Client
+    top: list  # list of character payloads
 
-    def set_contest_id(self, new_contest_id):
-        self.contest_id = new_contest_id
+    @staticmethod
+    def init(bot: discord.Client):
+        Leaderboard.bot = bot
 
-    async def update(self):
-        self.top = Database.get_top_users(self.contest_id, 100)
+    @staticmethod
+    async def update():
+        Leaderboard.top = DB.get_top_characters(100)
 
-    async def display(self):
-        if self.top is None:
+    async def display():
+        if Leaderboard.top is None:
             return
 
         place = 0
@@ -30,15 +30,15 @@ class Leaderboard:
             table_list.append([])
             table_list[i] = []
 
-        guild = self.bot.get_guild(int(self.guild_id))
+        guild = Cache.guild
 
         sorted_data = []  # (ign, class, points, is_active)
-        for character in self.top:
-            player = guild.get_member(int(character["user_id"]))
+        for character in Leaderboard.top:
+            player = guild.get_member(character.user_id)
             if player is None:
                 continue
             ign = player.display_name
-            sorted_data.append((ign, character["class"], character["points"], character["is_active"]))
+            sorted_data.append((ign, character.rotmg_class, character.points, character.is_active))
 
         sorted_data = sorted(sorted_data, key=lambda tup: tup[2], reverse=True)
 
@@ -66,14 +66,12 @@ class Leaderboard:
             table_str = tabulate(table_list[i], headers=["Rank", "Player", "Points", "Class", "Active?"])
             embed.add_field(name='\u200b', value="```" + table_str + "```", inline=False)
 
-        ch: discord.TextChannel = discord.utils.get(self.bot.get_guild(int(self.guild_id)).text_channels, name=self.leaderboard_channel)
-
         def is_me(m):
             return m.author == self.bot.user
 
         try:
-            await ch.purge(limit=100, check=is_me)
+            await Cache.leaderboard_channel.purge(limit=100, check=is_me)
         except:
             print("Failed to delete old leaderboard.")
 
-        new_post = await ch.send(embed=embed)
+        new_post = await Cache.leaderboard_channel.send(embed=embed)

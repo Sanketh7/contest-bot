@@ -1,5 +1,5 @@
 import discord
-from database import *
+from database.database import *
 import asyncio
 from flashtext import *
 from util import success_embed, error_embed

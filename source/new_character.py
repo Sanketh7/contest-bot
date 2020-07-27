@@ -1,6 +1,6 @@
 import discord
 import asyncio
-from database import *
+from database.database import *
 from util import error_embed, success_embed
 
 

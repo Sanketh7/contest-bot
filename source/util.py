@@ -94,9 +94,9 @@ class Logger:
         await Logger.send_log(text, 0xFF0000, pending_submission_data["img_url"])
 
     @staticmethod
-    async def force_update_leaderboard(user: discord.User):
+    async def refresh_leaderboard(user: discord.User):
         text = '''
-        {} forcibly updated the leaderboard.
+        {} refreshed the leaderboard.
         '''.format(user.mention)
         await Logger.send_log(text, 0x0000FF)
 
