@@ -90,8 +90,24 @@ class ContestControl(commands.Cog):
             if not is_contest:
                 return False
             
-
         return False
+
+    async def create_contest_post(self, contest_type: str, end_time: float):
+        end_time = datetime.utcfromtimestamp(end_time)
+        embed = discord.Embed(title="A New `" + contest_type.upper() + "` Contest Has Started!`")
+        embed.description = "Ends on " + f"{end_time:%B %d, %Y}" + " at " + f"{end_time: %H:%M}" + " (UTC)"
+        embed.add_field(
+            name="Instructions",
+            value=
+            """
+            ✅ - Sign up for the contest. (Let's you view all the channels and submit.)
+        {} - Start a new character. Completing this will STOP your previous character (so you can't edit it anymore).
+        ✏ - Edit a character. This will add items/achievements to your current character.
+        
+        Use the command `+profile` to view all your characters for this contest. 
+            """.format(str())
+        )
+
 '''
 @bot.command(name='add_contest')
 @is_admin()
