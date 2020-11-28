@@ -1,9 +1,10 @@
-from database.db_objects import *
+from source.database.db_objects import *
 import discord
 from datetime import datetime
-from cache import Cache
-from points_data import PointsDataManager
-from payloads import *
+from source.cache import Cache
+from source.points_data import PointsDataManager
+from source.payloads import *
+from typing import List
 
 
 class DB:
@@ -16,7 +17,7 @@ class DB:
     """''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     @staticmethod
-    def init_database(url: str):
+    def init_database(url: str) -> bool:
         # Database.db = dataset.connect(url)
         DB.db = Database()
         DB.db.bind(provider='sqlite', filename=url, create_db=True)
@@ -26,7 +27,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def update_cache():
+    def update_cache() -> bool:
         contest = Contest.select(lambda c: c.is_active).first()
         if contest:
             Cache.contest_id = contest.id
@@ -45,7 +46,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def check_scheduled_contest():
+    def check_scheduled_contest() -> bool:
         curr_time = datetime.utcnow().timestamp()
         contest = Contest.select(lambda c: c.start_time <= curr_time <= c.end_time and not c.is_active).first()
         if not contest:
@@ -54,7 +55,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def check_and_activate_scheduled_contest(post_id: int):
+    def check_and_activate_scheduled_contest(post_id: int) -> bool:
         curr_time = datetime.utcnow().timestamp()
         contest = Contest.select(lambda c: c.start_time <= curr_time <= c.end_time and not c.is_active).first()
         if not contest:
@@ -67,10 +68,9 @@ class DB:
 
     @staticmethod
     @db_session
-    def check_and_deactivate_current_contest():
-        contest = Contest.select(lambda c: c.end_time >= curr_time and c.is_active).first()
-        curr_time = datetime.utcnow().timestamp()
-        if not contest:
+    def check_and_deactivate_current_contest() -> bool:
+        contest = Contest.select(lambda c: c.id == Cache.contest_id).first()
+        if not contest or not Cache.is_contest_active:
             return False
 
         contest.deactivate()
@@ -80,12 +80,12 @@ class DB:
 
     @staticmethod
     @db_session
-    def add_contest_to_schedule(contest_type: str, start_time: float, end_time: float):
+    def add_contest_to_schedule(contest_type: str, start_time: float, end_time: float) -> bool:
         Contest(
             type=contest_type,
             start_time=start_time,
             end_time=end_time,
-            post_id=None, # assigned when contest is activated
+            post_id=None,  # assigned when contest is activated
             is_active=False,
             # contestants is an empty set
         )
@@ -94,7 +94,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def remove_contest_from_schedule(contest_id: int):
+    def remove_contest_from_schedule(contest_id: int) -> bool:
         contest: Contest = Contest.select(lambda c: c.id == contest_id).first()
         if not contest:
             return False
@@ -105,7 +105,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def get_scheduled_contests():
+    def get_scheduled_contests() -> List[ContestPayload]:
         curr_time = datetime.utcnow().timestamp()
         contests = Contest.select(lambda c: not c.is_active and c.start_time >= curr_time).order_by(
             desc(Contest.start_time))
@@ -130,7 +130,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def register_contestant(user: discord.User):
+    def register_contestant(user: discord.User) -> bool:
         contestant = Contestant.select(lambda c: c.user_id == user.id and c.contest.id == Cache.contest_id).first()
         if not contestant:
             return False
@@ -152,7 +152,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def ban_contestant(user: discord.User):
+    def ban_contestant(user: discord.User) -> bool:
         if not Cache.is_contest_active:
             return False
 
@@ -167,7 +167,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def unban_contestant(user: discord.User):
+    def unban_contestant(user: discord.User) -> bool:
         if not Cache.is_contest_active:
             return False
 
@@ -182,22 +182,22 @@ class DB:
 
     @staticmethod
     @db_session
-    def is_contestant_banned(user: discord.User):
+    def is_contestant_banned(user: discord.User) -> bool:
         if not Cache.is_contest_active:
-            return None
+            return False
 
         contestant: Contestant = Contestant.select(
             lambda c: c.user_id == user.id and c.contest.id == Cache.contest_id).first()
         if not contestant:
-            return None
+            return False
 
         return contestant.is_banned
 
     @staticmethod
     @db_session
-    def get_ban_list():
+    def get_ban_list() -> List[ContestantPayload]:
         if not Cache.is_contest_active:
-            return None
+            return []
 
         banned = Contestant.select(lambda c: c.is_banned and c.contest.id == Cache.contest_id)
         ret = []
@@ -216,7 +216,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def set_points_document_url(contest_type: str, new_url: str):
+    def set_points_document_url(contest_type: str, new_url: str) -> bool:
         contest_type_data: ContestType = ContestType.select(lambda ct: ct.contest_type == contest_type).first()
         if not contest_type_data:
             return False
@@ -234,7 +234,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def create_character(user: discord.User, rotmg_class: str):
+    def create_character(user: discord.User, rotmg_class: str) -> bool:
         contestant: Contestant = Contestant.select(lambda c: c.user_id == user.id and c.contest.id == Cache.contest_id)
         if not contestant:
             return False
@@ -267,7 +267,7 @@ class DB:
         if not character:
             return None
 
-        return character
+        return character  # TODO: make CharacterPayload
 
     @staticmethod
     @db_session
