@@ -32,7 +32,10 @@ CONTEST_STAFF_ROLE_NAME = os.getenv('CONTEST_STAFF_ROLE_NAME')
 BOT_OWNER = int(os.getenv('BOT_OWNER'))
 LOG_CHANNEL = os.getenv('LOG_CHANNEL')
 
-bot = commands.Bot(command_prefix=CMD_PREFIX)
+intents = discord.Intents.default()
+intents.members = True
+
+bot = commands.Bot(command_prefix=CMD_PREFIX, intents=intents)
 
 player_emojis = {}
 other_emojis = {}
