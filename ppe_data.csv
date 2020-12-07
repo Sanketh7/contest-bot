@@ -256,6 +256,7 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 50 Snake Pits,Snake Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 40 Undead Lairs,UDL Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 35 Abyss of Demons,Abyss Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+40 Ancient Ruins,Ruins Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Magic Woods,MWoods Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Manor of the Immortals,Manor Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Mad Labs,Lab Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -278,14 +279,18 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Woodland Labyrinth,WLab Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Ice Caves,Ice Cave Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Tomb of the Ancient,Tomb Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+15 Forax,Forax Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+15 Katalund,Katalund Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+15 Untaris,Untaris Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+15 Malogia,Malogia Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Nests,Nest Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 25 Shatters,Shatts Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 25 Lost Halls (Void/Cultist/Lost Halls),LH Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 35 Cursed Library,Lib Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Fungal Caverns,Fungal Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 25 Crystal Caverns,CC Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-Solo MBC,MBC Complete,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
-Solo Nest,Solo Nest Complete,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40
+Solo MBC,MBC Complete,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+Solo Nest,Solo Nest Complete,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 Solo Shatters,Solo Shatts Complete,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40
 Solo Pirate Cave,Solo PCave Complete,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 4 Man Void,4 Man Void,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
@@ -553,7 +558,7 @@ Judge’s Robe,Oryx Robe,10,10,10,10,10,10,10,10,20,20,20,10,10,20,20,20
 Squadron Sheathing,Oryx Hide Armor,10,10,10,20,20,20,20,20,10,10,10,20,10,10,10,10
 Snake Charmer Pungi,Snake Lute,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20
 Wavecrest Concertina,Parrot,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
-Skward Lute,T6 Lute,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,15
+Skward Lute,T6 Lute,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
 Toxin Tooth,Sew Dag,5,5,5,15,10,10,5,5,5,5,5,5,5,5,5,5
 Acidic Armor,Snake ST Armor,5,5,5,15,10,10,10,5,5,5,5,10,5,5,5,5
 Virulent Venom,Sew Venom,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10
@@ -733,3 +738,6 @@ Corsair Ring,,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
 Snake Eye Ring,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Spider Shuriken,,2,2,2,2,2,2,2,2,2,2,2,5,2,2,2,2
 Poison Fang Dagger,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+Arcane Rapier,,13,13,13,8,8,8,8,8,8,8,8,8,8,8,8,8
+Amber Encrusted Helmet,Ruins Helmet,1,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+Sandstone Seal,Ruins Seal,1,1,6,1,1,1,1,1,1,1,1,1,1,1,1,1
