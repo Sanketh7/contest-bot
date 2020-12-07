@@ -167,6 +167,23 @@ class Database:
         })
 
     @staticmethod
+    def recalculate_all(contest_id, points_data):
+        ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
+        for character in ref.find(is_banned=False):
+            kw = json.loads(character["keywords"])
+
+            new_points = 0
+            for item in kw:
+                new_points += points_data[item][character["class"]]
+
+            new_data = dict(
+                character_id=str(character["character_id"]),
+                points=int(new_points)
+            )
+
+            ref.upsert(new_data, ["character_id"])
+
+    @staticmethod
     def has_current_character(contest_id, user_id):
         ref: dataset.Table = Database.db["contest_" + str(contest_id) + "_characters"]
         curr_char = ref.find_one(user_id=str(user_id), is_active=True)

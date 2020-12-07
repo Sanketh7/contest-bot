@@ -1,4 +1,5 @@
 import os
+from source.database import Database
 from dotenv import load_dotenv
 import discord
 from discord.ext import commands
@@ -441,6 +442,15 @@ async def profile(ctx, other_user: typing.Optional[discord.Member] = None):
     """
     for e in char_embeds:
         await ctx.author.send(embed=e)
+
+@bot.command(name='recalculate_all')
+@is_contest_staff()
+async def recalculate_all(ctx):
+    if states["is_contest_active"]:
+        Database.recalculate_all(states["current_contest_index"], points_data_manager.points_data)
+        return await ctx.author.send(embed=success_embed("Recalculated points."))
+    else:
+        return await ctx.author.send(embed=error_embed("No contest active."))
 
 @bot.command(name='remove_items')
 @is_contest_staff()
