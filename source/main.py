@@ -1,5 +1,5 @@
 import os
-from source.database import Database
+from database import Database
 from dotenv import load_dotenv
 import discord
 from discord.ext import commands

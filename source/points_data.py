@@ -21,6 +21,8 @@ class PointsDataManager:
         self.points_data = {}
 
         for row in data:
+            if "'" in row[0].lower()[0]:
+                print(row[0].lower())
             self.keywords[row[0].lower()] = [row[0].lower(), row[1].lower()]
             self.points_data[row[0].lower()] = {}
             for i in range(0, len(class_order)):
