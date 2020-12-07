@@ -13,15 +13,15 @@ Acropolis Armor,Acrop,5,5,5,0,0,0,0,0,0,0,0,0,5,0,0,0
 Shield of Flowing Clarity,,35,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
 Shield of Ogmur,Ogmur,50,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35
 Spiteful Scutum,Scutum,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
-Oryx''s Greatsword,Oryxs Greatsword,25,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15
-Champion''s Bastion,,25,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15
-Mercy''s Bane,Mercy,25,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15
+Oryx's Greatsword,Oryxs Greatsword,25,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15
+Champion's Bastion,,25,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15
+Mercy's Bane,Mercy,25,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15
 Bloodstone Ring,,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Sword of Splendor,Splendor,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10
 Crystal Sword,Csword,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10
 Ancient Stone Sword,ASS,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15
 Demon Blade,Dblade,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10
-Pirate King''s Cutlass,Cutlass,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15
+Pirate King's Cutlass,Cutlass,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15
 Sword of the Colossus,Colo Sword,30,30,30,20,20,20,20,20,20,20,20,20,20,20,20,20
 Pixie-Enchanted Sword,Pixie,20,20,25,15,15,15,15,15,15,15,15,15,15,15,15,15
 Indomptable,Indomptable,15,20,15,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -29,10 +29,10 @@ Doctor Swordsworth,,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10
 Dominion Armor,Dominion,15,15,15,10,10,10,10,10,10,10,10,10,15,10,10,10
 Candy-Coated Armor,CC Armor,15,15,15,10,10,10,10,10,10,10,10,10,15,10,10,10
 Fire Dragon Battle Armor,,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15
-Resurrected Warrior''s Armor,Resu,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15
+Resurrected Warrior's Armor,Resu,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15
 Breastplate of New Life,Bplate,30,30,30,25,25,25,25,25,25,25,25,25,30,25,25,25
 Fairy Plate,Fplate,15,15,20,10,10,10,10,10,10,10,10,10,15,10,10,10
-Zaarvox''s Heart,Zaavoxs Heart,15,20,15,10,10,10,10,10,10,10,10,10,15,10,10,10
+Zaarvox's Heart,Zaavoxs Heart,15,20,15,10,10,10,10,10,10,10,10,10,15,10,10,10
 Kamishimo,,20,20,20,15,15,15,15,15,15,15,15,15,25,15,15,15
 Ring of Unbound Health,UBHP,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
 Ring of Unbound Attack,UBATT,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -55,7 +55,7 @@ Magical Lodestone,Potato,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22
 Sourcestone,Source,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
 Omnipotence Ring,Omni,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40
 Ring of Pure Wishes,Pure Wishes,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5
-Geb''s Ring of Wisdom,Geb Ring,6,6,6,6,6,6,6,6,6,6,6,6,6,10,6,6
+Geb's Ring of Wisdom,Geb Ring,6,6,6,6,6,6,6,6,6,6,6,6,6,10,6,6
 Spectral Ring of Horrors,,6,6,6,6,10,6,6,6,6,6,6,6,6,6,6,6
 The Forgotten Ring,,6,6,6,6,6,6,6,6,6,10,6,6,6,6,6,6
 Ring of Covetous Heart,,6,6,6,6,6,6,6,6,10,6,6,6,6,6,6,6
@@ -65,7 +65,7 @@ Rusty Cuffs,Cuffs,8,8,8,8,8,15,8,8,8,8,8,8,8,8,8,8
 Interregnum,,9,9,9,9,9,9,9,9,9,9,15,9,9,9,9,9
 Horrific Claws,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,15,10
 Hivemind Circlet,,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5
-Akuma''s Tears,Akumas Tears,6,6,6,6,6,6,6,6,6,6,6,6,10,6,6,6
+Akuma's Tears,Akumas Tears,6,6,6,6,6,6,6,6,6,6,6,6,10,6,6,6
 Seal of Blasphemous Prayer,Oreo,35,35,50,35,35,35,35,35,35,35,35,35,35,35,35,35
 Marble Seal,Mseal,20,20,25,20,20,20,20,20,20,20,20,20,20,20,20,20
 Seal of the Enchanted Forest,Fairyseal,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -77,7 +77,7 @@ Tome of Pain,TPain,10,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10
 Tome of Holy Protection,Prot,15,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15
 Book of Geb,Geb Tome,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10
 Penetrating Blast Spell,Thicket Spell,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15
-Tablet of the King''s Avatar,Tablet,35,35,35,35,35,35,35,35,35,50,35,35,35,35,35,35
+Tablet of the King's Avatar,Tablet,35,35,35,35,35,35,35,35,35,50,35,35,35,35,35,35
 Recurring Terror Spell,Parasite Spell,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15
 Ancient Spell,,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10
 Random Spell Extraction Device,,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20
@@ -116,11 +116,11 @@ Kageboshi,,35,35,35,35,35,35,35,35,35,35,35,50,35,35,35,35
 Midnight Star,,20,20,20,20,20,20,20,20,20,20,20,30,20,20,20,20
 Wakizashi of Eastern Winds,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20
 Wakizashi of Crossing Fires,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20
-Ryu''s Blade,Ryus Blade,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25
+Ryu's Blade,Ryus Blade,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25
 Dagger of Sinister Deeds,T13 Dagger,10,10,10,20,20,20,10,10,10,10,10,10,10,10,10,10
 Spirit Dagger,,10,10,10,15,15,15,10,10,10,10,10,10,10,10,10,10
 Dirk of Cronus,CDirk,35,35,35,50,50,50,35,35,35,35,35,35,35,35,35,35
-Queen''s Stinger Dagger,Stinger,20,20,20,25,25,25,20,20,20,20,20,20,20,20,20,20
+Queen's Stinger Dagger,Stinger,20,20,20,25,25,25,20,20,20,20,20,20,20,20,20,20
 Etherite,,15,15,15,20,25,20,15,15,15,15,15,15,15,15,15,15
 Carved Golem Remains,Golem Dagger,15,15,15,20,20,25,15,15,15,15,15,15,15,15,15,15
 Symbiotic Ripper,Ripper,15,15,15,30,25,25,15,15,15,15,15,15,15,15,15,15
@@ -144,7 +144,7 @@ Wand of Evocation,T13 Wand,10,10,10,10,10,10,10,10,10,10,10,10,10,20,20,10
 Conducting Wand,Conducting,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10
 Wand of the Fallen,Fallen Wand,15,15,15,15,15,15,15,15,15,15,15,15,15,25,25,15
 Wand of the Bulwark,Bulwark,15,15,15,15,15,15,15,15,15,15,15,15,15,20,20,20
-Abomination''s Wrath,Abominations Wrath,15,15,15,15,15,15,15,15,15,15,15,15,15,20,25,15
+Abomination's Wrath,Abominations Wrath,15,15,15,15,15,15,15,15,15,15,15,15,15,20,25,15
 Wand of Geb,Geb Wand,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10
 Sadamune,T13 Katana,10,10,10,10,10,10,10,10,10,10,10,20,20,10,10,10
 Ray Katana,,30,30,30,30,30,30,30,30,30,30,30,40,40,30,30,30
@@ -188,9 +188,9 @@ Robe of the Star Mother,Star Mother,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15
 Wyrmhide Armor,Wyrmhide,10,10,10,15,15,15,15,15,10,10,10,15,10,10,10,10
 Deathless Crossbow,,15,15,15,15,15,15,25,20,15,15,15,15,15,15,15,25
 Quiver of Shrieking Specters,ST Quiver,20,20,20,20,20,20,30,20,20,20,20,20,20,20,20,20
-Wraith''s Brigandine,Wraiths Brigandine,10,10,10,20,20,20,20,20,10,10,10,20,10,10,10,10
+Wraith's Brigandine,Wraiths Brigandine,10,10,10,20,20,20,20,20,10,10,10,20,10,10,10,10
 Revenant Ring,,10,10,10,10,10,10,15,10,10,10,10,10,10,10,10,10
-Scholar''s Seal,SSeal,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15
+Scholar's Seal,SSeal,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15
 Corruption Cutter,,15,15,15,20,20,20,15,15,15,15,15,15,15,15,15,15
 Necronomicon,,10,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10
 Helm of the Great General,GGen,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -214,12 +214,12 @@ Doom Circle,T6 Star,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0
 Wand of Recompense,Recomp,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0
 Tome of Holy Guidance,T6 Tome,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0
 Scepter of Storms,T6 Scepter,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0
-Ronin''s Wakizashi,Ronins Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,0
+Ronin's Wakizashi,Ronins Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,0
 Tome of Holy Furor,,30,30,30,30,30,30,30,30,30,30,30,30,30,35,30,30
 Snakeskin Shield,Snake Shield,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 Bone Dagger,,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1
 Krathana,,20,20,20,20,20,20,20,20,20,20,20,25,25,20,20,20
-Silex''s Hammer,Silexs Hammer,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20
+Silex's Hammer,Silexs Hammer,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20
 Sunshine Shiv,,10,10,10,15,15,15,10,10,10,10,10,10,10,10,10,10
 Robobow,,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15
 KoalaPOW,,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10
@@ -228,9 +228,9 @@ Arbiters Wrath,,10,10,10,10,10,10,10,10,10,10,10,15,15,10,10,10
 Toaster Pet Skin,Machine Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Mini Crystal Steed,Crystal Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Mini Sphinx,Sphinx Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-Nut''s Artifact,Nut Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-Geb''s Artifact,Geb Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-Bes'' Artifact,Bes Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Nut's Artifact,Nut Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Geb's Artifact,Geb Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Bes' Artifact,Bes Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Tomb Snake Egg,Tomb Snake Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Jaco,Jaco Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Sprite Star Pet Skin,Sprite Star,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
@@ -248,7 +248,7 @@ Event Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Mini Stheno Skin,Stheno Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Jellyhead Trickster Skin,Reef Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Fountain Child Pet Skin,MWoods Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-Lil'' Ghost,Lil Ghost Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Lil' Ghost,Lil Ghost Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Cultured Bookwyrm Pet Skin,Library Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Horned Wyrm Pet Skin,Horned Wyrm,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Slurp Knight Skin,Slurp Knight,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -264,14 +264,14 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Mad Labs,Lab Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Machines,Machine Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Toxic Sewers,Sew Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-20 Puppet Master''s Theatre,Puppet Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+20 Puppet Master's Theatre,Puppet Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Haunted Cemetery,Cem Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Parasite Chambers,Parasite Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Lair of Draconis,LoD Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Mountain Temples,MT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Davy Jones Lockers,Davy Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Shaitans,Shaitans Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Puppet Master''s Encore,Encore Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Puppet Master's Encore,Encore Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Cnidarian Reefs,Reef Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Secluded Thickets,Thickets Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 High Tech Terrors,HTT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -504,7 +504,7 @@ Solo Oryx 3,Solo Oryx 3 Complete,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
 99000 Death Fame,,198,198,198,198,198,198,198,198,198,198,198,198,198,198,198,198
 99500 Death Fame,,199,199,199,199,199,199,199,199,199,199,199,199,199,199,199,199
 100000 Death Fame,,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200
-Sun''s Judgement,Suns Judgement,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15
+Sun's Judgement,Suns Judgement,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15
 Fire Blade,,15,15,15,15,15,15,15,15,15,15,15,20,20,15,15,15
 Comet of Calamity,,20,20,20,20,20,20,20,20,25,25,25,20,20,20,20,20
 Moonbeam Blade,,15,15,15,15,15,15,15,15,15,15,15,25,25,15,15,15
@@ -565,12 +565,12 @@ Toxin Tooth,Sew Dag,5,5,5,15,10,10,5,5,5,5,5,5,5,5,5,5
 Acidic Armor,Snake ST Armor,5,5,5,15,10,10,10,5,5,5,5,10,5,5,5,5
 Virulent Venom,Sew Venom,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10
 Pernicious Peridot,Snake ST Ring,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10
-Esben''s Shaman Attire,Esben Robe,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15
-Esben''s Wedding Ring ,Esben Ring,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
-Swashbuckler''s Sickle,Davy Sword,10,15,10,5,5,5,5,5,5,5,5,5,5,5,5,5
+Esben's Shaman Attire,Esben Robe,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15
+Esben's Wedding Ring ,Esben Ring,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+Swashbuckler's Sickle,Davy Sword,10,15,10,5,5,5,5,5,5,5,5,5,5,5,5,5
 Naval Uniform,Davy Armor,10,15,10,5,5,5,5,5,5,5,5,5,10,5,5,5
 Tricorne of the High Seas,DDock Helm,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-First Mate''s Hook,PCave Ring,1,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+First Mate's Hook,PCave Ring,1,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 Bergenia Bow,Woodland Bow,5,5,5,5,5,5,10,15,5,5,5,5,5,5,5,10
 Hollyhock Hide,Woodland Robe,10,10,10,15,15,15,15,20,10,10,10,15,10,10,10,10
 Lifebringing Lotus,MWoods Trap,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10
@@ -585,12 +585,12 @@ Ring of the Inferno,Red Demon Ring,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,
 Staff of Eruption,Shaitan Staff,10,10,10,10,10,10,10,10,20,15,15,10,10,10,10,10
 Molten Mantle,Aby Robe,10,10,10,10,10,10,10,10,20,15,15,10,10,15,15,15
 Scorchium Stone ,Aby Orb,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10
-Soul''s Guidance,Cem Wand,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10
+Soul's Guidance,Cem Wand,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10
 Anointed Robe,Janus Robe,15,15,15,15,15,15,15,15,20,20,20,15,15,25,20,20
 Theurgy Wand,Guardian Wand,10,10,10,10,10,10,10,10,10,10,10,10,10,20,15,10
 Ring of Pagan Favor,Oryx Castle Ring,4,4,4,4,4,4,4,4,4,4,4,4,4,9,4,4
 Ceremonial Merlot,Oryx Cup,15,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15
-Pharaoh''s Requiem,Tomb Lute,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20
+Pharaoh's Requiem,Tomb Lute,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20
 Omni-Impotence Ring,Omni Impotence Ring,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Mirror Cloak,April Fools Cloak,5,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5
 ToMe of Moral Support,April Fools Tome,5,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5
@@ -605,7 +605,7 @@ Unshuriken,April Fools Star,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5
 Spelling Spell,April Fools Spell,5,5,5,5,5,5,5,5,5,10,5,5,5,5,5,5
 Shield of Pogmur,April Fools Shield,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Epiphany Skull,April Fools Skull,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5,5
-Fool''s Prism,April Fools Prism,5,5,5,5,5,10,5,5,5,5,5,5,5,5,5,5
+Fool's Prism,April Fools Prism,5,5,5,5,5,10,5,5,5,5,5,5,5,5,5,5
 NSFWakizashi,April Fools Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5
 Cheater light Armor,,4,4,4,8,8,8,8,8,4,4,4,8,4,4,4,4
 Cheater Robe,,4,4,4,4,4,4,4,4,8,8,8,4,4,8,8,8
@@ -671,11 +671,11 @@ Imperial Keepsake,,7,7,7,7,7,7,7,7,7,12,7,7,7,7,7,7
 Kiritsukeru,,10,10,10,10,10,10,10,10,10,10,10,15,20,10,10,10
 Watarimono,,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10
 Reinforced Root Armor,root armor,15,15,15,10,10,10,10,10,10,10,10,10,20,10,10,10
-Traveler''s Trinket,,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10
+Traveler's Trinket,,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10
 Magic Wand,,5,5,5,5,5,5,5,5,5,5,5,5,5,10,15,5
 Lightshow Scepter,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10
-Magician''s Robe,,5,5,5,5,5,5,5,5,10,10,10,5,5,10,15,10
-Performer''s Hat,,7,7,7,7,7,7,7,7,7,7,7,7,7,7,12,7
+Magician's Robe,,5,5,5,5,5,5,5,5,10,10,10,5,5,10,15,10
+Performer's Hat,,7,7,7,7,7,7,7,7,7,7,7,7,7,7,12,7
 Bow of Deep Enchantment,,15,15,15,15,15,15,25,25,15,15,15,15,15,15,15,25
 Dagger of Dire Hatred,,15,15,15,25,25,25,15,15,15,15,15,15,15,15,15,15
 Kusanagi,,15,15,15,15,15,15,15,15,15,15,15,25,25,15,15,15
@@ -702,24 +702,24 @@ Shield of Orcish Regalia,,30,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Tome of Hallowed Language,,10,10,10,10,10,10,10,10,10,10,10,10,10,30,15,15
 Virtuous Wakizashi,,10,10,10,10,10,10,10,10,10,10,10,10,30,10,10,10
 Divinity,,40,40,40,30,30,30,30,30,30,30,30,30,30,30,30,30
-Oryx''s Escutcheon ,,40,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+Oryx's Escutcheon ,,40,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
 Gladiator Guard,,40,40,40,30,30,30,30,30,30,30,30,30,40,30,30,30
-Exalted God''s Horn ,,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35
+Exalted God's Horn ,,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35
 Lumiaire,,30,30,30,30,30,30,30,30,30,30,30,30,30,40,40,30
 Chaotic Scripture,,30,30,30,30,30,30,30,30,30,30,30,30,30,40,30,30
 Vesture of Duality,,30,30,30,30,30,30,30,30,30,40,40,30,30,40,40,40
 Divine Coronation,,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22
 Avarice,,30,30,30,40,40,40,30,30,30,30,30,30,30,30,30,30
-Gambler''s Fate,,20,20,20,20,20,30,20,20,20,20,20,20,20,20,20,20
+Gambler's Fate,,20,20,20,20,20,30,20,20,20,20,20,20,20,20,20,20
 Turncoat Cape,,20,20,20,30,30,30,30,30,20,20,20,30,20,20,20,20
-Collector''s Monocle,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+Collector's Monocle,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
 Superior,,30,30,30,30,30,30,30,30,40,40,40,30,30,30,30,30
 Genesis Spell,,25,25,25,25,25,25,25,25,25,35,25,25,25,25,25,25
 Diplomatic Robe,,30,30,30,30,30,30,30,30,40,40,40,30,30,40,40,40
-Chancellor''s Cranium,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+Chancellor's Cranium,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
 Enforcer,,30,30,30,30,30,30,30,30,30,30,30,40,40,30,30,30
 Ballistic Star,,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15
-Centaur''s Shielding,,25,25,25,35,35,35,35,35,25,25,25,35,25,25,25,25
+Centaur's Shielding,,25,25,25,35,35,35,35,35,25,25,25,35,25,25,25,25
 Battatlion Banner,,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27
 Mayhem Medallion,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 Ring of Wrath,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
@@ -745,9 +745,9 @@ Amber Encrusted Helmet,Ruins Helmet,1,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 Sandstone Seal,Ruins Seal,1,1,6,1,1,1,1,1,1,1,1,1,1,1,1,1
 Ring of Divine Faith,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 Chasuble of Holy Light,,1,1,1,1,1,1,1,1,3,3,3,1,1,3,3,3
-St. Abraham''s Wand,,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1
+St. Abraham's Wand,,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1
 Snakeskin Armor,,1,1,1,3,3,3,3,3,1,1,1,3,1,1,1,1
 Harmonious Harp,,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,20
-Angel''s Fanfare,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20
+Angel's Fanfare,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20
 Wings of Sanctity,,5,5,5,5,5,5,5,5,10,10,10,5,5,10,10,15
 Heavenly Halo,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10
