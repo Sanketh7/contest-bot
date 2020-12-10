@@ -362,8 +362,8 @@ async def profile(ctx, other_user: typing.Optional[discord.Member] = None):
     if not states["is_contest_active"]:
         return await ctx.send(embed=error_embed("There are no active contests at the moment."))
 
-    if other_user is not None and other_user is not ctx.author and not is_contest_staff_not_command_check(ctx):
-        return await ctx.send(embed=error_embed("You don't have permission to view other people's profiles."))
+    # if other_user is not None and other_user is not ctx.author and not is_contest_staff_not_command_check(ctx):
+    #    return await ctx.send(embed=error_embed("You don't have permission to view other people's profiles."))
 
     user: discord.Member
     if other_user is not None:
