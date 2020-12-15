@@ -329,6 +329,49 @@ async def add_contest(ctx, contest_type: str, start_string: str, end_string: str
         "Contest added. \nStart time (UTC): {}\n End time (UTC): {}".format(start_time_str, end_time_str)
     ))
 
+@bot.command(name='change_end_time')
+@is_admin()
+async def change_end_time(ctx, end_string: str):
+    try:
+        end_time = datetime.datetime.strptime(end_string, "%m/%d/%y %H:%M")
+    except ValueError:
+        return await ctx.channel.send(embed=error_embed("Invalid time input."))
+    
+    end_time = end_time.timestamp()
+    res = Database.change_current_contest_end_time(end_time)
+    for key, value in res.items():
+        states[key] = value
+
+    end_time_str = datetime.datetime.utcfromtimestamp(float(end_time)).strftime("%m/%d/%y %H:%M")
+    
+    await ctx.channel.send(embed=success_embed(
+        "Contest extended until (UTC): {}".format(end_time_str)
+    ))
+
+    end_time = datetime.datetime.utcfromtimestamp(end_time)
+
+    embed = discord.Embed(title="A New `" + states["current_contest_type"].upper() + "` Contest Has Started!")
+    embed.description = "Ends on " + f'{end_time:%B %d, %Y}' + " at " + f'{end_time: %H:%M}' + " (UTC)"
+    embed.add_field(
+        name="Instructions",
+        value=
+        '''
+        ✅ - Sign up for the contest. (Let's you view all the channels and submit.)
+        {} - Start a new character. Completing this will STOP your previous character (so you can't edit it anymore).
+        ✏ - Edit a character. This will add items/achievements to your current character.
+        
+        Use the command `+profile` to view all your characters for this contest.
+        '''.format(str(other_emojis["gravestone"])),
+        inline=False
+    )
+
+    ch = discord.utils.get(bot.get_guild(int(GUILD_ID)).text_channels, name=SIGN_UP_CHANNEL)
+    try:
+        msg = await ch.fetch_message(states["current_contest_post_id"])
+        await msg.edit(embed=embed)
+    except:
+        print("Failed to retrieve/delete message.")
+
 @bot.command(name='view_schedule')
 @is_admin()
 async def view_schedule(ctx):
