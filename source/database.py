@@ -41,6 +41,25 @@ class Database:
         return new_data
 
     @staticmethod
+    def change_current_contest_end_time(end_time):
+        ref: dataset.Table = Database.db["meta_data"]
+        old_data = ref.find_one()
+
+        if old_data is None:
+            return
+
+        new_data = {
+            "current_contest_end_time": end_time
+        }
+
+        ref.upsert(dict(
+            name="main",
+            current_contest_end_time=new_data["current_contest_end_time"]
+        ), ["name"])
+
+        return new_data
+
+    @staticmethod
     def get_all_metadata():
         ref: dataset.Table = Database.db["meta_data"]
         data = ref.find_one(name="main")
