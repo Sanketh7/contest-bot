@@ -295,7 +295,7 @@ async def force_update_leaderboard(ctx):
     await Logger.force_update_leaderboard(ctx.author)
 
 @bot.command(name='set_points_document')
-@is_admin()
+@is_bot_owner()
 async def set_points_document(ctx, contest_type: str, url: str):
     if contest_type not in contest_types:
         return await ctx.channel.send(embed=error_embed("Invalid contest type."))
