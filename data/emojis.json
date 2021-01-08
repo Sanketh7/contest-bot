@@ -1,0 +1,22 @@
+{
+    "check_mark": "white_check_mark",
+    "pencil": "pencil2",
+    "gravestone": "gravestone",
+
+    "rogue": "rogue",
+    "archer": "archer",
+    "wizard": "wizard",
+    "priest": "priest",
+    "warrior": "warrior",
+    "knight": "knight",
+    "paladin": "paladin",
+    "assassin": "assassin",
+    "necromancer": "necromancer",
+    "huntress": "huntress",
+    "mystic": "mystic",
+    "trickster": "trickster",
+    "sorcerer": "sorcerer",
+    "ninja": "ninja",
+    "samurai": "samurai",
+    "bard": "bard"
+}
