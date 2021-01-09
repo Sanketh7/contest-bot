@@ -73,7 +73,8 @@ class Leaderboard:
 
         try:
             await ch.purge(limit=100, check=is_me)
-        except:
+        except Exception as e:
             print("Failed to delete old leaderboard.")
+            print(e)
 
         new_post = await ch.send(embed=embed)
