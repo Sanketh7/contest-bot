@@ -72,7 +72,10 @@ class Leaderboard:
             return m.author == self.bot.user
 
         try:
-            await ch.purge(limit=100, check=is_me)
+            # await ch.purge(limit=100, check=is_me)
+            async for message in ch.history(limit=100):
+                if message.author == self.bot.user:
+                    await message.delete()
         except Exception as e:
             print("Failed to delete old leaderboard.")
             print(e)
