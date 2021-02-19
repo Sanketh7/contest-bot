@@ -1,22 +1,27 @@
+import logging
 import discord
 from discord.ext import commands
-from dotenv import load_dotenv
-import os
-from meta import Meta
 
-# get bot token
-load_dotenv()
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-
-# init meta
-Meta.load_from_file("./data/meta.json")
-
-# initialize bot
 intents = discord.Intents.default()
-intents.members = True # allow member caching
-bot = commands.Bot(command_prefix=Meta.prefix)
+intents.members = True
+
+bot = commands.Bot(command_prefix="+", intents=intents)
+
 
 @bot.event
 async def on_ready():
-    print(f"{bot.user.name} has connected!")
+    print(f'{bot.user.name} has connected!')
 
+
+@bot.event
+async def on_raw_reaction_add(payload):
+    try:
+        user: discord.User = bot.get_user(payload.user_id)
+        guild: discord.Guild = bot.get_guild(payload.guild_id)
+        channel: discord.TextChannel = discord.utils.get(
+            guild.channels, id=payload.channel_id)
+        msg: discord.Message = await channel.fetch_message(payload.message_id)
+        emoji: discord.Emoji = payload.emoji
+    except Exception as e:
+        print(e)
+        return

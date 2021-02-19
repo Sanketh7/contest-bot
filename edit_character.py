@@ -1,0 +1,197 @@
+import discord
+from process import Process
+import logging
+from database import DB
+from util import success_embed, error_embed, character_embed
+from objects import *
+from tasks import *
+from settings import Settings
+
+
+class EditCharacter(Process):
+    def __init__(self, bot: discord.Client, user: discord.User, contest_id: int):
+        super().__init__(bot, user, contest_id)
+
+        self.old_char = ""  # resolved in self.show_old_char_menu()
+        self.img_url = ""  # resolved in self.proof_menu()
+        self.keywords = ""  # resolved in self.keyword_menu()
+
+    async def finished(self):
+        self.dead = True
+        DB.add_submission(self.contest_id, self.user.id,
+                          self.post.id, self.old_char.rotmg_class, list(self.keywords), self.img_url)
+        return await self.user.send(embed=success_embed(
+            '''
+            Submission submitted.
+            You will be notified soon if your submission is accepted.
+
+            **ID:** `{}`
+            (The acceptance/rejection message will contain this ID.)
+            '''.format(self.post.id)
+        ))
+
+    async def start(self):
+        has_char = False  # TODO: implement
+        if has_char:
+            return await self.show_old_char_menu()
+        else:
+            return await self.user.send(embed=error_embed("You don't have a character to edit."))
+
+    async def show_old_char_menu(self):
+        old_char: Character = DB.get_character(self.contest_id, self.user.id)
+        if not old_char:
+            logging.error(
+                "Failed to get the current character for user "+str(self.user.id))
+            return
+        self.old_char = old_char
+
+        embed = character_embed(
+            "Current Character", old_char.rotmg_class, old_char.keywords, old_char.points)
+        embed.add_field(
+            name="Instructions:",
+            value='''
+            React {} to confirm you want to edit this character, {} to cancel.
+
+            (You have **5 minutes** to complete this.)
+            '''.format(Settings.accept_emoji, Settings.reject_emoji), inline=False)
+
+        msg = await self.user.send(embed=embed)
+        response = await yes_no_react_task(self.bot, msg, self.user, 60.0*5)
+        if response == Response.ACCEPT:
+            return await self.proof_menu()
+        elif response == Response.REJECT:
+            return await self.cancelled()
+        else:
+            assert(response == Response.TIMEDOUT)
+            return await self.timed_out()
+
+    async def proof_menu(self):
+        embed = discord.Embed(
+            title="Submission for class `{}`.".format(self.old_char.rotmg_class))
+        embed.add_field(
+            name="Instructions",
+            value='''
+            Use this [document]({}) for a list of items and achievements.
+
+            Send a message with a screenshot **in this DM** as specified in the contest rules.
+            Click the **plus button** next to where you type a message to attach an image \
+            or **copy and paste** an image into the message box.
+            If you do not use either of the methods above, the bot **cannot** detect it.
+
+            **You MUST have your ENTIRE game screenshotted (i.e. not just your inventory).**
+            If you don't follow these rules, your submission will likely be denied.
+
+            {} - Cancel Submission
+
+            (You have **15 minutes** to complete this.)
+            '''.format(Settings.points_data_url, Settings.reject_emoji), inline=False)
+        msg = await self.user.send(embed=embed)
+        response = await proof_upload_task(self.bot, msg, self.user, 60.0*15)
+
+        if type(response) is str:
+            self.img_url = response
+            return self.keyword_menu()
+        elif response == Response.REJECT:
+            return await self.cancelled()
+        else:
+            assert(response == Response.TIMEDOUT)
+            return await self.timed_out()
+
+    async def keyword_menu(self):
+        embed = discord.Embed(title="Keywords Entry")
+        embed.add_field(
+            name="Instructions",
+            value='''
+            Using this [document]({}) as reference, enter the keywords that correspond to your items/achievements.
+            This is how you will get your points.
+
+            **If points are not entered correctly, your submission will be denied.**
+
+            {} - Cancel Submission
+
+            (You have **15 minutes** to complete this.)
+            '''.format(Settings.points_data_url, Settings.reject_emoji), inline=False)
+        msg = await self.user.send(embed=embed)
+        response = await keyword_input_task(self.bot, msg, self.user, 60.0*15)
+        if type(response) is not Response:
+            self.keywords = PointsManager.parse_keywords(response)
+            return await self.confirm_keywords_menu()
+        elif response == Response.REJECT:
+            return await self.cancelled()
+        else:
+            assert(response == Response.TIMEDOUT)
+            return await self.timed_out()
+
+    async def confirm_keywords_menu(self):
+        rejected_kw: set[str] = self.old_char.keywords_intersection(
+            set(self.keywords))
+        accepted_kw: set[str] = self.old_char.delta_keywords(
+            set(self.keywords))
+
+        rejected_kw_str = str(rejected_kw) if rejected_kw else "**NONE**"
+        accepted_kw_str = str(accepted_kw) if accepted_kw else "**NONE**"
+
+        embed = discord.Embed(title="Confirm Keywords")
+        embed.add_field(
+            name="Accepted Keywords:",
+            value="`{}`".format(accepted_kw_str),
+            inline=False
+        )
+        if rejected_kw_str:
+            embed.add_field(
+                name="Rejected Keywords",
+                value='''
+                These keywords were rejected since your character already has them:
+                `{}`
+                '''.format(rejected_kw_str),
+                inline=False
+            )
+
+        embed.add_field(
+            name="Instructions",
+            value='''
+            {} - Confirm keywords and **confirm submission**
+            {} - Input keywords again
+            {} - Cancel submission
+
+            (You have **5 minutes** to complete this.)
+            '''.format(Settings.accept_emoji, Settings.edit_emoji, Settings.reject_emoji), inline=False)
+
+        msg = await self.user.send(embed=embed)
+        response = await yes_no_edit_react_task(self.bot, msg, self.user, 60.0*5)
+
+        if response == Response.ACCEPT:
+            self.keywords = accepted_kw
+            return await self.upload_submission()
+        elif response == Response.REJECT:
+            return await self.cancelled()
+        elif response == Response.EDIT:
+            return await self.keyword_menu()
+        else:
+            assert(response == Response.TIMEDOUT)
+            return await self.timed_out()
+
+    async def upload_submission(self):
+        member: discord.Member = discord.utils.get(
+            Settings.guild.members, id=self.user.id)
+        if member is None:
+            return
+
+        delta_points = self.old_char.delta_points(self.keywords)
+
+        if not delta_points:
+            return await self.user.send(embed=error_embed("Your submission was not submitted since you did not add any points."))
+
+        embed = discord.Embed(title="{}\t({})".format(
+            member.display_name, self.old_char.rotmg_class))
+        embed.add_field(name="Items/Achievements",
+                        value="`{}`".format(str(self.keywords)), inline=False)
+        embed.add_field(
+            name="Points", value="**{}**".format(str(delta_points)), inline=False)
+        embed.add_field(name="Proof", value="[image]({})".format(
+            str(self.img_url)), inline=False)
+        embed.set_image(url=self.img_url)
+
+        self.post = await Settings.submission_channel.send(embed=embed)
+        await self.post.add_reaction(Settings.accept_emoji)
+        await self.post.add_reaction(Settings.reject_emoji)
