@@ -1,34 +1,20 @@
 import discord
-from process import Process
+from processes import Process
 import logging
-from database import DB
-from util import success_embed, error_embed, character_embed
-from objects import *
-from tasks import *
+from database import DB, Character
+from util import success_embed, error_embed, character_embed, Response, \
+    yes_no_react_task, keyword_input_task, proof_upload_task, yes_no_edit_react_task
 from settings import Settings
+from points import PointsManager
 
 
 class EditCharacter(Process):
     def __init__(self, bot: discord.Client, user: discord.User, contest_id: int):
         super().__init__(bot, user, contest_id)
 
-        self.old_char = ""  # resolved in self.show_old_char_menu()
+        self.old_char: Character = None  # resolved in self.show_old_char_menu()
         self.img_url = ""  # resolved in self.proof_menu()
         self.keywords = ""  # resolved in self.keyword_menu()
-
-    async def finished(self):
-        self.dead = True
-        DB.add_submission(self.contest_id, self.user.id,
-                          self.post.id, self.old_char.rotmg_class, list(self.keywords), self.img_url)
-        return await self.user.send(embed=success_embed(
-            '''
-            Submission submitted.
-            You will be notified soon if your submission is accepted.
-
-            **ID:** `{}`
-            (The acceptance/rejection message will contain this ID.)
-            '''.format(self.post.id)
-        ))
 
     async def start(self):
         has_char = False  # TODO: implement
@@ -38,15 +24,15 @@ class EditCharacter(Process):
             return await self.user.send(embed=error_embed("You don't have a character to edit."))
 
     async def show_old_char_menu(self):
-        old_char: Character = DB.get_character(self.contest_id, self.user.id)
-        if not old_char:
+        self.old_char: Character = DB.get_character(
+            self.contest_id, self.user.id)
+        if not self.old_char:
             logging.error(
                 "Failed to get the current character for user "+str(self.user.id))
             return
-        self.old_char = old_char
 
-        embed = character_embed(
-            "Current Character", old_char.rotmg_class, old_char.keywords, old_char.points)
+        title_embed = discord.Embed(title="Current Character:")
+        embed = character_embed(self.old_char)
         embed.add_field(
             name="Instructions:",
             value='''
@@ -55,6 +41,7 @@ class EditCharacter(Process):
             (You have **5 minutes** to complete this.)
             '''.format(Settings.accept_emoji, Settings.reject_emoji), inline=False)
 
+        await self.user.send(embed=title_embed)
         msg = await self.user.send(embed=embed)
         response = await yes_no_react_task(self.bot, msg, self.user, 60.0*5)
         if response == Response.ACCEPT:
@@ -84,7 +71,7 @@ class EditCharacter(Process):
             {} - Cancel Submission
 
             (You have **15 minutes** to complete this.)
-            '''.format(Settings.points_data_url, Settings.reject_emoji), inline=False)
+            '''.format(Settings.points_reference_url, Settings.reject_emoji), inline=False)
         msg = await self.user.send(embed=embed)
         response = await proof_upload_task(self.bot, msg, self.user, 60.0*15)
 
@@ -110,7 +97,7 @@ class EditCharacter(Process):
             {} - Cancel Submission
 
             (You have **15 minutes** to complete this.)
-            '''.format(Settings.points_data_url, Settings.reject_emoji), inline=False)
+            '''.format(Settings.points_reference_url, Settings.reject_emoji), inline=False)
         msg = await self.user.send(embed=embed)
         response = await keyword_input_task(self.bot, msg, self.user, 60.0*15)
         if type(response) is not Response:
@@ -195,3 +182,17 @@ class EditCharacter(Process):
         self.post = await Settings.submission_channel.send(embed=embed)
         await self.post.add_reaction(Settings.accept_emoji)
         await self.post.add_reaction(Settings.reject_emoji)
+
+    async def finished(self):
+        self.dead = True
+        DB.add_submission(self.contest_id, self.user.id,
+                          self.post.id, list(self.keywords), self.img_url)
+        return await self.user.send(embed=success_embed(
+            '''
+            Submission submitted.
+            You will be notified soon if your submission is accepted.
+
+            **ID:** `{}`
+            (The acceptance/rejection message will contain this ID.)
+            '''.format(self.post.id)
+        ))

@@ -1,9 +1,17 @@
 import logging
 import discord
+import os
+from dotenv import load_dotenv
 from discord.ext import commands
+from cogs import Scheduling, ContestManagement, UserManagement
+from settings import Settings
+
+load_dotenv()
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
+DB_FILE = os.getenv('DB_FILE')
 
 intents = discord.Intents.default()
-intents.members = True
+intents.members = True  # pylint: disable=assigning-non-slot
 
 bot = commands.Bot(command_prefix="+", intents=intents)
 
@@ -12,16 +20,10 @@ bot = commands.Bot(command_prefix="+", intents=intents)
 async def on_ready():
     print(f'{bot.user.name} has connected!')
 
+    Settings.reload_all(bot)
 
-@bot.event
-async def on_raw_reaction_add(payload):
-    try:
-        user: discord.User = bot.get_user(payload.user_id)
-        guild: discord.Guild = bot.get_guild(payload.guild_id)
-        channel: discord.TextChannel = discord.utils.get(
-            guild.channels, id=payload.channel_id)
-        msg: discord.Message = await channel.fetch_message(payload.message_id)
-        emoji: discord.Emoji = payload.emoji
-    except Exception as e:
-        print(e)
-        return
+    bot.add_cog(Scheduling(bot))
+    bot.add_cog(ContestManagement(bot))
+    bot.add_cog(UserManagement(bot))
+
+bot.run(DISCORD_TOKEN)

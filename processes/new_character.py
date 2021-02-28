@@ -1,11 +1,10 @@
 import discord
 import logging
-from process import Process
+from processes import Process
 from util import success_embed, character_embed
 from settings import Settings
-from database import DB
-from objects import *
-from tasks import *
+from database import DB, Character
+from util import yes_no_react_task, rotmg_class_select_task, Response
 
 
 class NewCharacter(Process):
@@ -14,7 +13,7 @@ class NewCharacter(Process):
         self.rotmg_class = ""  # resolved in self.class_select_menu()
 
     async def start(self):
-        has_char = False  # TODO: implement
+        has_char = DB.get_character(self.contest_id, self.user.id) is not None
         if has_char:
             return await self.previous_char_menu()
         else:
@@ -32,8 +31,8 @@ class NewCharacter(Process):
                 "Failed to get the old character for user " + str(self.user.id))
             return
 
-        embed = character_embed(
-            "Previous Character", old_char.rotmg_class, old_char.keywords, old_char.points)
+        title_embed = discord.Embed(title="Previous Character")
+        embed = character_embed(old_char)
         embed.add_field(
             name="Instructions",
             value='''
@@ -47,6 +46,7 @@ class NewCharacter(Process):
             '''.format(Settings.accept_emoji, Settings.reject_emoji),
             inline=False)
 
+        await self.user.send(embed=title_embed)
         msg = await self.user.send(embed=embed)
         response = await yes_no_react_task(self.bot, msg, self.user, 60.0*5)
         if response == Response.ACCEPT:
