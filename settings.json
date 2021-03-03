@@ -1,0 +1,42 @@
+{
+    "bot_owner": 343142603996528641,
+    "guild": 710263051286478968,
+    "roles": {
+        "admin": "Admin",
+        "moderator": "Moderator",
+        "contest_staff": "Contest Staff",
+        "contestant": "Contestant"
+    },
+    "rotmg_classes": ["bard", "sorcerer", "wizard", "samurai", "mystic", "assassin", "rogue", "archer", "ninja", "priest", "warrior", "trickster", "knight", "necromancer", "huntress", "paladin"],
+    "emojis": {
+        "accept": "✅",
+        "reject": "❌",
+        "edit": "✏️",
+        "grave": "gravestone",
+        
+        "bard": "bard",
+        "sorcerer": "sorcerer",
+        "wizard": "wizard",
+        "samurai": "samurai",
+        "mystic": "mystic",
+        "assassin": "assassin",
+        "rogue": "rogue",
+        "archer": "archer",
+        "ninja": "ninja",
+        "priest": "priest",
+        "warrior": "warrior",
+        "trickster": "trickster",
+        "knight": "knight",
+        "necromancer": "necromancer",
+        "huntress": "huntress",
+        "paladin": "paladin"
+    },
+    "channels": {
+        "sign_up": "sign-up",
+        "submission": "point-verification",
+        "leaderboard": "leaderboard",
+        "log": "contest-bot-logs"
+    },
+    "points_data_file": "ppe_data.csv",
+    "points_reference_url": "https://www.google.com/"
+}
