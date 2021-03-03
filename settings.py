@@ -1,6 +1,8 @@
 import discord
 import json
-import typing
+from typing import List, Dict
+
+file_name = "settings.json"
 
 
 class Settings:
@@ -18,13 +20,13 @@ class Settings:
     leaderboard_channel: discord.TextChannel
     log_channel: discord.TextChannel
 
-    accept_emoji: discord.Emoji
-    reject_emoji: discord.Emoji
-    edit_emoji: discord.Emoji
+    accept_emoji: str
+    reject_emoji: str
+    edit_emoji: str
     grave_emoji: discord.Emoji
 
-    rotmg_classes: list[str] = []
-    rotmg_class_emojis: dict[str, discord.Emoji] = dict()
+    rotmg_classes: List[str] = []
+    rotmg_class_emojis: Dict[str, discord.Emoji] = dict()
 
     points_data_file: str
     points_reference_url: str
@@ -41,63 +43,80 @@ class Settings:
 
     @staticmethod
     def reload_guild(bot: discord.Client) -> None:
-        data = json.loads("settings.json")
-        Settings.guild = bot.get_guild(data.guild)
+        with open(file_name, "rb") as f:
+            data = json.load(f)
+        Settings.guild = bot.get_guild(data["guild"])
 
     @staticmethod
     def reload_bot_owner(bot: discord.Client) -> None:
-        data = json.loads("settings.json")
-        Settings.bot_owner = bot.get_user(data.bot_owner)
+        with open(file_name, "rb") as f:
+            data = json.load(f)
+
+        Settings.bot_owner = bot.get_user(data["bot_owner"])
 
     @staticmethod
     def reload_roles() -> None:
         assert(Settings.guild)
-        data = json.loads("settings.json")
+        with open(file_name, "rb") as f:
+            data = json.load(f)
+
         Settings.admin_role = discord.utils.get(
-            Settings.guild.roles, name=data.roles.admin)
+            Settings.guild.roles, name=data["roles"]["admin"])
         Settings.moderator_role = discord.utils.get(
-            Settings.guild.roles, name=data.roles.moderator)
+            Settings.guild.roles, name=data["roles"]["moderator"])
         Settings.contest_staff_role = discord.utils.get(
-            Settings.guild.roles, name=data.roles.contest_staff)
+            Settings.guild.roles, name=data["roles"]["contest_staff"])
         Settings.contestant_role = discord.utils.get(
-            Settings.guild.roles, name=data.roles.contestant)
+            Settings.guild.roles, name=data["roles"]["contestant"])
 
     @staticmethod
     def reload_rotmg_classes() -> None:
-        data = json.loads("settings.json")
-        Settings.rotmg_classes = list(data.rotmg_classes)
+        with open(file_name, "rb") as f:
+            data = json.load(f)
+
+        Settings.rotmg_classes = list(data["rotmg_classes"])
 
     @staticmethod
     def reload_emojis(bot: discord.Client) -> None:
-        data = json.loads("settings.json")
-        Settings.accept_emoji = discord.utils.get(
-            bot.emojis, name=data.emojis.accept)
-        Settings.reject_emoji = discord.utils.get(
-            bot.emojis, name=data.emojis.reject)
-        Settings.edit_emoji = discord.utils.get(
-            bot.emojis, name=data.emojis.edit)
+        with open(file_name, "rb") as f:
+            data = json.load(f)
+
+        # Settings.accept_emoji = discord.utils.get(
+        #    bot.emojis, name=data["emojis"]["accept"])
+        # Settings.reject_emoji = discord.utils.get(
+        #    bot.emojis, name=data["emojis"]["reject"])
+        # Settings.edit_emoji = discord.utils.get(
+        #    bot.emojis, name=data["emojis"]["edit"])
+        Settings.accept_emoji = data["emojis"]["accept"]
+        Settings.reject_emoji = data["emojis"]["reject"]
+        Settings.edit_emoji = data["emojis"]["edit"]
+
         Settings.grave_emoji = discord.utils.get(
-            bot.emojis, name=data.emojis.grave)
+            bot.emojis, name=data["emojis"]["grave"])
 
         assert(Settings.rotmg_classes)
         for rotmg_class in Settings.rotmg_classes:
             Settings.rotmg_class_emojis[rotmg_class] = discord.utils.get(
-                bot.emojis, name=data.emojis[rotmg_class])
+                bot.emojis, name=data["emojis"][rotmg_class])
 
-    @staticmethod
+    @ staticmethod
     def reload_channels() -> None:
-        data = json.loads("settings.json")
-        Settings.sign_up_channel = discord.utils.get(
-            Settings.guild.text_channels, name=data.channels.sign_up)
-        Settings.submission_channel = discord.utils.get(
-            Settings.guild.text_channels, name=data.channels.submission)
-        Settings.leaderboard_channel = discord.utils.get(
-            Settings.guild.text_channels, name=data.channels.leaderboard)
-        Settings.log_channel = discord.utils.get(
-            Settings.guild.text_channels, name=data.channels.log)
+        with open(file_name, "rb") as f:
+            data = json.load(f)
 
-    @staticmethod
+        Settings.sign_up_channel = discord.utils.get(
+            Settings.guild.text_channels, name=data["channels"]["sign_up"])
+        Settings.submission_channel = discord.utils.get(
+            Settings.guild.text_channels, name=data["channels"]["submission"])
+        Settings.leaderboard_channel = discord.utils.get(
+            Settings.guild.text_channels, name=data["channels"]["leaderboard"])
+        Settings.log_channel = discord.utils.get(
+            Settings.guild.text_channels, name=data["channels"]["log"])
+
+    @ staticmethod
     def reload_points_data() -> None:
-        data = json.loads("settings.json")
-        Settings.points_data_file = data.points_data_file
-        Settings.poins_reference_url = data.points_reference_url
+        with open(file_name, "rb") as f:
+            data = json.load(f)
+
+        Settings.points_data_file = data["points_data_file"]
+        Settings.points_reference_url = data["points_reference_url"]

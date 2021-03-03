@@ -23,9 +23,9 @@ class UserManagement(commands.Cog):
             title="{}'s Characters".format(user.display_name))]
 
         char_list = DB.get_characters_by_user(
-            DB.get_current_contest_id(), user.user_id)
+            DB.get_current_contest_id(), user.id)
 
-        embeds += [character_embed(c for c in char_list)]
+        embeds += [character_embed(c) for c in char_list]
         for e in embeds:
             await ctx.author.send(embed=e)
 
@@ -33,7 +33,7 @@ class UserManagement(commands.Cog):
     @is_contest_staff()
     async def remove_items(self, ctx, char_id: int):
         try:
-            return await ProcessManager.spawn(ctx.author.user_id, AddRemoveKeywords(
+            return await ProcessManager.spawn(ctx.author.id, AddRemoveKeywords(
                 self.bot, ctx.author, DB.get_current_contest_id(), char_id, False))
         except BusyException:
             return await ctx.author.send(embed=user_busy_embed())
@@ -42,7 +42,7 @@ class UserManagement(commands.Cog):
     @is_contest_staff()
     async def add_items(self, ctx, char_id: int):
         try:
-            return await ProcessManager.spawn(ctx.author.user_id, AddRemoveKeywords(
+            return await ProcessManager.spawn(ctx.author.id, AddRemoveKeywords(
                 self.bot, ctx.author, DB.get_current_contest_id(), char_id, True))
         except BusyException:
             return await ctx.author.send(embed=user_busy_embed())
@@ -55,7 +55,7 @@ class UserManagement(commands.Cog):
         if not user:
             return await ctx.send(embed=error_embed("Invalid user."))
 
-        DB.ban_user(DB.get_current_contest_id(), user.user_id)
+        DB.ban_user(DB.get_current_contest_id(), user.id)
         # TODO: log
 
     @commands.command()
@@ -66,7 +66,7 @@ class UserManagement(commands.Cog):
         if not user:
             return await ctx.send(embed=error_embed("Invalid user."))
 
-        DB.unban_user(DB.get_current_contest_id(), user.user_id)
+        DB.unban_user(DB.get_current_contest_id(), user.id)
         # TODO: log
 
     @commands.command()
@@ -109,7 +109,7 @@ class UserManagement(commands.Cog):
                     self.bot, user, DB.get_current_contest_id()))
             except BusyException:
                 return await user.send(embed=user_busy_embed())
-        elif payload.emoji == Settings.edit_emoji:
+        elif str(payload.emoji) == Settings.edit_emoji:
             if Settings.contestant_role not in member.roles:
                 return await user.send(embed=error_embed("You need to sign up before you can submit or edit a character."))
             try:
@@ -117,7 +117,7 @@ class UserManagement(commands.Cog):
                     self.bot, user, DB.get_current_contest_id()))
             except BusyException:
                 return await user.send(embed=user_busy_embed())
-        elif payload.emoji == Settings.accept_emoji:
+        elif str(payload.emoji) == Settings.accept_emoji:
             if Settings.contestant_role not in member.roles:
                 await member.add_roles(Settings.contestant_role)
                 return await user.send(embed=success_embed("You are now part of the contest. Good luck!"))

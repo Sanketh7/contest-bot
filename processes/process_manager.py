@@ -1,4 +1,4 @@
-import typing
+from typing import Dict
 from processes import Process
 
 
@@ -7,7 +7,7 @@ class BusyException(Exception):
 
 
 class ProcessManager:
-    user_processes: dict[int, Process] = {}
+    user_processes: Dict[int, Process] = {}
 
     @staticmethod
     async def spawn(user_id: int, process: Process):

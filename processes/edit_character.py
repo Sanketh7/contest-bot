@@ -6,6 +6,7 @@ from util import success_embed, error_embed, character_embed, Response, \
     yes_no_react_task, keyword_input_task, proof_upload_task, yes_no_edit_react_task
 from settings import Settings
 from points import PointsManager
+from typing import Set
 
 
 class EditCharacter(Process):
@@ -17,20 +18,14 @@ class EditCharacter(Process):
         self.keywords = ""  # resolved in self.keyword_menu()
 
     async def start(self):
-        has_char = False  # TODO: implement
-        if has_char:
+        self.old_char: Character = DB.get_character(
+            self.contest_id, self.user.id)
+        if self.old_char:
             return await self.show_old_char_menu()
         else:
             return await self.user.send(embed=error_embed("You don't have a character to edit."))
 
     async def show_old_char_menu(self):
-        self.old_char: Character = DB.get_character(
-            self.contest_id, self.user.id)
-        if not self.old_char:
-            logging.error(
-                "Failed to get the current character for user "+str(self.user.id))
-            return
-
         title_embed = discord.Embed(title="Current Character:")
         embed = character_embed(self.old_char)
         embed.add_field(
@@ -77,7 +72,7 @@ class EditCharacter(Process):
 
         if type(response) is str:
             self.img_url = response
-            return self.keyword_menu()
+            return await self.keyword_menu()
         elif response == Response.REJECT:
             return await self.cancelled()
         else:
@@ -110,9 +105,9 @@ class EditCharacter(Process):
             return await self.timed_out()
 
     async def confirm_keywords_menu(self):
-        rejected_kw: set[str] = self.old_char.keywords_intersection(
+        rejected_kw: Set[str] = self.old_char.keywords_intersection(
             set(self.keywords))
-        accepted_kw: set[str] = self.old_char.delta_keywords(
+        accepted_kw: Set[str] = self.old_char.delta_keywords(
             set(self.keywords))
 
         rejected_kw_str = str(rejected_kw) if rejected_kw else "**NONE**"
@@ -162,6 +157,7 @@ class EditCharacter(Process):
         member: discord.Member = discord.utils.get(
             Settings.guild.members, id=self.user.id)
         if member is None:
+            logging.error("Member not in guild. Aborting submission.")
             return
 
         delta_points = self.old_char.delta_points(self.keywords)
@@ -182,6 +178,8 @@ class EditCharacter(Process):
         self.post = await Settings.submission_channel.send(embed=embed)
         await self.post.add_reaction(Settings.accept_emoji)
         await self.post.add_reaction(Settings.reject_emoji)
+
+        await self.finished()
 
     async def finished(self):
         self.dead = True

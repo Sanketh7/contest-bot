@@ -1,18 +1,23 @@
-from database import DB
-from pony.orm import Entity, PrimaryKey, Required, Optional, time, IntArray, StrArray, Set, desc
+from pony.orm import PrimaryKey, Required, Optional, IntArray, StrArray, Set, desc, Database
 from datetime import datetime
 from points import PointsManager
 import typing
 
+db = Database()
+db.bind(provider='sqlite', filename='database.db', create_db=True)
 
-class Contest(DB.db.Entity):
+
+class Contest(db.Entity):
     id = PrimaryKey(int, auto=True)
     is_active = Required(bool)
     start_time = Required(datetime)
     end_time = Required(datetime)
-    post_id = Optional(int)
+    post_id = Optional(int, size=64)
 
-    banned_users = Required(IntArray)
+    # contains strings of user IDs (pony.orm doesn't support 64bit IntArray)
+    banned_users = Required(StrArray)
+
+    characters = Set('Character')
 
     @property
     def should_end(self):
@@ -32,12 +37,12 @@ class Contest(DB.db.Entity):
 
     @classmethod
     def contests_after_datetime(cls, dt: datetime):
-        return cls.select(lambda c: c.start_time > dt)
+        return cls.select(lambda c: c.start_time < dt)
 
 
-class Character(DB.db.Entity):
+class Character(db.Entity):
     id = PrimaryKey(int, auto=True)
-    user_id = Required(int)
+    user_id = Required(int, size=64)
 
     is_active = Required(bool)
 
@@ -47,18 +52,6 @@ class Character(DB.db.Entity):
     submissions = Set('Submission')
     contest = Required(Contest)
 
-    @classmethod
-    def get_active_character(cls, contest_id: int, user_id: int):
-        return cls.select(lambda c: c.is_active and c.user_id == user_id and c.contest.id == contest_id).first()
-
-    @classmethod
-    def get_top_characters(cls, contest_id: int, count: int):
-        return cls.select(lambda c: c.contest.id == contest_id and c.user_id not in c.contest.banned_users).order_by(lambda c: desc(c.points))[:count]
-
-    @classmethod
-    def get_characters_by_user(cls, contest_id: int, user_id: int):
-        return cls.select(lambda c: c.contest.id == contest_id and c.user_id == user_id)
-
     @property
     def points(self):
         kw_set = set(self.keywords)
@@ -67,29 +60,41 @@ class Character(DB.db.Entity):
             points += PointsManager.points_data[kw][self.rotmg_class]
         return points
 
-    def keywords_intersection(self, new_kw: set[str]) -> set[str]:
+    @classmethod
+    def get_active_character(cls, contest_id: int, user_id: int):
+        return cls.select(lambda c: c.is_active and c.user_id == user_id and c.contest.id == contest_id).first()
+
+    @classmethod
+    def get_all_characters(cls, contest_id: int):
+        return list(cls.select(lambda c: c.contest.id == contest_id and str(c.user_id) not in c.contest.banned_users[:]))
+
+    @classmethod
+    def get_characters_by_user(cls, contest_id: int, user_id: int):
+        return cls.select(lambda c: c.contest.id == contest_id and c.user_id == user_id)
+
+    def keywords_intersection(self, new_kw: typing.Set[str]) -> typing.Set[str]:
         kw = set(self.keywords)
         return kw.intersection(new_kw)
 
-    def delta_keywords(self, new_kw: set[str]) -> set[str]:
+    def delta_keywords(self, new_kw: typing.Set[str]) -> typing.Set[str]:
         kw_set = set(self.keywords)
         return new_kw.difference(kw_set)
 
-    def delta_points(self, new_kw: set[str]) -> int:
+    def delta_points(self, new_kw: typing.Set[str]) -> int:
         delta_kw = self.delta_keywords(new_kw)
         delta_points = 0
         for kw in delta_kw:
-            points += PointsManager.points_data[kw][self.rotmg_class]
+            delta_points += PointsManager.points_data[kw][self.rotmg_class]
         return delta_points
 
 
-class Submission(DB.db.Entity):
+class Submission(db.Entity):
     id = PrimaryKey(int, auto=True)
     character = Required(Character)
 
     is_accepted = Required(bool)
 
-    post_id = Required(int)
+    post_id = Required(int, size=64)
 
     keywords = Required(StrArray)
     img_url = Required(str)
@@ -105,3 +110,6 @@ class Submission(DB.db.Entity):
         for kw in kw_set:
             points += PointsManager.points_data[kw][self.character.rotmg_class]
         return points
+
+
+db.generate_mapping(create_tables=True)

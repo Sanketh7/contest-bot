@@ -78,4 +78,4 @@ def contest_post_embed(end_time: datetime):
 
 
 def user_busy_embed():
-    return discord.Embed(error_embed="You already have a process running. Please end that process first.")
+    return error_embed("You already have a process running. Please end that process first.")

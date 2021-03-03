@@ -17,10 +17,10 @@ async def yes_no_react_task(bot: discord.Client, msg: discord.Message, user: dis
 
     async def do_reacts(msg: discord.Message):
         for e in valid_reacts:
-            msg.add_reaction(e)
+            await msg.add_reaction(e)
 
     def check(react: discord.Reaction, user_got: discord.User):
-        return user_got.id == user.id and (react in valid_reacts)
+        return user_got.id == user.id and (str(react) in valid_reacts)
 
     task = asyncio.create_task(do_reacts(msg))
     await asyncio.sleep(0)
@@ -32,7 +32,7 @@ async def yes_no_react_task(bot: discord.Client, msg: discord.Message, user: dis
         return Response.TIMEDOUT
     else:
         await task
-        if reaction == Settings.reject_emoji:
+        if str(reaction) == Settings.reject_emoji:
             return Response.REJECT
         return Response.ACCEPT
 
@@ -43,10 +43,10 @@ async def yes_no_edit_react_task(bot: discord.Client, msg: discord.Message, user
 
     async def do_reacts(msg: discord.Message):
         for e in valid_reacts:
-            msg.add_reaction(e)
+            await msg.add_reaction(e)
 
     def check(react: discord.Reaction, user_got: discord.User):
-        return user_got.id == user.id and react in valid_reacts
+        return user_got.id == user.id and str(react) in valid_reacts
 
     task = asyncio.create_task(do_reacts(msg))
     await asyncio.sleep(0)
@@ -58,23 +58,24 @@ async def yes_no_edit_react_task(bot: discord.Client, msg: discord.Message, user
         return Response.TIMEDOUT
     else:
         await task
-        if reaction == Settings.reject_emoji:
+        if str(reaction) == Settings.reject_emoji:
             return Response.REJECT
-        elif reaction == Settings.edit_emoji:
+        elif str(reaction) == Settings.edit_emoji:
             return Response.EDIT
         return Response.ACCEPT
 
 
 async def rotmg_class_select_task(bot: discord.Client, msg: discord.Message, user: discord.User, timeout: float):
-    valid_reacts = Settings.rotmg_class_emojis.values() + \
+    # note: map reacts to strings since reject emoji is a string
+    valid_reacts = list(map(str, Settings.rotmg_class_emojis.values())) + \
         [Settings.reject_emoji]
 
     async def do_reacts(msg: discord.Message):
         for e in valid_reacts:
-            msg.add_reaction(e)
+            await msg.add_reaction(e)
 
     def check(react: discord.Reaction, user_got: discord.User):
-        return user_got.id == user.id and react in valid_reacts
+        return user_got.id == user.id and str(react) in valid_reacts
 
     task = asyncio.create_task(do_reacts(msg))
     await asyncio.sleep(0)
@@ -83,12 +84,14 @@ async def rotmg_class_select_task(bot: discord.Client, msg: discord.Message, use
         reaction, _ = await bot.wait_for('reaction_add', timeout=timeout, check=check)
     except asyncio.TimeoutError:
         await task
-        return Response.ACCEPT
+        return Response.TIMEDOUT
     else:
         await task
-        if reaction == Settings.reject_emoji:
+        if str(reaction) == Settings.reject_emoji:
             return Response.REJECT
-        return next((name for name, emoji in Settings.rotmg_class_emojis.items() if emoji == reaction), None)
+        for name, emoji in Settings.rotmg_class_emojis.items():
+            if str(emoji) == str(reaction):
+                return name
 
 
 async def proof_upload_task(bot: discord.Client, msg: discord.Message, user: discord.User, timeout: float):
@@ -104,7 +107,7 @@ async def proof_upload_task(bot: discord.Client, msg: discord.Message, user: dis
         return m.author.id == user.id and valid_attachment
 
     def check_react(react: discord.Reaction, user_got: discord.User):
-        return user_got.id == user.id and react == Settings.reject_emoji
+        return user_got.id == user.id and str(react) == Settings.reject_emoji
 
     try:
         tasks = [asyncio.create_task(bot.wait_for('message', timeout=timeout, check=check_msg)),
@@ -133,7 +136,7 @@ async def keyword_input_task(bot: discord.Client, msg: discord.Message, user: di
         return len(m.content) > 0 and not m.guild and m.author.id == user.id
 
     def check_react(react: discord.Reaction, user_got: discord.User):
-        return user_got.id == user.id and react_got == Settings.reject_emoji
+        return user_got.id == user.id and str(react) == Settings.reject_emoji
 
     try:
         tasks = [

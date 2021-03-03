@@ -1,5 +1,6 @@
 import discord
 import logging
+from typing import List
 from settings import Settings
 from database import Submission
 
@@ -20,7 +21,7 @@ class Logger:
         return await Logger.send_log(text, 0x0000FF)
 
     @staticmethod
-    async def added_keywords(staff_user: discord.User, player_user: discord.User, character_id: int, keywords_added: list[str]):
+    async def added_keywords(staff_user: discord.User, player_user: discord.User, character_id: int, keywords_added: List[str]):
         text = '''
         {} added these keywords to {}'s character (ID: `{}`):
         `{}`
@@ -28,7 +29,7 @@ class Logger:
         return await Logger.send_log(text, 0x00FF00)
 
     @staticmethod
-    async def removed_keywords(staff_user: discord.User, player_user: discord.User, character_id: int, keywords_removed: list[str]):
+    async def removed_keywords(staff_user: discord.User, player_user: discord.User, character_id: int, keywords_removed: List[str]):
         text = '''
         {} removed these keywords to {}'s character (ID: `{}`):
         `{}`
@@ -38,7 +39,8 @@ class Logger:
     @staticmethod
     async def accepted_submission(staff_user: discord.User, submission: Submission):
         try:
-            player_user = Settings.guild.get_user(submission.character.user_id)
+            player_user = Settings.guild.get_member(
+                submission.character.user_id)
         except Exception as e:
             logging.error("Failed to get user {}\n".format(
                 submission.character.user_id) + str(e))

@@ -1,5 +1,5 @@
 import discord
-import typing
+from typing import List
 import logging
 from database import DB, Contest, Character
 from tabulate import tabulate
@@ -10,7 +10,7 @@ class Leaderboard:
     NUM_TABLE_LIMIT = 5
     NUM_CHARS_PER_TABLE_LIMIT = 10
 
-    top_chars: list[Character]
+    top_chars: List[Character]
 
     @staticmethod
     async def update():
@@ -56,24 +56,24 @@ class Leaderboard:
                         Settings.accept_emoji) if character.is_active else " "]
                 )
 
-            embed = discord.Embed(title="Leaderboard", color=0x00FF00)
-            embed.description = "Updated every 10 minutes during a contest."
+        embed = discord.Embed(title="Leaderboard", color=0x00FF00)
+        embed.description = "Updated every 10 minutes during a contest."
 
-            for table in table_list:
-                if not table:
-                    break
-                table_str = tabulate(
-                    table, headers=["Rank", "Player", "Points", "Class", "Active?"])
-                embed.add_field(name='\u200b', value="```{}```".format(
-                    table_str), inline=False)
+        for table in table_list:
+            if not table:
+                break
+            table_str = tabulate(
+                table, headers=["Rank", "Player", "Points", "Class", "Active?"])
+            embed.add_field(name='\u200b', value="```{}```".format(
+                table_str), inline=False)
 
-            ch: discord.TextChannel = Settings.leaderboard_channel
+        ch: discord.TextChannel = Settings.leaderboard_channel
 
-            try:
-                async for message in ch.history(limit=100):
-                    if message.author == bot.user:
-                        await message.delete()
-            except Exception as e:
-                logging.error("Failed to clear old leaderboards.\n" + str(e))
+        try:
+            async for message in ch.history(limit=100):
+                if message.author == bot.user:
+                    await message.delete()
+        except Exception as e:
+            logging.error("Failed to clear old leaderboards.\n" + str(e))
 
-            return await ch.send(embed=embed)
+        return await ch.send(embed=embed)

@@ -1,18 +1,11 @@
-from database.objects import Contest, Character, Submission
+from database.objects import Contest, Character, Submission, db
 from pony.orm import Database, db_session, select
 from datetime import datetime
 from settings import Settings
+from typing import List, Set
 
 
 class DB:
-    db: Database
-
-    @staticmethod
-    def init(db_file: str):
-        DB.db = Database()
-        DB.db.bind(provider='sqlite', filename=db_file, create_db=True)
-        DB.db.generate_mapping(create_tables=True)
-
     @staticmethod
     @db_session
     def schedule_contest(start_time: datetime, end_time: datetime):
@@ -27,7 +20,7 @@ class DB:
     @staticmethod
     @db_session
     def remove_contest(id: int):
-        if Contest[id]:
+        if Contest[id] and not Contest[id].is_active:
             Contest[id].delete()
 
     @staticmethod
@@ -56,14 +49,16 @@ class DB:
 
     @staticmethod
     @db_session
-    def get_schedule() -> list[Contest]:
+    def get_schedule() -> List[Contest]:
         time_now = datetime.now()
         return list(Contest.contests_after_datetime(time_now))
 
     @staticmethod
     @db_session
     def get_ready_contest():
-        return Contest.get_current_contest()
+        time_now = datetime.now()
+        qry = Contest.contests_after_datetime(time_now)
+        return qry.first() if qry else None
 
     @staticmethod
     @db_session
@@ -106,7 +101,6 @@ class DB:
             is_active=True,
             rotmg_class=rotmg_class,
             keywords=[],
-            points=0,
             contest=contest
         )
 
@@ -139,15 +133,17 @@ class DB:
 
     @staticmethod
     @db_session
-    def get_top_characters(contest_id: int, count: int) -> list[Character]:
+    def get_top_characters(contest_id: int, count: int) -> List[Character]:
         contest: Contest = Contest[contest_id]
         if not contest:
             return []
-        return list(Character.get_top_characters(contest_id, count))
+        lst = list(Character.get_all_characters(contest_id))
+        lst.sort(key=lambda c: c.points, reverse=True)
+        return lst[:count]
 
     @staticmethod
     @db_session
-    def add_submission(contest_id: int, user_id: int, post_id: int, keywords: list[str], img_url: str):
+    def add_submission(contest_id: int, user_id: int, post_id: int, keywords: List[str], img_url: str):
         contest = Contest[contest_id]
         if not contest:
             return
@@ -189,7 +185,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def add_keywords(character_id: int, keywords: set[str]):
+    def add_keywords(character_id: int, keywords: Set[str]):
         char: Character = Character[character_id]
         if not char:
             return
@@ -199,7 +195,7 @@ class DB:
 
     @staticmethod
     @db_session
-    def remove_keywords(character_id: int, keywords: set[str]):
+    def remove_keywords(character_id: int, keywords: Set[str]):
         char: Character = Character[character_id]
         if not char:
             return
@@ -213,19 +209,19 @@ class DB:
     def ban_user(contest_id: int, user_id: int):
         contest: Contest = Contest[contest_id]
         assert(contest)
-        if user_id not in contest.banned_users:
-            contest.banned_users.append(user_id)
+        if str(user_id) not in contest.banned_users:
+            contest.banned_users.append(str(user_id))
 
     @staticmethod
     @db_session
     def unban_user(contest_id: int, user_id: int):
         contest: Contest = Contest[contest_id]
         assert(contest)
-        contest.banned_users.remove(user_id)
+        contest.banned_users.remove(str(user_id))
 
     @staticmethod
     @db_session
     def get_ban_list(contest_id: int):
         contest: Contest = Contest[contest_id]
         assert(contest)
-        return list(contest.banned_users)
+        return list(map(lambda u: int(u), contest.banned_users))

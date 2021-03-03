@@ -71,7 +71,7 @@ class NewCharacter(Process):
 
         msg = await self.user.send(embed=embed)
         response = await rotmg_class_select_task(self.bot, msg, self.user, 60.0*5)
-        if type(response) is str:
+        if isinstance(response, str):
             self.rotmg_class = response
             return await self.finished()
         elif response == Response.REJECT:

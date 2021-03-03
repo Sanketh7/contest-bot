@@ -44,7 +44,7 @@ class ContestManagement(commands.Cog):
     @commands.command()
     @is_admin()
     async def update_leaderboard(self, ctx):
-        if DB.is_contest_running():
+        if not DB.is_contest_running():
             return await ctx.channel.send(embed=error_embed("No contests are active."))
 
         await Leaderboard.update()
@@ -71,7 +71,7 @@ class ContestManagement(commands.Cog):
         if payload.channel_id != Settings.submission_channel.id:
             return
 
-        if payload.emoji == Settings.accept_emoji:
+        if str(payload.emoji) == Settings.accept_emoji:
             # Accept submission
             submission: Submission = DB.accept_submission(payload.message_id)
             if not submission:
@@ -79,14 +79,15 @@ class ContestManagement(commands.Cog):
             try:
                 msg = await Settings.submission_channel.fetch_message(payload.message_id)
                 await msg.delete()
-                await submission.character.user_id.send(embed=success_embed("You submission with ID `{}` was accepted!".format(submission.id)))
+                other_user = self.bot.get_user(submission.character.user_id)
+                await other_user.send(embed=success_embed("You submission with ID `{}` was accepted!".format(submission.post_id)))
                 return await Logger.accepted_submission(user, submission)
             except Exception as e:
                 logging.error(
                     "Failed to delete submission message and/or notify user.\n" + str(e))
                 return
 
-        elif payload.emoji == Settings.reject_emoji:
+        elif str(payload.emoji) == Settings.reject_emoji:
             # Reject submission
             submission: Submission = DB.get_submission(payload.message_id)
             if not submission:
@@ -94,7 +95,8 @@ class ContestManagement(commands.Cog):
             try:
                 msg = await Settings.submission_channel.fetch_message(payload.message_id)
                 await msg.delete()
-                await submission.character.user_id.send(embed=error_embed("You submission with ID `{}` was denied!".format(submission.id)))
+                other_user = self.bot.get_user(submission.character.user_id)
+                await other_user.send(embed=error_embed("You submission with ID `{}` was denied!".format(submission.post_id)))
                 return await Logger.rejected_submission(user, submission)
             except Exception as e:
                 logging.error(

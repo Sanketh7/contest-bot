@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 from cogs import Scheduling, ContestManagement, UserManagement
 from settings import Settings
+from points import PointsManager
 
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
@@ -21,6 +22,8 @@ async def on_ready():
     print(f'{bot.user.name} has connected!')
 
     Settings.reload_all(bot)
+
+    PointsManager.parse_data()
 
     bot.add_cog(Scheduling(bot))
     bot.add_cog(ContestManagement(bot))

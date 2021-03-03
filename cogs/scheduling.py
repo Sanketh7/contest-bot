@@ -7,6 +7,7 @@ from datetime import datetime
 from database import DB, Contest
 from util import error_embed, success_embed, contest_post_embed, is_admin
 from settings import Settings
+from typing import List
 
 
 class Scheduling(commands.Cog):
@@ -39,7 +40,7 @@ class Scheduling(commands.Cog):
     @commands.command()
     @is_admin()
     async def view_schedule(self, ctx):
-        schedule: list[Contest] = DB.get_schedule()
+        schedule: List[Contest] = DB.get_schedule()
         if not schedule:
             return await ctx.channel.send(embed=error_embed("No upcoming contests."))
 
