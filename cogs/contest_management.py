@@ -2,7 +2,7 @@ import discord
 import logging
 from discord.ext import commands, tasks
 from datetime import datetime
-from database import DB, Contest, Submission
+from database import DB
 from util import error_embed, success_embed, contest_post_embed, is_admin
 from settings import Settings
 from leaderboard import Leaderboard
@@ -19,7 +19,7 @@ class ContestManagement(commands.Cog):
         if not DB.is_contest_running():
             return await ctx.channel.send(embed=error_embed("No contests are active."))
 
-        contest: Contest = DB.get_current_contest()
+        contest: DB.db.Contest = DB.get_current_contest()
 
         try:
             end_time = datetime.strptime(end_time_str, "%m/%d/%y %H:%M")
@@ -62,7 +62,7 @@ class ContestManagement(commands.Cog):
     async def on_raw_reaction_add(self, payload):
         try:
             user: discord.User = self.bot.get_user(payload.user_id)
-            member: discord.Member = Settings.guild.get_member(payload.user_id)
+            # member: discord.Member = Settings.guild.get_member(payload.user_id)
         except Exception:
             return
         if user == self.bot.user or not user:
@@ -73,7 +73,8 @@ class ContestManagement(commands.Cog):
 
         if str(payload.emoji) == Settings.accept_emoji:
             # Accept submission
-            submission: Submission = DB.accept_submission(payload.message_id)
+            submission: DB.db.Submission = DB.accept_submission(
+                payload.message_id)
             if not submission:
                 return
             try:
@@ -89,7 +90,8 @@ class ContestManagement(commands.Cog):
 
         elif str(payload.emoji) == Settings.reject_emoji:
             # Reject submission
-            submission: Submission = DB.get_submission(payload.message_id)
+            submission: DB.db.Submission = DB.get_submission(
+                payload.message_id)
             if not submission:
                 return
             try:

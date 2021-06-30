@@ -3,7 +3,7 @@ import logging
 from processes import Process
 from util import success_embed, character_embed
 from settings import Settings
-from database import DB, Character
+from database import DB
 from util import yes_no_react_task, rotmg_class_select_task, Response
 
 
@@ -25,7 +25,8 @@ class NewCharacter(Process):
         return await self.user.send(embed=success_embed("Character created."))
 
     async def previous_char_menu(self):
-        old_char: Character = DB.get_character(self.contest_id, self.user.id)
+        old_char: DB.db.Character = DB.get_character(
+            self.contest_id, self.user.id)
         if not old_char:
             logging.error(
                 "Failed to get the old character for user " + str(self.user.id))

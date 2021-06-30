@@ -1,10 +1,11 @@
 import discord
 from processes import Process
-from database import DB, Character
+from database import DB
 from util import error_embed, success_embed, character_embed, \
     keyword_input_task, yes_no_edit_react_task, Response, Logger
 from settings import Settings
 from points import PointsManager
+from typing import Set
 
 
 class AddRemoveKeywords(Process):
@@ -19,7 +20,8 @@ class AddRemoveKeywords(Process):
         return await self.show_current_character()
 
     async def show_current_character(self):
-        self.old_char: Character = DB.get_character_by_id(self.character_id)
+        self.old_char: DB.db.Character = DB.get_character_by_id(
+            self.character_id)
         if not self.old_char:
             return await self.user.send(embed=error_embed("That character doesn't exist."))
 
@@ -53,14 +55,14 @@ class AddRemoveKeywords(Process):
 
     async def confirm_keywords_menu(self):
         if not self.is_add:
-            rejected_kw: set[str] = self.old_char.delta_keywords(
+            rejected_kw: Set[str] = self.old_char.delta_keywords(
                 set(self.keywords))
-            accepted_kw: set[str] = self.old_char.keywords_intersection(
+            accepted_kw: Set[str] = self.old_char.keywords_intersection(
                 set(self.keywords))
         else:
-            rejected_kw: set[str] = self.old_char.keywords_intersection(
+            rejected_kw: Set[str] = self.old_char.keywords_intersection(
                 set(self.keywords))
-            accepted_kw: set[str] = self.old_char.delta_keywords(
+            accepted_kw: Set[str] = self.old_char.delta_keywords(
                 set(self.keywords))
 
         rejected_kw_str = str(rejected_kw) if rejected_kw else "**NONE**"
