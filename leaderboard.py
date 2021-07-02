@@ -38,7 +38,7 @@ class Leaderboard:
             ign = player.display_name
 
             if player_count >= Leaderboard.NUM_CHARS_PER_TABLE_LIMIT:  # maxed out players for this table
-                table_id += 1
+                table_ind += 1
                 player_count = 0
             if table_ind >= Leaderboard.NUM_TABLE_LIMIT:  # maxed out tables
                 break

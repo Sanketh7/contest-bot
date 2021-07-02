@@ -1,4 +1,4 @@
-from pony.orm import PrimaryKey, Required, Optional, IntArray, StrArray, Set, desc, Database
+from pony.orm import PrimaryKey, Required, Optional, StrArray, Set, Database
 from datetime import datetime
 from points import PointsManager
 import typing

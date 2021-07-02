@@ -1,6 +1,5 @@
 import discord
 from settings import Settings
-import typing
 from datetime import datetime
 from database import Character
 
