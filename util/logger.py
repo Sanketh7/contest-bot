@@ -1,10 +1,17 @@
+from gc import get_referents
 import discord
 import logging
 from typing import List
+
+from discord.ext.commands.converter import Greedy
 from settings import Settings
 from database import Submission
 
+COLOR_RED = 0xFF0000
+COLOR_GREEN = 0x00FF00
+COLOR_BLUE = 0x0000FF
 
+# logs events to the server's logging channel
 class Logger:
     @staticmethod
     async def send_log(text: str, embed_color: int, image_url=None):
@@ -18,7 +25,7 @@ class Logger:
     @staticmethod
     async def updated_leaderboard(user: discord.User):
         text = "{} updated the leaderboard.".format(user.mention)
-        return await Logger.send_log(text, 0x0000FF)
+        return await Logger.send_log(text, COLOR_BLUE)
 
     @staticmethod
     async def added_keywords(staff_user: discord.User, player_user: discord.User, character_id: int, keywords_added: List[str]):
@@ -26,7 +33,7 @@ class Logger:
         {} added these keywords to {}'s character (ID: `{}`):
         `{}`
         '''.format(staff_user.mention, player_user.mention, character_id, str(keywords_added))
-        return await Logger.send_log(text, 0x00FF00)
+        return await Logger.send_log(text, COLOR_GREEN)
 
     @staticmethod
     async def removed_keywords(staff_user: discord.User, player_user: discord.User, character_id: int, keywords_removed: List[str]):
@@ -34,7 +41,7 @@ class Logger:
         {} removed these keywords to {}'s character (ID: `{}`):
         `{}`
         '''.format(staff_user.mention, player_user.mention, character_id, str(keywords_removed))
-        return await Logger.send_log(text, 0x00FF00)
+        return await Logger.send_log(text, COLOR_GREEN)
 
     @staticmethod
     async def accepted_submission(staff_user: discord.User, submission: Submission):
@@ -55,7 +62,7 @@ class Logger:
         '''.format(staff_user.mention, player_user.mention, submission.character.rotmg_class,
                    str(submission.keywords), submission.points, submission.img_url)
 
-        return await Logger.send_log(text, 0x00FF00, submission.img_url)
+        return await Logger.send_log(text, COLOR_GREEN, submission.img_url)
 
     @staticmethod
     async def rejected_submission(staff_user: discord.User, submission: Submission):
@@ -75,4 +82,14 @@ class Logger:
         '''.format(staff_user.mention, player_user.mention, submission.character.rotmg_class,
                    str(submission.keywords), submission.points, submission.img_url)
 
-        return await Logger.send_log(text, 0xFF0000, submission.img_url)
+        return await Logger.send_log(text, COLOR_RED, submission.img_url)
+
+    @staticmethod
+    async def banned_user(staff_user: discord.Member, target_user: discord.Member):
+        text = f'{staff_user.mention} banned {target_user.mention} from participating in the contest.'
+        return await Logger.send_log(text, COLOR_RED)
+
+    @staticmethod
+    async def unbanned_user(staff_user: discord.Member, target_user: discord.Member):
+        text = f'{staff_user.mention} unbanned {target_user.mention} from participating in the contest.'
+        return await Logger.send_log(text, COLOR_GREEN)

@@ -1,3 +1,4 @@
+from util.logger import Logger
 import discord
 import typing
 from discord.ext import commands
@@ -63,7 +64,7 @@ class UserManagement(commands.Cog):
 
         DB.ban_user(DB.get_current_contest_id(), user.id)
         user.send(embed=error_embed("You have been banned from participating in the contest."))
-        # TODO: log
+        Logger.banned_user(ctx.author, user)
 
     # allows contest staff to unban a user
     @commands.command()
@@ -77,7 +78,7 @@ class UserManagement(commands.Cog):
         DB.unban_user(DB.get_current_contest_id(), user.id)
         user.send(embed=success_embed("You have been unbanned from the contest. \
             All characters in this contest before the ban can be edited again."))
-        # TODO: log
+        Logger.unbanned_user(ctx.author, user)
 
     # allows contest staff to view list of all banned users
     @commands.command()
