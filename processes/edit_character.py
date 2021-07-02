@@ -8,7 +8,7 @@ from settings import Settings
 from points import PointsManager
 from typing import Set
 
-
+# allows the user to add items to their character
 class EditCharacter(Process):
     def __init__(self, bot: discord.Client, user: discord.User, contest_id: int):
         super().__init__(bot, user, contest_id)
@@ -17,6 +17,7 @@ class EditCharacter(Process):
         self.img_url = ""  # resolved in self.proof_menu()
         self.keywords = ""  # resolved in self.keyword_menu()
 
+    # starts the process and checks if the user even has a character to edit
     async def start(self):
         self.old_char: Character = DB.get_character(
             self.contest_id, self.user.id)
@@ -25,6 +26,7 @@ class EditCharacter(Process):
         else:
             return await self.user.send(embed=error_embed("You don't have a character to edit."))
 
+    # shows the user their old character and confirms if they want to edit it
     async def show_old_char_menu(self):
         title_embed = discord.Embed(title="Current Character:")
         embed = character_embed(self.old_char)
@@ -47,6 +49,9 @@ class EditCharacter(Process):
             assert(response == Response.TIMEDOUT)
             return await self.timed_out()
 
+    # prompts the user to send proof for their submission items
+    # bot only responds if the response is an image attachment
+    # refer to proof_upload_task() for more details on handling responses
     async def proof_menu(self):
         embed = discord.Embed(
             title="Submission for class `{}`.".format(self.old_char.rotmg_class))
@@ -79,6 +84,8 @@ class EditCharacter(Process):
             assert(response == Response.TIMEDOUT)
             return await self.timed_out()
 
+    # prompts the user to input the keywords corresponding to their submission
+    # keywords are processed by PointsManager
     async def keyword_menu(self):
         embed = discord.Embed(title="Keywords Entry")
         embed.add_field(
@@ -104,6 +111,9 @@ class EditCharacter(Process):
             assert(response == Response.TIMEDOUT)
             return await self.timed_out()
 
+    # finds which keywords are new 
+    # keywords already in the character are rejected keywords
+    # keywords that are new are accepted keywords
     async def confirm_keywords_menu(self):
         rejected_kw: Set[str] = self.old_char.keywords_intersection(
             set(self.keywords))
@@ -153,6 +163,7 @@ class EditCharacter(Process):
             assert(response == Response.TIMEDOUT)
             return await self.timed_out()
 
+    # sends submission embed to the server's submission channel (used to accept/reject submission)
     async def upload_submission(self):
         member: discord.Member = discord.utils.get(
             Settings.guild.members, id=self.user.id)
@@ -181,6 +192,9 @@ class EditCharacter(Process):
 
         await self.finished()
 
+    # adds submission to database
+    # gives user receipt of submission (with submission ID)
+    # process ends here
     async def finished(self):
         self.dead = True
         DB.add_submission(self.contest_id, self.user.id,

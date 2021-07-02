@@ -9,6 +9,8 @@ class BusyException(Exception):
 class ProcessManager:
     user_processes: Dict[int, Process] = {}
 
+    # spawns a new process if the user is not already in one
+    # process is cleared once finished
     @staticmethod
     async def spawn(user_id: int, process: Process):
         if user_id in ProcessManager.user_processes and ProcessManager.user_processes[user_id]:

@@ -10,6 +10,7 @@ class PointsManager:
     # keyword -> class -> points
     points_data: Dict[str, Dict[str, int]] = dict()
 
+    # parses from the csv points data file
     @staticmethod
     def parse_data():
         data_file = open(Settings.points_data_file, "r")
@@ -29,6 +30,8 @@ class PointsManager:
                 PointsManager.points_data[row[0].lower(
                 )][rotmg_classes[i].lower()] = int(row[2+i])
 
+    # uses flashtext to extract the keywords from a raw input string
+    # raw input comes from processes
     @staticmethod
     def parse_keywords(raw: str):
         proc = KeywordProcessor()

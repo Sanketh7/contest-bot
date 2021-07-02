@@ -4,7 +4,8 @@ from typing import List, Dict
 
 file_name = "settings.json"
 
-
+# reads data from settings.json
+# settings.json doesn't contain sensitive info and is based on the server the bot is being run on
 class Settings:
     bot_owner: discord.User
 
@@ -20,6 +21,7 @@ class Settings:
     leaderboard_channel: discord.TextChannel
     log_channel: discord.TextChannel
 
+    # default emojis stored as str, custom emojis stored as discord.Emoji
     accept_emoji: str
     reject_emoji: str
     edit_emoji: str

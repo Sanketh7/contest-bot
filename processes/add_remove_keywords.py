@@ -6,7 +6,7 @@ from util import error_embed, success_embed, character_embed, \
 from settings import Settings
 from points import PointsManager
 
-
+# allows for contest staff to add/remove keywords from any character
 class AddRemoveKeywords(Process):
     def __init__(self, bot: discord.Client, user: discord.Member, contest_id: int, character_id: int, is_add: bool):
         super().__init__(bot, user, contest_id)
@@ -18,6 +18,7 @@ class AddRemoveKeywords(Process):
     async def start(self):
         return await self.show_current_character()
 
+    # displays info for target character
     async def show_current_character(self):
         self.old_char: Character = DB.get_character_by_id(self.character_id)
         if not self.old_char:
@@ -29,6 +30,7 @@ class AddRemoveKeywords(Process):
         await self.user.send(embed=embed)
         return await self.keyword_menu()
 
+    # allows user to input keywords to add/remove
     async def keyword_menu(self):
         embed = discord.Embed(title="Keywords Entry")
         embed.add_field(
@@ -51,6 +53,7 @@ class AddRemoveKeywords(Process):
             assert(response == Response.TIMEDOUT)
             return await self.timed_out()
 
+    # allows user to confirm that these are the keywords they want to add/remove
     async def confirm_keywords_menu(self):
         if not self.is_add:
             rejected_kw: set[str] = self.old_char.delta_keywords(
@@ -106,7 +109,10 @@ class AddRemoveKeywords(Process):
             assert(response == Response.TIMEDOUT)
             return await self.timed_out()
 
-    async def make_changes(self):
+    # update database with new keywords
+    # send receipt of actions
+    # log in server's log channel
+    async def finished(self):
         if self.is_add:
             DB.add_keywords(self.character_id, set(self.keywords))
             await self.user.send(embed=success_embed("Added:\n`{}`".format(self.keywords)))

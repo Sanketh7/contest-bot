@@ -4,7 +4,8 @@ from datetime import datetime
 from settings import Settings
 from typing import List, Set
 
-
+# note that pony orm db instance is created in objects.py
+# this is because of limitations with creating db object models
 class DB:
     @staticmethod
     @db_session

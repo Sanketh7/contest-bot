@@ -6,12 +6,14 @@ from tabulate import tabulate
 from settings import Settings
 
 
+# displays and maintains a leaderboard of top characters of the contest
 class Leaderboard:
     NUM_TABLE_LIMIT = 5
     NUM_CHARS_PER_TABLE_LIMIT = 10
 
     top_chars: List[Character]
 
+    # refreshes top_chars using the database
     @staticmethod
     async def update():
         contest_id = DB.get_current_contest_id()
@@ -19,6 +21,9 @@ class Leaderboard:
         Leaderboard.top_chars = DB.get_top_characters(
             contest_id, Leaderboard.NUM_TABLE_LIMIT*Leaderboard.NUM_CHARS_PER_TABLE_LIMIT)
 
+    # displays the leaderboard in the leaderboard channel
+    # note that this only shows 5 tables with 10 characters on each table
+    # due to discord api rate-limiting 
     @staticmethod
     async def display(bot: discord.Client):
         assert(Leaderboard.top_chars)

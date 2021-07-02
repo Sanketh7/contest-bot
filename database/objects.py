@@ -1,10 +1,15 @@
+import os
+from dotenv.main import load_dotenv
 from pony.orm import PrimaryKey, Required, Optional, StrArray, Set, Database
 from datetime import datetime
 from points import PointsManager
 import typing
 
+load_dotenv()
+DB_FILE = os.getenv('DB_FILE')
+
 db = Database()
-db.bind(provider='sqlite', filename='database.db', create_db=True)
+db.bind(provider='sqlite', filename=DB_FILE, create_db=True)
 
 
 class Contest(db.Entity):

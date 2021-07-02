@@ -16,6 +16,7 @@ def success_embed(text: str) -> discord.Embed:
     return embed
 
 
+# displays character info including class, points, items/achievements
 def character_embed(character: Character) -> discord.Embed:
     keywords_str = str(list(character.keywords)) if len(
         list(character.keywords)) > 0 else "**NONE**"
@@ -59,7 +60,7 @@ def character_embed(character: Character) -> discord.Embed:
 
     return embed
 
-
+# embed used to announce and interact with a contest
 def contest_post_embed(end_time: datetime):
     embed = discord.Embed(title="A New PPE Contest Has Started!")
     embed.description = "Ends on {} at {} (UTC)".format(

@@ -1,6 +1,7 @@
 import discord
 import typing
 from discord.ext import commands
+from discord.ext.commands import Context
 from database import DB
 from util import error_embed, success_embed, character_embed, user_busy_embed, is_contest_staff
 from processes import ProcessManager, AddRemoveKeywords, BusyException, NewCharacter, EditCharacter
@@ -11,6 +12,8 @@ class UserManagement(commands.Cog):
     def __init__(self, bot: discord.Client):
         self.bot = bot
 
+    # lets a user view their profile or another user's profile
+    # profil consists of list of characters (class, points, items/achievements)
     @commands.command()
     async def profile(self, ctx, other_user: typing.Optional[discord.Member] = None):
         if not DB.is_contest_running():
@@ -29,6 +32,7 @@ class UserManagement(commands.Cog):
         for e in embeds:
             await ctx.author.send(embed=e)
 
+    # allows contest staff to remove items from a character
     @commands.command()
     @is_contest_staff()
     async def remove_items(self, ctx, char_id: int):
@@ -38,15 +42,17 @@ class UserManagement(commands.Cog):
         except BusyException:
             return await ctx.author.send(embed=user_busy_embed())
 
+    # allows contest staff to add items to a character
     @commands.command()
     @is_contest_staff()
-    async def add_items(self, ctx, char_id: int):
+    async def add_items(self, ctx: Context, char_id: int):
         try:
             return await ProcessManager.spawn(ctx.author.id, AddRemoveKeywords(
                 self.bot, ctx.author, DB.get_current_contest_id(), char_id, True))
         except BusyException:
             return await ctx.author.send(embed=user_busy_embed())
 
+    # allows contest staff to ban a user
     @commands.command()
     @is_contest_staff()
     async def ban(self, ctx, user: discord.Member):
@@ -56,8 +62,10 @@ class UserManagement(commands.Cog):
             return await ctx.send(embed=error_embed("Invalid user."))
 
         DB.ban_user(DB.get_current_contest_id(), user.id)
+        user.send(embed=error_embed("You have been banned from participating in the contest."))
         # TODO: log
 
+    # allows contest staff to unban a user
     @commands.command()
     @is_contest_staff()
     async def unban(self, ctx, user: discord.Member):
@@ -67,8 +75,11 @@ class UserManagement(commands.Cog):
             return await ctx.send(embed=error_embed("Invalid user."))
 
         DB.unban_user(DB.get_current_contest_id(), user.id)
+        user.send(embed=success_embed("You have been unbanned from the contest. \
+            All characters in this contest before the ban can be edited again."))
         # TODO: log
 
+    # allows contest staff to view list of all banned users
     @commands.command()
     @is_contest_staff()
     async def view_bans(self, ctx):
@@ -84,6 +95,8 @@ class UserManagement(commands.Cog):
         mention_str = '\n'.join(i for i in mentions)
         return await ctx.send(embed=success_embed("Banned users:\n " + mention_str))
 
+    # listens for reactions on the contest post 
+    # uses raw events so that the bot can still listen to events when the bot restarts
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         try:

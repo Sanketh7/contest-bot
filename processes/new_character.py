@@ -7,11 +7,13 @@ from database import DB, Character
 from util import yes_no_react_task, rotmg_class_select_task, Response
 
 
+# walks the user through creating a new character (and consequently ending the current one)
 class NewCharacter(Process):
     def __init__(self, bot: discord.Client, user: discord.User, contest_id: int):
         super().__init__(bot, user, contest_id)
         self.rotmg_class = ""  # resolved in self.class_select_menu()
 
+    # starts the process based on whether the user has a current character
     async def start(self):
         has_char = DB.get_character(self.contest_id, self.user.id) is not None
         if has_char:
@@ -19,11 +21,15 @@ class NewCharacter(Process):
         else:
             return await self.class_select_menu()
 
+    # creates the new character based on user's input
+    # process ends here
     async def finished(self):
         self.dead = True
         DB.new_character(self.contest_id, self.user.id, self.rotmg_class)
         return await self.user.send(embed=success_embed("Character created."))
 
+    # shows the user their current character
+    # confirms if they want to end that character
     async def previous_char_menu(self):
         old_char: Character = DB.get_character(self.contest_id, self.user.id)
         if not old_char:
@@ -57,6 +63,7 @@ class NewCharacter(Process):
             assert(response == Response.TIMEDOUT)
             return await self.timed_out()
 
+    # allows user to choose the class of their new character
     async def class_select_menu(self):
         embed = discord.Embed(title="Class Selection")
         embed.add_field(
