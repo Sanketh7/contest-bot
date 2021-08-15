@@ -74,7 +74,7 @@ class DB:
     @db_session
     def end_current_contest():
         contest: Contest = DB.get_current_contest()
-        assert(contest and contest.should_end)
+        # assert(contest and contest.should_end)
         contest.is_active = False
         contest.post_id = None
 

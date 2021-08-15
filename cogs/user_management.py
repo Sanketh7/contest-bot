@@ -63,7 +63,8 @@ class UserManagement(commands.Cog):
             return await ctx.send(embed=error_embed("Invalid user."))
 
         DB.ban_user(DB.get_current_contest_id(), user.id)
-        user.send(embed=error_embed("You have been banned from participating in the contest."))
+        user.send(embed=error_embed(
+            "You have been banned from participating in the contest."))
         Logger.banned_user(ctx.author, user)
 
     # allows contest staff to unban a user
@@ -96,7 +97,7 @@ class UserManagement(commands.Cog):
         mention_str = '\n'.join(i for i in mentions)
         return await ctx.send(embed=success_embed("Banned users:\n " + mention_str))
 
-    # listens for reactions on the contest post 
+    # listens for reactions on the contest post
     # uses raw events so that the bot can still listen to events when the bot restarts
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):

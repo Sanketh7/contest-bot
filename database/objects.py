@@ -6,11 +6,15 @@ from points import PointsManager
 import typing
 
 load_dotenv()
-DB_FILE = os.getenv('DB_FILE')
+# DB_FILE = os.getenv('DB_FILE')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_DATABASE = os.getenv('DB_DATABASE')
+DB_HOST = os.getenv('DB_HOST')
 
 db = Database()
-db.bind(provider='sqlite', filename=DB_FILE, create_db=True)
-
+# db.bind(provider='sqlite', filename=DB_FILE, create_db=True)
+db.bind(provider='postgres', user=DB_USER, password=DB_PASSWORD, database=DB_DATABASE, host=DB_HOST)
 
 class Contest(db.Entity):
     id = PrimaryKey(int, auto=True)

@@ -2,6 +2,8 @@ import discord
 import json
 from typing import List, Dict
 
+from discord import guild
+
 file_name = "settings.json"
 
 # reads data from settings.json
@@ -47,7 +49,7 @@ class Settings:
     def reload_guild(bot: discord.Client) -> None:
         with open(file_name, "rb") as f:
             data = json.load(f)
-        Settings.guild = bot.get_guild(data["guild"])
+        Settings.guild = bot.get_guild(int(data["guild"]))
 
     @staticmethod
     def reload_bot_owner(bot: discord.Client) -> None:

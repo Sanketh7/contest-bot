@@ -9,7 +9,6 @@ from points import PointsManager
 
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
-# DB_FILE = os.getenv('DB_FILE')
 
 intents = discord.Intents.default()
 intents.members = True  # pylint: disable=assigning-non-slot

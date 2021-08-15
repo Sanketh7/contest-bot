@@ -92,7 +92,7 @@ class Scheduling(commands.Cog):
 
     async def handle_end_contest(self):
         contest: Contest = DB.get_current_contest()
-        assert(contest and contest.should_end)
+        # assert(contest and contest.should_end)
 
         try:
             msg = await Settings.sign_up_channel.fetch_message(contest.post_id)
