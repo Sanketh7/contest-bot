@@ -18,10 +18,10 @@ A `Dockerfile` is provided to quickly create a Docker image. If you only need to
 ```
 docker build -t contest-bot:latest .
 ```
-If you need to build for both `amd64` and `arm64` (e.g. you're using an M1 Mac), run:
+If you need to build for both `amd64` and `arm64` (e.g. you're using an M1 Mac), you will need a Docker repository to push to.
 ```
 docker buildx create --use
-docker buildx build --platform linux/amd64,linux/arm64 -t contest-bot:latest .
+docker buildx build --push --platform linux/amd64,linux/arm64 -t {Docker repo}:{tag} .
 ```
 Once you have the image, simply use the following command to create a container:
 ```
