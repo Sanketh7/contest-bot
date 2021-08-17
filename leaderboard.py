@@ -62,7 +62,7 @@ class Leaderboard:
                 )
 
         embed = discord.Embed(title="Leaderboard", color=0x00FF00)
-        embed.description = "Updated every 10 minutes during a contest."
+        embed.description = "Updated every 5 minutes during a contest."
 
         for table in table_list:
             if not table:
