@@ -19,7 +19,7 @@ class PointsManager:
         for row in data_reader:
             data.append(row)
 
-        rotmg_classes = data[0][2:]
+        rotmg_classes = data[0][2:] # classes are in the first row of the csv (index 0)
         data = data[1:]
 
         for row in data:

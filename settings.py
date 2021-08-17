@@ -95,6 +95,7 @@ class Settings:
         Settings.reject_emoji = data["emojis"]["reject"]
         Settings.edit_emoji = data["emojis"]["edit"]
 
+        # this needs to retrieved from discord since it's not a default emoji
         Settings.grave_emoji = discord.utils.get(
             bot.emojis, name=data["emojis"]["grave"])
 

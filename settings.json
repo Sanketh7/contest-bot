@@ -7,7 +7,7 @@
         "contest_staff": "Contest Staff",
         "contestant": "Contestant"
     },
-    "rotmg_classes": ["bard", "sorcerer", "wizard", "samurai", "mystic", "assassin", "rogue", "archer", "ninja", "priest", "warrior", "trickster", "knight", "necromancer", "huntress", "paladin"],
+    "rotmg_classes": ["bard", "sorcerer", "wizard", "samurai", "mystic", "assassin", "rogue", "archer", "ninja", "priest", "warrior", "trickster", "knight", "necromancer", "huntress", "paladin", "summoner"],
     "emojis": {
         "accept": "✅",
         "reject": "❌",
@@ -29,7 +29,8 @@
         "knight": "knight",
         "necromancer": "necromancer",
         "huntress": "huntress",
-        "paladin": "paladin"
+        "paladin": "paladin",
+        "summoner": "summoner"
     },
     "channels": {
         "sign_up": "sign-up",
