@@ -58,7 +58,7 @@ class DB:
     @db_session
     def get_ready_contest():
         time_now = datetime.now()
-        qry = Contest.contests_after_datetime(time_now)
+        qry = Contest.contests_before_datetime(time_now)
         return qry.first() if qry else None
 
     @staticmethod
@@ -174,7 +174,7 @@ class DB:
         submission.character.keywords = new
         submission.is_accepted = True
 
-        return submission
+        return submission, submission.character.user_id
 
     @staticmethod
     @db_session
@@ -182,7 +182,7 @@ class DB:
         submission = Submission.get_from_post_id(post_id)
         if not submission:
             return None
-        return submission
+        return submission, submission.character.user_id
 
     @staticmethod
     @db_session

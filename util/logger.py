@@ -67,7 +67,7 @@ class Logger:
     @staticmethod
     async def rejected_submission(staff_user: discord.User, submission: Submission):
         try:
-            player_user = Settings.guild.get_user(submission.character.user_id)
+            player_user = Settings.guild.get_member(submission.character.user_id)
         except Exception as e:
             logging.error("Failed to get user {}\n".format(
                 submission.character.user_id) + str(e))

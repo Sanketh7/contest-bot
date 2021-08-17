@@ -48,6 +48,10 @@ class Contest(db.Entity):
     def contests_after_datetime(cls, dt: datetime):
         return cls.select(lambda c: c.start_time > dt)
 
+    @classmethod
+    def contests_before_datetime(cls, dt: datetime):
+        return cls.select(lambda c: c.start_time < dt)
+
 
 class Character(db.Entity):
     id = PrimaryKey(int, auto=True)

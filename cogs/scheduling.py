@@ -13,6 +13,10 @@ from typing import List
 class Scheduling(commands.Cog):
     def __init__(self, bot: discord.Client):
         self.bot = bot
+        self.schedule_loop.start()
+
+    def cog_unload(self):
+        self.schedule_loop.stop()
 
     @commands.command()
     @is_admin()
