@@ -46,7 +46,7 @@ class Contest(db.Entity):
 
     @classmethod
     def contests_after_datetime(cls, dt: datetime):
-        return cls.select(lambda c: c.start_time < dt)
+        return cls.select(lambda c: c.start_time > dt)
 
 
 class Character(db.Entity):
