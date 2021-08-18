@@ -1,3 +1,4 @@
+import logging
 from typing import Dict
 from processes import Process
 
@@ -18,8 +19,8 @@ class ProcessManager:
         ProcessManager.user_processes[user_id] = process
         try:
             await ProcessManager.user_processes[user_id].start()
-        except:
-            pass
+        except Exception as e:
+            logging.error(e)
         ProcessManager.clean(user_id)
 
     # note that this doesn't kill the process, just cleans the dict

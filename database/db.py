@@ -200,7 +200,7 @@ class DB:
         char: Character = Character[character_id]
         if not char:
             return
-        old = set(Character.keywords)
+        old = set(char.keywords)
         new = old.union(keywords)
         char.keywords = list(new)
 
@@ -211,7 +211,7 @@ class DB:
         if not char:
             return
 
-        old = set(Character.keywords)
+        old = set(char.keywords)
         new = old.difference(keywords)
         char.keywords = list(new)
 
