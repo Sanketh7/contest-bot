@@ -82,6 +82,10 @@ class Character(db.Entity):
         return list(cls.select(lambda c: c.contest.id == contest_id and str(c.user_id) not in c.contest.banned_users[:]))
 
     @classmethod
+    def get_all_active_characters(cls, contest_id: int):
+        return list(cls.select(lambda c: c.contest.id == contest_id and str(c.user_id) not in c.contest.banned_users[:] and c.is_active))
+
+    @classmethod
     def get_characters_by_user(cls, contest_id: int, user_id: int):
         return cls.select(lambda c: c.contest.id == contest_id and c.user_id == user_id)
 

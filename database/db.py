@@ -144,6 +144,16 @@ class DB:
 
     @staticmethod
     @db_session
+    def get_top_active_characters(contest_id: int, count: int) -> List[Character]:
+        contest: Contest = Contest[contest_id]
+        if not contest:
+            return []
+        lst = list(Character.get_all_active_characters(contest_id))
+        lst.sort(key=lambda c: c.points, reverse=True)
+        return lst[:count]
+
+    @staticmethod
+    @db_session
     def add_submission(contest_id: int, user_id: int, post_id: int, keywords: List[str], img_url: str):
         contest = Contest[contest_id]
         if not contest:
