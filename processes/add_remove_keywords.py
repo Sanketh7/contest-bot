@@ -100,7 +100,7 @@ class AddRemoveKeywords(Process):
 
         if response == Response.ACCEPT:
             self.keywords = accepted_kw
-            return await self.make_changes()
+            return await self.finished()
         elif response == Response.REJECT:
             return await self.cancelled()
         elif response == Response.EDIT:

@@ -16,7 +16,10 @@ class ProcessManager:
         if user_id in ProcessManager.user_processes and ProcessManager.user_processes[user_id]:
             raise BusyException()
         ProcessManager.user_processes[user_id] = process
-        await ProcessManager.user_processes[user_id].start()
+        try:
+            await ProcessManager.user_processes[user_id].start()
+        except:
+            pass
         ProcessManager.clean(user_id)
 
     # note that this doesn't kill the process, just cleans the dict
