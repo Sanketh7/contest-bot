@@ -216,7 +216,7 @@ Tome of Holy Guidance,T6 Tome,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0
 Scepter of Storms,T6 Scepter,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0
 Ronin's Wakizashi,Ronins Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5
 Tome of Holy Furor,,30,30,30,30,30,30,30,30,30,30,30,30,30,35,30,30,30
-Snakeskin Shield,Snake Shield,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Snakeskin Shield,Snake Shield,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 Bone Dagger,,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1
 Krathana,,20,20,20,20,20,20,20,20,20,20,20,25,25,20,20,20,20
 Silex's Hammer,Silexs Hammer,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20
@@ -262,7 +262,7 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Magic Woods,MWoods Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Manor of the Immortals,Manor Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Mad Labs,Lab Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Machines,Machine Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Machines,Ice Tomb Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Toxic Sewers,Sew Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 20 Puppet Master's Theatre,Puppet Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Haunted Cemetery,Cem Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -276,10 +276,14 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Secluded Thickets,Thickets Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 High Tech Terrors,HTT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Ocean Trenches,OT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+15 Belladonna Garden,Bella Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+15 Mad God Mayhem,Mayhem Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+15 Ice Tombs,Ice Tomb Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Crawlings Depths,CDepths Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Deadwater Docks,DDocks Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Woodland Labyrinth,WLab Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Ice Caves,Ice Cave Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 The Third Dimension,3D Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Tomb of the Ancient,Tomb Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Forax,Forax Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Katalund,Katalund Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -842,3 +846,10 @@ Stone Priest,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Stone Sorcerer,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Stone Bard,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Stone Summoner,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Cheesecake Rogue,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Beefcake Rogue,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Heart of Gold Prism,Heart of Gold,10,10,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10
+King Rarthur Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Glyph Researcher Trickster Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Mini Marble Colossus Pet Skin,MBC Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Silent Samurai Skin,Silent Samurai,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
