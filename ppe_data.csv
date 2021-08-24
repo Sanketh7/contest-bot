@@ -19,7 +19,7 @@ Mercy's Bane,Mercy,25,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15,15
 Bloodstone Ring,,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Sword of Splendor,Splendor,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Crystal Sword,Csword,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-Ancient Stone Sword,ASS,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Ancient Stone Sword,ASS,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Demon Blade,Dblade,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Pirate King's Cutlass,Cutlass,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 Sword of the Colossus,Colo Sword,30,30,30,20,20,20,20,20,20,20,20,20,20,20,20,20,20
@@ -131,7 +131,7 @@ Thousand Shot,TShot,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15
 Coral Bow,CBow,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15
 Bow of the Void,Void Bow,25,25,25,25,25,25,30,30,25,25,25,25,25,25,25,30,25
 Nectar Crossfire,,15,15,15,15,15,15,20,25,15,15,15,15,15,15,15,25,15
-Staff of Vital Unity,T13 Staff,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10
+Nectar Crossfire,,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10
 Spirit Staff,,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10
 Staff of Extreme Prejudice,EP,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10
 Staff of Esben,Esben Staff,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10
@@ -262,10 +262,11 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Magic Woods,MWoods Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Manor of the Immortals,Manor Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Mad Labs,Lab Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Machines,Ice Tomb Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Machines,Machine Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Toxic Sewers,Sew Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 20 Puppet Master's Theatre,Puppet Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Haunted Cemetery,Cem Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+5 Cave of a Thousand Treasures,TCave Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Parasite Chambers,Parasite Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Lair of Draconis,LoD Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Mountain Temples,MT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -291,7 +292,8 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Malogia,Malogia Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Nests,Nest Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 25 Shatters,Shatts Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-25 Lost Halls (Void/Cultist/Lost Halls),LH Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+25 Lost Halls Void,Void Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+25 Cultist Hideout,Cult Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 35 Cursed Library,Lib Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Fungal Caverns,Fungal Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 25 Crystal Caverns,CC Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
@@ -600,7 +602,7 @@ Mirror Cloak,April Fools Cloak,5,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5
 ToMe of Moral Support,April Fools Tome,5,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5
 Seal of Eternal Life,April Fools Seal ,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 The Helium Trap,April Fools Trap,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5
-Hey Scepter Supreme,April Fools Scepter,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5
+Honey Scepter Supreme,April Fools Scepter,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5
 Archerang,April Fools Quiver,5,5,5,5,5,5,10,5,5,5,5,5,5,5,5,5,5
 Challenger Helm,April Fools Helm,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Lightning in a Bottle,April Fools Poison,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5
@@ -853,3 +855,23 @@ King Rarthur Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Glyph Researcher Trickster Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Mini Marble Colossus Pet Skin,MBC Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Silent Samurai Skin,Silent Samurai,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Spatula Dagger,,0,0,0,10,10,10,0,0,0,0,0,0,0,0,0,0,0
+Nail Gun Bow,,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,0
+Screwdriver Staff,,0,0,0,0,0,0,0,0,10,10,10,0,0,0,0,0,0
+Measuring Wand,,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,0,10
+Hammer Sword,,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Sawblade Katana,,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0
+Fitted Construction Vest,,5,5,5,15,15,15,15,15,5,5,5,15,5,5,5,5,5
+Magic Construction Vest,,5,5,5,5,5,5,5,15,15,15,15,5,5,15,15,15,15
+Heavy Construction Vest,,15,15,15,5,5,5,5,5,5,5,5,5,15,5,5,5,5
+Laborer's Hard Hat,,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8
+Operator's Hard Hat,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Foreman's Hard Hat,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+Adventurer's Belt,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Mini White Demon,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Fairy Ring,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+Bee Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Honey Scepter,,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,2,2
+Orb of Sweet Demise,,2,2,2,2,2,2,2,2,7,2,2,2,2,2,2,2,2
+Fire Battlemaiden Wizard Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Coral Ring,,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
