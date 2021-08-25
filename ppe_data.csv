@@ -130,8 +130,8 @@ Doom Bow,DBow,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15,10
 Thousand Shot,TShot,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15
 Coral Bow,CBow,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15
 Bow of the Void,Void Bow,25,25,25,25,25,25,30,30,25,25,25,25,25,25,25,30,25
-Nectar Crossfire,,15,15,15,15,15,15,20,25,15,15,15,15,15,15,15,25,15
 Nectar Crossfire,,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10
+Staff of Vital Unity,T13 Staff,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10
 Spirit Staff,,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10
 Staff of Extreme Prejudice,EP,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10
 Staff of Esben,Esben Staff,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10
@@ -292,6 +292,7 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 15 Malogia,Malogia Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Nests,Nest Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 25 Shatters,Shatts Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+25 Lost Halls (Void/Cultist/Lost Halls),LH Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 25 Lost Halls Void,Void Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 25 Cultist Hideout,Cult Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 35 Cursed Library,Lib Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -602,6 +603,7 @@ Mirror Cloak,April Fools Cloak,5,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5
 ToMe of Moral Support,April Fools Tome,5,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5
 Seal of Eternal Life,April Fools Seal ,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 The Helium Trap,April Fools Trap,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5
+Hey Scepter Supreme,April Fools Scepter,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5
 Honey Scepter Supreme,April Fools Scepter,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5
 Archerang,April Fools Quiver,5,5,5,5,5,5,10,5,5,5,5,5,5,5,5,5,5
 Challenger Helm,April Fools Helm,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5

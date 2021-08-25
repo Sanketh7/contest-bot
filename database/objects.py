@@ -70,7 +70,9 @@ class Character(db.Entity):
         kw_set = set(self.keywords)
         points = 0
         for kw in kw_set:
-            points += PointsManager.points_data[kw][self.rotmg_class]
+            if kw in PointsManager.points_data:
+                if self.rotmg_class in PointsManager.points_data[kw]:
+                    points += PointsManager.points_data[kw][self.rotmg_class]
         return points
 
     @classmethod
