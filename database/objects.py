@@ -1,5 +1,6 @@
 import os
 from dotenv.main import load_dotenv
+from flashtext import keyword
 from pony.orm import PrimaryKey, Required, Optional, StrArray, Set, Database
 from datetime import datetime
 from points import PointsManager
@@ -81,6 +82,10 @@ class Character(db.Entity):
 
     @classmethod
     def get_all_characters(cls, contest_id: int):
+        return list(cls.select(lambda c: c.contest.id == contest_id))
+
+    @classmethod
+    def get_all_not_banned_characters(cls, contest_id: int):
         return list(cls.select(lambda c: c.contest.id == contest_id and str(c.user_id) not in c.contest.banned_users[:]))
 
     @classmethod
@@ -91,20 +96,27 @@ class Character(db.Entity):
     def get_characters_by_user(cls, contest_id: int, user_id: int):
         return cls.select(lambda c: c.contest.id == contest_id and c.user_id == user_id)
 
-    def keywords_intersection(self, new_kw: typing.Set[str]) -> typing.Set[str]:
+    def get_keywords_intersection(self, new_kw: typing.Set[str]) -> typing.Set[str]:
         kw = set(self.keywords)
         return kw.intersection(new_kw)
 
-    def delta_keywords(self, new_kw: typing.Set[str]) -> typing.Set[str]:
+    def get_delta_keywords(self, new_kw: typing.Set[str]) -> typing.Set[str]:
         kw_set = set(self.keywords)
         return new_kw.difference(kw_set)
 
-    def delta_points(self, new_kw: typing.Set[str]) -> int:
-        delta_kw = self.delta_keywords(new_kw)
+    def get_delta_points(self, new_kw: typing.Set[str]) -> int:
+        delta_kw = self.get_delta_keywords(new_kw)
         delta_points = 0
         for kw in delta_kw:
             delta_points += PointsManager.points_data[kw][self.rotmg_class]
         return delta_points
+
+    def get_renamed_keywords(self, mapping: dict):
+        keywords = self.keywords[:]
+        for i in range(len(keywords)):
+            if keywords[i] in mapping:
+                keywords[i] = mapping[keywords[i]]
+        return keywords
 
 
 class Submission(db.Entity):

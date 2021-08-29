@@ -56,14 +56,14 @@ class AddRemoveKeywords(Process):
     # allows user to confirm that these are the keywords they want to add/remove
     async def confirm_keywords_menu(self):
         if not self.is_add:
-            rejected_kw: set[str] = self.old_char.delta_keywords(
+            rejected_kw: set[str] = self.old_char.get_delta_keywords(
                 set(self.keywords))
-            accepted_kw: set[str] = self.old_char.keywords_intersection(
+            accepted_kw: set[str] = self.old_char.get_keywords_intersection(
                 set(self.keywords))
         else:
-            rejected_kw: set[str] = self.old_char.keywords_intersection(
+            rejected_kw: set[str] = self.old_char.get_keywords_intersection(
                 set(self.keywords))
-            accepted_kw: set[str] = self.old_char.delta_keywords(
+            accepted_kw: set[str] = self.old_char.get_delta_keywords(
                 set(self.keywords))
 
         rejected_kw_str = str(rejected_kw) if rejected_kw else "**NONE**"

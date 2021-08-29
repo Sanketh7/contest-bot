@@ -115,9 +115,9 @@ class EditCharacter(Process):
     # keywords already in the character are rejected keywords
     # keywords that are new are accepted keywords
     async def confirm_keywords_menu(self):
-        rejected_kw: Set[str] = self.old_char.keywords_intersection(
+        rejected_kw: Set[str] = self.old_char.get_keywords_intersection(
             set(self.keywords))
-        accepted_kw: Set[str] = self.old_char.delta_keywords(
+        accepted_kw: Set[str] = self.old_char.get_delta_keywords(
             set(self.keywords))
 
         rejected_kw_str = str(rejected_kw) if rejected_kw else "**NONE**"
@@ -171,7 +171,7 @@ class EditCharacter(Process):
             logging.error("Member not in guild. Aborting submission.")
             return
 
-        delta_points = self.old_char.delta_points(self.keywords)
+        delta_points = self.old_char.get_delta_points(self.keywords)
 
         if not delta_points:
             return await self.user.send(embed=error_embed("Your submission was not submitted since you did not add any points."))
