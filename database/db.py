@@ -58,9 +58,10 @@ class DB:
     @db_session
     def get_ready_contest():
         time_now = datetime.now()
-        # qry = Contest.get_ready_contest(time_now)
-        qry = Contest.contests_before_datetime(time_now)
-        return qry.first() if qry else None
+        qry = Contest.get_ready_contest()
+        # qry = Contest.contests_before_datetime(time_now)
+        # return qry.first() if qry else None
+        return qry if qry else None
 
     @staticmethod
     @db_session

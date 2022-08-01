@@ -42,7 +42,7 @@ class Contest(db.Entity):
         time_now = datetime.now()
         if cls.get_current_contest():
             return None
-        return cls.select(lambda c: c.start_time <= time_now <= c.end_time).first()
+        return cls.select(lambda c: c.start_time <= time_now and time_now <= c.end_time).first()
 
     @classmethod
     def contests_after_datetime(cls, dt: datetime):

@@ -27,8 +27,11 @@ class PointsManager:
                 row[0].lower(), row[1].lower()]
             PointsManager.points_data[row[0].lower()] = {}
             for i in range(0, len(rotmg_classes)):
-                PointsManager.points_data[row[0].lower(
-                )][rotmg_classes[i].lower()] = int(row[2+i])
+                try:
+                    PointsManager.points_data[row[0].lower()][rotmg_classes[i].lower()] = int(row[2+i])
+                except ValueError:
+                    print(f"row {row[0].lower()} class {rotmg_classes[i].lower()} val {row[2+i]}")
+
 
     # uses flashtext to extract the keywords from a raw input string
     # raw input comes from processes
