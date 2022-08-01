@@ -112,7 +112,7 @@ class Scheduling(commands.Cog):
         contest = DB.get_current_contest()
         if contest:
             if contest.should_end:
-                self.handle_end_contest()
+                await self.handle_end_contest()
         else:
             if DB.get_ready_contest():
                 await self.start_contest_from_schedule()

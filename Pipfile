@@ -11,6 +11,7 @@ pony = "*"
 flashtext = "*"
 psycopg2cffi = "*"
 psycopg2 = "*"
+discord = "*"
 
 [dev-packages]
 autopep8 = "*"
