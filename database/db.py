@@ -87,16 +87,6 @@ class DB:
 
     @staticmethod
     @db_session
-    def rename_keywords(mappings: dict): # takes in dict of old keyword => new keyword
-        contest: Contest = DB.get_current_contest()
-        if not contest:
-            return
-        characters: List[Character] = Character.get_all_characters(contest.id)
-        for c in characters:
-            c.keywords = c.get_renamed_keywords()
-
-    @staticmethod
-    @db_session
     def new_character(contest_id: int, user_id: int, rotmg_class: str) -> None:
         assert(rotmg_class in Settings.rotmg_classes)
         contest = Contest[contest_id]
@@ -148,7 +138,7 @@ class DB:
         contest: Contest = Contest[contest_id]
         if not contest:
             return []
-        lst = list(Character.get_all_not_banned_characters(contest_id))
+        lst = list(Character.get_all_characters(contest_id))
         lst.sort(key=lambda c: c.points, reverse=True)
         return lst[:count]
 
