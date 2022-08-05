@@ -82,7 +82,9 @@ Recurring Terror Spell,Parasite Spell,15,15,15,15,15,15,15,15,15,20,15,15,15,15,
 Ancient Eminence,,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10
 Random Spell Extraction Device,,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,20,20
 Jade Storm,,30,30,30,30,30,30,30,30,30,35,30,30,30,30,30,30,30,30
-Beehemoth Quiver,Bee Quiver,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35
+Red Beehemoth Quiver,Red Bee Quiver,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35
+Blue Beehemoth Quiver,Blue Bee Quiver,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35
+Yellow Beehemoth Quiver,Yellow Bee Quiver,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35
 Quiver of Thunder,QoT,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35
 Quiver of the Shadows,Void Quiver,25,25,25,25,25,25,30,25,25,25,25,25,25,25,25,25,25,25
 Cloak of the Planewalker,Planewalker,10,10,10,10,15,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -130,7 +132,6 @@ Doom Bow,DBow,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15,10,10
 Thousand Shot,TShot,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15,15
 Coral Bow,CBow,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15,15
 Bow of the Void,Void Bow,25,25,25,25,25,25,30,30,25,25,25,25,25,25,25,30,25,25
-Nectar Crossfire,,15,15,15,15,15,15,20,25,15,15,15,15,15,15,15,25,15,15
 Nectar Crossfire,,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10,10
 Spirit Staff,,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10,10
 Staff of Extreme Prejudice,EP,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10,10
@@ -198,7 +199,7 @@ Seal of the Blessed Champion,GCookie,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 Cloak of Ghostly Concealment,Ghostly,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0
 Hydra Skin Armor,Hydra,0,0,0,5,5,5,5,5,0,0,0,5,0,0,0,0,0,0
 Prism of Apparitions,T6 Prism,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0
-Baneserpeant Poison,Milk,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Baneserpeant Poison,T6 Poison,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 Dagger of Foul Malevolence,Foul,0,0,0,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0
 Bow of Covert Havens,Covert,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,5,0,0
 Quiver of Elvish Mastery,Elvish,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0
@@ -206,12 +207,13 @@ Giantcatcher Trap,GTrap,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0
 Planefetter Orb,Planefetter,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0
 Bloodsucker Skull,T6 Skull,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0
 Staff of the Cosmic Whole,Cosmic,0,0,0,0,0,0,0,0,5,5,5,0,0,0,0,0,0,0
+Staff of the Vital Unity,T13 Staff,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10,10
 Robe of the Grand Sorcerer,GSorc,0,0,0,0,0,0,0,0,5,5,5,0,0,5,5,5,5,0
 Elemental Detonation Spell,T6 Spell,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0
 Masamune,T12 Katana,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,5
 Royal Wakizashi,T6 Waki,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,10
 Doom Circle,T6 Star,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0
-Wand of Recompense,Recomp,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0
+Wand of Recompense,Recomp,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,5,0
 Tome of Holy Guidance,T6 Tome,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0
 Scepter of Storms,T6 Scepter,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0
 Ronin's Wakizashi,Ronins Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5,10
@@ -253,60 +255,143 @@ Cultured Bookwyrm Pet Skin,Library Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Horned Wyrm Pet Skin,Horned Wyrm,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Slurp Knight Skin,Slurp Knight,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-50 Pirate Caves,PCave Completes,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
-50 Sprite Worlds,Sprite Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-50 Snake Pits,Snake Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-40 Undead Lairs,UDL Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-35 Abyss of Demons,Abyss Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-40 Ancient Ruins,Ruins Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-25 Magic Woods,MWoods Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Manor of the Immortals,Manor Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Mad Labs,Lab Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Machines,Machine Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-25 Toxic Sewers,Sew Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-20 Puppet Master's Theatre,Puppet Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Haunted Cemetery,Cem Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-5 Cave of a Thousand Treasures,TCave Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Parasite Chambers,Parasite Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Lair of Draconis,LoD Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Mountain Temples,MT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Davy Jones Lockers,Davy Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Shaitans,Shaitans Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Puppet Master's Encore,Encore Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Cnidarian Reefs,Reef Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Secluded Thickets,Thickets Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 High Tech Terrors,HTT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Ocean Trenches,OT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Belladonna Garden,Bella Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Mad God Mayhem,Mayhem Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Ice Tombs,Ice Tomb Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Crawlings Depths,CDepths Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Deadwater Docks,DDocks Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Woodland Labyrinth,WLab Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Ice Caves,Ice Cave Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 The Third Dimension,3D Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Tomb of the Ancient,Tomb Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Forax,Forax Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Katalund,Katalund Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Untaris,Untaris Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-15 Malogia,Malogia Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-25 Nests,Nest Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-25 Shatters,Shatts Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-25 Lost Halls Void,Void Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-25 Cultist Hideout,Cult Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-35 Cursed Library,Lib Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-25 Fungal Caverns,Fungal Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-25 Crystal Caverns,CC Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-Solo MBC,MBC Complete,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+50 Pirate Caves,50 PCave Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+100 Pirate Caves,100 PCave Completes,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+10 Forest Mazes,10 FMaze Completes,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+50 Forest Mazes,50 FMaze Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+10 Spider Dens,10 Spider Completes,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+50 Spider Dens,50 Spider Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+10 Forbidden Jungles,10 Jungle Completes,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+50 Forbidden Jungles,50 Jungle Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+10 The Hives,10 Hive Completes,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+50 The Hives,50 Hive Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+10 Candyland Hunting Grounds,10 Cland Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Candyland Hunting Grounds,25 Cland Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+25 Sprite Worlds,25 Sprite Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Sprite Worlds,50 Sprite Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+25 Snake Pits,25 Snake Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Snake Pits,50 Snake Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+25 Undead Lairs,25 UDL Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Undead Lairs,50 UDL Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+25 Abyss of Demons,25 Abyss Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Abyss of Demons,50 Abyss Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+25 Ancient Ruins,25 Ruins Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Ancient Ruins,50 Ruins Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+25 Magic Woods,25 MWoods Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Magic Woods,50 MWoods Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+25 Manor of the Immortals,25 Manor Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Manor of the Immortals,50 Manor Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+25 Mad Labs,25 Lab Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Mad Labs,50 Lab Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Machines,10 Machine Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Machines,25 Machine Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+25 Toxic Sewers,25 Sew Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Toxic Sewers,50 Sew Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+25 Puppet Master's Theatre,25 Puppet Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Puppet Master's Theatre,50 Puppet Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Haunted Cemetery,10 Cem Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Haunted Cemetery,25 Cem Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Cave of a Thousand Treasures,10 TCave Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Cave of a Thousand Treasures,25 TCave Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Parasite Chambers,10 Parasite Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Parasite Chambers,25 Parasite Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Lair of Draconis,10 LoD Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Lair of Draconis,25 LoD Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Mountain Temples,10 MT Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Mountain Temples,25 MT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Davy Jones Lockers,10 Davy Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Davy Jones Lockers,25 Davy Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Shaitans,10 Shaitans Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Shaitans,25 Shaitans Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Puppet Master's Encore,10 Encore Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Puppet Master's Encore,25 Encore Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Cnidarian Reefs,10 Reef Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Cnidarian Reefs,25 Reef Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Secluded Thickets,10 Thickets Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Secluded Thickets,25 Thickets Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 High Tech Terrors,10 HTT Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 High Tech Terrors,25 HTT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Ocean Trenches,10 OT Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Ocean Trenches,25 OT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Belladonna Garden,10 Bella Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Belladonna Garden,25 Bella Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Mad God Mayhem,10 Mayhem Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Mad God Mayhem,25 Mayhem Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Ice Tombs,10 Ice Tomb Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Ice Tombs,25 Ice Tomb Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Crawling Depths,10 CDepths Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Crawling Depths,25 CDepths Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Deadwater Docks,10 DDocks Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Deadwater Docks,25 DDocks Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Woodland Labyrinth,10 WLab Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Woodland Labyrinth,25 WLab Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Ice Caves,10 Ice Cave Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Ice Caves,25 Ice Cave Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 The Third Dimension,10 3D Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 The Third Dimension,25 3D Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Tomb of the Ancient,10 Tomb Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Tomb of the Ancient,25 Tomb Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Interregnums,10 Interregnum Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Interregnums,20 Interregnum Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Battle for the Nexus,10 Battle Nexus Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Battle for the Nexus,25 Battle Nexus Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+5 Beachzones,5 Beachzone Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+10 Forax,10 Forax Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Forax,25 Forax Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Katalund,10 Katalund Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Katalund,25 Katalund Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Untaris,10 Untaris Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Untaris,25 Untaris Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Malogia,10 Malogia Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Malogia,25 Malogia Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+5 Nests,5 Nest Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+15 Nests,15 Nest Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+30 Nests,30 Nest Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+50 Nests,50 Nest Completes,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+75 Nests,75 Nest Completes,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+5 Shatters,5 Shatts Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+15 Shatters,15 Shatts Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+30 Shatters,30 Shatts Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+50 Shatters,50 Shatts Completes,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+75 Shatters,75 Shatts Completes,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+5 Voids,5 Void Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+15 Voids,15 Void Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+30 Voids,30 Void Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+50 Voids,50 Void Completes,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+75 Voids,75 Void Completes,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+5 Cultist Hideout,5 Cult Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+15 Cultist Hideout,15 Cult Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+30 Cultist Hideout,30 Cult Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+50 Cultist Hideout,50 Cult Completes,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+75 Cultist Hideout,75 Cult Completes,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+25 Cursed Library,25 Lib Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+50 Cursed Library,50 Lib Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+5 Fungal Caverns,5 Fungal Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+15 Fungal Caverns,15 Fungal Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+30 Fungal Caverns,30 Fungal Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+50 Fungal Caverns,50 Fungal Completes,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+75 Fungal Caverns,75 Fungal Completes,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+5 Crystal Caverns,5 CC Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+15 Crystal Caverns,15 CC Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+30 Crystal Caverns,30 CC Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+50 Crystal Caverns,50 CC Completes,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+75 Crystal Caverns,75 CC Completes,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+5 Oryx Sanctuary,5 O3 Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+15 Oryx Sanctuary,15 O3 Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+30 Oryx Sanctuary,30 O3 Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+50 Oryx Sanctuary,50 O3 Completes,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+75 Oryx Sanctuary,75 O3 Completes,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+Solo MBC,Solo MBC Complete,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
 Solo Nest,Solo Nest Complete,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 Solo Shatters,Solo Shatts Complete,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-Solo Hard Mode Shatters,,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200
+Hard Mode Shatters,HM Shatts Complete,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50
+Solo Hard Mode Forgotten King,Solo HM King Complete,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
 Solo Pirate Cave,Solo PCave Complete,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 4 Man Void,4 Man Void,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-Solo Cult,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Solo Cultist Hideout,Solo Cult Complete,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Solo Fungal + Crystal,Solo Fungal Complete,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40
 Solo Void,Solo Void Complete,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
-Solo Oryx 3,Solo Oryx 3 Complete,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
+Solo Oryx Sanctuary,Solo Oryx 3 Complete,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
 2/8 Bonus,,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
 4/8 Bonus,,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
 6/8 Bonus,,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6
@@ -373,35 +458,35 @@ Acidic Armor,Snake ST Armor,5,5,5,15,10,10,10,5,5,5,5,10,5,5,5,5,5,5
 Virulent Venom,Sew Venom,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Pernicious Peridot,Snake ST Ring,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Esben's Shaman Attire,Esben Robe,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15,15,10
-Esben's Wedding Ring ,Esben Ring,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+Esben's Wedding Ring,Esben Ring,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 Swashbuckler's Sickle,Davy Sword,10,15,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Naval Uniform,Davy Armor,10,15,10,5,5,5,5,5,5,5,5,5,10,5,5,5,5,10
 Tricorne of the High Seas,DDock Helm,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 First Mate's Hook,PCave Ring,1,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 Bergenia Bow,Woodland Bow,5,5,5,5,5,5,10,15,5,5,5,5,5,5,5,10,5,5
-Hollyhock Hide,Woodland Robe,10,10,10,15,15,15,15,20,10,10,10,15,10,10,10,10,10,10
+Hollyhock Hide,Woodland Hide,10,10,10,15,15,15,15,20,10,10,10,15,10,10,10,10,10,10
 Lifebringing Lotus,MWoods Trap,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10,10,10
 Chrysanthemum Corsage,Woodland Ring,8,8,8,8,8,8,8,13,8,8,8,8,8,8,8,8,8,8
 Mighty Stein,Beer Poison,15,15,15,25,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 Greaterhosen,Beer Armor,15,15,15,20,20,20,20,15,15,15,15,20,15,15,15,15,15,15
 Quartz Cutter,Crystal Katana,15,15,15,15,15,15,15,15,15,15,15,25,20,15,15,15,15,20
 Luminous Armor,Crystal Armor,15,15,15,20,20,20,20,20,15,15,15,25,20,15,15,15,15,20
-Crystalline Kunai,Crystal Star ,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15
+Crystalline Kunai,Crystal Star,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15
 Radiant Heart,Crystal Ring,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10
 Ring of the Inferno,Red Demon Ring,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,10,10,10
 Staff of Eruption,Shaitan Staff,10,10,10,10,10,10,10,10,20,15,15,10,10,10,10,10,10,10
 Molten Mantle,Aby Robe,10,10,10,10,10,10,10,10,20,15,15,10,10,15,15,15,15,10
-Scorchium Stone ,Aby Orb,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10,10
+Scorchium Stone,Aby Orb,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10,10
 Soul's Guidance,Cem Wand,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10,10
 Anointed Robe,Janus Robe,15,15,15,15,15,15,15,15,20,20,20,15,15,25,20,20,20,15
 Theurgy Wand,Guardian Wand,10,10,10,10,10,10,10,10,10,10,10,10,10,20,15,10,15,10
 Ring of Pagan Favor,Oryx Castle Ring,4,4,4,4,4,4,4,4,4,4,4,4,4,9,4,4,9,4
-Ceremonial Merlot,Oryx Cup,15,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15
+Ceremonial Merlot,Merlot,15,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15
 Pharaoh's Requiem,Tomb Lute,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10
 Omni-Impotence Ring,Omni Impotence Ring,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Mirror Cloak,April Fools Cloak,5,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5
 ToMe of Moral Support,April Fools Tome,5,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5
-Seal of Eternal Life,April Fools Seal ,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Seal of Eternal Life,April Fools Seal,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 The Helium Trap,April Fools Trap,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Honey Scepter Supreme,April Fools Scepter,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5
 Archerang,April Fools Quiver,5,5,5,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5
@@ -487,12 +572,12 @@ Performer's Hat,,7,7,7,7,7,7,7,7,7,7,7,7,7,7,12,7,7,7
 Bow of Deep Enchantment,,15,15,15,15,15,15,25,25,15,15,15,15,15,15,15,25,15,15
 Dagger of Dire Hatred,,15,15,15,25,25,25,15,15,15,15,15,15,15,15,15,15,15,15
 Kusanagi,,15,15,15,15,15,15,15,15,15,15,15,25,25,15,15,15,15,25
-Staff of the Fundamental Core,,15,15,15,15,15,15,15,15,25,25,25,15,15,15,15,15,15,15
+Staff of the Fundamental Core,T14 Staff,15,15,15,15,15,15,15,15,25,25,25,15,15,15,15,15,15,15
 Sword of Majesty,,25,25,25,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-Wand of Retribution,,15,15,15,15,15,15,15,15,15,15,15,15,15,25,25,15,25,15
-Annihilation Armor,,20,20,20,10,10,10,10,10,10,10,10,10,20,10,10,10,10,20
-Leviathan Armor,,10,10,10,20,20,20,20,20,10,10,10,20,10,10,10,10,10,10
-Robe of the Ancient Intellect,,10,10,10,10,10,10,10,10,20,20,20,10,10,20,20,20,20,10
+Wand of Retribution,T14 Wand,15,15,15,15,15,15,15,15,15,15,15,15,15,25,25,15,25,15
+Annihilation Armor,T15 Heavy,20,20,20,10,10,10,10,10,10,10,10,10,20,10,10,10,10,20
+Leviathan Armor,T15 Leather,10,10,10,20,20,20,20,20,10,10,10,20,10,10,10,10,10,10
+Robe of the Ancient Intellect,T15 Robe,10,10,10,10,10,10,10,10,20,20,20,10,10,20,20,20,20,10
 Burning Retribution Spell,T7 Spell,10,10,10,10,10,10,10,10,10,30,10,10,10,10,10,10,10,10
 Cloak of Nightmares,T7 Cloak,10,10,10,10,30,10,10,10,10,10,10,10,10,10,10,10,10,10
 Depthchaser Trap,T7 Trap,10,10,10,10,10,10,10,30,10,10,10,10,10,10,10,10,10,10
@@ -510,9 +595,9 @@ Shield of Orcish Regalia,T7 Shield,30,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
 Tome of Hallowed Language,T7 Tome,10,10,10,10,10,10,10,10,10,10,10,10,10,30,10,10,10,10
 Virtuous Wakizashi,T7 Waki,10,10,10,10,10,10,10,10,10,10,10,10,30,10,10,10,10,30
 Divinity,,40,40,40,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
-Oryx's Escutcheon ,,40,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+Oryx's Escutcheon,,40,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
 Gladiator Guard,,40,40,40,30,30,30,30,30,30,30,30,30,40,30,30,30,30,40
-Exalted God's Horn ,,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35
+Exalted God's Horn,Horn,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35
 Lumiaire,,30,30,30,30,30,30,30,30,30,30,30,30,30,40,40,30,40,30
 Chaotic Scripture,,30,30,30,30,30,30,30,30,30,30,30,30,30,40,30,30,30,30
 Vesture of Duality,,30,30,30,30,30,30,30,30,30,40,40,30,30,40,40,40,40,30
@@ -675,7 +760,7 @@ Mini White Demon,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Fairy Ring,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 Bee Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Honey Scepter,,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,2,2,2
-Orb of Sweet Demise,,2,2,2,2,2,2,2,2,7,2,2,2,2,2,2,2,2,2
+Orb of Sweet Demise,Honey Orb,2,2,2,2,2,2,2,2,7,2,2,2,2,2,2,2,2,2
 Fire Battlemaiden Wizard Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Coral Ring,,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
 1000 Alive Fame,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -758,3 +843,59 @@ Lil' Thunderbringer Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Lil' Mister Backstage Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Lil' Deep Sea Diva Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Lil' Rad Raver Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Vampire Lord Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Sunken Fire Opal Ring,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Fractured Hannya,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Faded Heart Scarab,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Woodland Robe,,1,1,1,1,1,1,1,1,2,2,2,1,1,2,2,2,2,1
+Bloodshed Blades,t12 dual blades,0,0,0,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0
+Moonstone Blades,t13 dual blades,10,10,10,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10
+Soulforged Blades,t14 dual blades,15,15,15,25,25,25,15,15,15,15,15,15,15,15,15,15,15,15
+Earthen Ward,,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10,20,10
+Stonemould Mace,,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,18,13
+Rocky Robe,,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15,20,10
+Steadfast Glyph,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,15,10
+Skyslash Tachi,t12 tachi,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,5
+Sunset Tachi,t13 tachi,10,10,10,10,10,10,10,10,10,10,10,20,20,10,10,10,10,20
+Godslayer Tachi,t14 tachi,15,15,15,15,15,15,15,15,15,15,15,25,25,15,15,15,15,25
+Barnacle Basher,,50,50,50,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35
+Celebrant Flail,t12 flail,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Divine Flail,t13 flail,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Gravelord's Flail,t14 flail,25,25,25,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Spellblade of the Sun,t12 spellblade,0,0,0,0,0,0,0,0,5,5,5,0,0,0,0,0,0,0
+Spellblade of the Heavens Light,t13 spellblade,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10,10
+Spellblade of the Everlasting Death,t14 spellblade,15,15,15,15,15,15,15,15,25,25,25,15,15,15,15,15,15,15
+Longbow of the Endless Sky,t12 longbow,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,5,0,0
+Longbow of the Morning Spirit,t13 longbow,10,10,10,10,10,10,20,20,10,10,10,10,10,10,10,20,10,10
+Longbow of Midnight Diamond,t14 longbow,15,15,15,15,15,15,25,25,15,15,15,15,15,15,15,25,15,15
+Morning Star of Repentance,t12 morning star,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,5,0
+Morning Star of Conjuration,t13 morning star,10,10,10,10,10,10,10,10,10,10,10,10,10,20,20,10,20,10
+Morning Star of Reckoning,t14 morning star,15,15,15,15,15,15,15,15,15,15,15,15,15,25,25,15,25,15
+Hama Yumi,,35,35,35,35,35,35,50,50,35,35,35,35,35,35,35,50,35,35
+Fractal Blades,,20,20,20,30,30,30,20,20,20,20,20,20,20,20,20,20,20,20
+Beekeeper's Flamethrower,,20,20,20,20,20,20,20,20,20,20,20,20,20,30,30,20,30,20
+Crystallized Worm Spellblade,,20,20,20,20,20,20,20,20,30,30,30,20,20,20,20,20,20,20
+Burial Blades,,20,20,20,20,20,20,20,20,20,20,20,30,30,20,20,20,20,30
+Light Syndicate Attire,,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15
+Frangible Longbow,,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15,15
+Skelly Penguin Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Wanderer's Cape,,0,0,0,0,0,0,0,0,5,5,5,0,0,5,5,5,5,0
+Pirate Queen's Brigandine,,0,0,0,5,5,5,5,5,0,0,0,5,0,0,0,0,0,0
+Amulet of the Great Shaman,,5,5,5,0,0,0,0,0,0,0,0,0,5,0,0,0,0,5
+Emblem of  the Empire,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+Cuirass of the Black Blade,,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+Rusted Barrel,,20,20,20,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+Heavy Syndicate Attire,,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15,15,20
+Ritual Kopesh,,15,15,15,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15
+Mystic Syndicate Attire,,15,15,15,15,15,15,15,15,20,20,20,15,15,20,20,20,20,15
+Lil' Davy Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Fiery Katana,,10,10,10,10,10,10,10,10,10,10,10,15,15,10,10,10,10,20
+Pyro Sheath,,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,18
+Flame Guard,,15,15,15,10,10,10,10,10,10,10,10,10,15,10,10,10,10,20
+Firelight Necklace,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,15
+Lady of Locks Ninja Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Hailstorm,,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,20,10,10
+Thundering Chorus,,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,18,13,13
+Wind Dancer Robe,,10,10,10,10,10,10,10,10,15,15,15,10,15,15,15,20,10,10
+Augur of the Tempest,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,15
+Gilded Chain Scythe,,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
