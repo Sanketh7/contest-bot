@@ -33,6 +33,23 @@ class UserManagement(commands.Cog):
         for e in embeds:
             await ctx.author.send(embed=e)
 
+    @commands.command()
+    async def edit(self, ctx):
+        if not DB.is_contest_running():
+            return await ctx.send(embed=error_embed("No contests are active."))
+
+        member: discord.Member = Settings.guild.get_member(ctx.author.id)
+        if not member:
+            return
+
+        if Settings.contestant_role not in member.roles:
+            return await ctx.author.send(embed=error_embed("You need to sign up before you can submit or edit a character."))
+        try:
+            return await ProcessManager.spawn(ctx.author.id, EditCharacter(
+                self.bot, ctx.author, DB.get_current_contest_id()))
+        except BusyException:
+            return await ctx.author.send(embed=user_busy_embed())
+
     # allows contest staff to remove items from a character
     @commands.command()
     @is_contest_staff()

@@ -29,6 +29,7 @@ def character_embed(character: Character) -> discord.Embed:
     )
     embed = discord.Embed(title=title)
 
+    items_fields = []
     if len(keywords_str) >= 800:
         curr_arr = []
         curr_len = 3
@@ -36,27 +37,41 @@ def character_embed(character: Character) -> discord.Embed:
         for k in character.keywords:
             curr_len += len(str(k)) + 3
             if curr_len >= 800:
+                items_fields.append(("More Items/Achievements:" if counter > 1 else "Items/Achievements:", "`{}`".format(curr_arr), False))
+                """
                 embed.add_field(
                     name="More Items/Achievements:" if counter > 1 else "Items/Achievements:",
                     value="`{}`".format(curr_arr),
                     inline=False
                 )
+                """
                 curr_len = 0
                 curr_arr = []
                 counter += 1
             curr_arr.append(k)
         if len(curr_arr) > 0:
+            items_fields.append(("More Items/Achievements:" if counter > 1 else "Items/Achievements:", "`{}`".format(curr_arr), False))
+            """
             embed.add_field(
                 name="More Items/Achievements:" if counter > 1 else "Items/Achievements:",
                 value="`{}`".format(curr_arr),
                 inline=False
             )
+            """
     else:
+        items_fields.append(("Items/Achievements:", "`{}`".format(keywords_str), False))
+        """
         embed.add_field(name="Items/Achievements:",
                         value="`{}`".format(keywords_str), inline=False)
-
+        """
+    
     embed.add_field(
         name="Points:", value="**{}**".format(character.points), inline=False)
+
+    for i in range(6):
+        if i >= len(items_fields):
+            break
+        embed.add_field(name=items_fields[i][0], value=items_fields[i][1], inline=items_fields[i][2])
 
     return embed
 
