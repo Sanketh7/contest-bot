@@ -7,6 +7,7 @@ from util import error_embed, success_embed, contest_post_embed, is_admin
 from settings import Settings
 from leaderboard import Leaderboard
 from util import Logger
+from tabulate import tabulate
 
 
 class ContestManagement(commands.Cog):
@@ -44,6 +45,39 @@ class ContestManagement(commands.Cog):
         except Exception as e:
             logging.error("Failed to change contest post for contest {}\n".format(
                 contest.id) + str(e))
+
+    @commands.command()
+    @is_admin()
+    async def get_full_leaderboard(self, ctx, contest_id: int):
+        characters = DB.get_top_characters(contest_id, None)
+        guild = Settings.guild
+        table = []
+        prev_points = float('inf')
+        place = 0
+        for character in characters:
+            if character.points == 0:
+                break
+            player = guild.get_member(character.user_id)
+            if not player:
+                continue
+            ign = player.display_name
+            if character.points >= prev_points:  # continue with same place
+                table.append(
+                    [None, ign, character.points, character.rotmg_class, str(
+                        Settings.accept_emoji) if character.is_active else " "]
+                )
+            else:
+                place += 1
+                table.append(
+                    [place, ign, character.points, character.rotmg_class, str(
+                        Settings.accept_emoji) if character.is_active else " "]
+                )
+        table_str = tabulate(
+                table, headers=["Rank", "Player", "Points", "Class", "Active?"])
+        with open("full_leaderboard.txt", "w") as file:
+            file.write(table_str)
+        with open("full_leaderboard.txt", "rb") as file:
+            await ctx.send("Full leaderboard: ", file=discord.File(file, "full_leaderboard.txt"))
 
     @commands.command()
     @is_admin()

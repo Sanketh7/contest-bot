@@ -2,7 +2,7 @@ from database.objects import Contest, Character, Submission, db
 from pony.orm import Database, db_session, select
 from datetime import datetime
 from settings import Settings
-from typing import List, Set
+from typing import List, Optional, Set
 
 # note that pony orm db instance is created in objects.py
 # this is because of limitations with creating db object models
@@ -136,13 +136,13 @@ class DB:
 
     @staticmethod
     @db_session
-    def get_top_characters(contest_id: int, count: int) -> List[Character]:
+    def get_top_characters(contest_id: int, count: Optional[int]) -> List[Character]:
         contest: Contest = Contest[contest_id]
         if not contest:
             return []
         lst = list(Character.get_all_characters(contest_id))
         lst.sort(key=lambda c: c.points, reverse=True)
-        return lst[:count]
+        return lst if count is None else lst[:count] 
 
     @staticmethod
     @db_session
