@@ -1,5 +1,4 @@
 import discord
-import typing
 import logging
 from tabulate import tabulate
 from discord.ext import commands, tasks

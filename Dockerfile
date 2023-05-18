@@ -1,13 +1,18 @@
-FROM python:3.9.6 as builder
-COPY requirements.txt .
-# install python packages to /root/.local
-RUN pip install --user -r requirements.txt
+FROM python:3.10 as builder
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+RUN pip3 install poetry
+COPY poetry.lock pyproject.toml ./
+RUN poetry export -o requirements.txt
+RUN pip3 install -r requirements.txt
+# for PostgreSQL
+RUN pip3 install psycopg2-binary
 
-FROM python:3.9.6-alpine
-RUN apk add libpq
+FROM python:3.10-slim
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 WORKDIR /app
-COPY --from=builder /root/.local /root/.local
 COPY . .
 
 # -u for unbuffered output
-CMD python -u main.py
+CMD python3 -u main.py

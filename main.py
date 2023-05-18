@@ -11,7 +11,8 @@ load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
-intents.members = True  # pylint: disable=assigning-non-slot
+intents.members = True 
+intents.message_content = True
 
 bot = commands.Bot(command_prefix="+", intents=intents)
 
@@ -24,8 +25,8 @@ async def on_ready():
 
     PointsManager.parse_data()
 
-    bot.add_cog(Scheduling(bot))
-    bot.add_cog(ContestManagement(bot))
-    bot.add_cog(UserManagement(bot))
+    await bot.add_cog(Scheduling(bot))
+    await bot.add_cog(ContestManagement(bot))
+    await bot.add_cog(UserManagement(bot))
 
 bot.run(DISCORD_TOKEN)

@@ -1,5 +1,5 @@
 from database.objects import Contest, Character, Submission, db
-from pony.orm import Database, db_session, select
+from pony.orm import db_session
 from datetime import datetime
 from settings import Settings
 from typing import List, Optional, Set
