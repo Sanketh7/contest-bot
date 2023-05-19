@@ -47,7 +47,7 @@ class Leaderboard:
     # due to discord api rate-limiting 
     @staticmethod
     async def display_top_chars():
-        assert(Leaderboard.top_chars)
+        assert(Leaderboard.top_chars is not None)
 
         place = 0
         table_ind = 0  # limit of 5 tables
@@ -86,7 +86,7 @@ class Leaderboard:
                 )
 
         embed = discord.Embed(title="Top Characters", color=0x00FF00)
-        embed.description = "Updated every 5 minutes during a contest."
+        embed.description = "Updated every minute during a contest."
 
         for table in table_list:
             if not table:
@@ -102,7 +102,7 @@ class Leaderboard:
     # same as above except only displays active characters
     @staticmethod
     async def display_top_active_chars():
-        assert(Leaderboard.top_active_chars)
+        assert(Leaderboard.top_active_chars is not None)
 
         place = 0
         table_ind = 0  # limit of 5 tables

@@ -90,7 +90,7 @@ class ContestManagement(commands.Cog):
         await ctx.channel.send(embed=success_embed("Leaderboard updated."))
         return await Logger.updated_leaderboard(ctx.author)
 
-    @tasks.loop(minutes=5)
+    @tasks.loop(minutes=1)
     async def update_leaderboard_loop(self):
         if DB.is_contest_running():
             await Leaderboard.update()

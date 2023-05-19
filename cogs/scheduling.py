@@ -108,7 +108,7 @@ class Scheduling(commands.GroupCog, name="schedule"):
 
         DB.end_current_contest()
 
-    @tasks.loop(seconds=60)
+    @tasks.loop(seconds=10)
     async def schedule_loop(self):
         contest = DB.get_current_contest()
         if contest:
