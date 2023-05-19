@@ -1,4 +1,3 @@
-import logging
 import discord
 import os
 from dotenv import load_dotenv
@@ -28,5 +27,11 @@ async def on_ready():
     await bot.add_cog(Scheduling(bot))
     await bot.add_cog(ContestManagement(bot))
     await bot.add_cog(UserManagement(bot))
+
+@bot.command()
+async def sync(ctx: commands.Context):
+    await ctx.send("Syncing commands...")
+    await ctx.bot.tree.sync(guild=Settings.guild)
+    await ctx.send("Finished syncing commands.")
 
 bot.run(DISCORD_TOKEN)

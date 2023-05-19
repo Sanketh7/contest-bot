@@ -1,6 +1,7 @@
 import discord
 import logging
 from tabulate import tabulate
+from discord import app_commands
 from discord.ext import commands, tasks
 from datetime import datetime
 from database import DB, Contest
@@ -9,7 +10,7 @@ from settings import Settings
 from typing import List
 
 
-class Scheduling(commands.Cog):
+class Scheduling(commands.GroupCog, name="schedule"):
     def __init__(self, bot: discord.Client):
         self.bot = bot
         self.schedule_loop.start()
@@ -17,35 +18,35 @@ class Scheduling(commands.Cog):
     def cog_unload(self):
         self.schedule_loop.stop()
 
-    @commands.command()
+    @app_commands.command(name="add", description="Add a contest.")
     @is_admin()
-    async def schedule_contest(self, ctx, start_time_str: str, end_time_str: str):
+    async def schedule_contest(self, interaction: discord.Interaction, start_time_str: str, end_time_str: str):
         try:
             start_time = datetime.strptime(start_time_str, "%m/%d/%y %H:%M")
             end_time = datetime.strptime(end_time_str, "%m/%d/%y %H:%M")
         except ValueError:
-            return await ctx.channel.send(embed=error_embed("Invalid time input."))
+            return await interaction.response.send_message(embed=error_embed("Invalid time input."))
 
         DB.schedule_contest(start_time, end_time)
 
-        return await ctx.channel.send(embed=success_embed(
+        return await interaction.response.send_message(embed=success_embed(
             "Contest added.\nStart time (UTC): {}\nEnd time (UTC): {}".format(
-                start_time_str, end_time)
+                start_time, end_time)
         ))
 
-    @commands.command()
+    @app_commands.command(name="remove", description="Remove a contest.")
     @is_admin()
-    async def remove_contest(self, ctx, contest_id: int):
+    async def remove_contest(self, interaction: discord.Interaction, contest_id: int):
         DB.remove_contest(contest_id)
-        return await ctx.channel.send(embed=success_embed(
-            "Contest removed (if it existed). Use `+view_schedule` to view scheduled contests."))
+        return await interaction.response.send_message(embed=success_embed(
+            "Contest removed (if it existed). Use `/schedule view` to view scheduled contests."))
 
-    @commands.command()
+    @app_commands.command(name="view", description="View contest schedule.")
     @is_admin()
-    async def view_schedule(self, ctx):
+    async def view_schedule(self, interaction: discord.Interaction):
         schedule: List[Contest] = DB.get_schedule()
         if not schedule:
-            return await ctx.channel.send(embed=error_embed("No upcoming contests."))
+            return await interaction.response.send_message(embed=error_embed("No upcoming contests."))
 
         table = []
         for contest in schedule:
@@ -59,24 +60,25 @@ class Scheduling(commands.Cog):
         embed.add_field(name="Schedule", value="```{}```".format(
             table_str), inline=False)
 
-        return await ctx.channel.send(embed=embed)
+        return await interaction.response.send_message(embed=embed)
 
-    @commands.command()
+    @app_commands.command(name="refresh", description="Refresh the contest schedule.") 
     @is_admin()
-    async def refresh_schedule(self, ctx):
+    async def refresh_schedule(self, interaction: discord.Interaction):
         if DB.get_current_contest():
-            return await ctx.channel.send(embed=error_embed("A contest is already active."))
+            return await interaction.response.send_message(embed=error_embed("A contest is already active."))
         if not DB.get_ready_contest():
-            return await ctx.channel.send(embed=error_embed("No new contests to start."))
-        return await self.start_contest_from_schedule()
+            return await interaction.response.send_message(embed=error_embed("No new contests to start."))
+        await self.start_contest_from_schedule()
+        return await interaction.response.send_message(embed=success_embed("Refreshed schedule."))
 
-    @commands.command()
+    @app_commands.command(name="end", description="End an active contest.") 
     @is_admin()
-    async def end_contest(self, ctx):
+    async def end_contest(self, interaction: discord.Interaction):
         if not DB.get_current_contest():
-            return await ctx.channel.send(embed=error_embed("No contests are active right now."))
+            return await interaction.response.send_message(embed=error_embed("No contests are active right now."))
         await self.handle_end_contest()
-        return await ctx.channel.send(embed=error_embed("Contest forcefully ended."))
+        return await interaction.response.send_message(embed=error_embed("Contest forcefully ended."))
 
     async def start_contest_from_schedule(self):
         contest: Contest = DB.get_ready_contest()

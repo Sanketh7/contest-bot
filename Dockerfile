@@ -5,8 +5,6 @@ RUN pip3 install poetry
 COPY poetry.lock pyproject.toml ./
 RUN poetry export -o requirements.txt
 RUN pip3 install -r requirements.txt
-# for PostgreSQL
-RUN pip3 install psycopg2-binary
 
 FROM python:3.10-slim
 COPY --from=builder /opt/venv /opt/venv
