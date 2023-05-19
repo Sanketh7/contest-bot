@@ -2,7 +2,7 @@ import discord
 import os
 from dotenv import load_dotenv
 from discord.ext import commands
-from cogs import Scheduling, ContestManagement, UserManagement
+from cogs import Scheduling, ContestManagement, UserManagement, LeaderboardManagement
 from settings import Settings
 from points import PointsManager
 
@@ -27,11 +27,12 @@ async def on_ready():
     await bot.add_cog(Scheduling(bot))
     await bot.add_cog(ContestManagement(bot))
     await bot.add_cog(UserManagement(bot))
+    await bot.add_cog(LeaderboardManagement(bot))
 
 @bot.command()
 async def sync(ctx: commands.Context):
     await ctx.send("Syncing commands...")
-    await ctx.bot.tree.sync(guild=Settings.guild)
+    await ctx.bot.tree.sync(guild=ctx.guild)
     await ctx.send("Finished syncing commands.")
 
 bot.run(DISCORD_TOKEN)
