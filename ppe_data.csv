@@ -391,9 +391,9 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 30 Moonlight Village,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 50 Moonlight Village,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 75 Moonlight Village,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
-Solo Kogbold Steamworks,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
-Solo Moonlight Village (no Umi),,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50
-Solo Kitsune Umi,,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
+Solo Kogbold Steamworks,Solo Steamworks Complete,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+Solo Moonlight Village (no Umi),Solo MV Complete,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50
+Solo Kitsune Umi,Solo Umi Complete,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
 Solo MBC,Solo MBC Complete,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
 Solo Nest,Solo Nest Complete,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 Solo Shatters,Solo Shatts Complete,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
@@ -725,7 +725,7 @@ Cracked Crystal Skull,,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1
 Crystal Bone Ring,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 Robe of the Tlatoani,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 Captain's Ring,,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
-Spider Eye Ring,,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+Spider Eye Ring,Spider's Eye Ring,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
 Gem of Adoration,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 Gem of Tenderness,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Soulful Affection,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
@@ -886,7 +886,7 @@ Morning Star of Conjuration,t13 morning star,10,10,10,10,10,10,10,10,10,10,10,10
 Morning Star of Reckoning,t14 morning star,15,15,15,15,15,15,15,15,15,15,15,15,15,25,25,15,25,15
 Hama Yumi,,35,35,35,35,35,35,50,50,35,35,35,35,35,35,35,50,35,35
 Fractal Blades,,20,20,20,30,30,30,20,20,20,20,20,20,20,20,20,20,20,20
-Beekeeper's Flamethrower,,20,20,20,20,20,20,20,20,20,20,20,20,20,30,30,20,30,20
+Beekeeper's Flamethrower,Flamethrower,20,20,20,20,20,20,20,20,20,20,20,20,20,30,30,20,30,20
 Crystallized Worm Spellblade,,20,20,20,20,20,20,20,20,30,30,30,20,20,20,20,20,20,20
 Burial Blades,,20,20,20,20,20,20,20,20,20,20,20,30,30,20,20,20,20,30
 Light Syndicate Attire,,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15
@@ -1051,3 +1051,15 @@ Shiny Crystal Sword,Shiny Csword,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15
 Shiny Robe of the Mad Scientist,Shiny Madlab Robe,15,15,15,15,15,15,15,15,20,20,20,15,15,20,20,20,20,15
 Shiny Tome of Purification,Shiny Puri,15,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15
 Shiny Kendo Stick,Shiny Kendo,100,100,100,100,100,100,100,100,100,100,100,105,105,100,100,100,100,105
+Shiny Beekeeper's Flamethrower,Shiny Flamethrower,30,30,30,30,30,30,30,30,30,30,30,30,30,40,40,30,40,30
+Shiny Scepter of Devastation,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,30,25,25,25
+Shiny Penetrating Blast Spell,Shiny Thicket Spell,20,20,20,20,20,20,20,20,20,30,20,20,20,20,20,20,20,20
+Shiny Tome of Holy Protection,Shiny Prot,20,20,20,20,20,20,20,20,20,20,20,20,20,30,20,20,20,20
+Amulet of Lightning,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Forsythia Chihuahua Sorcerer Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Primula Greyhound Kensei Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Plague Summoner Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Bone Blade Ninja Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Spectral Mystic Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Cryophenix Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Spectral Raven Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
