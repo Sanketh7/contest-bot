@@ -65,6 +65,9 @@ class Leaderboard:
             if not player:
                 continue
             ign = player.display_name
+            # truncate to 15 + ellipses if needed
+            if len(ign) > 18:
+                ign = ign[:15] + "..."
 
             if player_count >= Leaderboard.NUM_CHARS_PER_TABLE_LIMIT:  # maxed out players for this table
                 table_ind += 1
@@ -120,6 +123,9 @@ class Leaderboard:
             if not player:
                 continue
             ign = player.display_name
+            # truncate to 15 + ellipses if needed
+            if len(ign) > 18:
+                ign = ign[:15] + "..."
 
             if player_count >= Leaderboard.NUM_CHARS_PER_TABLE_LIMIT:  # maxed out players for this table
                 table_ind += 1
