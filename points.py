@@ -22,15 +22,31 @@ class PointsManager:
         rotmg_classes = data[0][2:] # classes are in the first row of the csv (index 0)
         data = data[1:]
 
+        """
+        Temporary mapping from old keyword to new keyword
+        new name -> old name
+        """
+        legacy_keyword_map = {
+            'ritual khopesh': 'ritual kopesh',
+            'mmace mmurderer': 'mmce murderer'
+        }
+
         for row in data:
-            PointsManager.keywords[row[0].lower()] = [
-                row[0].lower(), row[1].lower()]
+            if row[0].lower() in map(lambda s: s.lower(), legacy_keyword_map.keys()):
+                PointsManager.keywords[row[0].lower()] = [
+                    row[0].lower(), row[1].lower(), legacy_keyword_map[row[0].lower()].lower()]
+                print(PointsManager.keywords[row[0].lower()])
+            else:
+                PointsManager.keywords[row[0].lower()] = [
+                    row[0].lower(), row[1].lower()]
             PointsManager.points_data[row[0].lower()] = {}
             for i in range(0, len(rotmg_classes)):
                 try:
                     PointsManager.points_data[row[0].lower()][rotmg_classes[i].lower()] = int(row[2+i])
                 except ValueError:
                     print(f"row {row[0].lower()} class {rotmg_classes[i].lower()} val {row[2+i]}")
+        for new_name, old_name in legacy_keyword_map.items():
+            PointsManager.points_data[old_name.lower()] = PointsManager.points_data[new_name.lower()]
 
 
     # uses flashtext to extract the keywords from a raw input string
