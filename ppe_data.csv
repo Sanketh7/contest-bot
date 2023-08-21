@@ -65,7 +65,7 @@ Rusty Cuffs,Cuffs,8,8,8,8,8,15,8,8,8,8,8,8,8,8,8,8,8,8
 Interregnum,,9,9,9,9,9,9,9,9,9,9,15,9,9,9,9,9,9,9
 Horrific Claws,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10
 Hivemind Circlet,,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-Akuma's Tears,Akumas Tears,6,6,6,6,6,6,6,6,6,6,6,6,10,6,6,6,6,10
+Akuma's Tear,Akumas Tear,6,6,6,6,6,6,6,6,6,6,6,6,10,6,6,6,6,10
 Seal of Blasphemous Prayer,Oreo,35,35,50,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35
 Marble Seal,Mseal,20,20,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 Seal of the Enchanted Forest,Fairyseal,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -82,9 +82,10 @@ Recurring Terror Spell,Parasite Spell,15,15,15,15,15,15,15,15,15,20,15,15,15,15,
 Ancient Eminence,,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10
 Random Spell Extraction Device,,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,20,20
 Jade Storm,,30,30,30,30,30,30,30,30,30,35,30,30,30,30,30,30,30,30
-Red Beehemoth Quiver,Red Bee Quiver,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35
-Blue Beehemoth Quiver,Blue Bee Quiver,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35
-Yellow Beehemoth Quiver,Yellow Bee Quiver,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35
+Red Beehemoth Quiver,Red Bee Quiver,35,35,35,35,35,35,40,35,35,35,35,35,35,35,35,35,35,35
+Blue Beehemoth Quiver,Blue Bee Quiver,35,35,35,35,35,35,40,35,35,35,35,35,35,35,35,35,35,35
+Yellow Beehemoth Quiver,Yellow Bee Quiver,35,35,35,35,35,35,40,35,35,35,35,35,35,35,35,35,35,35
+Green Beehemoth Quiver,Green Bee Quiver,35,35,35,35,35,35,40,35,35,35,35,35,35,35,35,35,35,35
 Quiver of Thunder,QoT,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35
 Quiver of the Shadows,Void Quiver,25,25,25,25,25,25,30,25,25,25,25,25,25,25,25,25,25,25
 Cloak of the Planewalker,Planewalker,10,10,10,10,15,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -168,6 +169,7 @@ Spectral Cloth Armor,Spectral,10,10,10,15,15,15,15,15,10,10,10,15,10,10,10,10,10
 Blue Beehemoth Armor,Blue Bee Armor,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15
 Red Beehemoth Armor,Red Bee Armor,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15
 Yellow Beehemoth Armor,Yellow Bee Armor,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15
+Green Beehemoth Armor,Green Bee Armor,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15
 Coral Silk Armor,CSilk,8,8,8,13,13,13,13,13,8,8,8,13,8,8,8,8,8,8
 Armor of Nil,Nil,20,20,20,30,30,30,30,30,20,20,20,30,20,20,20,20,20,20
 Mantle of Skuld,,10,10,10,10,15,10,10,10,10,10,10,10,10,10,10,10,10,10
@@ -194,9 +196,9 @@ Revenant Ring,,6,6,6,6,6,6,10,6,6,6,6,6,6,6,6,6,6,6
 Scholar's Seal,SSeal,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 Corruption Cutter,,15,15,15,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15
 Necronomicon,,10,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10
-Helm of the Great General,GGen,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Seal of the Blessed Champion,GCookie,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Cloak of Ghostly Concealment,Ghostly,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0
+Helm of the Great General,T6 Helm,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Seal of the Blessed Champion,T6 Seal,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Cloak of Ghostly Concealment,T6 Cloak,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0
 Hydra Skin Armor,Hydra,0,0,0,5,5,5,5,5,0,0,0,5,0,0,0,0,0,0
 Prism of Apparitions,T6 Prism,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0
 Baneserpeant Poison,T6 Poison,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -391,22 +393,23 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 30 Moonlight Village,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 50 Moonlight Village,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 75 Moonlight Village,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
-Solo Kogbold Steamworks,Solo Steamworks Complete,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
-Solo Moonlight Village (no Umi),Solo MV Complete,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50
-Solo Kitsune Umi,Solo Umi Complete,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
-Solo MBC,Solo MBC Complete,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
-Solo Nest,Solo Nest Complete,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
-Solo Shatters,Solo Shatts Complete,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-Hard Mode Shatters,HM Shatts Complete,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50
-Advanced Steamworks,HM Steamworks Complete,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
-Advanced Nest,HM Nest Complete,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
-Solo Hard Mode Forgotten King,Solo HM King Complete,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
-Solo Pirate Cave,Solo PCave Complete,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-4 Man Void,4 Man Void,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-Solo Cultist Hideout,Solo Cult Complete,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-Solo Fungal + Crystal,Solo Fungal Complete,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40
-Solo Void,Solo Void Complete,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
-Solo Oryx Sanctuary,Solo Oryx 3 Complete,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
+Solo Kogbold Steamworks,Solo Steamworks,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+Solo Moonlight Village (no Umi),Solo MV,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50
+Solo Kitsune Umi,Solo Umi,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
+Solo MBC,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+Solo Nest,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+Solo Shatters,Solo Shatts,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
+Hard Mode Moonlight Village (no Umi),HM MV,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+Hard Mode Kitsune Umi,HM Umi,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
+Hard Mode Shatters,HM Shatts,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50
+Advanced Steamworks,HM Steamworks,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+Advanced Nest,HM Nest,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+Solo Pirate Cave,Solo PCave,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+Solo Cultist Hideout,Solo Cult,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Solo Fungal + Crystal Cavern,Solo Fungal + Crystal,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40
+Solo Oryx Sanctuary,Solo Oryx 3,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
+Solo Advanced Steamworks,Solo HM Steamworks,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
+Solo Advanced Nest,Solo HM Nest,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60
 2/8 Bonus,,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
 4/8 Bonus,,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
 6/8 Bonus,,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6
@@ -584,11 +587,11 @@ Magic Wand,,5,5,5,5,5,5,5,5,5,5,5,5,5,10,15,5,10,5
 Lightshow Scepter,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10
 Magician's Robe,,5,5,5,5,5,5,5,5,10,10,10,5,5,10,15,10,10,5
 Performer's Hat,,7,7,7,7,7,7,7,7,7,7,7,7,7,7,12,7,7,7
-Bow of Deep Enchantment,,15,15,15,15,15,15,25,25,15,15,15,15,15,15,15,25,15,15
-Dagger of Dire Hatred,,15,15,15,25,25,25,15,15,15,15,15,15,15,15,15,15,15,15
-Kusanagi,,15,15,15,15,15,15,15,15,15,15,15,25,25,15,15,15,15,25
+Bow of Deep Enchantment,T14 Bow,15,15,15,15,15,15,25,25,15,15,15,15,15,15,15,25,15,15
+Dagger of Dire Hatred,T14 Dagger,15,15,15,25,25,25,15,15,15,15,15,15,15,15,15,15,15,15
+Kusanagi,T14 Katana,15,15,15,15,15,15,15,15,15,15,15,25,25,15,15,15,15,25
 Staff of the Fundamental Core,T14 Staff,15,15,15,15,15,15,15,15,25,25,25,15,15,15,15,15,15,15
-Sword of Majesty,,25,25,25,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Sword of Majesty,T14 Sword,25,25,25,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 Wand of Retribution,T14 Wand,15,15,15,15,15,15,15,15,15,15,15,15,15,25,25,15,25,15
 Annihilation Armor,T15 Heavy,20,20,20,10,10,10,10,10,10,10,10,10,20,10,10,10,10,20
 Leviathan Armor,T15 Leather,10,10,10,20,20,20,20,20,10,10,10,20,10,10,10,10,10,10
@@ -767,9 +770,9 @@ Sawblade Katana,,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,5
 Fitted Construction Vest,,5,5,5,15,15,15,15,15,5,5,5,15,5,5,5,5,5,5
 Magic Construction Vest,,5,5,5,5,5,5,5,15,15,15,15,5,5,15,15,15,15,5
 Heavy Construction Vest,,15,15,15,5,5,5,5,5,5,5,5,5,15,5,5,5,5,15
-Laborer's Hard Hat,,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8
-Operator's Hard Hat,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-Foreman's Hard Hat,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+Laborer's Hard Hat,Laborers Hard Hat,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8
+Operator's Hard Hat,Operators Hard Hat,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Foreman's Hard Hat,Foremans Hard Hat,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
 Adventurer's Belt,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 Mini White Demon,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Fairy Ring,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
@@ -956,7 +959,7 @@ Blizzard pet skin,htt pet,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Scallyway Slurp pet skin,Pcave Pet,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Sapling Buddy pet skin,Forest maze pet,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 TV Buddy Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-Mushroom girl rogue skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Mushroom Girl rogue skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Crystal Cobra pet skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Shroom Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Moon Bunny Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
@@ -1112,7 +1115,7 @@ Aspirant's Sword,Aspirant Sword,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15,
 Aspirant's Blade,Aspirant Blade,15,15,15,15,15,15,15,15,15,15,15,20,20,15,15,15,15,20
 Aspirant's Dagger,Aspirant Dagger,15,15,15,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15
 Lil' Keyper Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-Kogbold Turretsmith Archer Set Token,,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1,1,1
+Kogbold Inventor Archer Set Token,,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1,1,1
 Experimental Cannon,,10,10,10,10,10,10,25,20,10,10,10,10,10,10,10,20,10,10
 Sentry Turret,,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10
 Tinkerers Apron,,10,10,10,20,20,20,25,20,10,10,10,20,10,10,10,10,10,10
@@ -1128,3 +1131,11 @@ Mouse King Rogue Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Lyrical Priestess Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Possessed Lantern Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Orange Flaming Pumpkin Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Heroic Knight Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Flamingo Wizard skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Tavern Bard skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Night Elf Summoner Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Stygian Figure Trickster Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Nexus No Miko Huntress Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Spellmaster Wizard Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Blessed Blade Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5

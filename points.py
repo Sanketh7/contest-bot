@@ -28,7 +28,9 @@ class PointsManager:
         """
         legacy_keyword_map = {
             'ritual khopesh': 'ritual kopesh',
-            'mmace mmurderer': 'mmce murderer'
+            'mmace mmurderer': 'mmce murderer',
+            'akuma\'s tear': 'akuma\'s tears',
+            'kogbold inventor archer set token': 'kogbold turretsmith archer set token'
         }
 
         for row in data:
