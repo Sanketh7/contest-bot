@@ -333,8 +333,10 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 The Third Dimension,25 3D Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Tomb of the Ancient,10 Tomb Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 25 Tomb of the Ancient,25 Tomb Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-10 Interregnums,10 Interregnum Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-25 Interregnums,25 Interregnum Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Sulfurous Wetlands,10 Wetlands Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Sulfurous Wetlands,25 Wetlands Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 Hidden Interregnums,10 Interregnum Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 Hidden Interregnums,25 Interregnum Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Battle for the Nexus,10 Battle Nexus Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 25 Battle for the Nexus,25 Battle Nexus Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 5 Beachzones,5 Beachzone Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
@@ -438,12 +440,12 @@ Fungal Breastplate,,18,18,18,13,13,13,13,13,13,13,13,13,18,13,13,13,13,18
 Tome of the Mushroom Tribes,Mushroom Tome,15,15,15,15,15,15,15,15,15,15,15,15,15,30,15,15,15,15
 Sporous Spray Spell,Sporous Spell,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,20,20
 Crystal Shield,CShield,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-Cave Dweller Traps,Cave Trap,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15
+Cave Dweller Trap,Cave Trap,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15
 Ring of Decades,Deca,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32
 Locked Reactor,Reactor,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32
 Echoes Prism,Echos Prism,13,13,13,13,13,18,13,13,13,13,13,13,13,13,13,13,13,13
 Fractured Gemstone Wakizashi,Gemstone Waki,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,20
-Refraction Cloak,,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15
+Cloak of Refraction,Refraction Cloak,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15
 Star of Enlightenment,Enlightenment Star,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20
 Crystallised Mist,,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12
 Amulet of Dispersion,Dispersion Amulet,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
