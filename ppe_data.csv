@@ -313,6 +313,8 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 25 Secluded Thickets,25 Thickets Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 High Tech Terrors,10 HTT Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 25 High Tech Terrors,25 HTT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+10 The Taverns,10 Tavern Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+25 The Taverns,25 Tavern Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Ocean Trenches,10 OT Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 25 Ocean Trenches,25 OT Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 10 Belladonna Garden,10 Bella Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
@@ -1141,3 +1143,18 @@ Stygian Figure Trickster Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,1
 Nexus No Miko Huntress Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Spellmaster Wizard Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Blessed Blade Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+The Right Hook,Tavern Dagger,15,15,15,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15
+Tipsy Topper,Tavern Helm,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Double Vision Darts,Tavern Quiver,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,15
+Cask Corslet,Tavern Armor,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15,15,20
+Brewer's Bangle,Tavern Ring,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Shiny Dirk of Cronus,Shiny Cdirk,40,40,40,55,55,55,40,40,40,40,40,40,40,40,40,40,40,40
+Shiny Leaf Bow,,15,15,15,15,15,15,25,25,15,15,15,15,15,15,15,25,15,15
+Shiny Seal of Cubic Conundra,Shiny Cube Seal,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Shiny Double Vision Darts,Shiny Tavern Quiver,20,20,20,20,20,20,25,25,20,20,20,20,20,20,20,25,15,20
+Shiny Skull of Corrupted Souls,Shiny Cult Skull,30,30,30,30,30,30,30,30,30,30,35,30,30,30,30,30,30,30
+Shiny Jewl Eye Katana,Shiny t9 Katana,50,50,50,50,50,50,50,50,50,50,50,55,55,50,50,50,50,55
+Shiny Sword of the Colossus,Shiny Colo,35,35,35,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+Shiny Doku No Ken,Shiny Doku,20,20,20,20,20,20,20,20,20,20,20,25,25,20,20,20,20,25
+Shiny Candy-Coated Armor,Shiny Candy armor,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15,15,20
+Shiny Snake Eye Ring,Shiny Snake Ring,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10

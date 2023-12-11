@@ -27,14 +27,6 @@ class PointsManager:
         new name -> old name
         """
         legacy_keyword_map = {
-            'ritual khopesh': 'ritual kopesh',
-            'mmace mmurderer': 'mmce murderer',
-            'akuma\'s tear': 'akuma\'s tears',
-            'kogbold inventor archer set token': 'kogbold turretsmith archer set token',
-            '10 hidden interregnums': '10 interregnums',
-            '25 hidden interregnums': '25 interregnums',
-            'cave dweller trap': 'cave dweller traps',
-            'cloak of refraction': 'refraction cloak'
         }
 
         for row in data:
