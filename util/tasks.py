@@ -103,7 +103,7 @@ async def proof_upload_task(bot: discord.Client, msg: discord.Message, user: dis
 
     def check_msg(m: discord.Message):
         valid_attachment = len(
-            m.attachments) > 0 and m.attachments[0].url and is_url_image(m.attachments[0].url)
+            m.attachments) > 0 and m.attachments[0].url and m.attachments[0].content_type.startswith('image')
         return m.author.id == user.id and valid_attachment
 
     def check_react(react: discord.Reaction, user_got: discord.User):
