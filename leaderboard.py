@@ -21,9 +21,9 @@ class Leaderboard:
         contest_id = DB.get_current_contest_id()
         assert(contest_id)
         Leaderboard.top_chars = DB.get_top_characters(
-            contest_id, Leaderboard.NUM_TABLE_LIMIT*Leaderboard.NUM_CHARS_PER_TABLE_LIMIT)
+            contest_id, Leaderboard.NUM_TABLE_LIMIT*Leaderboard.NUM_CHARS_PER_TABLE_LIMIT + 10)
         Leaderboard.top_active_chars = DB.get_top_active_characters(
-            contest_id, Leaderboard.NUM_TABLE_LIMIT*Leaderboard.NUM_CHARS_PER_TABLE_LIMIT)
+            contest_id, Leaderboard.NUM_TABLE_LIMIT*Leaderboard.NUM_CHARS_PER_TABLE_LIMIT + 10)
 
     @staticmethod
     async def display(bot: discord.Client):
@@ -56,6 +56,8 @@ class Leaderboard:
         table_list = [[] for i in range(0, 5)]
 
         guild = Settings.guild
+        contest_id = DB.get_current_contest_id()
+        ban_list = list(DB.get_ban_list(contest_id))
 
         for character in Leaderboard.top_chars:
             if character.points == 0:
@@ -63,6 +65,8 @@ class Leaderboard:
 
             player = guild.get_member(character.user_id)
             if not player:
+                continue
+            if character.user_id in ban_list:
                 continue
             ign = player.display_name
             # truncate to 15 + ellipses if needed

@@ -27,6 +27,10 @@ class PointsManager:
         new name -> old name
         """
         legacy_keyword_map = {
+            'Oryxmas Ornament: Energized': 'UT. Oryxmas Ornament: Energized',
+            'UT. Oryxmas Ornament: Weak': 'Oryxmas Ornament: Weak',
+            'UT. Oryxmas Ornament: Exposed': 'Oryxmas Ornament: Exposed',
+            'Battallion Banner': 'Battalion Banner'
         }
 
         for row in data:

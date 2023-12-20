@@ -559,9 +559,9 @@ Ilex Star,t6 reskin star,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0
 Peppermint Wakizashi,t6 reskin wakizashi,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,10
 Oryxmas Carol,t6 reskin lute,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0
 Mace of the North Pole,t6 reskin mace,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0
-UT. Oryxmas Ornament: Energized,Blue Ornament,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-UT. Oryxmas Ornament: Weak,Yellow Ornament,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-UT. Oryxmas Ornament: Exposed,Red Ornament,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Oryxmas Ornament: Energized,Blue Ornament,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Oryxmas Ornament: Weak,Yellow Ornament,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Oryxmas Ornament: Exposed,Red Ornament,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Ornaments of Unity,christmas set ring,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 Cloak of the Darkened Sun,oryx cloak,15,15,15,15,25,15,15,15,15,15,15,15,15,15,15,15,15,15
 Mad Javelin,oryx quiver,15,15,15,15,15,15,25,15,15,15,15,15,15,15,15,15,15,15
@@ -635,7 +635,7 @@ Chancellor's Cranium,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
 Enforcer,,30,30,30,30,30,30,30,30,30,30,30,40,40,30,30,30,30,40
 Ballistic Star,,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15
 Centaur's Shielding,,25,25,25,35,35,35,35,35,25,25,25,35,25,25,25,25,25,25
-Battallion Banner,,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27
+Battalion Banner,,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27
 Mayhem Medallion,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 Ring of Wrath,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 Autarch Amulet,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
@@ -1198,3 +1198,4 @@ Epic Mystery Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Legendary Mystery Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Greater Mystery Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Mini Polaris Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Festival Enjoyer Bard Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
