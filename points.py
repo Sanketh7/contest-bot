@@ -28,10 +28,12 @@ class PointsManager:
         """
         legacy_keyword_map = {
             'Oryxmas Ornament: Energized': 'UT. Oryxmas Ornament: Energized',
-            'UT. Oryxmas Ornament: Weak': 'Oryxmas Ornament: Weak',
-            'UT. Oryxmas Ornament: Exposed': 'Oryxmas Ornament: Exposed',
-            'Battallion Banner': 'Battalion Banner'
+            'Oryxmas Ornament: Weak': 'UT. Oryxmas Ornament: Weak',
+            'Oryxmas Ornament: Exposed': 'UT. Oryxmas Ornament: Exposed',
+            'Battalion Banner': 'Battallion Banner',
+            'Spider\'s Eye Ring': 'Spider Eye Ring'
         }
+        legacy_keyword_map = dict((k.lower(), v.lower()) for k,v in legacy_keyword_map.items())
 
         for row in data:
             if row[0].lower() in map(lambda s: s.lower(), legacy_keyword_map.keys()):
