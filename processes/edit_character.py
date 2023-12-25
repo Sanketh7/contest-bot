@@ -10,21 +10,32 @@ from typing import Set
 
 # allows the user to add items to their character
 class EditCharacter(Process):
-    def __init__(self, bot: discord.Client, user: discord.User, contest_id: int):
+    def __init__(self, bot: discord.Client, user: discord.User, contest_id: int, confirm_character: bool):
         super().__init__(bot, user, contest_id)
 
         self.old_char: Character = None  # resolved in self.show_old_char_menu()
         self.img_url = ""  # resolved in self.proof_menu()
         self.keywords = ""  # resolved in self.keyword_menu()
+        self.confirm_character = confirm_character
 
     # starts the process and checks if the user even has a character to edit
     async def start(self):
         self.old_char: Character = DB.get_character(
             self.contest_id, self.user.id)
         if self.old_char:
-            return await self.show_old_char_menu()
+            if self.confirm_character:
+                return await self.show_old_char_menu()
+            else:
+                return await self.show_old_char_menu_no_confirm()
         else:
             return await self.user.send(embed=error_embed("You don't have a character to edit."))
+    
+    async def show_old_char_menu_no_confirm(self):
+        title_embed = discord.Embed(title="Current Character:")
+        embed = character_embed(self.old_char)
+        await self.user.send(embed=title_embed)
+        await self.user.send(embed=embed)
+        return await self.proof_menu()
 
     # shows the user their old character and confirms if they want to edit it
     async def show_old_char_menu(self):

@@ -46,7 +46,24 @@ class UserManagement(commands.Cog):
             return await ctx.author.send(embed=error_embed("You need to sign up before you can submit or edit a character."))
         try:
             return await ProcessManager.spawn(ctx.author.id, EditCharacter(
-                self.bot, ctx.author, DB.get_current_contest_id()))
+                self.bot, ctx.author, DB.get_current_contest_id(), True))
+        except BusyException:
+            return await ctx.author.send(embed=user_busy_embed())
+
+    @commands.command()
+    async def submit(self, ctx):
+        if not DB.is_contest_running():
+            return await ctx.send(embed=error_embed("No contests are active."))
+
+        member: discord.Member = Settings.guild.get_member(ctx.author.id)
+        if not member:
+            return
+
+        if Settings.contestant_role not in member.roles:
+            return await ctx.author.send(embed=error_embed("You need to sign up before you can submit or edit a character."))
+        try:
+            return await ProcessManager.spawn(ctx.author.id, EditCharacter(
+                self.bot, ctx.author, DB.get_current_contest_id(), False))
         except BusyException:
             return await ctx.author.send(embed=user_busy_embed())
 
@@ -146,7 +163,7 @@ class UserManagement(commands.Cog):
                 return await user.send(embed=error_embed("You need to sign up before you can submit or edit a character."))
             try:
                 return await ProcessManager.spawn(payload.user_id, EditCharacter(
-                    self.bot, user, DB.get_current_contest_id()))
+                    self.bot, user, DB.get_current_contest_id(), True))
             except BusyException:
                 return await user.send(embed=user_busy_embed())
         elif str(payload.emoji) == Settings.accept_emoji:
