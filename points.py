@@ -31,7 +31,14 @@ class PointsManager:
             'Oryxmas Ornament: Weak': 'UT. Oryxmas Ornament: Weak',
             'Oryxmas Ornament: Exposed': 'UT. Oryxmas Ornament: Exposed',
             'Battalion Banner': 'Battallion Banner',
-            'Spider\'s Eye Ring': 'Spider Eye Ring'
+            'Spider\'s Eye Ring': 'Spider Eye Ring',
+            'Gatling Shots Engraving': 'Engraving Gatling Shots',
+            'Iron Plating Engraving': 'Engraving Iron Plating',
+            'Heavy Hitter Engraving': 'Engraving Heavy Hitter',
+            'Kogbold Spirit Engraving': 'Engraving Kogbold Spirit',
+            'Buzzing Bullets Engraving': 'Engraving Buzzing Bullets',
+            'Living Hive Engraving': 'Engraving Living Hive',
+            'Might of the Bumblebees Engraving': 'Engraving Might of the Bumblebees'
         }
         legacy_keyword_map = dict((k.lower(), v.lower()) for k,v in legacy_keyword_map.items())
 
