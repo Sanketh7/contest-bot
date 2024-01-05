@@ -1,6 +1,0 @@
-/venv/
-*.pyc
-*.pyc
-.env
-.env.template
-__pycache__

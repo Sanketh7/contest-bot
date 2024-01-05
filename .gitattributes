@@ -1,3 +1,0 @@
-.env merge=ours
-db-key.json merge=ours
-credentials.json merge=ours
