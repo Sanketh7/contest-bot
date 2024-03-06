@@ -1,13 +1,14 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "src/app.ts",
+  "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
     "build": "npx tsc",
-    "start": "npx tsc && node dist/app.js",
+    "start": "npx tsc && node build/index.js",
     "lint": "npx prettier --check . && eslint .",
-    "format": "npx prettier --write . && eslint --fix ."
+    "format": "npx prettier --write . && eslint --fix .",
+    "clean": "rm -rf build"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.17.0",
@@ -16,13 +17,17 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsdoc": "^48.0.2",
     "eslint-plugin-prettier": "^5.1.2",
+    "hot-esm": "^1.6.0",
     "prettier": "^3.1.1",
     "prettier-plugin-organize-imports": "^3.2.4",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@prisma/client": "^5.10.2",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
-    "kysely": "^0.27.1"
+    "envalid": "^8.0.0",
+    "pg": "^8.11.3",
+    "prisma": "^5.10.2"
   }
 }
