@@ -1,7 +1,8 @@
+import { Contest } from "@prisma/client";
 import {
   ActionRowBuilder,
   ButtonBuilder,
-  ButtonStyle,
+  EmbedBuilder,
   Message,
   StringSelectMenuBuilder,
   StringSelectMenuInteraction,
@@ -10,20 +11,18 @@ import {
 } from "discord.js";
 import { CHARACTER_MODIFIERS, DEFAULT_TIMEOUT_MS, ROTMG_CLASSES } from "../constants";
 import { buildProcessCustomId } from "../util";
+import { Process } from "./process";
 
 type ProcessState = {
   selectedClass?: string;
   selectedModifiers?: string[];
 };
 
-export class NewCharacterProcess {
-  private user: User;
-  private message: Message;
+export class NewCharacterProcess extends Process {
   private state: ProcessState;
 
-  constructor(user: User, message: Message) {
-    this.user = user;
-    this.message = message;
+  constructor(user: User, message: Message, contest: Contest) {
+    super(user, message, contest);
     this.state = {};
   }
 
@@ -60,16 +59,13 @@ export class NewCharacterProcess {
         time: DEFAULT_TIMEOUT_MS,
       });
       if (response.customId === cancelButtonCustomId) {
-        return await this.cancel();
+        return await this.cancel("button");
       }
       await response.deferUpdate();
     } catch (e) {
-      return await this.cancel();
+      return await this.cancel("timeout");
     }
-    this.state = {
-      ...this.state,
-      selectedClass: (response as StringSelectMenuInteraction).values[0],
-    };
+    this.state.selectedClass = (response as StringSelectMenuInteraction).values[0];
     return await this.doSelectModiferMenu();
   }
 
@@ -104,16 +100,13 @@ export class NewCharacterProcess {
         time: DEFAULT_TIMEOUT_MS,
       });
       if (response.customId === cancelButtonCustomId) {
-        return await this.cancel();
+        return await this.cancel("button");
       }
       await response.deferUpdate();
     } catch (e) {
-      return await this.cancel();
+      return await this.cancel("timeout");
     }
-    this.state = {
-      ...this.state,
-      selectedModifiers: (response as StringSelectMenuInteraction).values ?? [],
-    };
+    this.state.selectedModifiers = (response as StringSelectMenuInteraction).values ?? [];
     return this.doConfirm();
   }
 
@@ -121,15 +114,19 @@ export class NewCharacterProcess {
     if (this.state.selectedClass === undefined || this.state.selectedModifiers === undefined) {
       return await this.cancel("unknown");
     }
-    const confirmButtonCustomId = buildProcessCustomId(NewCharacterProcess.name, "confirmButton");
-    const confirmButton = new ButtonBuilder()
-      .setCustomId(confirmButtonCustomId)
-      .setLabel("Confirm")
-      .setStyle(ButtonStyle.Success);
     const { cancelButton, cancelButtonCustomId } = this.buildCancelButton();
+    const { confirmButton, confirmButtonCustomId } = this.buildConfirmButton();
 
+    const embed1 = new EmbedBuilder()
+      .setColor("Yellow")
+      .setTitle("Confirm Character Creation")
+      .addFields(
+        { name: "Class", value: this.state.selectedClass },
+        { name: "Modifiers", value: this.state.selectedModifiers.toString() }
+      );
     await this.message.edit({
-      content: `Creating character:\n**Class:** ${this.state.selectedClass}\n**Modifiers:** ${this.state.selectedModifiers}`,
+      content: "",
+      embeds: [embed1],
       components: [
         new ActionRowBuilder<ButtonBuilder>().addComponents(confirmButton, cancelButton),
       ],
@@ -144,7 +141,7 @@ export class NewCharacterProcess {
         time: DEFAULT_TIMEOUT_MS,
       });
       if (response.customId === cancelButtonCustomId) {
-        return await this.cancel();
+        return await this.cancel("button");
       }
       await response.deferUpdate();
     } catch (e) {
@@ -152,40 +149,17 @@ export class NewCharacterProcess {
     }
 
     // TODO: create character
+    const embed2 = new EmbedBuilder()
+      .setColor("Green")
+      .setTitle("Created Character")
+      .addFields(
+        { name: "Class", value: this.state.selectedClass },
+        { name: "Modifiers", value: this.state.selectedModifiers.toString() }
+      );
     return await this.message.edit({
-      content: `Created character:\n**Class:** ${this.state.selectedClass}\n**Modifiers:** ${this.state.selectedModifiers}`,
+      content: "",
+      embeds: [embed2],
       components: [],
     });
-  }
-
-  private async cancel(reason?: "button" | "timeout" | "unknown") {
-    let reasonMessage: string = "Cancelled.";
-    switch (reason) {
-      case "button":
-        reasonMessage = "Cancelled.";
-        break;
-      case "timeout":
-        reasonMessage = "Cancelled due to timeout.";
-        break;
-      case "unknown":
-        reasonMessage = "Cancelled because something went wrong.";
-        break;
-    }
-    await this.message.edit({
-      content: reasonMessage,
-      components: [],
-    });
-  }
-
-  private buildCancelButton(): { cancelButton: ButtonBuilder; cancelButtonCustomId: string } {
-    const cancelButtonCustomId = buildProcessCustomId(NewCharacterProcess.name, "cancelButton");
-    const cancelButton = new ButtonBuilder()
-      .setCustomId(cancelButtonCustomId)
-      .setLabel("Cancel")
-      .setStyle(ButtonStyle.Danger);
-    return {
-      cancelButton,
-      cancelButtonCustomId,
-    };
   }
 }

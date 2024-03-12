@@ -1,14 +1,30 @@
-import { CacheType, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
-import { NewCharacterProcess } from "../processes/newCharacter";
+import {
+  CacheType,
+  ChatInputCommandInteraction,
+  SlashCommandBuilder,
+  messageLink,
+} from "discord.js";
+import { EditCharacterProcess } from "../processes/editCharacter";
+import { getActiveContest } from "../services/contestService";
 import { SlashCommand } from "../types";
 
 const command: SlashCommand = {
   command: new SlashCommandBuilder().setName("foo").setDescription("foobar"),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
+    const contest = await getActiveContest();
+    if (!contest) {
+      return await interaction.reply({
+        content: "No active contest.",
+      });
+    }
     const message = await interaction.user.send({
       content: "Loading...",
     });
-    const process = new NewCharacterProcess(interaction.user, message);
+    await interaction.reply({
+      content: messageLink(message.channel.id, message.id),
+    });
+    // const process = new NewCharacterProcess(interaction.user, message);
+    const process = new EditCharacterProcess(interaction.user, message, contest);
     await process.start();
   },
   cooldown: 10,

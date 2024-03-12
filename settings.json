@@ -1,0 +1,43 @@
+{
+  "botOwner": "343142603996528641",
+  "guild": "710263051286478968",
+  "roles": {
+    "admin": "Administrator",
+    "moderator": "Moderator",
+    "contestStaff": "Contest Staff",
+    "contestant": "Contestant"
+  },
+  "generalEmojis": {
+    "accept": "✅",
+    "reject": "❌",
+    "edit": "✏️",
+    "grave": "gravestone"
+  },
+  "classEmojis": {
+    "Bard": "bard",
+    "Sorcerer": "sorcerer",
+    "Wizard": "wizard",
+    "Samurai": "samurai",
+    "Mystic": "mystic",
+    "Assassin": "assassin",
+    "Rogue": "rogue",
+    "Archer": "archer",
+    "Ninja": "ninja",
+    "Priest": "priest",
+    "Warrior": "warrior",
+    "Trickster": "trickster",
+    "Knight": "knight",
+    "Necromancer": "necromancer",
+    "Huntress": "huntress",
+    "Paladin": "paladin",
+    "Summoner": "summoner",
+    "Kensei": "kensei"
+  },
+  "channels": {
+    "signUp": "sign-up",
+    "submission": "point-verification",
+    "leaderboard": "contest-leaderboard",
+    "log": "contest-bot-logs"
+  },
+  "pointsRefUrl": "https://docs.google.com/spreadsheets/d/1eL-1bpX2tgV_0Qx3EqqHcYtd9RaBxfosNgtuexpblIw/edit#gid=0"
+}

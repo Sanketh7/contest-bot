@@ -6,10 +6,17 @@ import {
   ModalSubmitInteraction,
   SlashCommandBuilder,
 } from "discord.js";
+import type {
+  JobCallback,
+  RecurrenceRule,
+  RecurrenceSpecDateRange,
+  RecurrenceSpecObjLit,
+} from "node-schedule";
+import { ROTMG_CLASSES } from "./constants";
 
 export interface SlashCommand {
   command: SlashCommandBuilder;
-  execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
+  execute: (interaction: ChatInputCommandInteraction) => Promise<any>;
   autocomplete?: (interaction: AutocompleteInteraction) => void;
   modal?: (interaction: ModalSubmitInteraction<CacheType>) => void;
   cooldown?: number; // in seconds
@@ -29,3 +36,14 @@ declare module "discord.js" {
 }
 
 export type RotmgClass = (typeof ROTMG_CLASSES)[number];
+
+export type Job = {
+  schedule:
+    | RecurrenceRule
+    | RecurrenceSpecDateRange
+    | RecurrenceSpecObjLit
+    | Date
+    | string
+    | number;
+  onTick: JobCallback;
+};
