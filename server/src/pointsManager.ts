@@ -53,6 +53,12 @@ export class PointsManager {
     return this.points.get(this.createPointsMapKey(keyword, rotmgClass));
   }
 
+  getPointsForAll(keywords: string[], rotmgClass: RotmgClass): number {
+    return Array.from(new Set(keywords))
+      .map((k) => this.getPointsFor(k, rotmgClass) ?? 0)
+      .reduce((a, x) => a + x, 0);
+  }
+
   extractKeywords(input: string): string[] {
     return this.processor.extractKeywords(input) as string[];
   }

@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import { cleanEnv, str, url } from "envalid";
+import { bool, cleanEnv, str, url } from "envalid";
 dotenv.config();
 
 export const ENV = cleanEnv(process.env, {
@@ -7,4 +7,5 @@ export const ENV = cleanEnv(process.env, {
   DIRECT_URL: url(),
   DISCORD_TOKEN: str(),
   OWNER_USER_ID: str(),
+  RELOAD_SLASH_COMMANDS: bool({ default: false }),
 });

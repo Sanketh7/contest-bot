@@ -25,6 +25,13 @@ enum RotmgClass {
   Kensei
 }
 
+enum CharacterModifier {
+  No_Pet
+  Crucible
+  UT_ST_Only
+  Duo
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -35,6 +42,8 @@ model Contest {
   startTime DateTime
   endTime DateTime
   bannedUserIds String[]
+  postId String? 
+  forceEnded Boolean @default(false)
 
   characters Character[]
 }
@@ -44,6 +53,7 @@ model Character {
   userId String 
   isActive Boolean
   rotmgClass RotmgClass
+  modifiers CharacterModifier[]
   keywords String[]
 
   submissions Submission[]

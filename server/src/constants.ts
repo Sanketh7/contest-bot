@@ -1,3 +1,5 @@
+import { buildGlobalCustomId } from "./util";
+
 export const ROTMG_CLASSES = [
   "Knight",
   "Warrior",
@@ -19,6 +21,17 @@ export const ROTMG_CLASSES = [
   "Kensei",
 ] as const;
 
-export const CHARACTER_MODIFIERS = ["No Pet", "Crucible", "UT/ST Only", "Duo"] as const;
+export const CHARACTER_MODIFIERS = ["No_Pet", "Crucible", "UT_ST_Only", "Duo"] as const;
 
 export const DEFAULT_TIMEOUT_MS = 300_000; // 5 minutes
+
+export const CONTEST_POST_BUTTON_CUSTOM_IDS = {
+  signUp: buildGlobalCustomId("contestPost", "signUp"),
+  newCharacter: buildGlobalCustomId("contestPost", "newCharacter"),
+  editCharacter: buildGlobalCustomId("contestPost", "editCharacter"),
+};
+
+export const SUBMISSION_POST_BUTTON_CUSTOM_IDS = {
+  accept: buildGlobalCustomId("submissionPost", "accept"),
+  reject: buildGlobalCustomId("submissionPost", "reject"),
+};

@@ -5,6 +5,7 @@ import {
   Collection,
   ModalSubmitInteraction,
   SlashCommandBuilder,
+  SlashCommandSubcommandsOnlyBuilder,
 } from "discord.js";
 import type {
   JobCallback,
@@ -12,10 +13,14 @@ import type {
   RecurrenceSpecDateRange,
   RecurrenceSpecObjLit,
 } from "node-schedule";
-import { ROTMG_CLASSES } from "./constants";
+import { CHARACTER_MODIFIERS, ROTMG_CLASSES } from "./constants";
+
+export type CommandBuilder =
+  | Omit<SlashCommandBuilder, "addSubcommandGroup" | "addSubcommand">
+  | SlashCommandSubcommandsOnlyBuilder;
 
 export interface SlashCommand {
-  command: SlashCommandBuilder;
+  command: CommandBuilder;
   execute: (interaction: ChatInputCommandInteraction) => Promise<any>;
   autocomplete?: (interaction: AutocompleteInteraction) => void;
   modal?: (interaction: ModalSubmitInteraction<CacheType>) => void;
@@ -25,7 +30,7 @@ export interface SlashCommand {
 export interface Event {
   name: string;
   once?: boolean | false;
-  execute: (...args) => Promise<void>;
+  execute: (...args) => Promise<any>;
 }
 
 declare module "discord.js" {
@@ -36,6 +41,7 @@ declare module "discord.js" {
 }
 
 export type RotmgClass = (typeof ROTMG_CLASSES)[number];
+export type CharacterModifier = (typeof CHARACTER_MODIFIERS)[number];
 
 export type Job = {
   schedule:

@@ -1,10 +1,21 @@
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import utc from "dayjs/plugin/utc";
 import { Client, Collection, GatewayIntentBits } from "discord.js";
 import { readdirSync } from "fs";
+import * as schedule from "node-schedule";
 import path, { join } from "path";
 import { ENV } from "./env";
+import { contestScheduleJob } from "./jobs/contestScheduling";
 import { PointsManager } from "./pointsManager";
 import { Settings } from "./settings";
 import { SlashCommand } from "./types";
+
+dayjs.extend(customParseFormat);
+dayjs.extend(utc);
+
+process.on("unhandledRejection", console.error);
+process.on("uncaughtException", console.error);
 
 const client = new Client({
   intents: [
@@ -21,6 +32,11 @@ const client = new Client({
 
 client.slashCommands = new Collection<string, SlashCommand>();
 client.cooldowns = new Collection<string, number>();
+
+client.once("ready", async (client) => {
+  console.log(`${client.user?.tag} connected`);
+  schedule.scheduleJob(contestScheduleJob.schedule, contestScheduleJob.onTick);
+});
 
 (async () => {
   await PointsManager.getInstance().loadCsv(path.resolve(__dirname, "..", "..", "ppe_data.csv"));

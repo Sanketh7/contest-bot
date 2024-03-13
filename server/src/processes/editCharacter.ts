@@ -2,20 +2,21 @@ import { Character, Contest } from "@prisma/client";
 import {
   ActionRowBuilder,
   ButtonBuilder,
+  ButtonStyle,
   Collection,
   ColorResolvable,
   EmbedBuilder,
   Message,
   MessageComponentInteraction,
   User,
-  userMention,
 } from "discord.js";
-import { DEFAULT_TIMEOUT_MS } from "../constants";
+import { DEFAULT_TIMEOUT_MS, SUBMISSION_POST_BUTTON_CUSTOM_IDS } from "../constants";
 import { PointsManager } from "../pointsManager";
 import { getActiveCharacterByUserId } from "../services/characterService";
 import { createSubmission } from "../services/submissionService";
 import { Settings } from "../settings";
-import { formatKeywordsForDisplay } from "../text";
+import { formatKeywordsForDisplay } from "../util";
+import { buildSubmissionEmbed } from "./common";
 import { Process } from "./process";
 
 type ProcessState = {
@@ -35,7 +36,7 @@ export class EditCharacterProcess extends Process {
   }
 
   async start() {
-    const character = await getActiveCharacterByUserId(this.user.id);
+    const character = await getActiveCharacterByUserId(this.user.id, this.contest);
     if (!character) {
       return await this.message.edit({
         content: "You have no active characters to edit.",
@@ -43,13 +44,16 @@ export class EditCharacterProcess extends Process {
         components: [],
       });
     }
+    this.character = character;
     return await this.doProofUpload();
   }
 
   private async doProofUpload() {
     const embed = new EmbedBuilder().setTitle("Submission").addFields({
       name: "Instructions",
-      value: `Use this [document]({}) for a list of items and achievements.
+      value: `Use this [document](${
+        Settings.getInstance().data.pointsRefUrl
+      }) for a list of items and achievements.
 
       Send a message with a screenshot **in this DM** as specified in the contest rules.
       Click the **plus button** next to where you type a message to attach an image or **copy and paste** an image into the message box.
@@ -141,11 +145,21 @@ export class EditCharacterProcess extends Process {
       } else {
         const keywordsInput = response.at(0)?.content ?? "";
         const keywords = PointsManager.getInstance().extractKeywords(keywordsInput);
-        this.state.acceptedKeywords = keywords;
-        this.state.rejectedKeywords = [];
-        this.state.pointsAdded = keywords
-          .map((k) => PointsManager.getInstance().getPointsFor(k, "Samurai") ?? 0)
-          .reduce((x, a) => x + a, 0);
+        const acceptedKeywords = new Set<string>(keywords);
+        const rejectedKeywords = new Set<string>();
+        for (const kw of this.character?.keywords ?? []) {
+          if (acceptedKeywords.has(kw)) {
+            acceptedKeywords.delete(kw);
+            rejectedKeywords.add(kw);
+          }
+        }
+
+        this.state.acceptedKeywords = Array.from(acceptedKeywords);
+        this.state.rejectedKeywords = Array.from(rejectedKeywords);
+        this.state.pointsAdded = PointsManager.getInstance().getPointsForAll(
+          this.state.acceptedKeywords,
+          this.character!.rotmgClass
+        );
 
         await this.message.edit({
           embeds: [this.buildKeywordSubmitEmbed()],
@@ -163,7 +177,7 @@ export class EditCharacterProcess extends Process {
     const { cancelButton, cancelButtonCustomId } = this.buildCancelButton();
 
     this.message = await this.message.reply({
-      embeds: [this.buildSubmissionEmbed("Yellow")],
+      embeds: [this.buildSubmissionEmbed("Yellow", null)],
       components: [
         new ActionRowBuilder<ButtonBuilder>().addComponents(confirmButton, cancelButton),
       ],
@@ -195,27 +209,36 @@ export class EditCharacterProcess extends Process {
     if (!this.character || !this.state.imageUrl || !this.state.acceptedKeywords) {
       return await this.cancel("unknown");
     }
-    await this.message.edit({
-      embeds: [this.buildSubmissionEmbed("Green")],
-      components: [],
-      content: "",
-    });
     const submission = await createSubmission(this.character, {
       keywords: this.state.acceptedKeywords,
       imageUrl: this.state.imageUrl,
     });
-    await Settings.getInstance().data.channels?.log.send({
-      embeds: [this.buildSubmissionEmbed("Green")],
+    await this.message.edit({
+      embeds: [this.buildSubmissionEmbed("Green", submission.id)],
+      components: [],
+      content: "",
     });
-    await this.message.reply({
-      content: `Submission ID: \`${submission.id}\``,
+
+    const acceptButton = new ButtonBuilder()
+      .setCustomId(SUBMISSION_POST_BUTTON_CUSTOM_IDS.accept)
+      .setLabel("Accept")
+      .setStyle(ButtonStyle.Success);
+    const rejectButton = new ButtonBuilder()
+      .setCustomId(SUBMISSION_POST_BUTTON_CUSTOM_IDS.reject)
+      .setLabel("Reject")
+      .setStyle(ButtonStyle.Danger);
+    return await Settings.getInstance().data.channels?.submission.send({
+      embeds: [this.buildSubmissionEmbed("Yellow", submission.id)],
+      components: [new ActionRowBuilder<ButtonBuilder>().addComponents(acceptButton, rejectButton)],
     });
   }
 
   private buildKeywordSubmitEmbed(): EmbedBuilder {
     const embed = new EmbedBuilder().setTitle("Submission").addFields({
       name: "Instructions",
-      value: `Using this [document]({}) as reference, enter the keywords that correspond to your items/achievements.
+      value: `Using this [document](${
+        Settings.getInstance().data.pointsRefUrl
+      }) as reference, enter the keywords that correspond to your items/achievements.
       This is how you will get your points.
 
       **If points are not entered correctly, your submission will be denied.**`,
@@ -241,18 +264,13 @@ export class EditCharacterProcess extends Process {
     return embed;
   }
 
-  private buildSubmissionEmbed(color: ColorResolvable): EmbedBuilder {
-    const embed = new EmbedBuilder()
-      .setTitle("Submission")
-      .setColor(color)
-      .addFields(
-        { name: "Character", value: `${userMention(this.user.id)}'s Samurai` }, // TODO
-        { name: "Modifiers", value: "TODO" },
-        { name: "Items/Achievements", value: (this.state.acceptedKeywords ?? []).toString() },
-        { name: "Points Added", value: (this.state.pointsAdded ?? 0).toString() },
-        { name: "Proof", value: this.state.imageUrl ?? "error" }
-      )
-      .setImage(this.state.imageUrl ?? null);
-    return embed;
+  private buildSubmissionEmbed(color: ColorResolvable, submissionId: number | null): EmbedBuilder {
+    return buildSubmissionEmbed(color, submissionId, {
+      userId: this.user.id,
+      character: this.character,
+      acceptedKeywords: this.state.acceptedKeywords ?? [],
+      pointsAdded: this.state.pointsAdded ?? 0,
+      imageUrl: this.state.imageUrl ?? "error",
+    });
   }
 }

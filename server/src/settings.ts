@@ -1,5 +1,5 @@
 import { RotmgClass } from "@prisma/client";
-import { Client, Emoji, Guild, Role, TextChannel, User } from "discord.js";
+import { Client, Guild, GuildEmoji, Role, TextChannel, User } from "discord.js";
 import { readFileSync } from "fs";
 
 type JsonData = {
@@ -40,9 +40,9 @@ type ResolvedData = {
     accept: string;
     reject: string;
     edit: string;
-    grave: Emoji;
+    grave: GuildEmoji;
   };
-  classEmojis: Record<RotmgClass, Emoji>;
+  classEmojis: Record<RotmgClass, GuildEmoji>;
   channels: {
     signUp: TextChannel;
     submission: TextChannel;
@@ -61,7 +61,7 @@ const exists = <T>(v: T | null | undefined): T => {
 
 export class Settings {
   private static instance: Settings;
-  data: Partial<ResolvedData>;
+  readonly data: Partial<ResolvedData>;
 
   private constructor() {
     this.data = {};
@@ -84,6 +84,7 @@ export class Settings {
       await this.loadRoles(jsonData);
       await this.loadEmojis(jsonData);
       await this.loadChannels(jsonData);
+      await this.loadMisc(jsonData);
     } catch (err) {
       console.error(err);
     }
@@ -118,7 +119,8 @@ export class Settings {
   private async loadEmojis(jsonData: JsonData) {
     const guild = exists(this.data.guild);
 
-    const byName = (name: string): Emoji => exists(guild.emojis.cache.find((e) => e.name === name));
+    const byName = (name: string): GuildEmoji =>
+      exists(guild.emojis.cache.find((e) => e.name === name));
 
     const { accept, reject, edit } = jsonData.generalEmojis;
     this.data.generalEmojis = {

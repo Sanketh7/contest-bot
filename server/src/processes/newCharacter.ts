@@ -1,7 +1,8 @@
-import { Contest } from "@prisma/client";
+import { Character, Contest } from "@prisma/client";
 import {
   ActionRowBuilder,
   ButtonBuilder,
+  ButtonStyle,
   EmbedBuilder,
   Message,
   StringSelectMenuBuilder,
@@ -10,16 +11,23 @@ import {
   User,
 } from "discord.js";
 import { CHARACTER_MODIFIERS, DEFAULT_TIMEOUT_MS, ROTMG_CLASSES } from "../constants";
-import { buildProcessCustomId } from "../util";
+import {
+  createCharacter,
+  getActiveCharacterByUserId,
+  updateCharacterActivity,
+} from "../services/characterService";
+import { CharacterModifier, RotmgClass } from "../types";
+import { buildProcessCustomId, formatKeywordsForDisplay } from "../util";
 import { Process } from "./process";
 
 type ProcessState = {
-  selectedClass?: string;
-  selectedModifiers?: string[];
+  selectedClass?: RotmgClass;
+  selectedModifiers?: CharacterModifier[];
 };
 
 export class NewCharacterProcess extends Process {
   private state: ProcessState;
+  private oldCharacter?: Character;
 
   constructor(user: User, message: Message, contest: Contest) {
     super(user, message, contest);
@@ -27,6 +35,7 @@ export class NewCharacterProcess extends Process {
   }
 
   async start() {
+    this.oldCharacter = (await getActiveCharacterByUserId(this.user.id, this.contest)) ?? undefined;
     await this.doSelectClassMenu();
   }
 
@@ -65,7 +74,7 @@ export class NewCharacterProcess extends Process {
     } catch (e) {
       return await this.cancel("timeout");
     }
-    this.state.selectedClass = (response as StringSelectMenuInteraction).values[0];
+    this.state.selectedClass = (response as StringSelectMenuInteraction).values[0] as RotmgClass;
     return await this.doSelectModiferMenu();
   }
 
@@ -78,35 +87,50 @@ export class NewCharacterProcess extends Process {
       .setMaxValues(CHARACTER_MODIFIERS.length)
       .addOptions(
         ...CHARACTER_MODIFIERS.map((m) =>
-          new StringSelectMenuOptionBuilder().setLabel(m).setValue(m)
+          new StringSelectMenuOptionBuilder().setLabel(m.replaceAll("_", " ")).setValue(m)
         )
       );
     const { cancelButton, cancelButtonCustomId } = this.buildCancelButton();
+    const noModsButtonCustomId = buildProcessCustomId(NewCharacterProcess.name, "noModsButton");
+    const noModsButton = new ButtonBuilder()
+      .setCustomId(noModsButtonCustomId)
+      .setStyle(ButtonStyle.Primary)
+      .setLabel("No Modifiers");
 
     await this.message.edit({
       content: `Choose modifiers for your new ${this.state.selectedClass}. These are **OPTIONAL**:`,
       components: [
         new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(selectModiferMenu),
-        new ActionRowBuilder<ButtonBuilder>().addComponents(cancelButton),
+        new ActionRowBuilder<ButtonBuilder>().addComponents(noModsButton, cancelButton),
       ],
     });
 
     let response;
+    let noModsSelected: boolean = false;
     try {
       response = await this.message.awaitMessageComponent({
         filter: (i) =>
-          (i.customId === menuCustomId || i.customId === cancelButtonCustomId) &&
+          (i.customId === menuCustomId ||
+            i.customId === cancelButtonCustomId ||
+            i.customId === noModsButtonCustomId) &&
           i.user.id === this.user.id,
         time: DEFAULT_TIMEOUT_MS,
       });
       if (response.customId === cancelButtonCustomId) {
         return await this.cancel("button");
+      } else if (response.customId === noModsButtonCustomId) {
+        noModsSelected = true;
       }
       await response.deferUpdate();
     } catch (e) {
       return await this.cancel("timeout");
     }
-    this.state.selectedModifiers = (response as StringSelectMenuInteraction).values ?? [];
+    if (noModsSelected) {
+      this.state.selectedModifiers = [];
+    } else {
+      this.state.selectedModifiers =
+        ((response as StringSelectMenuInteraction).values as CharacterModifier[]) ?? [];
+    }
     return this.doConfirm();
   }
 
@@ -121,8 +145,8 @@ export class NewCharacterProcess extends Process {
       .setColor("Yellow")
       .setTitle("Confirm Character Creation")
       .addFields(
-        { name: "Class", value: this.state.selectedClass },
-        { name: "Modifiers", value: this.state.selectedModifiers.toString() }
+        { name: "Class", value: this.state.selectedClass.toString() },
+        { name: "Modifiers", value: formatKeywordsForDisplay(this.state.selectedModifiers) }
       );
     await this.message.edit({
       content: "",
@@ -148,13 +172,21 @@ export class NewCharacterProcess extends Process {
       return await this.cancel("timeout");
     }
 
-    // TODO: create character
+    if (this.oldCharacter) {
+      await updateCharacterActivity(this.oldCharacter, false);
+    }
+    await createCharacter(this.user.id, this.contest, {
+      isActive: true,
+      rotmgClass: this.state.selectedClass,
+      modifiers: this.state.selectedModifiers,
+    });
+
     const embed2 = new EmbedBuilder()
       .setColor("Green")
       .setTitle("Created Character")
       .addFields(
-        { name: "Class", value: this.state.selectedClass },
-        { name: "Modifiers", value: this.state.selectedModifiers.toString() }
+        { name: "Class", value: this.state.selectedClass.toString() },
+        { name: "Modifiers", value: formatKeywordsForDisplay(this.state.selectedModifiers) }
       );
     return await this.message.edit({
       content: "",
