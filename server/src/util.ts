@@ -16,6 +16,14 @@ export const formatKeywordsForDisplay = (keywords: string[] | undefined | null) 
   }
 };
 
+export const truncateEllipses = (str: string, length: number) => {
+  if (str.length > length) {
+    return str.substring(0, Math.max(length - 3, 0)) + "...";
+  } else {
+    return str;
+  }
+};
+
 export const parseDatetimeString = (input: string): Date | null => {
   const ret = dayjs.utc(input, "YYYY-MM-DD HH:mm", true);
   return ret.isValid() ? ret.toDate() : null;

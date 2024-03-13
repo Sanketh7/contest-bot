@@ -6,7 +6,7 @@ import { readdirSync } from "fs";
 import * as schedule from "node-schedule";
 import path, { join } from "path";
 import { ENV } from "./env";
-import { contestScheduleJob } from "./jobs/contestScheduling";
+import { contestScheduleJob, refreshLeaderboardJob } from "./jobs/contestScheduling";
 import { PointsManager } from "./pointsManager";
 import { Settings } from "./settings";
 import { SlashCommand } from "./types";
@@ -36,6 +36,7 @@ client.cooldowns = new Collection<string, number>();
 client.once("ready", async (client) => {
   console.log(`${client.user?.tag} connected`);
   schedule.scheduleJob(contestScheduleJob.schedule, contestScheduleJob.onTick);
+  schedule.scheduleJob(refreshLeaderboardJob.schedule, refreshLeaderboardJob.onTick);
 });
 
 (async () => {
