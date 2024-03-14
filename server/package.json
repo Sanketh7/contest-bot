@@ -1,0 +1,41 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "npx tsc && node build/index.js",
+    "start:reload": "npx tsc && RELOAD_SLASH_COMMANDS=true node build/index.js",
+    "lint": "npx prettier --check . && eslint .",
+    "format": "npx prettier --write . && eslint --fix .",
+    "clean": "rm -rf build"
+  },
+  "devDependencies": {
+    "@types/node-schedule": "^2.1.6",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jsdoc": "^48.0.2",
+    "eslint-plugin-prettier": "^5.1.2",
+    "hot-esm": "^1.6.0",
+    "prettier": "^3.1.1",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.10.2",
+    "dayjs": "^1.11.10",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "envalid": "^8.0.0",
+    "fast-csv": "^5.0.1",
+    "flashtext2js": "^1.0.1",
+    "node-schedule": "^2.1.1",
+    "pg": "^8.11.3",
+    "pg-promise": "^11.5.4",
+    "prisma": "^5.10.2",
+    "table": "^6.8.1"
+  }
+}

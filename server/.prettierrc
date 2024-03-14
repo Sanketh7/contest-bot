@@ -1,0 +1,12 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "singleQuote": false,
+  "trailingComma": "es5",
+  "printWidth": 100,
+  "semi": true,
+  "quoteProps": "consistent",
+  "bracketSameLine": false,
+  "insertPragma": false,
+  "plugins": ["prettier-plugin-organize-imports"]
+}
