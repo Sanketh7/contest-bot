@@ -9,7 +9,7 @@ import { getActiveContest } from "../services/contestService";
 import { SlashCommand } from "../types";
 
 const command: SlashCommand = {
-  command: new SlashCommandBuilder().setName("foo").setDescription("foobar"),
+  command: new SlashCommandBuilder().setName("submit").setDescription("Edit active character."),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const contest = await getActiveContest();
     if (!contest) {
@@ -23,7 +23,6 @@ const command: SlashCommand = {
     await interaction.reply({
       content: messageLink(message.channel.id, message.id),
     });
-    // const process = new NewCharacterProcess(interaction.user, message);
     const process = new EditCharacterProcess(interaction.user, message, contest);
     await process.start();
   },
