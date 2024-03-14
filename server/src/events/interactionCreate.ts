@@ -132,6 +132,9 @@ const handleRejectSubmissionButton = async (interaction: ButtonInteraction) => {
 };
 
 const checkAcl = async (user: User, acls: Set<AclGroup>): Promise<boolean> => {
+  if (acls.size === 0) {
+    return true;
+  }
   if (user.id === Settings.getInstance().data.botOwner?.id) {
     return true;
   }
