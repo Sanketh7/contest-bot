@@ -7,7 +7,7 @@ import {
   userMention,
 } from "discord.js";
 import { buildCharacterEmbed } from "../processes/common";
-import { getCharactersByUserId } from "../services/characterService";
+import { getCharacter, getCharactersByUserId } from "../services/characterService";
 import { getActiveContest } from "../services/contestService";
 import { SlashCommand } from "../types";
 
@@ -36,33 +36,25 @@ const handleProfile = async (interaction: ChatInputCommandInteraction, user: Use
 };
 
 const command: SlashCommand = {
-  defaultAcl: ["Admin"],
+  defaultAcl: ["Contestant"],
   subcommandAcl: null,
   command: new SlashCommandBuilder()
     .setName("character")
-    .setDescription("View profile for current contest.")
-    .addSubcommand((subcommad) => subcommad.setName("me").setDescription("Get my profile."))
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("other")
-        .setDescription("Get the profile for someone else.")
-        .addUserOption((option) =>
-          option.setName("target").setDescription("User to get profile for.").setRequired(true)
-        )
+    .setDescription("View full character info.")
+    .addNumberOption((option) =>
+      option.setName("character-id").setDescription("Character ID.").setRequired(true)
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
-    const subcommand = interaction.options.getSubcommand();
-    switch (subcommand) {
-      case "me":
-        return await handleProfile(interaction, interaction.user);
-      case "other":
-        const user = interaction.options.getUser("target", true);
-        return await handleProfile(interaction, user);
-      default:
-        return await interaction.reply({
-          ephemeral: true,
-          content: "Invalid subcommand.",
-        });
+    const characterId = interaction.options.getNumber("character-id", true);
+    const character = await getCharacter(characterId);
+    if (!character) {
+      return await interaction.reply({
+        content: "Character not found.",
+      });
+    } else {
+      return await interaction.reply({
+        embeds: [buildCharacterEmbed("Blue", "all", character)],
+      });
     }
   },
   cooldown: 10,
