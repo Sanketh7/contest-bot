@@ -7,4 +7,5 @@ export const ENV = cleanEnv(process.env, {
   DIRECT_URL: url(),
   DISCORD_TOKEN: str(),
   RELOAD_SLASH_COMMANDS: bool({ default: false }),
+  SETTINGS_FILENAME: str(),
 });

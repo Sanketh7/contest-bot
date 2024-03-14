@@ -43,7 +43,7 @@ client.once("ready", async (client) => {
   await PointsManager.getInstance().loadCsv(path.resolve(__dirname, "..", "..", "ppe_data.csv"));
   await client.login(ENV.DISCORD_TOKEN);
   await Settings.getInstance().loadAll(
-    path.resolve(__dirname, "..", "..", "settings.json"),
+    path.resolve(__dirname, "..", "..", ENV.SETTINGS_FILENAME),
     client
   );
 
