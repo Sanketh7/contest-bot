@@ -18,6 +18,7 @@ import {
 } from "../services/characterService";
 import { CharacterModifier, RotmgClass } from "../types";
 import { buildProcessCustomId, formatKeywordsForDisplay } from "../util";
+import { buildCharacterEmbed } from "./common";
 import { Process } from "./process";
 
 type ProcessState = {
@@ -36,7 +37,56 @@ export class NewCharacterProcess extends Process {
 
   async start() {
     this.oldCharacter = (await getActiveCharacterByUserId(this.user.id, this.contest)) ?? undefined;
-    await this.doSelectClassMenu();
+    if (this.oldCharacter) {
+      const res = await this.doConfirmOldCharacterMenu(this.oldCharacter);
+      if (res === "continue") {
+        await this.doSelectClassMenu();
+      }
+    } else {
+      await this.doSelectClassMenu();
+    }
+  }
+
+  private async doConfirmOldCharacterMenu(oldCharacter: Character): Promise<"continue" | "cancel"> {
+    const embed = new EmbedBuilder()
+      .setColor("Yellow")
+      .setTitle("Confirm Ending Current Character")
+      .addFields({
+        name: "Instructions",
+        value:
+          "Creating a new character will end your current character (shown below), preventing you from adding new items to this character.",
+      });
+
+    const characterEmbed = buildCharacterEmbed("Yellow", "truncate", oldCharacter, this.user);
+    const { confirmButton, confirmButtonCustomId } = this.buildConfirmButton();
+    const { cancelButton, cancelButtonCustomId } = this.buildCancelButton();
+    confirmButton.setLabel("End Current Character");
+
+    await this.message.edit({
+      content: "",
+      embeds: [embed, characterEmbed],
+      components: [
+        new ActionRowBuilder<ButtonBuilder>().addComponents(confirmButton, cancelButton),
+      ],
+    });
+
+    try {
+      const response = await this.message.awaitMessageComponent({
+        filter: (i) =>
+          (i.customId === confirmButtonCustomId || i.customId === cancelButtonCustomId) &&
+          i.user.id === this.user.id,
+        time: DEFAULT_TIMEOUT_MS,
+      });
+      if (response.customId === cancelButtonCustomId) {
+        await this.cancel("button");
+        return "cancel";
+      }
+      await response.deferUpdate();
+    } catch (err) {
+      await this.cancel("timeout");
+      return "cancel";
+    }
+    return "continue";
   }
 
   private async doSelectClassMenu() {
@@ -53,6 +103,7 @@ export class NewCharacterProcess extends Process {
 
     await this.message.edit({
       content: "Choose your new character's class:",
+      embeds: [],
       components: [
         new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(selectClassMenu),
         new ActionRowBuilder<ButtonBuilder>().addComponents(cancelButton),
@@ -99,6 +150,7 @@ export class NewCharacterProcess extends Process {
 
     await this.message.edit({
       content: `Choose modifiers for your new ${this.state.selectedClass}. These are **OPTIONAL**:`,
+      embeds: [],
       components: [
         new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(selectModiferMenu),
         new ActionRowBuilder<ButtonBuilder>().addComponents(noModsButton, cancelButton),
