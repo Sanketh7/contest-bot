@@ -23,6 +23,10 @@ const handleLeaderboardRefresh = async (interaction: ChatInputCommandInteraction
 };
 
 const command: SlashCommand = {
+  defaultAcl: ["Admin"],
+  subcommandAcl: {
+    refresh: ["Contest Staff"],
+  },
   command: new SlashCommandBuilder()
     .setName("leaderboard")
     .setDescription("Manage the leaderboard.")

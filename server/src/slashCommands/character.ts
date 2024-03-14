@@ -36,6 +36,8 @@ const handleProfile = async (interaction: ChatInputCommandInteraction, user: Use
 };
 
 const command: SlashCommand = {
+  defaultAcl: ["Admin"],
+  subcommandAcl: null,
   command: new SlashCommandBuilder()
     .setName("character")
     .setDescription("View profile for current contest.")

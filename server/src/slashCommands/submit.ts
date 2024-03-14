@@ -9,6 +9,8 @@ import { getActiveContest } from "../services/contestService";
 import { SlashCommand } from "../types";
 
 const command: SlashCommand = {
+  defaultAcl: ["Contestant"],
+  subcommandAcl: null,
   command: new SlashCommandBuilder().setName("submit").setDescription("Edit active character."),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const contest = await getActiveContest();

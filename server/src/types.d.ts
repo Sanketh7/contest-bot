@@ -13,13 +13,15 @@ import type {
   RecurrenceSpecDateRange,
   RecurrenceSpecObjLit,
 } from "node-schedule";
-import { CHARACTER_MODIFIERS, ROTMG_CLASSES } from "./constants";
+import { ACL_GROUPS, CHARACTER_MODIFIERS, ROTMG_CLASSES } from "./constants";
 
 export type CommandBuilder =
   | Omit<SlashCommandBuilder, "addSubcommandGroup" | "addSubcommand">
   | SlashCommandSubcommandsOnlyBuilder;
 
 export interface SlashCommand {
+  defaultAcl: AclGroup[];
+  subcommandAcl: Record<string, AclGroup[]> | null;
   command: CommandBuilder;
   execute: (interaction: ChatInputCommandInteraction) => Promise<any>;
   autocomplete?: (interaction: AutocompleteInteraction) => void;
@@ -42,6 +44,7 @@ declare module "discord.js" {
 
 export type RotmgClass = (typeof ROTMG_CLASSES)[number];
 export type CharacterModifier = (typeof CHARACTER_MODIFIERS)[number];
+export type AclGroup = (typeof ACL_GROUPS)[number];
 
 export type Job = {
   schedule:

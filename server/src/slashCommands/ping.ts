@@ -7,6 +7,8 @@ import {
 import { SlashCommand } from "../types";
 
 const command: SlashCommand = {
+  defaultAcl: [],
+  subcommandAcl: null,
   command: new SlashCommandBuilder().setName("ping").setDescription("Get server ping."),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     await interaction.reply({

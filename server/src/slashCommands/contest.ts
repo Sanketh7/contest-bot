@@ -17,6 +17,10 @@ const handleContestEnd = async (interaction: ChatInputCommandInteraction) => {
 };
 
 const command: SlashCommand = {
+  defaultAcl: ["Admin"],
+  subcommandAcl: {
+    end: ["Admin"],
+  },
   command: new SlashCommandBuilder()
     .setName("contest")
     .setDescription("Manage the current contest.")

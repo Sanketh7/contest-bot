@@ -112,6 +112,13 @@ export const handleScheduleRefresh = async (interaction: ChatInputCommandInterac
 };
 
 const command: SlashCommand = {
+  defaultAcl: ["Admin"],
+  subcommandAcl: {
+    add: ["Admin"],
+    remove: ["Admin"],
+    view: ["Contest Staff"],
+    refresh: ["Contest Staff"],
+  },
   command: new SlashCommandBuilder()
     .setName("schedule")
     .setDescription("Manage and view the contest schedule.")

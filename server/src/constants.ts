@@ -23,6 +23,8 @@ export const ROTMG_CLASSES = [
 
 export const CHARACTER_MODIFIERS = ["No_Pet", "Crucible", "UT_ST_Only", "Duo"] as const;
 
+export const ACL_GROUPS = ["Admin", "Contest Staff", "Contestant"] as const;
+
 export const DEFAULT_TIMEOUT_MS = 300_000; // 5 minutes
 
 export const CONTEST_POST_BUTTON_CUSTOM_IDS = {

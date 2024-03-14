@@ -1,4 +1,4 @@
-import { ButtonInteraction, GuildMember, Interaction, userMention } from "discord.js";
+import { ButtonInteraction, GuildMember, Interaction, User, userMention } from "discord.js";
 import { CONTEST_POST_BUTTON_CUSTOM_IDS, SUBMISSION_POST_BUTTON_CUSTOM_IDS } from "../constants";
 import { PointsManager } from "../pointsManager";
 import { buildSubmissionEmbed } from "../processes/common";
@@ -8,7 +8,7 @@ import { getCharacter } from "../services/characterService";
 import { getActiveContest } from "../services/contestService";
 import { acceptSubmission, getSubmission } from "../services/submissionService";
 import { Settings } from "../settings";
-import { Event } from "../types";
+import { AclGroup, Event } from "../types";
 
 const handleSignUpButton = async (interaction: ButtonInteraction) => {
   const member = interaction.member;
@@ -33,6 +33,13 @@ const handleSignUpButton = async (interaction: ButtonInteraction) => {
 };
 
 const handleEditCharacterButton = async (interaction: ButtonInteraction) => {
+  const aclOk = await checkAcl(interaction.user, new Set(["Contestant"]));
+  if (!aclOk) {
+    return await interaction.reply({
+      ephemeral: true,
+      content: "Sign up for the contest first!",
+    });
+  }
   await interaction.deferUpdate();
   const contest = await getActiveContest();
   if (!contest) return;
@@ -44,6 +51,13 @@ const handleEditCharacterButton = async (interaction: ButtonInteraction) => {
 };
 
 const handleNewCharacterButton = async (interaction: ButtonInteraction) => {
+  const aclOk = await checkAcl(interaction.user, new Set(["Contestant"]));
+  if (!aclOk) {
+    return await interaction.reply({
+      ephemeral: true,
+      content: "Sign up for the contest first!",
+    });
+  }
   await interaction.deferUpdate();
   const contest = await getActiveContest();
   if (!contest) return;
@@ -117,34 +131,84 @@ const handleRejectSubmissionButton = async (interaction: ButtonInteraction) => {
   });
 };
 
+const checkAcl = async (user: User, acls: Set<AclGroup>): Promise<boolean> => {
+  if (user.id === Settings.getInstance().data.botOwner?.id) {
+    return true;
+  }
+  const guild = Settings.getInstance().data.guild;
+  const roles = Settings.getInstance().data.roles;
+  if (!guild || !roles) return false;
+  const member = await guild.members.fetch(user.id);
+  let ok = false;
+  for (const acl of acls) {
+    if (acl === "Admin") {
+      ok = ok || member.roles.cache.has(roles.admin.id);
+    } else if (acl === "Contest Staff") {
+      ok = ok || member.roles.cache.has(roles.contestStaff.id);
+    } else if (acl === "Contestant") {
+      ok = ok || member.roles.cache.has(roles.contestant.id);
+    }
+  }
+  return ok;
+};
+
 const event: Event = {
   name: "interactionCreate",
   async execute(interaction: Interaction) {
-    if (interaction.isChatInputCommand()) {
-      const command = interaction.client.slashCommands.get(interaction.commandName);
-      if (!command) return;
-      await command.execute(interaction).catch(console.error);
-    } else if (interaction.isAutocomplete()) {
-      const command = interaction.client.slashCommands.get(interaction.commandName);
-      if (!command || !command.autocomplete) return;
-      await command.autocomplete(interaction);
-    } else if (interaction.isModalSubmit()) {
-      const command = interaction.client.slashCommands.get(interaction.customId);
-      if (!command || !command.modal) return;
-      await command.modal(interaction);
-    } else if (interaction.isButton()) {
-      if (interaction.customId === CONTEST_POST_BUTTON_CUSTOM_IDS.signUp) {
-        return await handleSignUpButton(interaction);
-      } else if (interaction.customId === CONTEST_POST_BUTTON_CUSTOM_IDS.newCharacter) {
-        return await handleNewCharacterButton(interaction);
-      } else if (interaction.customId === CONTEST_POST_BUTTON_CUSTOM_IDS.editCharacter) {
-        return await handleEditCharacterButton(interaction);
-      }
+    try {
+      if (interaction.isChatInputCommand()) {
+        const command = interaction.client.slashCommands.get(interaction.commandName);
+        if (!command) return;
 
-      if (interaction.customId === SUBMISSION_POST_BUTTON_CUSTOM_IDS.accept) {
-        return await handleAcceptSubmissionButton(interaction);
-      } else if (interaction.customId === SUBMISSION_POST_BUTTON_CUSTOM_IDS.reject) {
-        return await handleRejectSubmissionButton(interaction);
+        // check acl
+        const subcommandName = interaction.options.getSubcommand(false);
+        let acl = new Set(command.defaultAcl);
+        if (
+          subcommandName &&
+          command.subcommandAcl &&
+          Object.keys(command.subcommandAcl).includes(subcommandName)
+        ) {
+          acl = new Set(command.subcommandAcl[subcommandName]);
+        }
+        const aclOk = await checkAcl(interaction.user, acl);
+        if (!aclOk) {
+          return await interaction.reply({
+            ephemeral: true,
+            content: "Insufficient permissions.",
+          });
+        }
+
+        await command.execute(interaction).catch(console.error);
+      } else if (interaction.isAutocomplete()) {
+        const command = interaction.client.slashCommands.get(interaction.commandName);
+        if (!command || !command.autocomplete) return;
+        await command.autocomplete(interaction);
+      } else if (interaction.isModalSubmit()) {
+        const command = interaction.client.slashCommands.get(interaction.customId);
+        if (!command || !command.modal) return;
+        await command.modal(interaction);
+      } else if (interaction.isButton()) {
+        if (interaction.customId === CONTEST_POST_BUTTON_CUSTOM_IDS.signUp) {
+          return await handleSignUpButton(interaction);
+        } else if (interaction.customId === CONTEST_POST_BUTTON_CUSTOM_IDS.newCharacter) {
+          return await handleNewCharacterButton(interaction);
+        } else if (interaction.customId === CONTEST_POST_BUTTON_CUSTOM_IDS.editCharacter) {
+          return await handleEditCharacterButton(interaction);
+        }
+
+        if (interaction.customId === SUBMISSION_POST_BUTTON_CUSTOM_IDS.accept) {
+          return await handleAcceptSubmissionButton(interaction);
+        } else if (interaction.customId === SUBMISSION_POST_BUTTON_CUSTOM_IDS.reject) {
+          return await handleRejectSubmissionButton(interaction);
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      if (interaction.isRepliable()) {
+        return await interaction.reply({
+          ephemeral: true,
+          content: "Something went wrong...",
+        });
       }
     }
   },
