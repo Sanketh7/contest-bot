@@ -1,5 +1,5 @@
 import { Character } from "@prisma/client";
-import { ColorResolvable, EmbedBuilder, User, userMention } from "discord.js";
+import { ColorResolvable, EmbedBuilder, userMention } from "discord.js";
 import { PointsManager } from "../pointsManager";
 import { Settings } from "../settings";
 import { formatKeywordsForDisplay, truncateEllipses } from "../util";
@@ -44,15 +44,18 @@ export const buildSubmissionEmbed = (
 export const buildCharacterEmbed = (
   color: ColorResolvable,
   keywordsDisplayMode: "truncate" | "all",
-  character: Character,
-  user: User
+  character: Character
 ): EmbedBuilder => {
   const embed = new EmbedBuilder()
     .setTitle(`Character (ID: ${character.id})`)
     .setColor(color)
     .addFields(
-      { name: "Character", value: `${userMention(user.id)}'s ${character.rotmgClass}` },
-      { name: "Modifiers", value: formatKeywordsForDisplay(character.modifiers) },
+      {
+        name: "Character",
+        value: `${userMention(character.userId)}'s ${character.rotmgClass}`,
+        inline: true,
+      },
+      { name: "Modifiers", value: formatKeywordsForDisplay(character.modifiers), inline: true },
       {
         name: "Active?",
         value: character.isActive
@@ -65,6 +68,7 @@ export const buildCharacterEmbed = (
         value: PointsManager.getInstance()
           .getPointsForAll(character.keywords, character.rotmgClass)
           .toString(),
+        inline: true,
       }
     );
 

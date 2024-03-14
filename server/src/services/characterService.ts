@@ -23,6 +23,18 @@ export const getActiveCharacterByUserId = async (
   });
 };
 
+export const getCharactersByUserId = async (
+  userId: string,
+  contest: Contest
+): Promise<Character[]> => {
+  return await prisma.character.findMany({
+    where: {
+      userId,
+      contestId: contest.id,
+    },
+  });
+};
+
 export const getTopCharacters = async (
   contest: Contest,
   count: number,
