@@ -71,29 +71,31 @@ export const startContest = async (contest: Contest) => {
   const signUpButton = new ButtonBuilder()
     .setCustomId(CONTEST_POST_BUTTON_CUSTOM_IDS.signUp)
     .setStyle(ButtonStyle.Primary)
-    .setEmoji(Settings.getInstance().data.generalEmojis!.accept)
+    .setEmoji(Settings.getInstance().getGeneralEmoji("accept"))
     .setLabel("Sign Up");
   const newCharacterButton = new ButtonBuilder()
     .setCustomId(CONTEST_POST_BUTTON_CUSTOM_IDS.newCharacter)
     .setStyle(ButtonStyle.Success)
-    .setEmoji(Settings.getInstance().data.generalEmojis!.grave.id)
+    .setEmoji(Settings.getInstance().getGeneralEmoji("grave").id)
     .setLabel("New Character");
   const editCharacterButton = new ButtonBuilder()
     .setCustomId(CONTEST_POST_BUTTON_CUSTOM_IDS.editCharacter)
     .setStyle(ButtonStyle.Success)
-    .setEmoji(Settings.getInstance().data.generalEmojis!.edit)
+    .setEmoji(Settings.getInstance().getGeneralEmoji("edit"))
     .setLabel("Edit Character");
 
-  const msg = await Settings.getInstance().data.channels?.signUp.send({
-    embeds: [embed],
-    components: [
-      new ActionRowBuilder<ButtonBuilder>().addComponents(
-        signUpButton,
-        newCharacterButton,
-        editCharacterButton
-      ),
-    ],
-  });
+  const msg = await Settings.getInstance()
+    .getChannel("signUp")
+    .send({
+      embeds: [embed],
+      components: [
+        new ActionRowBuilder<ButtonBuilder>().addComponents(
+          signUpButton,
+          newCharacterButton,
+          editCharacterButton
+        ),
+      ],
+    });
 
   await prisma.contest.update({
     where: {
@@ -140,7 +142,7 @@ export const endContest = async (contest: Contest, opts?: { force: boolean }) =>
   });
 
   if (contest.postId) {
-    const msg = await Settings.getInstance().data.channels?.signUp.messages.fetch(contest.postId);
+    const msg = await Settings.getInstance().getChannel("signUp").messages.fetch(contest.postId);
     await msg?.delete();
   }
 };

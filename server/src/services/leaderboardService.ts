@@ -4,12 +4,13 @@ import { table } from "table";
 import { Settings } from "../settings";
 import { truncateEllipses } from "../util";
 import { getTopCharacters } from "./characterService";
+import { getBanList } from "./guildService";
 
 const NUM_TABLE_LIMIT = 5;
 const NUM_ROWS_PER_TABLE_LIMIT = 11;
 
 export const cleanLeaderboardChannel = async () => {
-  const channel = Settings.getInstance().data.channels?.leaderboard;
+  const channel = Settings.getInstance().getChannel("leaderboard");
   if (!channel) return;
   try {
     const messages = await channel.messages.fetch({
@@ -23,13 +24,13 @@ export const cleanLeaderboardChannel = async () => {
 };
 
 export const displayTopCharactersLeaderboard = async (contest: Contest, mode: "active" | "all") => {
-  const guild = Settings.getInstance().data.guild;
-  if (!guild) return;
+  const guild = Settings.getInstance().get("guild");
   const characters = await getTopCharacters(
     contest,
     NUM_TABLE_LIMIT * NUM_ROWS_PER_TABLE_LIMIT,
     mode
   );
+  const bans = await getBanList(guild);
 
   const tableData = [["Rank", "Player", "Points", "Class"]];
   if (mode === "all") {
@@ -38,8 +39,17 @@ export const displayTopCharactersLeaderboard = async (contest: Contest, mode: "a
   let currRank = 0;
   let prevPoints = Number.POSITIVE_INFINITY;
   for (const character of characters) {
-    const user = await guild.members.fetch(character.userId);
-    if (!user) continue;
+    let user;
+    try {
+      user = await guild.members.fetch(character.userId);
+    } catch (err) {
+      console.error("Failed to fetch user to display on leaderboard", err);
+      continue;
+    }
+    if (bans.includes(user.id)) {
+      continue;
+    }
+
     const ign = truncateEllipses(user.nickname ?? user.displayName, 15);
     if (character.points < prevPoints) {
       currRank++;
@@ -48,7 +58,7 @@ export const displayTopCharactersLeaderboard = async (contest: Contest, mode: "a
 
     const row = [currRank.toString(), ign, character.points.toString(), character.rotmgClass];
     if (mode === "all") {
-      row.push(character.isActive ? Settings.getInstance().data.generalEmojis!.accept : "");
+      row.push(character.isActive ? Settings.getInstance().getGeneralEmoji("accept") : "");
     }
     tableData.push(row);
   }
@@ -66,7 +76,9 @@ export const displayTopCharactersLeaderboard = async (contest: Contest, mode: "a
       inline: false,
     });
   }
-  await Settings.getInstance().data.channels?.leaderboard.send({
-    embeds: [embed],
-  });
+  await Settings.getInstance()
+    .getChannel("leaderboard")
+    .send({
+      embeds: [embed],
+    });
 };

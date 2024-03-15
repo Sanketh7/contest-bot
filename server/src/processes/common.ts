@@ -59,8 +59,8 @@ export const buildCharacterEmbed = (
       {
         name: "Active?",
         value: character.isActive
-          ? Settings.getInstance().data.generalEmojis!.accept
-          : Settings.getInstance().data.generalEmojis!.reject,
+          ? Settings.getInstance().getGeneralEmoji("accept")
+          : Settings.getInstance().getGeneralEmoji("reject"),
         inline: true,
       },
       {

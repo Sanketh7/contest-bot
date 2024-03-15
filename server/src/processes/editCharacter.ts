@@ -51,9 +51,9 @@ export class EditCharacterProcess extends Process {
   private async doProofUpload() {
     const embed = new EmbedBuilder().setTitle("Submission").addFields({
       name: "Instructions",
-      value: `Use this [document](${
-        Settings.getInstance().data.pointsRefUrl
-      }) for a list of items and achievements.
+      value: `Use this [document](${Settings.getInstance().get(
+        "pointsRefUrl"
+      )}) for a list of items and achievements.
 
       Send a message with a screenshot **in this DM** as specified in the contest rules.
       Click the **plus button** next to where you type a message to attach an image or **copy and paste** an image into the message box.
@@ -227,18 +227,22 @@ export class EditCharacterProcess extends Process {
       .setCustomId(SUBMISSION_POST_BUTTON_CUSTOM_IDS.reject)
       .setLabel("Reject")
       .setStyle(ButtonStyle.Danger);
-    return await Settings.getInstance().data.channels?.submission.send({
-      embeds: [this.buildSubmissionEmbed("Yellow", submission.id)],
-      components: [new ActionRowBuilder<ButtonBuilder>().addComponents(acceptButton, rejectButton)],
-    });
+    return await Settings.getInstance()
+      .getChannel("submission")
+      .send({
+        embeds: [this.buildSubmissionEmbed("Yellow", submission.id)],
+        components: [
+          new ActionRowBuilder<ButtonBuilder>().addComponents(acceptButton, rejectButton),
+        ],
+      });
   }
 
   private buildKeywordSubmitEmbed(): EmbedBuilder {
     const embed = new EmbedBuilder().setTitle("Submission").addFields({
       name: "Instructions",
-      value: `Using this [document](${
-        Settings.getInstance().data.pointsRefUrl
-      }) as reference, enter the keywords that correspond to your items/achievements.
+      value: `Using this [document](${Settings.getInstance().get(
+        "pointsRefUrl"
+      )}) as reference, enter the keywords that correspond to your items/achievements.
       This is how you will get your points.
 
       **If points are not entered correctly, your submission will be denied.**`,

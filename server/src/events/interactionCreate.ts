@@ -6,6 +6,7 @@ import { EditCharacterProcess } from "../processes/editCharacter";
 import { NewCharacterProcess } from "../processes/newCharacter";
 import { getCharacter } from "../services/characterService";
 import { getActiveContest } from "../services/contestService";
+import { getBanList } from "../services/guildService";
 import { acceptSubmission, getSubmission } from "../services/submissionService";
 import { Settings } from "../settings";
 import { AclGroup, Event } from "../types";
@@ -18,7 +19,14 @@ const handleSignUpButton = async (interaction: ButtonInteraction) => {
       content: "Failed to sign up: could not find member.",
     });
   }
-  const role = Settings.getInstance().data.roles!.contestant;
+  if ((await getBanList(member.guild)).includes(interaction.user.id)) {
+    return await interaction.reply({
+      ephemeral: true,
+      content: "You've been banned from participating in contests.",
+    });
+  }
+
+  const role = Settings.getInstance().getRole("contestant");
   if (member.roles.cache.has(role.id)) {
     return await interaction.reply({
       ephemeral: true,
@@ -89,10 +97,12 @@ const handleAcceptSubmissionButton = async (interaction: ButtonInteraction) => {
     ),
     imageUrl: submission.imageUrl,
   });
-  Settings.getInstance().data.channels!.log.send({
-    content: `Accepted by ${userMention(interaction.user.id)}`,
-    embeds: [embed],
-  });
+  Settings.getInstance()
+    .getChannel("log")
+    .send({
+      content: `Accepted by ${userMention(interaction.user.id)}`,
+      embeds: [embed],
+    });
   await interaction.message.delete();
   await user?.send({
     content: "Submission accepted:",
@@ -120,10 +130,12 @@ const handleRejectSubmissionButton = async (interaction: ButtonInteraction) => {
     ),
     imageUrl: submission.imageUrl,
   });
-  Settings.getInstance().data.channels!.log.send({
-    content: `Rejected by ${userMention(interaction.user.id)}`,
-    embeds: [embed],
-  });
+  Settings.getInstance()
+    .getChannel("log")
+    .send({
+      content: `Rejected by ${userMention(interaction.user.id)}`,
+      embeds: [embed],
+    });
   await interaction.message.delete();
   await user?.send({
     content: "Submission rejected:",
@@ -135,21 +147,19 @@ const checkAcl = async (user: User, acls: Set<AclGroup>): Promise<boolean> => {
   if (acls.size === 0) {
     return true;
   }
-  if (user.id === Settings.getInstance().data.botOwner?.id) {
+  if (user.id === Settings.getInstance().get("botOwner").id) {
     return true;
   }
-  const guild = Settings.getInstance().data.guild;
-  const roles = Settings.getInstance().data.roles;
-  if (!guild || !roles) return false;
+  const guild = Settings.getInstance().get("guild");
   const member = await guild.members.fetch(user.id);
   let ok = false;
   for (const acl of acls) {
     if (acl === "Admin") {
-      ok = ok || member.roles.cache.has(roles.admin.id);
+      ok = ok || member.roles.cache.has(Settings.getInstance().getRole("admin").id);
     } else if (acl === "Contest Staff") {
-      ok = ok || member.roles.cache.has(roles.contestStaff.id);
+      ok = ok || member.roles.cache.has(Settings.getInstance().getRole("contestStaff").id);
     } else if (acl === "Contestant") {
-      ok = ok || member.roles.cache.has(roles.contestant.id);
+      ok = ok || member.roles.cache.has(Settings.getInstance().getRole("contestant").id);
     }
   }
   return ok;
