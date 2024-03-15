@@ -8,6 +8,7 @@ import path, { join } from "path";
 import { ENV } from "./env";
 import { contestScheduleJob, refreshLeaderboardJob } from "./jobs/contestScheduling";
 import { PointsManager } from "./pointsManager";
+import { createGuild } from "./services/guildService";
 import { Settings } from "./settings";
 import { SlashCommand } from "./types";
 
@@ -46,6 +47,7 @@ client.once("ready", async (client) => {
     path.resolve(__dirname, "..", "..", ENV.SETTINGS_FILENAME),
     client
   );
+  await createGuild({ discordId: Settings.getInstance().get("guild").id });
 
   const handlersDir = join(__dirname, "./handlers");
   readdirSync(handlersDir).forEach((handler) => {

@@ -3,6 +3,12 @@ import { Guild, User } from "discord.js";
 import { prisma } from "../prisma";
 
 export const createGuild = async (data: { discordId: string }): Promise<PrismaGuild> => {
+  const existingGuild = await prisma.guild.findUnique({
+    where: {
+      discordId: data.discordId,
+    },
+  });
+  if (existingGuild) return existingGuild;
   return prisma.guild.create({
     data: {
       discordId: data.discordId,
