@@ -23,15 +23,14 @@ export const cleanLeaderboardChannel = async () => {
   }
 };
 
-export const displayTopCharactersLeaderboard = async (contest: Contest, mode: "active" | "all") => {
+export const generateTopCharactersLeaderboard = async (
+  contest: Contest,
+  mode: "active" | "all",
+  count: number | "inf"
+): Promise<string[][]> => {
   const guild = Settings.getInstance().get("guild");
-  const characters = await getTopCharacters(
-    contest,
-    NUM_TABLE_LIMIT * NUM_ROWS_PER_TABLE_LIMIT,
-    mode
-  );
+  const characters = await getTopCharacters(contest, count, mode);
   const bans = await getBanList(guild);
-
   const tableData = [["Rank", "Player", "Points", "Class"]];
   if (mode === "all") {
     tableData[0].push("Active?");
@@ -63,6 +62,15 @@ export const displayTopCharactersLeaderboard = async (contest: Contest, mode: "a
     tableData.push(row);
   }
 
+  return tableData;
+};
+
+export const displayTopCharactersLeaderboard = async (contest: Contest, mode: "active" | "all") => {
+  const tableData = await generateTopCharactersLeaderboard(
+    contest,
+    mode,
+    NUM_TABLE_LIMIT * NUM_ROWS_PER_TABLE_LIMIT
+  );
   const embed = new EmbedBuilder()
     .setTitle(mode === "active" ? "Top Active Characters" : "Top Characters")
     .setDescription("Updated every 2 minutes during a contest.");

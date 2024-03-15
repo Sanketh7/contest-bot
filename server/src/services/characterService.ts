@@ -37,7 +37,7 @@ export const getCharactersByUserId = async (
 
 export const getTopCharacters = async (
   contest: Contest,
-  count: number,
+  count: number | "inf",
   mode: "active" | "all"
 ): Promise<(Character & { points: number })[]> => {
   const allCharacters = await prismaWithPoints.character.findMany({
@@ -47,6 +47,9 @@ export const getTopCharacters = async (
     },
   });
   allCharacters.sort((a, b) => b.points - a.points);
+  if (count === "inf") {
+    return allCharacters;
+  }
   return allCharacters.slice(0, Math.min(allCharacters.length, count));
 };
 
