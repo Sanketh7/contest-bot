@@ -7,11 +7,12 @@ export const prismaWithPoints = new PrismaClient().$extends({
   result: {
     character: {
       points: {
-        needs: { keywords: true, rotmgClass: true },
+        needs: { keywords: true, rotmgClass: true, modifiers: true },
         compute(character) {
           return PointsManager.getInstance().getPointsForAll(
             character.keywords,
-            character.rotmgClass
+            character.rotmgClass,
+            character.modifiers
           );
         },
       },

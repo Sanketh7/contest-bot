@@ -11,11 +11,11 @@ import {
   User,
 } from "discord.js";
 import { DEFAULT_TIMEOUT_MS, SUBMISSION_POST_BUTTON_CUSTOM_IDS } from "../constants";
-import { PointsManager } from "../pointsManager";
+import { Points, PointsManager } from "../pointsManager";
 import { getActiveCharacterByUserId } from "../services/characterService";
 import { createSubmission } from "../services/submissionService";
 import { Settings } from "../settings";
-import { formatKeywordsForDisplay } from "../util";
+import { formatKeywordsForDisplay, formatPointsForDisplay } from "../util";
 import { buildSubmissionEmbed } from "./common";
 import { Process } from "./process";
 
@@ -23,7 +23,7 @@ type ProcessState = {
   imageUrl?: string;
   acceptedKeywords?: string[];
   rejectedKeywords?: string[];
-  pointsAdded?: number;
+  pointsAdded?: Points;
 };
 
 export class EditCharacterProcess extends Process {
@@ -158,7 +158,8 @@ export class EditCharacterProcess extends Process {
         this.state.rejectedKeywords = Array.from(rejectedKeywords);
         this.state.pointsAdded = PointsManager.getInstance().getPointsForAll(
           this.state.acceptedKeywords,
-          this.character!.rotmgClass
+          this.character!.rotmgClass,
+          this.character!.modifiers
         );
 
         await this.message.edit({
@@ -256,7 +257,7 @@ export class EditCharacterProcess extends Process {
       });
       embed.addFields({
         name: "Points Added",
-        value: (this.state.pointsAdded ?? 0).toString(),
+        value: formatPointsForDisplay(this.state.pointsAdded),
       });
       embed.addFields({
         name: "Rejected Keywords",
@@ -273,7 +274,7 @@ export class EditCharacterProcess extends Process {
       userId: this.user.id,
       character: this.character,
       acceptedKeywords: this.state.acceptedKeywords ?? [],
-      pointsAdded: this.state.pointsAdded ?? 0,
+      pointsAdded: this.state.pointsAdded,
       imageUrl: this.state.imageUrl ?? "error",
     });
   }

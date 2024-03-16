@@ -50,12 +50,12 @@ export const generateTopCharactersLeaderboard = async (
     }
 
     const ign = truncateEllipses(user.nickname ?? user.displayName, 15);
-    if (character.points < prevPoints) {
+    if (character.points.total < prevPoints) {
       currRank++;
     }
-    prevPoints = character.points;
+    prevPoints = character.points.total;
 
-    const row = [currRank.toString(), ign, character.points.toString(), character.rotmgClass];
+    const row = [currRank.toString(), ign, character.points.total.toFixed(0), character.rotmgClass];
     if (mode === "all") {
       row.push(character.isActive ? Settings.getInstance().getGeneralEmoji("accept") : "");
     }

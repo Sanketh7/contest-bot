@@ -17,7 +17,11 @@ import {
   updateCharacterActivity,
 } from "../services/characterService";
 import { CharacterModifier, RotmgClass } from "../types";
-import { buildProcessCustomId, formatKeywordsForDisplay } from "../util";
+import {
+  buildProcessCustomId,
+  formatKeywordsForDisplay,
+  formatModifierChoiceForDisplay,
+} from "../util";
 import { buildCharacterEmbed } from "./common";
 import { Process } from "./process";
 
@@ -133,7 +137,9 @@ export class NewCharacterProcess extends Process {
       .setMaxValues(CHARACTER_MODIFIERS.length)
       .addOptions(
         ...CHARACTER_MODIFIERS.map((m) =>
-          new StringSelectMenuOptionBuilder().setLabel(m.replaceAll("_", " ")).setValue(m)
+          new StringSelectMenuOptionBuilder()
+            .setLabel(formatModifierChoiceForDisplay(m))
+            .setValue(m)
         )
       );
     const { cancelButton, cancelButtonCustomId } = this.buildCancelButton();

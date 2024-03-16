@@ -93,7 +93,8 @@ const handleAcceptSubmissionButton = async (interaction: ButtonInteraction) => {
     acceptedKeywords: submission.keywords,
     pointsAdded: PointsManager.getInstance().getPointsForAll(
       submission.keywords,
-      character.rotmgClass
+      character.rotmgClass,
+      character.modifiers
     ),
     imageUrl: submission.imageUrl,
   });
@@ -126,7 +127,8 @@ const handleRejectSubmissionButton = async (interaction: ButtonInteraction) => {
     acceptedKeywords: submission.keywords,
     pointsAdded: PointsManager.getInstance().getPointsForAll(
       submission.keywords,
-      character.rotmgClass
+      character.rotmgClass,
+      character.modifiers
     ),
     imageUrl: submission.imageUrl,
   });

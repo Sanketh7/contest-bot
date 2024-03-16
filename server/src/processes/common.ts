@@ -1,8 +1,8 @@
 import { Character } from "@prisma/client";
 import { ColorResolvable, EmbedBuilder, userMention } from "discord.js";
-import { PointsManager } from "../pointsManager";
+import { Points, PointsManager } from "../pointsManager";
 import { Settings } from "../settings";
-import { formatKeywordsForDisplay, truncateEllipses } from "../util";
+import { formatKeywordsForDisplay, formatPointsForDisplay, truncateEllipses } from "../util";
 
 export const buildSubmissionEmbed = (
   color: ColorResolvable,
@@ -11,7 +11,7 @@ export const buildSubmissionEmbed = (
     userId: string;
     character: Character | undefined;
     acceptedKeywords: string[];
-    pointsAdded: number;
+    pointsAdded: Points | undefined;
     imageUrl: string;
   }
 ): EmbedBuilder => {
@@ -33,7 +33,7 @@ export const buildSubmissionEmbed = (
         name: "Items/Achievements",
         value: formatKeywordsForDisplay(data.acceptedKeywords),
       },
-      { name: "Points Added", value: (data.pointsAdded ?? 0).toString(), inline: true },
+      { name: "Points Added", value: formatPointsForDisplay(data.pointsAdded), inline: true },
       { name: "Proof", value: data.imageUrl, inline: true }
     )
     .setImage(data.imageUrl ?? null)
@@ -65,9 +65,13 @@ export const buildCharacterEmbed = (
       },
       {
         name: "Points",
-        value: PointsManager.getInstance()
-          .getPointsForAll(character.keywords, character.rotmgClass)
-          .toString(),
+        value: formatPointsForDisplay(
+          PointsManager.getInstance().getPointsForAll(
+            character.keywords,
+            character.rotmgClass,
+            character.modifiers
+          )
+        ),
         inline: true,
       }
     );

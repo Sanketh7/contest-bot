@@ -2,8 +2,14 @@ import * as csv from "fast-csv";
 import FlashText from "flashtext2js";
 import { readFileSync } from "fs";
 import { finished } from "stream/promises";
-import { ROTMG_CLASSES } from "./constants";
-import { RotmgClass } from "./types";
+import { CHARACTER_MODIFER_PERCENTS, ROTMG_CLASSES } from "./constants";
+import { CharacterModifier, RotmgClass } from "./types";
+
+export type Points = {
+  raw: number;
+  modifier: number;
+  total: number;
+};
 
 export class PointsManager {
   private static instance: PointsManager;
@@ -49,14 +55,49 @@ export class PointsManager {
     }
   }
 
-  getPointsFor(keyword: string, rotmgClass: RotmgClass): number | undefined {
-    return this.points.get(this.createPointsMapKey(keyword, rotmgClass));
+  getPointsFor(
+    keyword: string,
+    rotmgClass: RotmgClass,
+    modifiers: CharacterModifier[]
+  ): number | undefined {
+    const percent = Array.from(new Set(modifiers))
+      .map((m) => CHARACTER_MODIFER_PERCENTS[m])
+      .reduce((a, x) => a + x, 0);
+    const rawPoints = this.points.get(this.createPointsMapKey(keyword, rotmgClass));
+    return rawPoints ? rawPoints * (1 + percent / 100) : undefined;
   }
 
-  getPointsForAll(keywords: string[], rotmgClass: RotmgClass): number {
-    return Array.from(new Set(keywords))
-      .map((k) => this.getPointsFor(k, rotmgClass) ?? 0)
-      .reduce((a, x) => a + x, 0);
+  getPointsForAll(
+    keywords: string[],
+    rotmgClass: RotmgClass,
+    modifers: CharacterModifier[]
+  ): Points {
+    const ret = Array.from(new Set(keywords))
+      .map((k) => {
+        const raw = this.getPointsFor(k, rotmgClass, []) ?? 0;
+        const total = this.getPointsFor(k, rotmgClass, modifers) ?? 0;
+        return {
+          raw,
+          modifier: total - raw,
+          total,
+        };
+      })
+      .reduce(
+        (a, x) => ({
+          raw: a.raw + x.raw,
+          modifier: a.modifier + x.modifier,
+          total: a.total + x.total,
+        }),
+        {
+          raw: 0,
+          modifier: 0,
+          total: 0,
+        }
+      );
+    return {
+      ...ret,
+      total: Math.max(0, Math.round(ret.total)),
+    };
   }
 
   extractKeywords(input: string): string[] {

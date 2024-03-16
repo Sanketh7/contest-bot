@@ -1,3 +1,4 @@
+import { CharacterModifier } from "./types";
 import { buildGlobalCustomId } from "./util";
 
 export const ROTMG_CLASSES = [
@@ -22,6 +23,12 @@ export const ROTMG_CLASSES = [
 ] as const;
 
 export const CHARACTER_MODIFIERS = ["No_Pet", "Crucible", "UT_ST_Only", "Duo"] as const;
+export const CHARACTER_MODIFER_PERCENTS: Record<CharacterModifier, number> = {
+  No_Pet: 5,
+  Crucible: 3,
+  UT_ST_Only: 3,
+  Duo: -5,
+} as const;
 
 export const ACL_GROUPS = ["Admin", "Contest Staff", "Contestant"] as const;
 

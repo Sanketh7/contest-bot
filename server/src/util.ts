@@ -1,4 +1,7 @@
 import dayjs from "dayjs";
+import { CHARACTER_MODIFER_PERCENTS } from "./constants";
+import { Points } from "./pointsManager";
+import { CharacterModifier } from "./types";
 
 export function buildProcessCustomId(processName: string, componentName: string) {
   return `process#${processName}#${componentName}`;
@@ -13,6 +16,23 @@ export const formatKeywordsForDisplay = (keywords: string[] | undefined | null) 
     return "`[]`";
   } else {
     return `\`[${keywords.join(", ")}]\``;
+  }
+};
+
+export const formatModifierChoiceForDisplay = (modifier: CharacterModifier): string => {
+  const name = modifier.replaceAll("_", " ");
+  const percent = CHARACTER_MODIFER_PERCENTS[modifier];
+  return `${name} (${percent >= 0 ? "+" : "-"}${Math.abs(percent)})%`;
+};
+
+export const formatPointsForDisplay = (points: Points | null | undefined): string => {
+  if (!points) return "0";
+  if (points.modifier > 0) {
+    return `${points.raw} + ${points.modifier.toFixed(2)}`;
+  } else if (points.modifier < 0) {
+    return `${points.raw} - ${-points.modifier.toFixed(2)}`;
+  } else {
+    return points.total.toString();
   }
 };
 

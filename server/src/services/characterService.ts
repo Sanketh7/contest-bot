@@ -1,4 +1,5 @@
 import { Character, Contest } from "@prisma/client";
+import { Points } from "../pointsManager";
 import { prisma, prismaWithPoints } from "../prisma";
 import { CharacterModifier, RotmgClass } from "../types";
 
@@ -39,14 +40,14 @@ export const getTopCharacters = async (
   contest: Contest,
   count: number | "inf",
   mode: "active" | "all"
-): Promise<(Character & { points: number })[]> => {
+): Promise<(Character & { points: Points })[]> => {
   const allCharacters = await prismaWithPoints.character.findMany({
     where: {
       contestId: contest.id,
       isActive: mode === "active" ? true : undefined,
     },
   });
-  allCharacters.sort((a, b) => b.points - a.points);
+  allCharacters.sort((a, b) => b.points.total - a.points.total);
   if (count === "inf") {
     return allCharacters;
   }
