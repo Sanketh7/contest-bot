@@ -30,6 +30,8 @@ enum CharacterModifier {
   Crucible
   UT_ST_Only
   Duo
+  No_Loot_Boosts
+  Quest_Chests_Allowed
 }
 
 generator client {
