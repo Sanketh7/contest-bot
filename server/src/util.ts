@@ -1,7 +1,31 @@
 import dayjs from "dayjs";
+import { User } from "discord.js";
 import { CHARACTER_MODIFER_PERCENTS } from "./constants";
 import { Points } from "./pointsManager";
-import { CharacterModifier } from "./types";
+import { Settings } from "./settings";
+import { AclGroup, CharacterModifier } from "./types";
+
+export const checkAcl = async (user: User, acls: Set<AclGroup>): Promise<boolean> => {
+  if (acls.size === 0) {
+    return true;
+  }
+  if (user.id === Settings.getInstance().get("botOwner").id) {
+    return true;
+  }
+  const guild = Settings.getInstance().get("guild");
+  const member = await guild.members.fetch(user.id);
+  let ok = false;
+  for (const acl of acls) {
+    if (acl === "Admin") {
+      ok = ok || member.roles.cache.has(Settings.getInstance().getRole("admin").id);
+    } else if (acl === "Contest Staff") {
+      ok = ok || member.roles.cache.has(Settings.getInstance().getRole("contestStaff").id);
+    } else if (acl === "Contestant") {
+      ok = ok || member.roles.cache.has(Settings.getInstance().getRole("contestant").id);
+    }
+  }
+  return ok;
+};
 
 export function buildProcessCustomId(processName: string, componentName: string) {
   return `process#${processName}#${componentName}`;
