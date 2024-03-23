@@ -45,6 +45,7 @@ export const DEFAULT_TIMEOUT_MS = 300_000; // 5 minutes
 
 export const CONTEST_POST_BUTTON_CUSTOM_IDS = {
   signUp: buildGlobalCustomId("contestPost", "signUp"),
+  signOut: buildGlobalCustomId("contestPost", "signOut"),
   newCharacter: buildGlobalCustomId("contestPost", "newCharacter"),
   editCharacter: buildGlobalCustomId("contestPost", "editCharacter"),
 };

@@ -10,6 +10,7 @@ import { checkAcl } from "../util";
 export const isContestPostButtonInteraction = (interaction: ButtonInteraction): boolean => {
   switch (interaction.customId) {
     case CONTEST_POST_BUTTON_CUSTOM_IDS.signUp:
+    case CONTEST_POST_BUTTON_CUSTOM_IDS.signOut:
     case CONTEST_POST_BUTTON_CUSTOM_IDS.newCharacter:
     case CONTEST_POST_BUTTON_CUSTOM_IDS.editCharacter:
       return true;
@@ -22,6 +23,8 @@ export const handleContestPostButtonInteraction = async (interaction: ButtonInte
   switch (interaction.customId) {
     case CONTEST_POST_BUTTON_CUSTOM_IDS.signUp:
       return await handleSignUpButton(interaction);
+    case CONTEST_POST_BUTTON_CUSTOM_IDS.signOut:
+      return await handleSignOutButton(interaction);
     case CONTEST_POST_BUTTON_CUSTOM_IDS.newCharacter:
       return await handleNewCharacterButton(interaction);
     case CONTEST_POST_BUTTON_CUSTOM_IDS.editCharacter:
@@ -55,6 +58,30 @@ const handleSignUpButton = async (interaction: ButtonInteraction) => {
   return await interaction.reply({
     ephemeral: true,
     content: "Signed up for the contest!",
+  });
+};
+
+export const handleSignOutButton = async (interaction: ButtonInteraction) => {
+  const member = interaction.member;
+  if (!(member instanceof GuildMember)) {
+    return await interaction.reply({
+      ephemeral: true,
+      content: "Failed to sign up: could not find member.",
+    });
+  }
+
+  const role = Settings.getInstance().getRole("contestant");
+  if (!member.roles.cache.has(role.id)) {
+    return await interaction.reply({
+      ephemeral: true,
+      content: "You've already signed out.",
+    });
+  }
+  await member.roles.remove(role);
+  return await interaction.reply({
+    ephemeral: true,
+    content:
+      "Signed out of the contest. Note that your submissions and characters were not deleted.",
   });
 };
 

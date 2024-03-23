@@ -17,6 +17,7 @@ type JsonData = {
     reject: string;
     edit: string;
     grave: string;
+    door: string;
   };
   classEmojis: Record<RotmgClass, string>;
   channels: {
@@ -42,6 +43,7 @@ type ResolvedData = {
     reject?: string;
     edit?: string;
     grave?: GuildEmoji;
+    door?: string;
   };
   classEmojis?: Partial<Record<RotmgClass, GuildEmoji>>;
   channels?: {
@@ -213,7 +215,7 @@ export class Settings {
   private async loadEmojis(jsonData: JsonData) {
     const guild = this.get("guild");
 
-    for (const name of ["accept", "reject", "edit"] as const) {
+    for (const name of ["accept", "reject", "edit", "door"] as const) {
       this.setGeneralEmoji(name, jsonData.generalEmojis[name]);
     }
     this.setGeneralEmoji(

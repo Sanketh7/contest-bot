@@ -11,7 +11,8 @@
     "accept": "✅",
     "reject": "❌",
     "edit": "✏️",
-    "grave": "gravestone"
+    "grave": "gravestone",
+    "door": "🚪"
   },
   "classEmojis": {
     "Bard": "bard",

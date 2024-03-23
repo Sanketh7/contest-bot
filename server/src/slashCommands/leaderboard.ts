@@ -14,6 +14,7 @@ import {
 import { SlashCommand } from "../types";
 
 const handleLeaderboardRefresh = async (interaction: ChatInputCommandInteraction) => {
+  await cleanLeaderboardChannel();
   const contest = await getActiveContest();
   if (!contest) {
     return await interaction.reply({
@@ -21,7 +22,6 @@ const handleLeaderboardRefresh = async (interaction: ChatInputCommandInteraction
       content: "No active contest.",
     });
   }
-  await cleanLeaderboardChannel();
   await displayTopCharactersLeaderboard(contest, "all");
   await displayTopCharactersLeaderboard(contest, "active");
   return await interaction.reply({
