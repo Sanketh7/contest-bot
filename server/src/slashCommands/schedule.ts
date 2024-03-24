@@ -1,3 +1,4 @@
+import { Contest } from "@prisma/client";
 import {
   CacheType,
   ChatInputCommandInteraction,
@@ -79,13 +80,7 @@ const handleScheduleRemove = async (interaction: ChatInputCommandInteraction) =>
   });
 };
 
-const handleScheduleView = async (interaction: ChatInputCommandInteraction) => {
-  const schedule = await getContestsAfter(new Date());
-  if (schedule.length === 0) {
-    return interaction.reply({
-      content: "No upcoming contests.",
-    });
-  }
+const createScheduleTable = (schedule: Contest[]): string[][] => {
   const tableData: string[][] = [["ID", "Start", "End"]];
   for (const contest of schedule) {
     tableData.push([
@@ -94,11 +89,38 @@ const handleScheduleView = async (interaction: ChatInputCommandInteraction) => {
       displayDatetimeString(contest.endTime),
     ]);
   }
+  return tableData;
+};
+
+const handleScheduleView = async (interaction: ChatInputCommandInteraction) => {
+  const schedule = await getContestsAfter(new Date());
+  if (schedule.length === 0) {
+    return interaction.reply({
+      content: "No upcoming contests.",
+    });
+  }
   const embed = new EmbedBuilder()
     .setTitle("Upcoming Contests")
     .setDescription("All times are in UTC.")
     .setColor("Blue")
-    .addFields({ name: "Schedule", value: "```" + table(tableData) + "```" });
+    .addFields({ name: "Schedule", value: "```" + table(createScheduleTable(schedule)) + "```" });
+  return await interaction.reply({
+    embeds: [embed],
+  });
+};
+
+const handleScheduleHistory = async (interaction: ChatInputCommandInteraction) => {
+  const schedule = await getContestsAfter(new Date(0));
+  if (schedule.length === 0) {
+    return interaction.reply({
+      content: "No contests.",
+    });
+  }
+  const embed = new EmbedBuilder()
+    .setTitle("Schedule History")
+    .setDescription("All times are in UTC.")
+    .setColor("Blue")
+    .addFields({ name: "Schedule", value: "```" + table(createScheduleTable(schedule)) + "```" });
   return await interaction.reply({
     embeds: [embed],
   });
@@ -151,6 +173,9 @@ const command: SlashCommand = {
       subcommand.setName("view").setDescription("View the upcoming contest schedule.")
     )
     .addSubcommand((subcommand) =>
+      subcommand.setName("history").setDescription("View the contest schedule history.")
+    )
+    .addSubcommand((subcommand) =>
       subcommand.setName("refresh").setDescription("Force-refresh the contest schedule.")
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
@@ -162,6 +187,8 @@ const command: SlashCommand = {
         return await handleScheduleRemove(interaction);
       case "view":
         return await handleScheduleView(interaction);
+      case "history":
+        return await handleScheduleHistory(interaction);
       case "refresh":
         return await handleScheduleRefresh(interaction);
       default:
