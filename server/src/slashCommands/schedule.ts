@@ -114,12 +114,25 @@ const handleScheduleHistory = async (interaction: ChatInputCommandInteraction) =
       content: "No contests.",
     });
   }
-  return await interaction.reply({
-    content:
-      "**Schedule History**\nAll times are in UTC.\n```" +
-      table(createScheduleTable(schedule)) +
-      "```",
-  });
+  const tableStr = table(createScheduleTable(schedule));
+  if (tableStr.length > 1800) {
+    return await interaction.reply({
+      content: "**Schedule History**\nAll times are in UTC.",
+      files: [
+        {
+          attachment: Buffer.from(tableStr),
+          name: "schedule-history.txt",
+        },
+      ],
+    });
+  } else {
+    return await interaction.reply({
+      content:
+        "**Schedule History**\nAll times are in UTC.\n```" +
+        table(createScheduleTable(schedule)) +
+        "```",
+    });
+  }
 };
 
 export const handleScheduleRefresh = async (interaction: ChatInputCommandInteraction) => {
@@ -135,6 +148,7 @@ const command: SlashCommand = {
     add: ["Admin"],
     remove: ["Admin"],
     view: ["Contest Staff"],
+    history: ["Contest Staff"],
     refresh: ["Contest Staff"],
   },
   command: new SlashCommandBuilder()
