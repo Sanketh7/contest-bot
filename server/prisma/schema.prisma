@@ -1,6 +1,6 @@
 datasource db {
-  provider = "postgresql"
-  url = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
@@ -39,42 +39,50 @@ generator client {
 }
 
 model Guild {
-  id Int @id @default(autoincrement())
-  discordId String @unique
+  id            Int      @id @default(autoincrement())
+  discordId     String   @unique
   bannedUserIds String[]
+
+  deletedAt DateTime?
 }
 
 model Contest {
-  id Int @id @default(autoincrement())
-  isActive Boolean @default(false)
-  startTime DateTime
-  endTime DateTime
+  id            Int      @id @default(autoincrement())
+  isActive      Boolean  @default(false)
+  startTime     DateTime
+  endTime       DateTime
   bannedUserIds String[]
-  postId String? 
-  forceEnded Boolean @default(false)
+  postId        String?
+  forceEnded    Boolean  @default(false)
 
   characters Character[]
+
+  deletedAt DateTime?
 }
 
 model Character {
-  id Int @id @default(autoincrement())
-  userId String 
-  isActive Boolean
+  id         Int                 @id @default(autoincrement())
+  userId     String
+  isActive   Boolean
   rotmgClass RotmgClass
-  modifiers CharacterModifier[]
-  keywords String[]
+  modifiers  CharacterModifier[]
+  keywords   String[]
 
   submissions Submission[]
-  contestId Int 
-  contest Contest @relation(fields: [contestId], references: [id])
+  contestId   Int
+  contest     Contest      @relation(fields: [contestId], references: [id])
+
+  deletedAt DateTime?
 }
 
 model Submission {
-  id Int @id @default(autoincrement())
-  isAccepted Boolean @default(false)
-  keywords String[]
-  imageUrl String
+  id         Int      @id @default(autoincrement())
+  isAccepted Boolean  @default(false)
+  keywords   String[]
+  imageUrl   String
 
   characterId Int
-  character Character @relation(fields: [characterId], references: [id])
+  character   Character @relation(fields: [characterId], references: [id])
+
+  deletedAt DateTime?
 }

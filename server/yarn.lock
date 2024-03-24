@@ -181,6 +181,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@open-draft/deferred-promise@^2.1.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@open-draft/deferred-promise/-/deferred-promise-2.2.0.tgz#4a822d10f6f0e316be4d67b4d4f8c9a124b073bd"
+  integrity sha512-CecwLWx3rhxVQF6V4bAgPS5t+So2sTbPgAzafKkVizyi7tlwpcFpdFqq+wqF2OwNBmqFuu6tOyouTuxgpMfzmA==
+
 "@pkgr/core@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@pkgr/core/-/core-0.1.0.tgz#7d8dacb7fdef0e4387caf7396cbd77f179867d06"
@@ -1406,6 +1411,21 @@ prettier@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.1.1.tgz#6ba9f23165d690b6cbdaa88cb0807278f7019848"
   integrity sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==
+
+prisma-extension-nested-operations@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/prisma-extension-nested-operations/-/prisma-extension-nested-operations-1.0.1.tgz#d7e3febfc7f7470d6a9c358d9ae7e78098afd17b"
+  integrity sha512-mjMfVUplwCkrdClTqRP4793dOdPfT/H0zvV2uQ2R1BG2ZAqJ4LUEf//7f9LJdV5GhSOhp72w6b7DKJg1xIkgVA==
+  dependencies:
+    "@open-draft/deferred-promise" "^2.1.0"
+    lodash "^4.17.21"
+
+prisma-extension-soft-delete@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/prisma-extension-soft-delete/-/prisma-extension-soft-delete-1.0.1.tgz#e2f0d6d9abaa1f89e27799e2edce2ad6edb174ba"
+  integrity sha512-iUidZZndjf2J8i6hsM6y5gRCQyFYEfe2c+NlNTqg63OvAP9bPny0WE6+IhX1YQ1E3h78WHjwM/0eanBzmfVELg==
+  dependencies:
+    prisma-extension-nested-operations "^1.0.1"
 
 prisma@^5.10.2:
   version "5.10.2"

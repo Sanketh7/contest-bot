@@ -8,7 +8,7 @@
     "start": "npx tsc && node build/index.js",
     "start:reload": "npx tsc && RELOAD_SLASH_COMMANDS=true node build/index.js",
     "lint": "npx prettier --check . && eslint .",
-    "format": "npx prettier --write . && eslint --fix .",
+    "format": "npx prettier --write . && eslint --fix . && npx prisma format",
     "clean": "rm -rf build"
   },
   "devDependencies": {
@@ -36,6 +36,7 @@
     "pg": "^8.11.3",
     "pg-promise": "^11.5.4",
     "prisma": "^5.10.2",
+    "prisma-extension-soft-delete": "^1.0.1",
     "table": "^6.8.1"
   }
 }
