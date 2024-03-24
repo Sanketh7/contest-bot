@@ -99,13 +99,11 @@ const handleScheduleView = async (interaction: ChatInputCommandInteraction) => {
       content: "No upcoming contests.",
     });
   }
-  const embed = new EmbedBuilder()
-    .setTitle("Upcoming Contests")
-    .setDescription("All times are in UTC.")
-    .setColor("Blue")
-    .addFields({ name: "Schedule", value: "```" + table(createScheduleTable(schedule)) + "```" });
   return await interaction.reply({
-    embeds: [embed],
+    content:
+      "**Upcoming Contests**\nAll times are in UTC.\n```" +
+      table(createScheduleTable(schedule)) +
+      "```",
   });
 };
 
@@ -116,13 +114,11 @@ const handleScheduleHistory = async (interaction: ChatInputCommandInteraction) =
       content: "No contests.",
     });
   }
-  const embed = new EmbedBuilder()
-    .setTitle("Schedule History")
-    .setDescription("All times are in UTC.")
-    .setColor("Blue")
-    .addFields({ name: "Schedule", value: "```" + table(createScheduleTable(schedule)) + "```" });
   return await interaction.reply({
-    embeds: [embed],
+    content:
+      "**Schedule History**\nAll times are in UTC.\n```" +
+      table(createScheduleTable(schedule)) +
+      "```",
   });
 };
 
