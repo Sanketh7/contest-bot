@@ -1,3 +1,4 @@
+import { Contest } from "@prisma/client";
 import {
   CacheType,
   ChatInputCommandInteraction,
@@ -5,7 +6,7 @@ import {
   messageLink,
 } from "discord.js";
 import { table } from "table";
-import { getActiveContest } from "../services/contestService";
+import { getActiveContest, getContest } from "../services/contestService";
 import {
   cleanLeaderboardChannel,
   displayTopCharactersLeaderboard,
@@ -30,28 +31,47 @@ const handleLeaderboardRefresh = async (interaction: ChatInputCommandInteraction
 };
 
 export const handleLeaderboardDownload = async (interaction: ChatInputCommandInteraction) => {
-  const contest = await getActiveContest();
-  if (!contest) {
-    return await interaction.reply({
-      ephemeral: true,
-      content: "No active contest.",
-    });
+  let contest: Contest;
+  const contestIdInput = interaction.options.getNumber("contest-id");
+  if (contestIdInput === null) {
+    const activeContest = await getActiveContest();
+    if (!activeContest) {
+      return await interaction.reply({
+        ephemeral: true,
+        content: "No active contest.",
+      });
+    }
+    contest = activeContest;
+  } else {
+    const maybeContest = await getContest(contestIdInput);
+    if (!maybeContest) {
+      return await interaction.reply({
+        ephemeral: true,
+        content: "Invalid contest.",
+      });
+    }
+    contest = maybeContest;
   }
 
-  const [activeTableData, allTableData] = await Promise.all([
+  const [activeTableData, allTableData, topTableData] = await Promise.all([
     generateTopCharactersLeaderboard(contest, "active", "inf"),
     generateTopCharactersLeaderboard(contest, "all", "inf"),
+    generateTopCharactersLeaderboard(contest, "top", "inf"),
   ]);
   const msg = await interaction.user.send({
     content: "Leaderboards:",
     files: [
       {
-        attachment: Buffer.from(table(activeTableData)),
+        attachment: Buffer.from("Active Characters Only:\n\n" + table(activeTableData)),
         name: "active-leaderboard.txt",
       },
       {
-        attachment: Buffer.from(table(allTableData)),
+        attachment: Buffer.from("All Characters:\n\n" + table(allTableData)),
         name: "leaderboard.txt",
+      },
+      {
+        attachment: Buffer.from("Top Character per User Only:\n\n" + table(topTableData)),
+        name: "top-leaderboard.txt",
       },
     ],
   });
@@ -76,7 +96,15 @@ const command: SlashCommand = {
         .setDescription("Force-refresh the current contest's leaderboard.")
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("download").setDescription("View the full leaderboard as a txt file.")
+      subcommand
+        .setName("download")
+        .setDescription("View the full leaderboard as a txt file.")
+        .addNumberOption((option) =>
+          option
+            .setName("contest-id")
+            .setDescription("Optional: Contest ID. Omit to use active contest.")
+            .setRequired(false)
+        )
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const subcommand = interaction.options.getSubcommand();

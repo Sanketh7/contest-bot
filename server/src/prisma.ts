@@ -20,19 +20,21 @@ const softDeleteExtension = createSoftDeleteExtension({
 
 export const prisma = new PrismaClient().$extends(softDeleteExtension);
 
-export const prismaWithPoints = new PrismaClient().$extends(softDeleteExtension).$extends({
-  result: {
-    character: {
-      points: {
-        needs: { keywords: true, rotmgClass: true, modifiers: true },
-        compute(character) {
-          return PointsManager.getInstance().getPointsForAll(
-            character.keywords,
-            character.rotmgClass,
-            character.modifiers
-          );
+export const prismaWithPoints = new PrismaClient()
+  .$extends({
+    result: {
+      character: {
+        points: {
+          needs: { keywords: true, rotmgClass: true, modifiers: true },
+          compute(character) {
+            return PointsManager.getInstance().getPointsForAll(
+              character.keywords,
+              character.rotmgClass,
+              character.modifiers
+            );
+          },
         },
       },
     },
-  },
-});
+  })
+  .$extends(softDeleteExtension);

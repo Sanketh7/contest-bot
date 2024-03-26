@@ -25,7 +25,7 @@ export const cleanLeaderboardChannel = async () => {
 
 export const generateTopCharactersLeaderboard = async (
   contest: Contest,
-  mode: "active" | "all",
+  mode: "active" | "all" | "top",
   count: number | "inf"
 ): Promise<string[][]> => {
   const guild = Settings.getInstance().get("guild");

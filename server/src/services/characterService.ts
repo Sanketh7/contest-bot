@@ -39,7 +39,7 @@ export const getCharactersByUserId = async (
 export const getTopCharacters = async (
   contest: Contest,
   count: number | "inf",
-  mode: "active" | "all"
+  mode: "active" | "all" | "top"
 ): Promise<(Character & { points: Points })[]> => {
   const allCharacters = await prismaWithPoints.character.findMany({
     where: {
@@ -48,6 +48,18 @@ export const getTopCharacters = async (
     },
   });
   allCharacters.sort((a, b) => b.points.total - a.points.total);
+  if (mode === "top") {
+    // remove duplicate occurrences of a user
+    const seenUsers = new Set<string>();
+    allCharacters.reverse();
+    for (let i = allCharacters.length - 1; i >= 0; i--) {
+      if (seenUsers.has(allCharacters[i].userId)) {
+        allCharacters.splice(i, 1);
+      }
+      seenUsers.add(allCharacters[i].userId);
+    }
+    allCharacters.reverse();
+  }
   if (count === "inf") {
     return allCharacters;
   }
