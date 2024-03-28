@@ -31,6 +31,7 @@ const handleLeaderboardRefresh = async (interaction: ChatInputCommandInteraction
 };
 
 export const handleLeaderboardDownload = async (interaction: ChatInputCommandInteraction) => {
+  await interaction.deferReply({ ephemeral: true });
   let contest: Contest;
   const contestIdInput = interaction.options.getNumber("contest-id");
   if (contestIdInput === null) {
@@ -75,8 +76,7 @@ export const handleLeaderboardDownload = async (interaction: ChatInputCommandInt
       },
     ],
   });
-  await interaction.reply({
-    ephemeral: true,
+  await interaction.editReply({
     content: messageLink(msg.channelId, msg.id),
   });
 };
