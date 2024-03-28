@@ -37,19 +37,17 @@ export const generateTopCharactersLeaderboard = async (
   }
   let currRank = 0;
   let prevPoints = Number.POSITIVE_INFINITY;
-  for (const character of characters) {
-    let user;
-    try {
-      user = await guild.members.fetch(character.userId);
-    } catch (err) {
-      console.error("Failed to fetch user to display on leaderboard", err);
-      continue;
-    }
-    if (bans.includes(user.id)) {
-      continue;
-    }
 
-    const ign = truncateEllipses(user.nickname ?? user.displayName, 15);
+  const members = await guild.members.fetch({
+    user: characters.map((c) => c.userId),
+  });
+
+  for (const character of characters) {
+    if (bans.includes(character.userId)) {
+      continue;
+    }
+    const user = members.get(character.userId);
+    const ign = user ? truncateEllipses(user.nickname ?? user.displayName, 20) : character.userId;
     if (character.points.total < prevPoints) {
       currRank++;
     }
