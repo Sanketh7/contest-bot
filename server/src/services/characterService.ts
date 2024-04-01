@@ -97,23 +97,29 @@ export const createCharacter = async (
   });
 };
 
-export const addKeywordsToCharacter = async (characterId: number, keywords: string[]) => {
-  return prisma.$transaction(async (tx): Promise<any> => {
-    const character = await tx.character.findUnique({
-      where: {
-        id: characterId,
-      },
-    });
-    if (!character) return;
-    const oldKeywords = new Set<string>(character.keywords);
+export const modifyCharacterKeywords = async (
+  characterId: number,
+  keywords: string[],
+  action: "add" | "remove"
+) => {
+  const character = await prisma.character.findUnique({
+    where: {
+      id: characterId,
+    },
+  });
+  if (!character) return;
+  const oldKeywords = new Set<string>(character.keywords);
+  if (action === "add") {
     keywords.forEach((k) => oldKeywords.add(k));
-    await tx.character.update({
-      where: {
-        id: character.id,
-      },
-      data: {
-        keywords: Array.from(oldKeywords),
-      },
-    });
+  } else if (action === "remove") {
+    keywords.forEach((k) => oldKeywords.delete(k));
+  }
+  await prisma.character.update({
+    where: {
+      id: character.id,
+    },
+    data: {
+      keywords: Array.from(oldKeywords),
+    },
   });
 };

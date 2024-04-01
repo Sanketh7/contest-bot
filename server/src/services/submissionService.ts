@@ -1,6 +1,6 @@
 import { Character, Submission } from "@prisma/client";
 import { prisma } from "../prisma";
-import { addKeywordsToCharacter } from "./characterService";
+import { modifyCharacterKeywords } from "./characterService";
 
 export const createSubmission = async (
   character: Character,
@@ -35,5 +35,5 @@ export const acceptSubmission = async (submission: Submission) => {
       isAccepted: true,
     },
   });
-  await addKeywordsToCharacter(submission.characterId, submission.keywords);
+  await modifyCharacterKeywords(submission.characterId, submission.keywords, "add");
 };

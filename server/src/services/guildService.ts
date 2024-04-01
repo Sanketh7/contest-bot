@@ -21,29 +21,27 @@ export const updateBanList = async (
   action: "ban" | "unban",
   user: User
 ): Promise<boolean> => {
-  return prisma.$transaction(async (tx): Promise<boolean> => {
-    const guildData = await tx.guild.findUnique({
-      where: {
-        discordId: guild.id,
-      },
-    });
-    if (!guildData) return false;
-    const bans = new Set<string>(guildData.bannedUserIds);
-    if (action === "ban") {
-      bans.add(user.id);
-    } else if (action === "unban") {
-      bans.delete(user.id);
-    }
-    await tx.guild.update({
-      where: {
-        discordId: guild.id,
-      },
-      data: {
-        bannedUserIds: Array.from(bans),
-      },
-    });
-    return true;
+  const guildData = await prisma.guild.findUnique({
+    where: {
+      discordId: guild.id,
+    },
   });
+  if (!guildData) return false;
+  const bans = new Set<string>(guildData.bannedUserIds);
+  if (action === "ban") {
+    bans.add(user.id);
+  } else if (action === "unban") {
+    bans.delete(user.id);
+  }
+  await prisma.guild.update({
+    where: {
+      discordId: guild.id,
+    },
+    data: {
+      bannedUserIds: Array.from(bans),
+    },
+  });
+  return true;
 };
 
 export const getBanList = async (guild: Guild): Promise<string[]> => {

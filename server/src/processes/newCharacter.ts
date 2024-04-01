@@ -30,7 +30,7 @@ type ProcessState = {
   selectedModifiers?: CharacterModifier[];
 };
 
-export class NewCharacterProcess extends Process {
+export class NewCharacterProcess extends Process<Contest> {
   private state: ProcessState;
   private oldCharacter?: Character;
 

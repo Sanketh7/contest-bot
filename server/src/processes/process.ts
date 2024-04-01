@@ -1,13 +1,12 @@
-import { Contest } from "@prisma/client";
 import { ButtonBuilder, ButtonStyle, Message, User } from "discord.js";
 import { buildProcessCustomId } from "../util";
 
-export abstract class Process {
+export abstract class Process<C> {
   protected user: User;
   protected message: Message;
-  protected contest: Contest;
+  protected contest: C;
 
-  constructor(user: User, message: Message, contest: Contest) {
+  constructor(user: User, message: Message, contest: C) {
     this.user = user;
     this.message = message;
     this.contest = contest;

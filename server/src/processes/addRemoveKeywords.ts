@@ -2,105 +2,80 @@ import { Character, Contest } from "@prisma/client";
 import {
   ActionRowBuilder,
   ButtonBuilder,
-  ButtonStyle,
   Collection,
   ColorResolvable,
   EmbedBuilder,
   Message,
   MessageComponentInteraction,
   User,
+  bold,
+  userMention,
 } from "discord.js";
-import { DEFAULT_TIMEOUT_MS, SUBMISSION_POST_BUTTON_CUSTOM_IDS } from "../constants";
+import { DEFAULT_TIMEOUT_MS } from "../constants";
 import { Points, PointsManager } from "../pointsManager";
-import { getActiveCharacterByUserId } from "../services/characterService";
-import { createSubmission } from "../services/submissionService";
+import { modifyCharacterKeywords } from "../services/characterService";
 import { Settings } from "../settings";
 import { formatKeywordsForDisplay, formatPointsForDisplay } from "../util";
-import { buildSubmissionEmbed } from "./common";
+import { buildCharacterEmbed } from "./common";
 import { Process } from "./process";
 
 type ProcessState = {
-  imageUrl?: string;
   acceptedKeywords?: string[];
   rejectedKeywords?: string[];
-  pointsAdded?: Points;
+  pointsDelta?: Points;
 };
 
-export class EditCharacterProcess extends Process<Contest> {
+export class AddRemoveKeywordsProcess extends Process<Contest | null> {
   private state: ProcessState;
-  private character?: Character;
+  private character: Character;
+  private action: "add" | "remove";
 
-  constructor(user: User, message: Message, contest: Contest) {
-    super(user, message, contest);
+  constructor(user: User, message: Message, character: Character, action: "add" | "remove") {
+    super(user, message, null);
     this.state = {};
+    this.character = character;
+    this.action = action;
   }
 
   async start() {
-    const character = await getActiveCharacterByUserId(this.user.id, this.contest);
-    if (!character) {
-      return await this.message.edit({
-        content: "You have no active characters to edit.",
-        embeds: [],
-        components: [],
-      });
-    }
-    this.character = character;
-    return await this.doProofUpload();
+    return await this.doConfirmCharacterMenu();
   }
 
-  private async doProofUpload() {
-    const embed = new EmbedBuilder().setTitle("Submission").addFields({
-      name: "Instructions",
-      value: `Use this [document](${Settings.getInstance().get(
-        "pointsRefUrl"
-      )}) for a list of items and achievements.
+  private async doConfirmCharacterMenu() {
+    const embed = new EmbedBuilder()
+      .setColor("Yellow")
+      .setTitle("Confirm Character")
+      .addFields({
+        name: "Instructions",
+        value: `Confirm if you want to ${bold(this.action)} keywords to this character.`,
+      });
 
-      Send a message with a screenshot **in this DM** as specified in the contest rules.
-      Click the **plus button** next to where you type a message to attach an image or **copy and paste** an image into the message box.
-      If you do not use either of the methods above, the bot **cannot** detect it. 
-
-      **You MUST have your ENTIRE game screenshotted (i.e. not just your inventory).**
-      If you don't follow these rules, your submission will likely be denied.`,
-    });
+    const characterEmbed = buildCharacterEmbed("Yellow", "truncate", this.character);
+    const { confirmButton, confirmButtonCustomId } = this.buildConfirmButton();
     const { cancelButton, cancelButtonCustomId } = this.buildCancelButton();
 
     await this.message.edit({
       content: "",
-      embeds: [embed],
-      components: [new ActionRowBuilder<ButtonBuilder>().addComponents(cancelButton)],
+      embeds: [embed, characterEmbed],
+      components: [
+        new ActionRowBuilder<ButtonBuilder>().addComponents(confirmButton, cancelButton),
+      ],
     });
 
-    const filter = (msg: Message) => {
-      const file = msg.attachments.at(0);
-      if (msg.author.id !== this.user.id || !file || !file.contentType) {
-        return false;
-      }
-      return file.contentType.startsWith("image");
-    };
-
-    let collected: Collection<string, Message<boolean>>;
     try {
-      const p1 = this.message.awaitMessageComponent({
-        filter: (i) => i.customId === cancelButtonCustomId && i.user.id === this.user.id,
+      const response = await this.message.awaitMessageComponent({
+        filter: (i) =>
+          (i.customId === confirmButtonCustomId || i.customId === cancelButtonCustomId) &&
+          i.user.id === this.user.id,
         time: DEFAULT_TIMEOUT_MS,
       });
-      const p2 = this.message.channel.awaitMessages({
-        filter,
-        max: 1,
-        time: DEFAULT_TIMEOUT_MS,
-        errors: ["time"],
-      });
-
-      const res = await Promise.race([p1, p2]);
-      if (res instanceof MessageComponentInteraction) {
+      if (response.customId === cancelButtonCustomId) {
         return await this.cancel("button");
       }
-      collected = res;
+      await response.deferUpdate();
     } catch (err) {
       return await this.cancel("timeout");
     }
-
-    this.state.imageUrl = collected.at(0)?.attachments.at(0)?.url;
     return await this.doKeywordEntry();
   }
 
@@ -147,16 +122,27 @@ export class EditCharacterProcess extends Process<Contest> {
         const keywords = PointsManager.getInstance().extractKeywords(keywordsInput);
         const acceptedKeywords = new Set<string>(keywords);
         const rejectedKeywords = new Set<string>();
-        for (const kw of this.character?.keywords ?? []) {
-          if (acceptedKeywords.has(kw)) {
-            acceptedKeywords.delete(kw);
-            rejectedKeywords.add(kw);
+
+        if (this.action === "add") {
+          for (const kw of this.character.keywords) {
+            if (acceptedKeywords.has(kw)) {
+              acceptedKeywords.delete(kw);
+              rejectedKeywords.add(kw);
+            }
+          }
+        } else {
+          const characterKeywords = new Set<string>(this.character.keywords);
+          for (const kw of acceptedKeywords) {
+            if (!characterKeywords.has(kw)) {
+              acceptedKeywords.delete(kw);
+              rejectedKeywords.add(kw);
+            }
           }
         }
 
         this.state.acceptedKeywords = Array.from(acceptedKeywords);
         this.state.rejectedKeywords = Array.from(rejectedKeywords);
-        this.state.pointsAdded = PointsManager.getInstance().getPointsForAll(
+        this.state.pointsDelta = PointsManager.getInstance().getPointsForAll(
           this.state.acceptedKeywords,
           this.character!.rotmgClass,
           this.character!.modifiers
@@ -178,7 +164,7 @@ export class EditCharacterProcess extends Process<Contest> {
     const { cancelButton, cancelButtonCustomId } = this.buildCancelButton();
 
     this.message = await this.message.reply({
-      embeds: [this.buildSubmissionEmbed("Yellow", null)],
+      embeds: [this.buildConfirmationEmbed("Yellow")],
       components: [
         new ActionRowBuilder<ButtonBuilder>().addComponents(confirmButton, cancelButton),
       ],
@@ -207,34 +193,24 @@ export class EditCharacterProcess extends Process<Contest> {
   }
 
   private async uploadSubmission() {
-    if (!this.character || !this.state.imageUrl || !this.state.acceptedKeywords) {
-      return await this.cancel("unknown");
-    }
-    const submission = await createSubmission(this.character, {
-      keywords: this.state.acceptedKeywords,
-      imageUrl: this.state.imageUrl,
-    });
+    await modifyCharacterKeywords(
+      this.character.id,
+      Array.from(this.state?.acceptedKeywords ?? []),
+      this.action
+    );
     await this.message.edit({
-      embeds: [this.buildSubmissionEmbed("Green", submission.id)],
+      embeds: [this.buildConfirmationEmbed("Green")],
       components: [],
       content: "",
     });
-
-    const acceptButton = new ButtonBuilder()
-      .setCustomId(SUBMISSION_POST_BUTTON_CUSTOM_IDS.accept)
-      .setLabel("Accept")
-      .setStyle(ButtonStyle.Success);
-    const rejectButton = new ButtonBuilder()
-      .setCustomId(SUBMISSION_POST_BUTTON_CUSTOM_IDS.reject)
-      .setLabel("Reject")
-      .setStyle(ButtonStyle.Danger);
     return await Settings.getInstance()
-      .getChannel("submission")
+      .getChannel("log")
       .send({
-        embeds: [this.buildSubmissionEmbed("Yellow", submission.id)],
-        components: [
-          new ActionRowBuilder<ButtonBuilder>().addComponents(acceptButton, rejectButton),
-        ],
+        content:
+          userMention(this.user.id) +
+          " is " +
+          (this.action === "add" ? "adding keywords" : "removing keywords"),
+        embeds: [this.buildConfirmationEmbed(this.action === "add" ? "Green" : "Red")],
       });
   }
 
@@ -243,10 +219,7 @@ export class EditCharacterProcess extends Process<Contest> {
       name: "Instructions",
       value: `Using this [document](${Settings.getInstance().get(
         "pointsRefUrl"
-      )}) as reference, enter the keywords that correspond to your items/achievements.
-      This is how you will get your points.
-
-      **If points are not entered correctly, your submission will be denied.**`,
+      )}) as reference, enter the keywords.`,
     });
     if (this.state.acceptedKeywords !== undefined || this.state.rejectedKeywords !== undefined) {
       embed.addFields({
@@ -256,12 +229,12 @@ export class EditCharacterProcess extends Process<Contest> {
         )}`,
       });
       embed.addFields({
-        name: "Points Added",
-        value: formatPointsForDisplay(this.state.pointsAdded),
+        name: `Points ${this.action === "add" ? "Added" : "Removed"}`,
+        value: formatPointsForDisplay(this.state.pointsDelta),
       });
       embed.addFields({
         name: "Rejected Keywords",
-        value: `These keywords were rejected because your character already has them.\n${formatKeywordsForDisplay(
+        value: `These keywords were rejected.\n${formatKeywordsForDisplay(
           this.state.rejectedKeywords
         )}`,
       });
@@ -269,13 +242,31 @@ export class EditCharacterProcess extends Process<Contest> {
     return embed;
   }
 
-  private buildSubmissionEmbed(color: ColorResolvable, submissionId: number | null): EmbedBuilder {
-    return buildSubmissionEmbed(color, submissionId, {
-      userId: this.user.id,
-      character: this.character,
-      acceptedKeywords: this.state.acceptedKeywords ?? [],
-      pointsAdded: this.state.pointsAdded,
-      imageUrl: this.state.imageUrl ?? "error",
-    });
+  private buildConfirmationEmbed(color: ColorResolvable) {
+    const embed = new EmbedBuilder()
+      .setTitle("Modifying Keywords")
+      .setColor(color)
+      .addFields(
+        {
+          name: "Character",
+          value: `${userMention(this.character.userId)}'s ${this.character.rotmgClass}`,
+          inline: true,
+        },
+        {
+          name: "Modifiers",
+          value: formatKeywordsForDisplay(this.character.modifiers),
+          inline: true,
+        },
+        {
+          name: "Items/Achievements",
+          value: formatKeywordsForDisplay(this.state.acceptedKeywords),
+        },
+        {
+          name: `Points ${this.action === "add" ? "Added" : "Removed"}`,
+          value: formatPointsForDisplay(this.state.pointsDelta),
+          inline: true,
+        }
+      );
+    return embed;
   }
 }
