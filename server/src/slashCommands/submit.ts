@@ -28,6 +28,7 @@ const command: SlashCommand = {
       content: "Loading...",
     });
     await interaction.reply({
+      ephemeral: true,
       content: messageLink(message.channel.id, message.id),
     });
     const process = new EditCharacterProcess(interaction.user, message, contest);

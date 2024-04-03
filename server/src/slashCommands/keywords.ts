@@ -42,6 +42,7 @@ const handleKeywordsAddRemove = async (
     content: "Loading...",
   });
   await interaction.reply({
+    ephemeral: true,
     content: messageLink(message.channel.id, message.id),
   });
   const process = new AddRemoveKeywordsProcess(interaction.user, message, character, action);
