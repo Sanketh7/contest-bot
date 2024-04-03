@@ -6,7 +6,28 @@ import {
 } from "discord.js";
 import { getBanList, updateBanList } from "../services/guildService";
 import { Settings } from "../settings";
-import { SlashCommand } from "../types";
+import { SlashCommand, SlashCommandDescriptions } from "../types";
+
+const descriptions = {
+  description: "Manage contest bans.",
+  subcommands: {
+    add: {
+      description: "Ban a user.",
+      options: {
+        target: "User to ban.",
+      },
+    },
+    remove: {
+      description: "Unban a user.",
+      options: {
+        target: "User to unban.",
+      },
+    },
+    view: {
+      description: "View all bans.",
+    },
+  },
+} satisfies SlashCommandDescriptions;
 
 const handleBansAddRemove = async (
   interaction: ChatInputCommandInteraction,
@@ -45,26 +66,35 @@ const command: SlashCommand = {
     remove: ["Admin"],
     view: ["Contest Staff"],
   },
+  descriptions,
   command: new SlashCommandBuilder()
     .setName("bans")
-    .setDescription("Manage contest bans.")
+    .setDescription(descriptions.description)
     .addSubcommand((subcommand) =>
       subcommand
         .setName("add")
-        .setDescription("Ban a user.")
+        .setDescription(descriptions.subcommands.add.description)
         .addUserOption((option) =>
-          option.setName("target").setDescription("User to ban.").setRequired(true)
+          option
+            .setName("target")
+            .setDescription(descriptions.subcommands.add.options.target)
+            .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName("remove")
-        .setDescription("Unban a user.")
+        .setDescription(descriptions.subcommands.remove.description)
         .addUserOption((option) =>
-          option.setName("target").setDescription("User to unban.").setRequired(true)
+          option
+            .setName("target")
+            .setDescription(descriptions.subcommands.remove.options.target)
+            .setRequired(true)
         )
     )
-    .addSubcommand((subcommand) => subcommand.setName("view").setDescription("View all bans.")),
+    .addSubcommand((subcommand) =>
+      subcommand.setName("view").setDescription(descriptions.subcommands.view.description)
+    ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const subcommand = interaction.options.getSubcommand();
     switch (subcommand) {

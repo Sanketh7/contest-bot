@@ -13,8 +13,36 @@ import {
   getContestsAfter,
   refreshContestSchedule,
 } from "../services/contestService";
-import { SlashCommand } from "../types";
+import { SlashCommand, SlashCommandDescriptions } from "../types";
 import { displayDatetimeString, parseDatetimeString } from "../util";
+
+const descriptions = {
+  description: "Manage and view the contest schedule.",
+  subcommands: {
+    add: {
+      description: "Add a contest to the schedule.",
+      options: {
+        start: "Start of contest (UTC) in format: YYYY-MM-DD HH:mm",
+        end: "End of contest (UTC) in format: YYYY-MM-DD HH:mm",
+      },
+    },
+    remove: {
+      description: "Remove a contest from the schedule.",
+      options: {
+        contestId: "Contest ID",
+      },
+    },
+    view: {
+      description: "View the upcoming contest schedule.",
+    },
+    history: {
+      description: "View the contest schedule history.",
+    },
+    refresh: {
+      description: "Force-refresh the contest schedule.",
+    },
+  },
+} satisfies SlashCommandDescriptions;
 
 const handleScheduleAdd = async (interaction: ChatInputCommandInteraction) => {
   const startInput = interaction.options.getString("start", true);
@@ -151,42 +179,46 @@ const command: SlashCommand = {
     history: ["Contest Staff"],
     refresh: ["Contest Staff"],
   },
+  descriptions,
   command: new SlashCommandBuilder()
     .setName("schedule")
-    .setDescription("Manage and view the contest schedule.")
+    .setDescription(descriptions.description)
     .addSubcommand((subcommand) =>
       subcommand
         .setName("add")
-        .setDescription("Add a contest to the schedule.")
+        .setDescription(descriptions.subcommands.add.description)
         .addStringOption((option) =>
           option
             .setName("start")
-            .setDescription("Start of contest (UTC) in format: YYYY-MM-DD HH:mm")
+            .setDescription(descriptions.subcommands.add.options.start)
             .setRequired(true)
         )
         .addStringOption((option) =>
           option
             .setName("end")
-            .setDescription("End of contest (UTC) in format: YYYY-MM-DD HH:mm")
+            .setDescription(descriptions.subcommands.add.options.end)
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName("remove")
-        .setDescription("Remove a contest from the schedule.")
+        .setDescription(descriptions.subcommands.remove.description)
         .addNumberOption((option) =>
-          option.setName("contest-id").setDescription("Contest ID").setRequired(true)
+          option
+            .setName("contest-id")
+            .setDescription(descriptions.subcommands.remove.options.contestId)
+            .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("view").setDescription("View the upcoming contest schedule.")
+      subcommand.setName("view").setDescription(descriptions.subcommands.view.description)
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("history").setDescription("View the contest schedule history.")
+      subcommand.setName("history").setDescription(descriptions.subcommands.history.description)
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("refresh").setDescription("Force-refresh the contest schedule.")
+      subcommand.setName("refresh").setDescription(descriptions.subcommands.refresh.description)
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const subcommand = interaction.options.getSubcommand();

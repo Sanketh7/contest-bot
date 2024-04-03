@@ -6,7 +6,25 @@ import {
 } from "discord.js";
 import { AddRemoveKeywordsProcess } from "../processes/addRemoveKeywords";
 import { getCharacter } from "../services/characterService";
-import { SlashCommand } from "../types";
+import { SlashCommand, SlashCommandDescriptions } from "../types";
+
+const descriptions = {
+  description: "Manage a character's keywords.",
+  subcommands: {
+    add: {
+      description: "Add keywords to a character.",
+      options: {
+        characterId: "Character ID",
+      },
+    },
+    remove: {
+      description: "Remove keywords from a character.",
+      options: {
+        characterId: "Character ID",
+      },
+    },
+  },
+} satisfies SlashCommandDescriptions;
 
 const handleKeywordsAddRemove = async (
   interaction: ChatInputCommandInteraction,
@@ -36,23 +54,30 @@ const command: SlashCommand = {
     add: ["Contest Staff"],
     remove: ["Contest Staff"],
   },
+  descriptions,
   command: new SlashCommandBuilder()
     .setName("keywords")
-    .setDescription("Manage the current contest.")
+    .setDescription(descriptions.description)
     .addSubcommand((subcommand) =>
       subcommand
         .setName("add")
-        .setDescription("Add keywords to a character.")
+        .setDescription(descriptions.subcommands.add.description)
         .addNumberOption((option) =>
-          option.setName("character-id").setDescription("Character ID").setRequired(true)
+          option
+            .setName("character-id")
+            .setDescription(descriptions.subcommands.add.options.characterId)
+            .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName("remove")
-        .setDescription("Remove keywords from a character.")
+        .setDescription(descriptions.subcommands.remove.description)
         .addNumberOption((option) =>
-          option.setName("character-id").setDescription("Character ID").setRequired(true)
+          option
+            .setName("character-id")
+            .setDescription(descriptions.subcommands.remove.options.characterId)
+            .setRequired(true)
         )
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {

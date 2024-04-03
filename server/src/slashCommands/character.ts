@@ -1,16 +1,27 @@
 import { CacheType, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 import { buildCharacterEmbed } from "../processes/common";
 import { getCharacter } from "../services/characterService";
-import { SlashCommand } from "../types";
+import { SlashCommand, SlashCommandDescriptions } from "../types";
+
+const descriptions = {
+  description: "View full character info.",
+  options: {
+    characterId: "Character ID.",
+  },
+} satisfies SlashCommandDescriptions;
 
 const command: SlashCommand = {
   defaultAcl: ["Contestant"],
   subcommandAcl: null,
+  descriptions,
   command: new SlashCommandBuilder()
     .setName("character")
-    .setDescription("View full character info.")
+    .setDescription(descriptions.description)
     .addNumberOption((option) =>
-      option.setName("character-id").setDescription("Character ID.").setRequired(true)
+      option
+        .setName("character-id")
+        .setDescription(descriptions.options.characterId)
+        .setRequired(true)
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const characterId = interaction.options.getNumber("character-id", true);

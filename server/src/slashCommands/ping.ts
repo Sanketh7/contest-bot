@@ -4,12 +4,17 @@ import {
   EmbedBuilder,
   SlashCommandBuilder,
 } from "discord.js";
-import { SlashCommand } from "../types";
+import { SlashCommand, SlashCommandDescriptions } from "../types";
+
+const descriptions = {
+  description: "Get server ping.",
+} satisfies SlashCommandDescriptions;
 
 const command: SlashCommand = {
   defaultAcl: [],
   subcommandAcl: null,
-  command: new SlashCommandBuilder().setName("ping").setDescription("Get server ping."),
+  descriptions,
+  command: new SlashCommandBuilder().setName("ping").setDescription(descriptions.description),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     await interaction.reply({
       embeds: [

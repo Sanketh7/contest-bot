@@ -3,7 +3,7 @@ import { User } from "discord.js";
 import { CHARACTER_MODIFER_PERCENTS } from "./constants";
 import { Points } from "./pointsManager";
 import { Settings } from "./settings";
-import { AclGroup, CharacterModifier } from "./types";
+import { AclGroup, CharacterModifier, SlashCommand } from "./types";
 
 export const checkAcl = async (user: User, acls: Set<AclGroup>): Promise<boolean> => {
   if (acls.size === 0) {
@@ -25,6 +25,18 @@ export const checkAcl = async (user: User, acls: Set<AclGroup>): Promise<boolean
     }
   }
   return ok;
+};
+
+export const getAcl = (command: SlashCommand, subcommandName: string | null): Set<AclGroup> => {
+  let acl = new Set(command.defaultAcl);
+  if (
+    subcommandName &&
+    command.subcommandAcl &&
+    Object.keys(command.subcommandAcl).includes(subcommandName)
+  ) {
+    acl = new Set(command.subcommandAcl[subcommandName]);
+  }
+  return acl;
 };
 
 export function buildProcessCustomId(processName: string, componentName: string) {

@@ -6,12 +6,17 @@ import {
 } from "discord.js";
 import { EditCharacterProcess } from "../processes/editCharacter";
 import { getActiveContest } from "../services/contestService";
-import { SlashCommand } from "../types";
+import { SlashCommand, SlashCommandDescriptions } from "../types";
+
+const descriptions = {
+  description: "Edit active character.",
+} satisfies SlashCommandDescriptions;
 
 const command: SlashCommand = {
   defaultAcl: ["Contestant"],
   subcommandAcl: null,
-  command: new SlashCommandBuilder().setName("submit").setDescription("Edit active character."),
+  descriptions,
+  command: new SlashCommandBuilder().setName("submit").setDescription(descriptions.description),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const contest = await getActiveContest();
     if (!contest) {

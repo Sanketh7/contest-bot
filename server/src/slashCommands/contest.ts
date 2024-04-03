@@ -1,6 +1,18 @@
 import { CacheType, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 import { endContest, getActiveContest, refreshContestPost } from "../services/contestService";
-import { SlashCommand } from "../types";
+import { SlashCommand, SlashCommandDescriptions } from "../types";
+
+const descriptions = {
+  description: "Manage the current contest.",
+  subcommands: {
+    end: {
+      description: "Force-end the current contest.",
+    },
+    refreshPost: {
+      description: "Refresh the contest sign up post.",
+    },
+  },
+} satisfies SlashCommandDescriptions;
 
 const handleContestEnd = async (interaction: ChatInputCommandInteraction) => {
   const contest = await getActiveContest();
@@ -36,14 +48,17 @@ const command: SlashCommand = {
     end: ["Admin"],
     refresh: ["Admin"],
   },
+  descriptions,
   command: new SlashCommandBuilder()
     .setName("contest")
-    .setDescription("Manage the current contest.")
+    .setDescription(descriptions.description)
     .addSubcommand((subcommand) =>
-      subcommand.setName("end").setDescription("Force-end the current contest.")
+      subcommand.setName("end").setDescription(descriptions.subcommands.end.description)
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("refresh-post").setDescription("Refresh the contest sign up post.")
+      subcommand
+        .setName("refresh-post")
+        .setDescription(descriptions.subcommands.refreshPost.description)
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const subcommand = interaction.options.getSubcommand();

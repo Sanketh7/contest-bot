@@ -19,9 +19,26 @@ export type CommandBuilder =
   | Omit<SlashCommandBuilder, "addSubcommandGroup" | "addSubcommand">
   | SlashCommandSubcommandsOnlyBuilder;
 
+export type SlashCommandDescriptions =
+  | {
+      description: string;
+      subcommands: Record<
+        string,
+        {
+          description: string;
+          options?: Record<string, string>;
+        }
+      >;
+    }
+  | {
+      description: string;
+      options?: Record<string, string>;
+    };
+
 export interface SlashCommand {
   defaultAcl: AclGroup[];
   subcommandAcl: Record<string, AclGroup[]> | null;
+  descriptions: SlashCommandDescriptions;
   command: CommandBuilder;
   execute: (interaction: ChatInputCommandInteraction) => Promise<any>;
   autocomplete?: (interaction: AutocompleteInteraction) => void;

@@ -12,7 +12,22 @@ import {
   displayTopCharactersLeaderboard,
   generateTopCharactersLeaderboard,
 } from "../services/leaderboardService";
-import { SlashCommand } from "../types";
+import { SlashCommand, SlashCommandDescriptions } from "../types";
+
+const descriptions = {
+  description: "Manage the leaderboard.",
+  subcommands: {
+    download: {
+      description: "View the full leaderboard as a txt file.",
+      options: {
+        contestId: "Optional: Contest ID. Omit to use active contest.",
+      },
+    },
+    refresh: {
+      description: "Force-refresh the current contest's leaderboard.",
+    },
+  },
+} satisfies SlashCommandDescriptions;
 
 const handleLeaderboardRefresh = async (interaction: ChatInputCommandInteraction) => {
   await interaction.deferReply({ ephemeral: true });
@@ -87,22 +102,21 @@ const command: SlashCommand = {
     refresh: ["Contest Staff"],
     view: ["Contest Staff"],
   },
+  descriptions,
   command: new SlashCommandBuilder()
     .setName("leaderboard")
-    .setDescription("Manage the leaderboard.")
+    .setDescription(descriptions.description)
     .addSubcommand((subcommand) =>
-      subcommand
-        .setName("refresh")
-        .setDescription("Force-refresh the current contest's leaderboard.")
+      subcommand.setName("refresh").setDescription(descriptions.subcommands.refresh.description)
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName("download")
-        .setDescription("View the full leaderboard as a txt file.")
+        .setDescription(descriptions.subcommands.download.description)
         .addNumberOption((option) =>
           option
             .setName("contest-id")
-            .setDescription("Optional: Contest ID. Omit to use active contest.")
+            .setDescription(descriptions.subcommands.download.options.contestId)
             .setRequired(false)
         )
     ),

@@ -8,7 +8,25 @@ import {
 import { buildCharacterEmbed } from "../processes/common";
 import { getActiveCharacterByUserId, getCharactersByUserId } from "../services/characterService";
 import { getActiveContest } from "../services/contestService";
-import { SlashCommand } from "../types";
+import { SlashCommand, SlashCommandDescriptions } from "../types";
+
+const descriptions = {
+  description: "View profile for current contest.",
+  subcommands: {
+    active: {
+      description: "Include only active characters.",
+      options: {
+        target: "User to get profile for.",
+      },
+    },
+    all: {
+      description: "Include all characters (active and non-active).",
+      options: {
+        target: "User to get profile for.",
+      },
+    },
+  },
+} satisfies SlashCommandDescriptions;
 
 const handleProfile = async (interaction: ChatInputCommandInteraction, mode: "active" | "all") => {
   const contest = await getActiveContest();
@@ -46,23 +64,30 @@ const command: SlashCommand = {
     active: ["Contestant"],
     all: ["Contestant"],
   },
+  descriptions,
   command: new SlashCommandBuilder()
     .setName("profile")
-    .setDescription("View profile for current contest.")
+    .setDescription(descriptions.description)
     .addSubcommand((subcommad) =>
       subcommad
         .setName("active")
-        .setDescription("Include only active characters.")
+        .setDescription(descriptions.subcommands.active.description)
         .addUserOption((option) =>
-          option.setName("target").setDescription("User to get profile for.").setRequired(true)
+          option
+            .setName("target")
+            .setDescription(descriptions.subcommands.active.options.target)
+            .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName("all")
-        .setDescription("Include all characters (active and non-active).")
+        .setDescription(descriptions.subcommands.all.description)
         .addUserOption((option) =>
-          option.setName("target").setDescription("User to get profile for.").setRequired(true)
+          option
+            .setName("target")
+            .setDescription(descriptions.subcommands.all.options.target)
+            .setRequired(true)
         )
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {

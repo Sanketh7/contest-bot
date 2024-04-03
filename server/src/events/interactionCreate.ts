@@ -8,7 +8,7 @@ import {
   isSubmissionPostButtonInteraction,
 } from "../interactions/submissionPostButtons";
 import { Event } from "../types";
-import { checkAcl } from "../util";
+import { checkAcl, getAcl } from "../util";
 
 const event: Event = {
   name: "interactionCreate",
@@ -20,14 +20,7 @@ const event: Event = {
 
         // check acl
         const subcommandName = interaction.options.getSubcommand(false);
-        let acl = new Set(command.defaultAcl);
-        if (
-          subcommandName &&
-          command.subcommandAcl &&
-          Object.keys(command.subcommandAcl).includes(subcommandName)
-        ) {
-          acl = new Set(command.subcommandAcl[subcommandName]);
-        }
+        const acl = getAcl(command, subcommandName);
         const aclOk = await checkAcl(interaction.user, acl);
         if (!aclOk) {
           return await interaction.reply({
