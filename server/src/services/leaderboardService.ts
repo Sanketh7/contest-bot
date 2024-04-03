@@ -55,7 +55,7 @@ export const generateTopCharactersLeaderboard = async (
 
     const row = [currRank.toString(), ign, character.points.total.toFixed(0), character.rotmgClass];
     if (mode === "all") {
-      row.push(character.isActive ? Settings.getInstance().getGeneralEmoji("accept") : "");
+      row.push(character.isActive ? Settings.getInstance().getGeneralEmoji("accept") + " " : "");
     }
     tableData.push(row);
   }
@@ -72,19 +72,22 @@ export const displayTopCharactersLeaderboard = async (contest: Contest, mode: "a
   const embed = new EmbedBuilder()
     .setTitle(mode === "active" ? "Top Active Characters" : "Top Characters")
     .setDescription("Updated every 2 minutes during a contest.");
+  const contents: string[] = [];
   for (let i = 0; i < tableData.length; i += NUM_ROWS_PER_TABLE_LIMIT) {
-    embed.addFields({
-      name: "\u200b",
-      value:
-        "```" +
+    contents.push(
+      "```" +
         table(tableData.slice(i, Math.min(tableData.length, i + NUM_ROWS_PER_TABLE_LIMIT))) +
-        "```",
-      inline: false,
-    });
+        "```"
+    );
   }
   await Settings.getInstance()
     .getChannel("leaderboard")
     .send({
       embeds: [embed],
     });
+  for (const content of contents) {
+    await Settings.getInstance().getChannel("leaderboard").send({
+      content,
+    });
+  }
 };

@@ -15,17 +15,17 @@ import {
 import { SlashCommand } from "../types";
 
 const handleLeaderboardRefresh = async (interaction: ChatInputCommandInteraction) => {
+  await interaction.deferReply({ ephemeral: true });
   await cleanLeaderboardChannel();
   const contest = await getActiveContest();
   if (!contest) {
-    return await interaction.reply({
-      ephemeral: true,
+    return await interaction.editReply({
       content: "No active contest.",
     });
   }
   await displayTopCharactersLeaderboard(contest, "all");
   await displayTopCharactersLeaderboard(contest, "active");
-  return await interaction.reply({
+  return await interaction.editReply({
     content: "Refreshed leaderboard.",
   });
 };

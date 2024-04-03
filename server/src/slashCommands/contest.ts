@@ -16,7 +16,7 @@ const handleContestEnd = async (interaction: ChatInputCommandInteraction) => {
   });
 };
 
-const handleContestRefresh = async (interaction: ChatInputCommandInteraction) => {
+const handleContestRefreshPost = async (interaction: ChatInputCommandInteraction) => {
   const contest = await getActiveContest();
   if (!contest) {
     return await interaction.reply({
@@ -43,15 +43,15 @@ const command: SlashCommand = {
       subcommand.setName("end").setDescription("Force-end the current contest.")
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("refresh").setDescription("Refresh the contest sign up post.")
+      subcommand.setName("refresh-post").setDescription("Refresh the contest sign up post.")
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const subcommand = interaction.options.getSubcommand();
     switch (subcommand) {
       case "end":
         return await handleContestEnd(interaction);
-      case "refresh":
-        return await handleContestRefresh(interaction);
+      case "refresh-post":
+        return await handleContestRefreshPost(interaction);
       default:
         return await interaction.reply({
           ephemeral: true,
