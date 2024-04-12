@@ -52,6 +52,9 @@ const handleAcceptSubmissionButton = async (interaction: ButtonInteraction) => {
     .send({
       content: `Accepted by ${userMention(interaction.user.id)}`,
       embeds: [embed],
+      allowedMentions: {
+        parse: [],
+      },
     });
   await interaction.message.delete();
   await user?.send({
@@ -86,6 +89,9 @@ const handleRejectSubmissionButton = async (interaction: ButtonInteraction) => {
     .send({
       content: `Rejected by ${userMention(interaction.user.id)}`,
       embeds: [embed],
+      allowedMentions: {
+        parse: [],
+      },
     });
   await interaction.message.delete();
   await user?.send({
