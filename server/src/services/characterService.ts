@@ -41,13 +41,14 @@ export const getTopCharacters = async (
   count: number | "inf",
   mode: "active" | "all" | "top"
 ): Promise<(Character & { points: Points })[]> => {
-  const allCharacters = await prismaWithPoints.character.findMany({
+  const allCharactersRaw = await prismaWithPoints.character.findMany({
     where: {
       contestId: contest.id,
       isActive: mode === "active" ? true : undefined,
     },
   });
-  allCharacters.sort((a, b) => b.points.total - a.points.total);
+  allCharactersRaw.sort((a, b) => b.points.total - a.points.total);
+  const allCharacters = allCharactersRaw.filter((c) => c.points.total > 0);
   if (mode === "top") {
     // remove duplicate occurrences of a user
     const seenUsers = new Set<string>();
