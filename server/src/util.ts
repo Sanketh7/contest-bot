@@ -58,7 +58,7 @@ export const formatKeywordsForDisplay = (keywords: string[] | undefined | null) 
 export const formatModifierChoiceForDisplay = (modifier: CharacterModifier): string => {
   const name = modifier.replaceAll("_", " ");
   const percent = CHARACTER_MODIFER_PERCENTS[modifier];
-  return `${name} (${percent >= 0 ? "+" : "-"}${Math.abs(percent)})%`;
+  return `${name} (${percent >= 0 ? "+" : "-"}${Math.abs(percent)}%)`;
 };
 
 export const formatPointsForDisplay = (points: Points | null | undefined): string => {
