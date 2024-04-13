@@ -31,8 +31,8 @@ export const CHARACTER_MODIFIERS = [
   "Quest_Chests_Allowed",
 ] as const;
 export const CHARACTER_MODIFER_PERCENTS: Record<CharacterModifier, number> = {
-  No_Pet: 5,
-  Crucible: 3,
+  No_Pet: 15,
+  Crucible: 7,
   UT_ST_Only: 3,
   Duo: -5,
   No_Loot_Boosts: 5,
