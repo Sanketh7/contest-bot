@@ -1,6 +1,7 @@
 import { Contest } from "@prisma/client";
 import { EmbedBuilder } from "discord.js";
 import { table } from "table";
+import { client } from "../client";
 import { Settings } from "../settings";
 import { truncateEllipses } from "../util";
 import { getTopCharacters } from "./characterService";
@@ -46,8 +47,18 @@ export const generateTopCharactersLeaderboard = async (
     if (bans.includes(character.userId)) {
       continue;
     }
-    const user = members.get(character.userId);
-    const ign = user ? truncateEllipses(user.nickname ?? user.displayName, 20) : character.userId;
+    const member = members.get(character.userId);
+    let ign: string;
+    if (member) {
+      ign = truncateEllipses(member.nickname ?? member.displayName, 20);
+    } else {
+      const user = await client.users.fetch(character.userId);
+      if (user) {
+        ign = "@" + user.username;
+      } else {
+        ign = character.userId;
+      }
+    }
     if (character.points.total < prevPoints) {
       currRank++;
     }
