@@ -1,39 +1,148 @@
-import { CacheType, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import {
+  CacheType,
+  ChatInputCommandInteraction,
+  SlashCommandBuilder,
+  channelLink,
+  hideLinkEmbed,
+  hyperlink,
+} from "discord.js";
+import { PointsManager } from "../pointsManager";
 import { buildCharacterEmbed } from "../processes/common";
 import { getCharacter } from "../services/characterService";
+import { getSubmissionsForCharacter } from "../services/submissionService";
 import { SlashCommand, SlashCommandDescriptions } from "../types";
+import { formatKeywordsForDisplay, formatPointsForDisplay } from "../util";
 
 const descriptions = {
-  description: "View full character info.",
-  options: {
-    characterId: "Character ID.",
+  description: "Character info.",
+  subcommands: {
+    view: {
+      description: "View full character info.",
+      options: {
+        characterId: "Character ID.",
+      },
+    },
+    submissions: {
+      description: "View character submissions.",
+      options: {
+        characterId: "Character ID.",
+      },
+    },
   },
 } satisfies SlashCommandDescriptions;
 
+const handleCharacterView = async (interaction: ChatInputCommandInteraction) => {
+  const characterId = interaction.options.getNumber("character-id", true);
+  const character = await getCharacter(characterId);
+  if (!character) {
+    return await interaction.reply({
+      content: "Character not found.",
+    });
+  } else {
+    return await interaction.reply({
+      embeds: [buildCharacterEmbed("Blue", "all", character)],
+    });
+  }
+};
+
+const handleCharacterSubmissions = async (interaction: ChatInputCommandInteraction) => {
+  await interaction.deferReply({ ephemeral: true });
+  const characterId = interaction.options.getNumber("character-id", true);
+  const character = await getCharacter(characterId);
+  if (!character) {
+    return await interaction.reply({
+      content: "Character not found.",
+    });
+  }
+  const submissions = await getSubmissionsForCharacter(characterId);
+  if (submissions.length === 0) {
+    return await interaction.reply({
+      content: "No submissions.",
+    });
+  }
+
+  const textParts = submissions.map((submission) => {
+    const points = PointsManager.getInstance().getPointsForAll(
+      submission.keywords,
+      character.rotmgClass,
+      character.modifiers
+    );
+    return (
+      `**Submission ID: ${submission.id}**${submission.isAccepted ? " (Accepted)" : ""}\n` +
+      `Keywords: ${formatKeywordsForDisplay(submission.keywords)}\n` +
+      `Points: \`${formatPointsForDisplay(points)}\`\n` +
+      `${hyperlink("Proof", hideLinkEmbed(submission.imageUrl))}`
+    );
+  });
+  let textBuf = "";
+  for (const part of textParts) {
+    if (textBuf.length + part.length > 1800) {
+      if (textBuf.length === 0) {
+        await interaction.user.send({
+          content: "Submission skipped (this should not happen).",
+        });
+        continue;
+      }
+      await interaction.user.send({
+        content: textBuf,
+      });
+    }
+    textBuf += part + "\n\n";
+  }
+  if (textBuf.length > 0) {
+    await interaction.user.send({
+      content: textBuf,
+    });
+  }
+  await interaction.editReply({
+    content: interaction.user.dmChannel ? channelLink(interaction.user.dmChannel.id) : "Check DMs",
+  });
+};
+
 const command: SlashCommand = {
-  defaultAcl: ["Contestant"],
-  subcommandAcl: null,
+  defaultAcl: ["Admin"],
+  subcommandAcl: {
+    view: ["Contestant"],
+    submissions: ["Contest Staff"],
+  },
   descriptions,
   command: new SlashCommandBuilder()
     .setName("character")
     .setDescription(descriptions.description)
-    .addNumberOption((option) =>
-      option
-        .setName("character-id")
-        .setDescription(descriptions.options.characterId)
-        .setRequired(true)
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("view")
+        .setDescription(descriptions.subcommands.view.description)
+        .addNumberOption((option) =>
+          option
+            .setName("character-id")
+            .setDescription(descriptions.subcommands.view.options.characterId)
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("submissions")
+        .setDescription(descriptions.subcommands.submissions.description)
+        .addNumberOption((option) =>
+          option
+            .setName("character-id")
+            .setDescription(descriptions.subcommands.submissions.options.characterId)
+            .setRequired(true)
+        )
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
-    const characterId = interaction.options.getNumber("character-id", true);
-    const character = await getCharacter(characterId);
-    if (!character) {
-      return await interaction.reply({
-        content: "Character not found.",
-      });
-    } else {
-      return await interaction.reply({
-        embeds: [buildCharacterEmbed("Blue", "all", character)],
-      });
+    const subcommand = interaction.options.getSubcommand();
+    switch (subcommand) {
+      case "view":
+        return await handleCharacterView(interaction);
+      case "submissions":
+        return await handleCharacterSubmissions(interaction);
+      default:
+        return await interaction.reply({
+          ephemeral: true,
+          content: "Invalid subcommand.",
+        });
     }
   },
   cooldown: 10,

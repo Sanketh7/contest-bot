@@ -26,6 +26,14 @@ export const getSubmission = async (submissionId: number): Promise<Submission | 
   });
 };
 
+export const getSubmissionsForCharacter = async (characterId: number): Promise<Submission[]> => {
+  return prisma.submission.findMany({
+    where: {
+      characterId,
+    },
+  });
+};
+
 export const acceptSubmission = async (submission: Submission) => {
   await prisma.submission.update({
     where: {
