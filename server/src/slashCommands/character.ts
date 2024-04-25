@@ -103,7 +103,7 @@ const command: SlashCommand = {
   defaultAcl: ["Admin"],
   subcommandAcl: {
     view: ["Contestant"],
-    submissions: ["Contest Staff"],
+    submissions: ["Contestant"],
   },
   descriptions,
   command: new SlashCommandBuilder()
