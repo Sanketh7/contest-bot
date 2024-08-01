@@ -39,7 +39,7 @@ export const CHARACTER_MODIFER_PERCENTS: Record<CharacterModifier, number> = {
   Quest_Chests_Allowed: -5,
 } as const;
 
-export const ACL_GROUPS = ["Admin", "Contest Staff", "Contestant"] as const;
+export const ACL_GROUPS = ["Admin", "Moderator", "Contest Staff", "Contestant"] as const;
 
 export const DEFAULT_TIMEOUT_MS = 300_000; // 5 minutes
 

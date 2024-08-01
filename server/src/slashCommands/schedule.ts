@@ -173,8 +173,8 @@ export const handleScheduleRefresh = async (interaction: ChatInputCommandInterac
 const command: SlashCommand = {
   defaultAcl: ["Admin"],
   subcommandAcl: {
-    add: ["Admin"],
-    remove: ["Admin"],
+    add: ["Moderator"],
+    remove: ["Moderator"],
     view: ["Contest Staff"],
     history: ["Contest Staff"],
     refresh: ["Contest Staff"],

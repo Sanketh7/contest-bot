@@ -62,8 +62,8 @@ const handleBansView = async (interaction: ChatInputCommandInteraction) => {
 const command: SlashCommand = {
   defaultAcl: ["Admin"],
   subcommandAcl: {
-    add: ["Admin"],
-    remove: ["Admin"],
+    add: ["Moderator"],
+    remove: ["Moderator"],
     view: ["Contest Staff"],
   },
   descriptions,
