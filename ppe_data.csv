@@ -123,7 +123,7 @@ Dagger of Sinister Deeds,T13 Dagger,10,10,10,20,20,20,10,10,10,10,10,10,10,10,10
 Spirit Dagger,,10,10,10,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10
 Dirk of Cronus,CDirk,35,35,35,50,50,50,35,35,35,35,35,35,35,35,35,35,35,35
 Queen's Stinger Dagger,Stinger,20,20,20,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20
-Etherite,,15,15,15,20,25,20,15,15,15,15,15,15,15,15,15,15,15,15
+Etherite Dagger,Etherite,15,15,15,20,25,20,15,15,15,15,15,15,15,15,15,15,15,15
 Carved Golem Remains,Golem Dagger,15,15,15,20,20,25,15,15,15,15,15,15,15,15,15,15,15,15
 Symbiotic Ripper,Ripper,15,15,15,30,25,25,15,15,15,15,15,15,15,15,15,15,15,15
 Bow of Mystical Energy,T13 Bow,10,10,10,10,10,10,20,20,10,10,10,10,10,10,10,20,10,10
@@ -235,7 +235,7 @@ Nut's Artifact,Nut Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,1
 Geb's Artifact,Geb Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Bes' Artifact,Bes Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Tomb Snake Egg,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
-Jaco,Jaco Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+Jaco Pet Skin,Jaco Pet Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Sprite Star Pet Skin,Sprite Star,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Mini Flying Stheno Skin,Flying Stheno Skin,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 Spirit Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
@@ -401,6 +401,14 @@ Event Character Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 30 Moonlight Village,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 50 Moonlight Village,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 75 Moonlight Village,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+5 Spectral Penitentiary,5 Spectral Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+15 Spectral Penitentiary,15 Spectral Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+30 Spectral Penitentiary,30 Spectral Completes,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+50 Spectral Penitentiary,50 Spectral Completes,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+75 Spectral Penitentiary,75 Spectral Completes,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+Hard Mode Spectral Penitentiary,HM Spectral,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+Solo Spectral Penitentiary,Solo Spectral,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+Solo Hard Mode Spectral Penitentiary,Solo HM Spectral,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40
 Solo Kogbold Steamworks,Solo Steamworks,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
 Solo Moonlight Village (no Umi),Solo MV,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50
 Solo Kitsune Umi,Solo Umi,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80
@@ -1449,3 +1457,11 @@ Pandemic Poison,,15,15,15,30,15,15,15,15,15,15,15,15,15,15,15,15,15,15
 Boundless Vessel,,30,30,30,20,20,20,20,20,20,20,20,20,30,20,20,20,20,30
 Amulet of Restoration,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
 Jailer's Scythe,Jailers Scythe,20,20,20,20,20,20,20,20,30,30,30,20,20,20,20,20,20,20
+Haori of the Wind,,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15
+Red Riding Dress,,15,15,15,15,15,15,15,15,20,20,20,15,15,20,20,20,20,15
+Platinum Segmentata,,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15,15,20
+Big Bad Fursuit,,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15,15,20
+Holy Order's Habit,Holy Orders Habit,15,15,15,15,15,15,15,15,20,20,20,15,15,20,20,20,20,15
+Bachelor's Tuxedo,Bachelors Tuxedo,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15
+Soul Collector Engraving,Soul Collector,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+Pharaoh Slurp Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
