@@ -76,6 +76,7 @@ export const buildCharacterEmbed = (
       }
     );
 
+  let overflowKeywords = [];
   if (character.keywords.length > 0) {
     if (keywordsDisplayMode === "truncate") {
       const keywordsStr = truncateEllipses(formatKeywordsForDisplay(character.keywords), 800);
@@ -92,11 +93,12 @@ export const buildCharacterEmbed = (
       for (const kw of character.keywords) {
         if (currStrLength + kw.length + 3 >= 800) {
           keywordsSplit.push([]);
+          currStrLength = 0;
         }
         keywordsSplit[keywordsSplit.length - 1].push(kw);
         currStrLength += kw.length + 3;
       }
-      for (let i = 0; i < keywordsSplit.length; i++) {
+      for (let i = 0; i < Math.min(keywordsSplit.length, ; i++) {
         const name = i === 0 ? "Items/Achievements" : "More Items/Achievements";
         embed.addFields({ name, value: formatKeywordsForDisplay(keywordsSplit[i]) });
       }
