@@ -26,12 +26,17 @@ export const getSubmission = async (submissionId: number): Promise<Submission | 
   });
 };
 
-export const getSubmissionsForCharacter = async (characterId: number): Promise<Submission[]> => {
-  return prisma.submission.findMany({
+export const getSubmissionsForCharacter = async (characterId: number, last?: number): Promise<Submission[]> => {
+  const submissions = prisma.submission.findMany({
     where: {
       characterId,
     },
+    orderBy: {
+      id: "desc"
+    },
+    take: last
   });
+  return (await submissions).reverse();
 };
 
 export const acceptSubmission = async (submission: Submission) => {

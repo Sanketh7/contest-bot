@@ -26,6 +26,13 @@ const descriptions = {
       description: "View character submissions.",
       options: {
         characterId: "Character ID.",
+        last: "Last X character submissions."
+      }
+    },
+    allSubmissions: {
+      description: "View all character submissions.",
+      options: {
+        characterId: "Character ID."
       },
     },
   },
@@ -46,16 +53,17 @@ const handleCharacterView = async (interaction: ChatInputCommandInteraction) => 
   }
 };
 
-const handleCharacterSubmissions = async (interaction: ChatInputCommandInteraction) => {
+const handleCharacterSubmissions = async (interaction: ChatInputCommandInteraction, listAll: boolean) => {
   await interaction.deferReply({ ephemeral: true });
   const characterId = interaction.options.getNumber("character-id", true);
+  const last = listAll ? undefined : interaction.options.getNumber("last", true);
   const character = await getCharacter(characterId);
   if (!character) {
     return await interaction.editReply({
       content: "Character not found.",
     });
   }
-  const submissions = await getSubmissionsForCharacter(characterId);
+  const submissions = await getSubmissionsForCharacter(characterId, last);
   if (submissions.length === 0) {
     return await interaction.editReply({
       content: "No submissions.",
@@ -132,14 +140,33 @@ const command: SlashCommand = {
             .setDescription(descriptions.subcommands.submissions.options.characterId)
             .setRequired(true)
         )
+        .addNumberOption((option) =>
+          option
+            .setName("last")
+            .setDescription(descriptions.subcommands.submissions.options.last)
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("all-submissions")
+        .setDescription(descriptions.subcommands.allSubmissions.description)
+        .addNumberOption((option) =>
+          option
+            .setName("character-id")
+            .setDescription(descriptions.subcommands.allSubmissions.options.characterId)
+            .setRequired(true)
+        )
     ),
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const subcommand = interaction.options.getSubcommand();
     switch (subcommand) {
       case "view":
         return await handleCharacterView(interaction);
+      case "all-submissions":
+        return await handleCharacterSubmissions(interaction, true);
       case "submissions":
-        return await handleCharacterSubmissions(interaction);
+        return await handleCharacterSubmissions(interaction, false);
       default:
         return await interaction.reply({
           ephemeral: true,
