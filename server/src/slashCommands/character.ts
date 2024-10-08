@@ -32,7 +32,7 @@ const descriptions = {
 } satisfies SlashCommandDescriptions;
 
 const handleCharacterView = async (interaction: ChatInputCommandInteraction) => {
-  await interaction.deferReply({ ephemeral: true });
+  await interaction.deferReply();
   const characterId = interaction.options.getNumber("character-id", true);
   const character = await getCharacter(characterId);
   if (!character) {
@@ -87,6 +87,7 @@ const handleCharacterSubmissions = async (interaction: ChatInputCommandInteracti
       await interaction.user.send({
         content: textBuf,
       });
+      textBuf = "";
     }
     textBuf += part + "\n\n";
   }
