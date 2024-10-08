@@ -87,13 +87,14 @@ export const buildCharacterEmbed = (
         `,
       });
     } else {
-      const currStrLength = 0; // approximate
+      let currStrLength = 0; // approximate
       const keywordsSplit: string[][] = [[]];
       for (const kw of character.keywords) {
         if (currStrLength + kw.length + 3 >= 800) {
           keywordsSplit.push([]);
         }
         keywordsSplit[keywordsSplit.length - 1].push(kw);
+        currStrLength += kw.length + 3;
       }
       for (let i = 0; i < keywordsSplit.length; i++) {
         const name = i === 0 ? "Items/Achievements" : "More Items/Achievements";
