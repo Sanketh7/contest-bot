@@ -32,14 +32,15 @@ const descriptions = {
 } satisfies SlashCommandDescriptions;
 
 const handleCharacterView = async (interaction: ChatInputCommandInteraction) => {
+  await interaction.deferReply({ ephemeral: true });
   const characterId = interaction.options.getNumber("character-id", true);
   const character = await getCharacter(characterId);
   if (!character) {
-    return await interaction.reply({
+    return await interaction.editReply({
       content: "Character not found.",
     });
   } else {
-    return await interaction.reply({
+    return await interaction.editReply({
       embeds: [buildCharacterEmbed("Blue", "all", character)],
     });
   }
@@ -50,13 +51,13 @@ const handleCharacterSubmissions = async (interaction: ChatInputCommandInteracti
   const characterId = interaction.options.getNumber("character-id", true);
   const character = await getCharacter(characterId);
   if (!character) {
-    return await interaction.reply({
+    return await interaction.editReply({
       content: "Character not found.",
     });
   }
   const submissions = await getSubmissionsForCharacter(characterId);
   if (submissions.length === 0) {
-    return await interaction.reply({
+    return await interaction.editReply({
       content: "No submissions.",
     });
   }
