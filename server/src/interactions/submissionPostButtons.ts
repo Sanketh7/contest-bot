@@ -35,7 +35,7 @@ const handleAcceptSubmissionButton = async (interaction: ButtonInteraction) => {
   if (!character) return;
   const user = await interaction.guild?.members.fetch(character.userId);
 
-  await acceptSubmission(submission);
+  await acceptSubmission(submission, interaction.user.id);
   const embed = buildSubmissionEmbed("Green", submission.id, {
     userId: character.userId,
     character,

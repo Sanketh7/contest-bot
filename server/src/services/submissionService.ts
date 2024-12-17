@@ -44,13 +44,14 @@ export const getSubmissionsForCharacter = async (
   return (await submissions).reverse();
 };
 
-export const acceptSubmission = async (submission: Submission) => {
+export const acceptSubmission = async (submission: Submission, acceptedByDiscordUser: string) => {
   await prisma.submission.update({
     where: {
       id: submission.id,
     },
     data: {
       isAccepted: true,
+      acceptedByDiscordUser
     },
   });
   await modifyCharacterKeywords(submission.characterId, submission.keywords, "add");
