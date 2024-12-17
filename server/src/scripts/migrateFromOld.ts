@@ -57,7 +57,7 @@ const main = async () => {
       id: sub["id"],
       isAccepted: sub["is_accepted"],
       keywords: sub["keywords"],
-      imageUrl: sub["img_url"],
+      proofUrl: sub["img_url"],
       characterId: sub["character"],
     });
   }

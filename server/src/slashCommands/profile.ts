@@ -37,7 +37,7 @@ const handleProfile = async (interaction: ChatInputCommandInteraction, mode: "ac
     });
   }
 
-  await interaction.deferReply({ephemeral: true});
+  await interaction.deferReply({ ephemeral: true });
   const user = interaction.options.getUser("target", true);
   const characters =
     mode === "all"

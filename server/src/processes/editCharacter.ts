@@ -20,7 +20,7 @@ import { buildSubmissionEmbed } from "./common";
 import { Process } from "./process";
 
 type ProcessState = {
-  imageUrl?: string;
+  proofUrls: string[];
   acceptedKeywords?: string[];
   rejectedKeywords?: string[];
   pointsAdded?: Points;
@@ -32,7 +32,9 @@ export class EditCharacterProcess extends Process<Contest> {
 
   constructor(user: User, message: Message, contest: Contest) {
     super(user, message, contest);
-    this.state = {};
+    this.state = {
+      proofUrls: [],
+    };
   }
 
   async start() {
@@ -55,11 +57,16 @@ export class EditCharacterProcess extends Process<Contest> {
         "pointsRefUrl"
       )}) for a list of items and achievements.
 
-      Send a message with a screenshot **in this DM** as specified in the contest rules.
-      Click the **plus button** next to where you type a message to attach an image or **copy and paste** an image into the message box.
-      If you do not use either of the methods above, the bot **cannot** detect it. 
+      Send a message with proof **in this DM** as specified in the contest rules.
 
-      **You MUST have your ENTIRE game screenshotted (i.e. not just your inventory).**
+      Valid formats:
+      \\- Upload an image (click the plus button to upload or copy and paste)
+      \\- Upload a video (click the plus button to upload)
+      \\- Send a link to a YouTube video.
+
+      If you do not use any of these methods, the bot cannot detect it.
+
+      **You MUST have your ENTIRE game visible (i.e. not just your inventory).**
       If you don't follow these rules, your submission will likely be denied.`,
     });
     const { cancelButton, cancelButtonCustomId } = this.buildCancelButton();
@@ -70,12 +77,33 @@ export class EditCharacterProcess extends Process<Contest> {
       components: [new ActionRowBuilder<ButtonBuilder>().addComponents(cancelButton)],
     });
 
-    const filter = (msg: Message) => {
+    const extractValidAttachment = (msg: Message): string | null => {
       const file = msg.attachments.at(0);
-      if (msg.author.id !== this.user.id || !file || !file.contentType) {
+      if (!file || !file.contentType) {
+        return null;
+      }
+      const isValid = file.contentType.startsWith("image") || file.contentType.startsWith("video");
+      if (isValid) {
+        return file.url;
+      }
+      return null;
+    };
+
+    const extractVideoLink = (text: string): string | null => {
+      const ytRegex =
+        /((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?/;
+      const ytMatch = ytRegex.exec(text);
+      if (ytMatch) {
+        return ytMatch[0];
+      }
+      return null;
+    };
+
+    const filter = (msg: Message) => {
+      if (msg.author.id !== this.user.id) {
         return false;
       }
-      return file.contentType.startsWith("image");
+      return extractValidAttachment(msg) !== null || extractVideoLink(msg.cleanContent) !== null;
     };
 
     let collected: Collection<string, Message<boolean>>;
@@ -100,7 +128,11 @@ export class EditCharacterProcess extends Process<Contest> {
       return await this.cancel("timeout");
     }
 
-    this.state.imageUrl = collected.at(0)?.attachments.at(0)?.url;
+    const proofUrl =
+      extractValidAttachment(collected.at(0)!) ??
+      extractVideoLink(collected.at(0)!.cleanContent) ??
+      "";
+    this.state.proofUrls.push(proofUrl);
     return await this.doKeywordEntry();
   }
 
@@ -207,12 +239,12 @@ export class EditCharacterProcess extends Process<Contest> {
   }
 
   private async uploadSubmission() {
-    if (!this.character || !this.state.imageUrl || !this.state.acceptedKeywords) {
+    if (!this.character || this.state.proofUrls.length == 0 || !this.state.acceptedKeywords) {
       return await this.cancel("unknown");
     }
     const submission = await createSubmission(this.character, {
       keywords: this.state.acceptedKeywords,
-      imageUrl: this.state.imageUrl,
+      proofUrls: this.state.proofUrls,
     });
     await this.message.edit({
       embeds: [this.buildSubmissionEmbed("Green", submission.id)],
@@ -275,7 +307,7 @@ export class EditCharacterProcess extends Process<Contest> {
       character: this.character,
       acceptedKeywords: this.state.acceptedKeywords ?? [],
       pointsAdded: this.state.pointsAdded,
-      imageUrl: this.state.imageUrl ?? "error",
+      proofUrls: this.state.proofUrls,
     });
   }
 }

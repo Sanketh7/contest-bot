@@ -1,8 +1,20 @@
 import { Character } from "@prisma/client";
 import { ColorResolvable, EmbedBuilder, userMention } from "discord.js";
+import mime from "mime-types";
 import { Points, PointsManager } from "../pointsManager";
 import { Settings } from "../settings";
 import { formatKeywordsForDisplay, formatPointsForDisplay, truncateEllipses } from "../util";
+
+const isImageAttachmentUrl = (url: string | null) => {
+  if (!url) return false;
+  try {
+    const path = new URL(url).pathname;
+    const contentType = mime.lookup(path);
+    return contentType && contentType.startsWith("image");
+  } catch (_) {
+    return false;
+  }
+};
 
 export const buildSubmissionEmbed = (
   color: ColorResolvable,
@@ -12,7 +24,7 @@ export const buildSubmissionEmbed = (
     character: Character | undefined;
     acceptedKeywords: string[];
     pointsAdded: Points | undefined;
-    imageUrl: string;
+    proofUrls: string[];
   }
 ): EmbedBuilder => {
   const embed = new EmbedBuilder()
@@ -34,10 +46,12 @@ export const buildSubmissionEmbed = (
         value: formatKeywordsForDisplay(data.acceptedKeywords),
       },
       { name: "Points Added", value: formatPointsForDisplay(data.pointsAdded), inline: true },
-      { name: "Proof", value: data.imageUrl, inline: true }
+      { name: "Proof", value: data.proofUrls.join("\n"), inline: true }
     )
-    .setImage(data.imageUrl ?? null)
     .setFooter(submissionId ? { text: submissionId.toString() } : null);
+  if (isImageAttachmentUrl(data.proofUrls[0])) {
+    embed.setImage(data.proofUrls[0] ?? null);
+  }
   return embed;
 };
 

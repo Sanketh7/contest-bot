@@ -76,10 +76,11 @@ model Character {
 }
 
 model Submission {
-  id         Int      @id @default(autoincrement())
-  isAccepted Boolean  @default(false)
-  keywords   String[]
-  imageUrl   String
+  id             Int      @id @default(autoincrement())
+  isAccepted     Boolean  @default(false)
+  keywords       String[]
+  proofUrl       String
+  extraProofUrls String[]
 
   characterId Int
   character   Character @relation(fields: [characterId], references: [id])

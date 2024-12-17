@@ -26,13 +26,13 @@ const descriptions = {
       description: "View character submissions.",
       options: {
         characterId: "Character ID.",
-        last: "Last X character submissions."
-      }
+        last: "Last X character submissions.",
+      },
     },
     allSubmissions: {
       description: "View all character submissions.",
       options: {
-        characterId: "Character ID."
+        characterId: "Character ID.",
       },
     },
   },
@@ -53,7 +53,10 @@ const handleCharacterView = async (interaction: ChatInputCommandInteraction) => 
   }
 };
 
-const handleCharacterSubmissions = async (interaction: ChatInputCommandInteraction, listAll: boolean) => {
+const handleCharacterSubmissions = async (
+  interaction: ChatInputCommandInteraction,
+  listAll: boolean
+) => {
   await interaction.deferReply({ ephemeral: true });
   const characterId = interaction.options.getNumber("character-id", true);
   const last = listAll ? undefined : interaction.options.getNumber("last", true);
@@ -80,7 +83,7 @@ const handleCharacterSubmissions = async (interaction: ChatInputCommandInteracti
       `**Submission ID: ${submission.id}**${submission.isAccepted ? " (Accepted)" : ""}\n` +
       `Keywords: ${formatKeywordsForDisplay(submission.keywords)}\n` +
       `Points: \`${formatPointsForDisplay(points)}\`\n` +
-      `${hyperlink("Proof", hideLinkEmbed(submission.imageUrl))}`
+      `${hyperlink("Proof", hideLinkEmbed(submission.proofUrl))}`
     );
   });
   let textBuf = "";

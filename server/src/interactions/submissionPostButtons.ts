@@ -45,7 +45,7 @@ const handleAcceptSubmissionButton = async (interaction: ButtonInteraction) => {
       character.rotmgClass,
       character.modifiers
     ),
-    imageUrl: submission.imageUrl,
+    proofUrls: [submission.proofUrl, ...submission.extraProofUrls],
   });
   Settings.getInstance()
     .getChannel("log")
@@ -82,7 +82,7 @@ const handleRejectSubmissionButton = async (interaction: ButtonInteraction) => {
       character.rotmgClass,
       character.modifiers
     ),
-    imageUrl: submission.imageUrl,
+    proofUrls: [submission.proofUrl, ...submission.extraProofUrls],
   });
   Settings.getInstance()
     .getChannel("log")

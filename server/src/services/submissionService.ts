@@ -6,14 +6,16 @@ export const createSubmission = async (
   character: Character,
   data: {
     keywords: string[];
-    imageUrl: string;
+    proofUrls: string[];
   }
 ): Promise<Submission> => {
+  const extraProofUrls = data.proofUrls.length > 1 ? data.proofUrls.slice(1) : [];
   return prisma.submission.create({
     data: {
       characterId: character.id,
       keywords: data.keywords,
-      imageUrl: data.imageUrl,
+      proofUrl: data.proofUrls[0],
+      extraProofUrls,
     },
   });
 };
@@ -26,15 +28,18 @@ export const getSubmission = async (submissionId: number): Promise<Submission | 
   });
 };
 
-export const getSubmissionsForCharacter = async (characterId: number, last?: number): Promise<Submission[]> => {
+export const getSubmissionsForCharacter = async (
+  characterId: number,
+  last?: number
+): Promise<Submission[]> => {
   const submissions = prisma.submission.findMany({
     where: {
       characterId,
     },
     orderBy: {
-      id: "desc"
+      id: "desc",
     },
-    take: last
+    take: last,
   });
   return (await submissions).reverse();
 };
