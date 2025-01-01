@@ -124,3 +124,41 @@ export const modifyCharacterKeywords = async (
     },
   });
 };
+
+export const getStaffSubmissionFrequencies = async (
+  contest: Contest
+): Promise<Map<string, number>> => {
+  const characterIds: number[] = await prisma.character
+    .findMany({
+      where: {
+        contestId: contest.id,
+      },
+      select: {
+        id: true,
+      },
+    })
+    .then((data) => data.map((c) => c.id));
+  const discordIds = await prisma.submission
+    .findMany({
+      where: {
+        characterId: { in: characterIds },
+        isAccepted: true,
+      },
+      select: {
+        acceptedByDiscordUser: true,
+      },
+    })
+    .then((data) => data.map((s) => s.acceptedByDiscordUser));
+
+  const freqs = new Map<string, number>();
+  for (const discordId of discordIds) {
+    if (!discordId) continue;
+    const prev = freqs.get(discordId);
+    if (prev !== undefined) {
+      freqs.set(discordId, prev + 1);
+    } else {
+      freqs.set(discordId, 1);
+    }
+  }
+  return freqs;
+};

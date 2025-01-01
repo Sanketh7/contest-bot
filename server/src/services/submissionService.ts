@@ -51,7 +51,7 @@ export const acceptSubmission = async (submission: Submission, acceptedByDiscord
     },
     data: {
       isAccepted: true,
-      acceptedByDiscordUser
+      acceptedByDiscordUser,
     },
   });
   await modifyCharacterKeywords(submission.characterId, submission.keywords, "add");

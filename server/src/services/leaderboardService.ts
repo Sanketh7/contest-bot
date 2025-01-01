@@ -4,7 +4,7 @@ import { table } from "table";
 import { client } from "../client";
 import { Settings } from "../settings";
 import { truncateEllipses } from "../util";
-import { getTopCharacters } from "./characterService";
+import { getStaffSubmissionFrequencies, getTopCharacters } from "./characterService";
 import { getBanList } from "./guildService";
 
 const NUM_TABLE_LIMIT = 5;
@@ -101,4 +101,47 @@ export const displayTopCharactersLeaderboard = async (contest: Contest, mode: "a
       content,
     });
   }
+};
+
+export const generateTopStaffLeaderboard = async (contest: Contest) => {
+  const guild = Settings.getInstance().get("guild");
+  const staffToFreq = await getStaffSubmissionFrequencies(contest);
+  const staffDiscordIds = staffToFreq.keys();
+  const sortedStaff = [...staffToFreq.entries()].map(([discordId, freq]) => {
+    return { discordId, freq };
+  });
+  sortedStaff.sort((a, b) => a.freq - b.freq);
+  sortedStaff.reverse();
+  const tableData = [["Rank", "Staff", "Accepted Submissions"]];
+
+  let currRank = 0;
+  let prevFreq = Number.POSITIVE_INFINITY;
+
+  const members = await guild.members.fetch({
+    user: [...staffDiscordIds],
+  });
+
+  for (const { discordId, freq } of sortedStaff) {
+    const member = members.get(discordId);
+    let ign: string;
+    if (member) {
+      ign = truncateEllipses(member.nickname ?? member.displayName, 20);
+    } else {
+      const user = await client.users.fetch(discordId);
+      if (user) {
+        ign = "@" + user.username;
+      } else {
+        ign = discordId;
+      }
+    }
+    if (freq < prevFreq) {
+      currRank++;
+    }
+    prevFreq = freq;
+
+    const row = [currRank.toString(), ign, freq.toFixed(0)];
+    tableData.push(row);
+  }
+
+  return tableData;
 };

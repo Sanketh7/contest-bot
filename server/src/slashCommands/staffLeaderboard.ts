@@ -2,54 +2,34 @@ import { Contest } from "@prisma/client";
 import {
   CacheType,
   ChatInputCommandInteraction,
-  SlashCommandBuilder,
   messageLink,
+  SlashCommandBuilder,
 } from "discord.js";
 import { table } from "table";
 import { getActiveContest, getContest } from "../services/contestService";
-import {
-  cleanLeaderboardChannel,
-  displayTopCharactersLeaderboard,
-  generateTopCharactersLeaderboard,
-} from "../services/leaderboardService";
+import { generateTopStaffLeaderboard } from "../services/leaderboardService";
 import { SlashCommand, SlashCommandDescriptions } from "../types";
 
 const descriptions = {
-  description: "Manage the leaderboard.",
+  description: "Manage the Staff Leaderboard.",
   subcommands: {
     download: {
-      description: "View the full leaderboard as a txt file.",
+      description: "View the full staff leaderboard as a txt file.",
       options: {
         contestId: "Optional: Contest ID. Omit to use active contest.",
       },
     },
     refresh: {
-      description: "Force-refresh the current contest's leaderboard.",
+      description: "Force-refresh the current contest's staff leaderboard.",
     },
   },
 } satisfies SlashCommandDescriptions;
-
-const handleLeaderboardRefresh = async (interaction: ChatInputCommandInteraction) => {
-  await interaction.deferReply({ ephemeral: true });
-  await cleanLeaderboardChannel();
-  const contest = await getActiveContest();
-  if (!contest) {
-    return await interaction.editReply({
-      content: "No active contest.",
-    });
-  }
-  await displayTopCharactersLeaderboard(contest, "all");
-  await displayTopCharactersLeaderboard(contest, "active");
-  return await interaction.editReply({
-    content: "Refreshed leaderboard.",
-  });
-};
 
 const handleLeaderboardDownload = async (interaction: ChatInputCommandInteraction) => {
   await interaction.deferReply({ ephemeral: true });
   let contest: Contest;
   const contestIdInput = interaction.options.getNumber("contest-id");
-  if (contestIdInput === null) {
+  if (contestIdInput == null) {
     const activeContest = await getActiveContest();
     if (!activeContest) {
       return await interaction.reply({
@@ -69,25 +49,13 @@ const handleLeaderboardDownload = async (interaction: ChatInputCommandInteractio
     contest = maybeContest;
   }
 
-  const [activeTableData, allTableData, topTableData] = await Promise.all([
-    generateTopCharactersLeaderboard(contest, "active", "inf"),
-    generateTopCharactersLeaderboard(contest, "all", "inf"),
-    generateTopCharactersLeaderboard(contest, "top", "inf"),
-  ]);
+  const [topTableData] = await Promise.all([generateTopStaffLeaderboard(contest)]);
   const msg = await interaction.user.send({
-    content: "Leaderboards:",
+    content: "Staff Leaderboard:",
     files: [
       {
-        attachment: Buffer.from("Active Characters Only:\n\n" + table(activeTableData)),
-        name: "active-leaderboard.txt",
-      },
-      {
-        attachment: Buffer.from("All Characters:\n\n" + table(allTableData)),
-        name: "leaderboard.txt",
-      },
-      {
-        attachment: Buffer.from("Top Character per User Only:\n\n" + table(topTableData)),
-        name: "top-leaderboard.txt",
+        attachment: Buffer.from("Top Staff:\n\n" + table(topTableData)),
+        name: "top-staff-leaderboard.txt",
       },
     ],
   });
@@ -99,16 +67,12 @@ const handleLeaderboardDownload = async (interaction: ChatInputCommandInteractio
 const command: SlashCommand = {
   defaultAcl: ["Admin"],
   subcommandAcl: {
-    refresh: ["Contest Staff"],
-    view: ["Contest Staff"],
+    download: ["Moderator"],
   },
   descriptions,
   command: new SlashCommandBuilder()
-    .setName("leaderboard")
+    .setName("staff-leaderboard")
     .setDescription(descriptions.description)
-    .addSubcommand((subcommand) =>
-      subcommand.setName("refresh").setDescription(descriptions.subcommands.refresh.description)
-    )
     .addSubcommand((subcommand) =>
       subcommand
         .setName("download")
@@ -120,11 +84,10 @@ const command: SlashCommand = {
             .setRequired(false)
         )
     ),
+
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const subcommand = interaction.options.getSubcommand();
     switch (subcommand) {
-      case "refresh":
-        return await handleLeaderboardRefresh(interaction);
       case "download":
         return await handleLeaderboardDownload(interaction);
       default:

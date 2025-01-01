@@ -76,12 +76,12 @@ model Character {
 }
 
 model Submission {
-  id             Int      @id @default(autoincrement())
-  isAccepted     Boolean  @default(false)
+  id                    Int      @id @default(autoincrement())
+  isAccepted            Boolean  @default(false)
   acceptedByDiscordUser String?
-  keywords       String[]
-  proofUrl       String
-  extraProofUrls String[]
+  keywords              String[]
+  proofUrl              String
+  extraProofUrls        String[]
 
   characterId Int
   character   Character @relation(fields: [characterId], references: [id])
