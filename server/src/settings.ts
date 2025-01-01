@@ -24,6 +24,7 @@ type JsonData = {
     signUp: string;
     submission: string;
     leaderboard: string;
+    staffLeaderboard: string;
     log: string;
   };
   pointsRefUrl: string;
@@ -50,6 +51,7 @@ type ResolvedData = {
     signUp?: TextChannel;
     submission?: TextChannel;
     leaderboard?: TextChannel;
+    staffLeaderboard?: TextChannel;
     log?: TextChannel;
   };
   pointsRefUrl?: string;
@@ -242,7 +244,13 @@ export class Settings {
       return null;
     };
 
-    for (const name of ["signUp", "submission", "leaderboard", "log"] as const) {
+    for (const name of [
+      "signUp",
+      "submission",
+      "leaderboard",
+      "staffLeaderboard",
+      "log",
+    ] as const) {
       this.setChannel(name, byName(jsonData.channels[name]));
     }
   }

@@ -7,7 +7,11 @@ import {
 } from "discord.js";
 import { table } from "table";
 import { getActiveContest, getContest } from "../services/contestService";
-import { generateTopStaffLeaderboard } from "../services/leaderboardService";
+import {
+  cleanStaffLeaderboardChannel,
+  displayTopStaffLeaderboard,
+  generateTopStaffLeaderboard,
+} from "../services/leaderboardService";
 import { SlashCommand, SlashCommandDescriptions } from "../types";
 
 const descriptions = {
@@ -24,6 +28,21 @@ const descriptions = {
     },
   },
 } satisfies SlashCommandDescriptions;
+
+const handleLeaderboardRefresh = async (interaction: ChatInputCommandInteraction) => {
+  await interaction.deferReply({ ephemeral: true });
+  await cleanStaffLeaderboardChannel();
+  const contest = await getActiveContest();
+  if (!contest) {
+    return await interaction.editReply({
+      content: "No active contest.",
+    });
+  }
+  await displayTopStaffLeaderboard(contest);
+  return await interaction.editReply({
+    content: "Refreshed staff leaderboard.",
+  });
+};
 
 const handleLeaderboardDownload = async (interaction: ChatInputCommandInteraction) => {
   await interaction.deferReply({ ephemeral: true });
@@ -74,6 +93,9 @@ const command: SlashCommand = {
     .setName("staff-leaderboard")
     .setDescription(descriptions.description)
     .addSubcommand((subcommand) =>
+      subcommand.setName("refresh").setDescription(descriptions.subcommands.refresh.description)
+    )
+    .addSubcommand((subcommand) =>
       subcommand
         .setName("download")
         .setDescription(descriptions.subcommands.download.description)
@@ -88,6 +110,8 @@ const command: SlashCommand = {
   async execute(interaction: ChatInputCommandInteraction<CacheType>) {
     const subcommand = interaction.options.getSubcommand();
     switch (subcommand) {
+      case "refresh":
+        return await handleLeaderboardRefresh(interaction);
       case "download":
         return await handleLeaderboardDownload(interaction);
       default:

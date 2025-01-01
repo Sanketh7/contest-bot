@@ -6,7 +6,11 @@ import * as schedule from "node-schedule";
 import path, { join } from "path";
 import { client } from "./client";
 import { ENV } from "./env";
-import { contestScheduleJob, refreshLeaderboardJob } from "./jobs/contestScheduling";
+import {
+  contestScheduleJob,
+  refreshLeaderboardJob,
+  refreshStaffLeaderboardJob,
+} from "./jobs/contestScheduling";
 import { PointsManager } from "./pointsManager";
 import { createGuild } from "./services/guildService";
 import { Settings } from "./settings";
@@ -21,6 +25,7 @@ client.once("ready", async (client) => {
   console.log(`${client.user?.tag} connected`);
   schedule.scheduleJob(contestScheduleJob.schedule, contestScheduleJob.onTick);
   schedule.scheduleJob(refreshLeaderboardJob.schedule, refreshLeaderboardJob.onTick);
+  schedule.scheduleJob(refreshStaffLeaderboardJob.schedule, refreshStaffLeaderboardJob.onTick);
 });
 
 (async () => {

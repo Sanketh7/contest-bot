@@ -38,6 +38,7 @@
     "signUp": "sign-up",
     "submission": "point-verification",
     "leaderboard": "contest-leaderboard",
+    "staffLeaderboard": "contest-staff-leaderboard",
     "log": "contest-bot-logs"
   },
   "pointsRefUrl": "https://docs.google.com/spreadsheets/d/1eL-1bpX2tgV_0Qx3EqqHcYtd9RaBxfosNgtuexpblIw/edit#gid=0"

@@ -1,7 +1,9 @@
 import { getActiveContest, refreshContestSchedule } from "../services/contestService";
 import {
   cleanLeaderboardChannel,
+  cleanStaffLeaderboardChannel,
   displayTopCharactersLeaderboard,
+  displayTopStaffLeaderboard,
 } from "../services/leaderboardService";
 import { Job } from "../types";
 
@@ -20,6 +22,17 @@ export const refreshLeaderboardJob: Job = {
       await cleanLeaderboardChannel();
       await displayTopCharactersLeaderboard(contest, "all");
       await displayTopCharactersLeaderboard(contest, "active");
+    }
+  },
+};
+
+export const refreshStaffLeaderboardJob: Job = {
+  schedule: "0 */5 * * * *", // every 5 minutes
+  async onTick() {
+    const contest = await getActiveContest();
+    if (contest) {
+      await cleanStaffLeaderboardChannel();
+      await displayTopStaffLeaderboard(contest);
     }
   },
 };

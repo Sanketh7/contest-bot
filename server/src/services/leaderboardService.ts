@@ -20,7 +20,21 @@ export const cleanLeaderboardChannel = async () => {
     const botMessages = messages.filter((m) => m.author.bot && m.bulkDeletable);
     channel.bulkDelete(botMessages);
   } catch (err) {
-    console.error(err);
+    console.error("Failed to bulk delete leaderboard channel", err);
+  }
+};
+
+export const cleanStaffLeaderboardChannel = async () => {
+  const channel = Settings.getInstance().getChannel("staffLeaderboard");
+  if (!channel) return;
+  try {
+    const messages = await channel.messages.fetch({
+      limit: 20,
+    });
+    const botMessages = messages.filter((m) => m.author.bot && m.bulkDeletable);
+    channel.bulkDelete(botMessages);
+  } catch (err) {
+    console.error("Failed to bulk delete staff leaderboard channel", err);
   }
 };
 
@@ -144,4 +158,26 @@ export const generateTopStaffLeaderboard = async (contest: Contest) => {
   }
 
   return tableData;
+};
+
+export const displayTopStaffLeaderboard = async (contest: Contest) => {
+  const tableData = await generateTopStaffLeaderboard(contest);
+  const embed = new EmbedBuilder()
+    .setTitle("Top Contest Staff")
+    .setDescription("Updated every 5 minutes during a contest.");
+  const contents: string[] = [];
+  for (let i = 0; i < tableData.length; i += NUM_ROWS_PER_TABLE_LIMIT) {
+    contents.push(
+      "```" +
+        table(tableData.slice(i, Math.min(tableData.length, i + NUM_ROWS_PER_TABLE_LIMIT))) +
+        "```"
+    );
+  }
+  const channel = Settings.getInstance().getChannel("staffLeaderboard");
+  await channel.send({
+    embeds: [embed],
+  });
+  for (const content of contents) {
+    await channel.send({ content });
+  }
 };
