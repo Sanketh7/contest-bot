@@ -11,6 +11,13 @@ export type Points = {
   total: number;
 };
 
+const newWordToOldWords: Record<string, string[]> = {
+  "captain's ring": ["captains ring"],
+  "seal of cubic conundra": ["seal of the cubic conundra"],
+  "cloak of cubic enigma": ["cloak of the cubic enigma"],
+  "shiny quiver of shadows": ["shiny quiver of the shadows"],
+};
+
 export class PointsManager {
   private static instance: PointsManager;
   private processor: FlashText;
@@ -39,7 +46,12 @@ export class PointsManager {
         .on("data", (row) => {
           const keyword = (row["Item Name"] as string).toLowerCase();
           const shortName = (row["Short Name"] as string).toLowerCase();
-          this.processor.addKeyWordsFromArray([keyword, shortName], keyword);
+          let oldWords: string[] = [];
+          if (keyword in newWordToOldWords) {
+            oldWords = newWordToOldWords[keyword];
+            console.log(`Associating ${JSON.stringify(oldWords)} with ${keyword}`);
+          }
+          this.processor.addKeyWordsFromArray([keyword, shortName, ...oldWords], keyword);
           for (const rotmgClass of ROTMG_CLASSES) {
             this.points.set(
               this.createPointsMapKey(keyword, rotmgClass),
