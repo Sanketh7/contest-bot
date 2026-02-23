@@ -53,9 +53,11 @@ export class PointsManager {
           }
           this.processor.addKeyWordsFromArray([keyword, shortName, ...oldWords], keyword);
           for (const rotmgClass of ROTMG_CLASSES) {
+            const rawPoints = parseInt(row[rotmgClass] ?? 0);
+            const points = isFinite(rawPoints) ? rawPoints : 0;
             this.points.set(
               this.createPointsMapKey(keyword, rotmgClass),
-              parseInt(row[rotmgClass] ?? 0)
+              points
             );
           }
         });
