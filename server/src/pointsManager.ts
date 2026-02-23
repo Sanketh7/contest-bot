@@ -55,7 +55,7 @@ export class PointsManager {
           for (const rotmgClass of ROTMG_CLASSES) {
             this.points.set(
               this.createPointsMapKey(keyword, rotmgClass),
-              parseInt(row[rotmgClass])
+              parseInt(row[rotmgClass] ?? 0)
             );
           }
         });

@@ -22,7 +22,8 @@ enum RotmgClass {
   Sorcerer
   Bard
   Summoner
-  Kensei
+  Kensei,
+  Druid
 }
 
 enum CharacterModifier {

@@ -32,7 +32,8 @@
     "Huntress": "huntress",
     "Paladin": "paladin",
     "Summoner": "summoner",
-    "Kensei": "kensei"
+    "Kensei": "kensei",
+    "Druid": "kensei"
   },
   "channels": {
     "signUp": "sign-up",

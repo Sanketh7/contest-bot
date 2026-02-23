@@ -10,7 +10,7 @@ import {
   StringSelectMenuOptionBuilder,
   User,
 } from "discord.js";
-import { CHARACTER_MODIFIERS, DEFAULT_TIMEOUT_MS, ROTMG_CLASSES } from "../constants";
+import { CHARACTER_MODIFIERS, DEFAULT_TIMEOUT_MS, ROTMG_SELECTABLE_CLASSES } from "../constants";
 import {
   createCharacter,
   getActiveCharacterByUserId,
@@ -96,7 +96,8 @@ export class NewCharacterProcess extends Process<Contest> {
       .setMinValues(1)
       .setMaxValues(1)
       .addOptions(
-        ...ROTMG_CLASSES.map((c) => new StringSelectMenuOptionBuilder().setLabel(c).setValue(c))
+        // ...ROTMG_CLASSES.map((c) => new StringSelectMenuOptionBuilder().setLabel(c).setValue(c))
+        ...ROTMG_SELECTABLE_CLASSES.map((c) => new StringSelectMenuOptionBuilder().setLabel(c).setValue(c))
       );
     const { cancelButton, cancelButtonCustomId } = this.buildCancelButton();
 

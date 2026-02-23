@@ -20,6 +20,10 @@ export const ROTMG_CLASSES = [
   "Bard",
   "Summoner",
   "Kensei",
+  "Druid"
+] as const;
+export const ROTMG_SELECTABLE_CLASSES = [
+  "Druid"
 ] as const;
 
 export const CHARACTER_MODIFIERS = [
