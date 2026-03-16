@@ -612,7 +612,7 @@ Morning Star of Conjuration,t13 morning star,20,Morning Star
 Morning Star of Reckoning,t14 morning star,25,Morning Star
 Beekeeper's Flamethrower,Flamethrower,30,Morning Star
 Obsidian Macuahuitl,,20,Morning Star
-Shiny Beekeeper's Flamethrower,Shiny Flamethrower,40,Morning Star
+Shiny Beekeeper's Flamethrower,Shiny Flamethrower,35,Morning Star
 Morning Star of the Hero,Hero Morning Star,20,Morning Star
 The North Star,,5,Morning Star
 Chocolate Ovipositor,,15,Morning Star
@@ -719,7 +719,7 @@ Sinister Syringes,,15,Quiver
 Shiny Q.U.I.V.E.R.,,12,Quiver
 Fresh Breeze Quiver,,5,Quiver
 Shiny Cocoon Quiver,,6,Quiver
-Shiny Blue Beehemoth Quiver,Blue Bee Quiver,40,Quiver
+Shiny Blue Beehemoth Quiver,,40,Quiver
 Shiny Quiver of Thunder,,40,Quiver
 Bloodstone Ring,,10,Ring
 Ring of Unbound Health,UBHP,10,Ring
@@ -765,7 +765,7 @@ Locked Reactor,Reactor,32,Ring
 Crystallised Mist,,20,Ring
 Amulet of Dispersion,Dispersion Amulet,3,Ring
 Regal Ring,,6,Ring
-Pernicious Peridot,Snake ST Ring,10,Ring
+Pernicious Peridot,,10,Ring
 Esben's Wedding Ring,Esben Ring,20,Ring
 First Mate's Hook,PCave Ring,1,Ring
 Chrysanthemum Corsage,Woodland Ring,8,Ring
@@ -1002,7 +1002,7 @@ Wings of the Fallen,,5,Robe
 Carrotroot Vestments,,15,Robe
 Chocolate Glazed Robe,,10,Robe
 Shiny Robe of the Tlatoani,,6,Robe
-Shiny Chasuble of Holy Light,Shiny Manor Robe,5,Robe
+Shiny Chasuble of Holy Light,Shiny Manor Robe,6,Robe
 Shiny Tlatoani's Shroud,,25,Robe
 Scepter of Fulmination,Fulmi,15,Scepter
 Scepter of Devastation,,20,Scepter
@@ -1440,7 +1440,7 @@ Wisdom Maxed,Wis Max,9,Stats
 Life Maxed,Life Max,15,Stats
 Mana Maxed,Mana Max,12,Stats
 Oryx's Greatsword,Oryxs Greatsword,15,Sword
-Sword of Splendor,Splendor,10,Sword
+Sword of Splendor,t13 sword,10,Sword
 Crystal Sword,Csword,10,Sword
 Ancient Stone Sword,ASS,10,Sword
 Demon Blade,Dblade,10,Sword
@@ -1575,7 +1575,7 @@ Wand of the Bulwark,Bulwark,20,Wand
 Abomination's Wrath,Abominations Wrath,25,Wand
 Wand of Geb,Geb Wand,15,Wand
 Crystal Wand,CWand,20,Wand
-Wand of Recompense,Recomp,5,Wand
+Wand of Recompense,t12 wand,5,Wand
 Spicy Wand of Spice,,15,Wand
 Snowblind Wand,,25,Wand
 Warlord Wand,,15,Wand
@@ -1587,7 +1587,7 @@ Winter's Breath Wand,Recomp reskin,5,Wand
 Magic Wand,,15,Wand
 Wand of Retribution,T14 Wand,25,Wand
 Lumiaire,,40,Wand
-Ring of Divine Faith,,1,Wand
+Ring of Divine Faith,,1,Ring
 St. Abraham's Wand,St. Abraham Wand,3,Wand
 Brass Chamberstick,,15,Wand
 C.L.A.W.,,10,Wand
@@ -1601,7 +1601,7 @@ Lethargic Sentience,,15,Wand
 Cane of Caduceus,,15,Wand
 Laser Pointer,Steamworks Wand,30,Wand
 Fortitude,Enhanced Bulwark,35,Wand
-Shiny Lumiaire,Shiny Lumi,40,Wand
+Shiny Lumiaire,Shiny Lumi,45,Wand
 Shiny Laser Pointer,,40,Wand
 Hero's Wand,Hero Wand,20,Wand
 Aspirant's Wand,Aspirant Wand,20,Wand
@@ -1627,16 +1627,58 @@ Caduceus of Enlightened Chaos,,12,Wand
 Shiny Deliverance,,35,Wand
 Sigil of the Horse,t6 sigil,10,Sigil
 Sigil of the Rhino,t7 sigil,30,Sigil
-Sharktooth Sigil,,,Sigil
-Silken Sigil,,,Sigil
-Draconic Insignia,,,Sigil
-Crystalline Sigil,,,Sigil
-Swarmlord's Sigil,,,Sigil
-Hawkmaster Sigil,,,Sigil
-Sigil of the Rubber Duck,,,Sigil
-Sigil of the Reindeer,,,Sigil
-Legion Elite Sigil,,,Sigil
+Sharktooth Sigil,,20,Sigil
+Silken Sigil,,18,Sigil
+Draconic Insignia,,25,Sigil
+Crystalline Sigil,,28,Sigil
+Swarmlord's Sigil,,25,Sigil
+Hawkmaster Sigil,,20,Sigil
+Sigil of the Rubber Duck,,10,Sigil
 Mechraptor Sigil,,,Sigil
 Gearhawk Morning Star,,,Morning Star
 Mechpilot's Jerkin,,,Leather Armor
 Pressure Gauge Band,,,Ring
+Heart of the Eternal Pyre,,30,Ring
+Ladybug pet skin,,10,Skin
+Cursed Raven pet skin,,10,Skin
+Bloom-Fire Scepter,,25,Staff
+Ghastly Penguin Pet Skin,,10,Skin
+Penitent Frog Pet Skin,,10,Skin
+Blade of Blooming,,10,Katana
+Shiny Green Beehemoth Quiver,,40,Quiver
+Shiny Red Beehemoth Quiver,,40,Quiver
+Shiny Yellow Beehemoth Quiver,,40,Quiver
+Shiny Orb of Conflict,,40,Orb
+Shiny Armor of Nil,,35,Leather Armor
+Shiny Sealed Crystal Skull,,20,Skull
+Shiny Coral Ring,,8,Ring
+Shiny Bone Dagger,,6,Dagger
+Shiny Cave Dweller Trap,,20,Trap
+Shiny B.O.W.,,15,Bow
+Shiny Spectral Cloth Armor,,20,
+Shiny Ase's Echo,,15,
+Shiny S.H.E.A.T.H.,,12,
+Shiny Tome of Pain,,15,
+Shiny Woodland Robe,,6,
+Solar Flare Igniter,,30,Wand
+Ashen Talon,,20,Dagger
+Sovereign Cinder-Blade,,25,Katana
+Bogged Panda Pet Skin,,10,Skin
+Pirate Queen Slurp Pet Skin,,10,Skin
+Robobuddy pet skin,,10,Skin
+Skelephant pet skin,,10,
+Elderfrost Heirloom,,30,
+Chilly Parka Necromancer Skin,,10,
+Great Shark pet skin,,10,
+Festival Enjoyer Kensei Skin,,10,
+Calamity Crab pet skin,,10,
+Evil Ghost Pet Skin,,10,
+Blade of Eternal Rebirth,,20,
+Red Hot Scarab Pet Skin,,10,
+Crest of the Rising Sun,,25,
+Shiny Tipsy Topper,,20,
+Solo Ice Citadel,,20,
+Silver Doe Pet Skin,,10,
+Shiny Necronomicon,,15,
+Shiny Igneous Starblossom,,15,
+Shiny Spirit Staff,,15,
