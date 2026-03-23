@@ -22,9 +22,6 @@ export const ROTMG_CLASSES = [
   "Kensei",
   "Druid"
 ] as const;
-export const ROTMG_SELECTABLE_CLASSES = [
-  "Druid"
-] as const;
 
 export const CHARACTER_MODIFIERS = [
   "No_Pet",
