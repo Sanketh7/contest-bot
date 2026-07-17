@@ -361,8 +361,6 @@ Hard Mode Spectral Penitentiary,HM Spectral,15,15,15,15,15,15,15,15,15,15,15,15,
 Hard Mode Moonlight Village (no Umi),HM MV,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Dungeon Completes
 Hard Mode Kitsune Umi,HM Umi,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,Dungeon Completes
 Hard Mode Shatters,HM Shatts,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,Dungeon Completes
-Advanced Steamworks,HM Steamworks,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Dungeon Completes
-Advanced Nest,HM Nest,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
 5 Ice Citadel Completes,5 Ice Citadels,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
 15 Ice Citadel Completes,15 Ice Citadels,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
 30 Ice Citadel Completes,30 Ice Citadels,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Dungeon Completes
@@ -1481,7 +1479,7 @@ Solo Cultist Hideout (+ Lost Halls),Solo Cult,15,15,15,15,15,15,15,15,15,15,15,1
 Solo Fungal + Crystal Cavern,Solo Fungal + Crystal,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,Solo Dungeon Completes
 Solo Oryx Sanctuary,Solo Oryx 3,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,Solo Dungeon Completes
 Solo Advanced Steamworks,Solo HM Steamworks,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,Solo Dungeon Completes
-Solo Advanced Nest,Solo HM Nest,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,Solo Dungeon Completes
+Solo Plagued Nest,Solo HM Nest,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,Solo Dungeon Completes
 Penetrating Blast Spell,Thicket Spell,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15,15,15,15,Spell
 Tablet of the King's Avatar,Tablet,35,35,35,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,Spell
 Recurring Terror Spell,Parasite Spell,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,Spell
@@ -1737,16 +1735,16 @@ Mouse Trap,,7,7,7,7,7,7,7,12,7,7,7,7,7,7,7,7,7,7,7,Trap
 Shiny Cave Dweller Trap,,20,20,20,20,20,20,20,35,20,20,20,20,20,20,20,20,20,20,20,Trap
 Shiny Sulfuric Stone,,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,15,Trap
 Wakizashi of Eastern Winds,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,25,20,Wakizashi
-Wakizashi of Crossing Fires,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,25,20,Wakizashi
-Ryu's Blade,Ryus Blade,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25,25,30,25,Wakizashi
-Royal Wakizashi,T6 Waki,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,10,0,Wakizashi
+Wakizashi of Crossing Fires,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,Wakizashi
+Ryu's Blade,Ryus Blade,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25,25,25,25,Wakizashi
+Royal Wakizashi,T6 Waki,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,Wakizashi
 Ronin's Wakizashi,Ronins Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5,5,5,Wakizashi
 Fractured Gemstone Wakizashi,Gemstone Waki,15,15,15,15,15,15,15,15,15,15,15,15,30,15,15,15,15,15,15,Wakizashi
-NSFWakizashi,April Fools Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5,10,5,Wakizashi
-Peppermint Wakizashi,t6 reskin wakizashi,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,10,0,Wakizashi
-Amaterasu,oryx wakizashi,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15,25,15,Wakizashi
-Watarimono,,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10,10,20,10,Wakizashi
-Virtuous Wakizashi,T7 Waki,10,10,10,10,10,10,10,10,10,10,10,10,30,10,10,10,10,30,10,Wakizashi
+NSFWakizashi,April Fools Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5,5,5,Wakizashi
+Peppermint Wakizashi,t6 reskin wakizashi,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,Wakizashi
+Amaterasu,oryx wakizashi,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15,Wakizashi
+Watarimono,,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,Wakizashi
+Virtuous Wakizashi,T7 Waki,10,10,10,10,10,10,10,10,10,10,10,10,30,10,10,10,10,10,10,Wakizashi
 Shadow Serpent Sidearm,,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,Wakizashi
 Sentinel's Sidearm,Sentinels Sidearm,25,25,25,25,25,25,25,25,25,25,25,25,35,25,25,25,25,25,25,Wakizashi
 Kogbold Multitool,Multitool,35,35,35,35,35,35,35,35,35,35,35,35,50,35,35,35,35,35,35,Wakizashi
@@ -1754,7 +1752,7 @@ Shiny Wakizashi of Eastern Winds,,25,25,25,25,25,25,25,25,25,25,25,25,30,25,25,2
 Shiny Sentinel's Sidearm,Shiny Sentinels Sidearm,30,30,30,30,30,30,30,30,30,30,30,30,45,30,30,30,30,30,30,Wakizashi
 Shiny Kogbold Multitool,,40,40,40,40,40,40,40,40,40,40,40,40,55,40,40,40,40,40,40,Wakizashi
 Shiny Fractured Gemstone Wakizashi,,20,20,20,20,20,20,20,20,20,20,20,20,35,20,20,20,20,20,20,Wakizashi
-Sakura Wakizashi,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,25,20,Wakizashi
+Sakura Wakizashi,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,Wakizashi
 Esben's Twisted Heart,,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,Wakizashi
 Shiny Esben's Twisted Heart,,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,Wakizashi
 Sublimation Sidearm,,13,13,13,13,13,13,13,13,13,13,13,13,18,13,13,13,13,13,13,Wakizashi
@@ -1820,4 +1818,49 @@ Shiny Wand of Hidden Knowledge,,15,15,15,15,15,15,15,15,15,15,15,15,15,23,23,15,
 Wand of Egg-cellence,,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,5,0,5,Wand
 Eggstatic Conductor,,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10,15,10,15,Wand
 Shiny Crystal Wand,,20,20,20,20,20,20,20,20,20,20,20,20,20,25,25,20,25,20,25,Wand
-The Triangle,,,,,,,,,,,,,,,,,,,,,
+The Triangle,,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,18,12,12,12,
+Fame Bonus Farther Out,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Fame Bonus
+Minotaur Mace,,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,50,35,35,Mace
+Big Berdtha,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,Mace
+5 Plagued Nests,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
+15 Plagued Nests,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+30 Plagued Nests,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Dungeon Completes
+50 Plagued Nests,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+75 Plagued Nests,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Dungeon Completes
+5 Advanced Steamworks,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
+15 Advanced Steamworks,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+30 Advanced Steamworks,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Dungeon Completes
+50 Advanced Steamworks,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+75 Advanced Steamworks,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Dungeon Completes
+Ancestral Shaman Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
+Shiny Cackling Straitjacket,,25,25,25,35,35,35,35,35,25,25,25,35,25,25,25,25,25,25,35,Leather Armor
+Shiny Ring of Cubed Wisdom,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Ring
+Spectral Rogue Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
+Miniature Alien Generator,,,,,,,,,,,,,,,,,,,,,
+Shiny Sharktooth Sigil,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,25,Sigil
+Swimsuit Assassin Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Skin
+Holy Guide Priest Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Skin
+Shiny Omnipotence Ring,,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,Ring
+Shiny Wakizashi of Crossing Fires,,25,25,25,25,25,25,25,25,25,25,25,25,30,25,25,25,25,25,25,Wakizashi
+Shiny Maw of Malignance,,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,Skull
+Neo Reality Reactor,,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,Ring
+5 Neo Malogia,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+15 Neo Malogia,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+30 Neo Malogia,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Dungeon Completes
+50 Neo Malogia,,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,Dungeon Completes
+75 Neo Malogia,,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,Dungeon Completes
+5 Neo Forax,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+15 Neo Forax,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+30 Neo Forax,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Dungeon Completes
+50 Neo Forax,,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,Dungeon Completes
+75 Neo Forax,,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,Dungeon Completes
+5 Neo Katalund,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+15 Neo Katalund,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+30 Neo Katalund,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Dungeon Completes
+50 Neo Katalund,,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,Dungeon Completes
+75 Neo Katalund,,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,Dungeon Completes
+5 Neo Untaris,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+15 Neo Untaris,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+30 Neo Untaris,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Dungeon Completes
+50 Neo Untaris,,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,Dungeon Completes
+75 Neo Untaris,,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,Dungeon Completes

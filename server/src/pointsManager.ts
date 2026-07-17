@@ -16,6 +16,8 @@ const newWordToOldWords: Record<string, string[]> = {
   "seal of cubic conundra": ["seal of the cubic conundra"],
   "cloak of cubic enigma": ["cloak of the cubic enigma"],
   "shiny quiver of shadows": ["shiny quiver of the shadows"],
+  "big berdtha": ["shield of ogmur"],
+  "solo plagued nest": ["solo advanced nest"]
 };
 
 export class PointsManager {
