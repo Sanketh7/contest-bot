@@ -29,7 +29,10 @@ client.once("ready", async (client) => {
   schedule.scheduleJob(refreshStaffLeaderboardJob.schedule, refreshStaffLeaderboardJob.onTick);
 });
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const sleep = (ms: number): Promise<void> => {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
+};
 
 (async () => {
   await PointsManager.getInstance().loadCsv(path.resolve(__dirname, "..", "..", "ppe_data.csv"));
