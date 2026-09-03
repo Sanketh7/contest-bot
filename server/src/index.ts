@@ -21,24 +21,25 @@ dayjs.extend(utc);
 process.on("unhandledRejection", console.error);
 process.on("uncaughtException", console.error);
 
+const sleep = (ms: number): Promise<void> => {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
+};
+
 client.once("ready", async (client) => {
   console.log(`${client.user?.tag} connected`);
-  
+  await sleep(10000);
   schedule.scheduleJob(contestScheduleJob.schedule, contestScheduleJob.onTick);
   schedule.scheduleJob(refreshLeaderboardJob.schedule, refreshLeaderboardJob.onTick);
   schedule.scheduleJob(refreshStaffLeaderboardJob.schedule, refreshStaffLeaderboardJob.onTick);
 });
 
 
-const sleep = (ms: number): Promise<void> => {
-  return new Promise<void>((resolve) => setTimeout(resolve, ms));
-};
+
 
 (async () => {
   await PointsManager.getInstance().loadCsv(path.resolve(__dirname, "..", "..", "ppe_data.csv"));
   // await PointsManager.getInstance().loadCsv(path.resolve(__dirname, "..", "..", "druid_ppe_data.csv"));
   await client.login(ENV.DISCORD_TOKEN);
-  await sleep(1000);
   await Settings.getInstance().loadAll(
     path.resolve(__dirname, "..", "..", ENV.SETTINGS_FILENAME),
     client
