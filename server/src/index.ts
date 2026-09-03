@@ -23,22 +23,24 @@ process.on("uncaughtException", console.error);
 
 client.once("ready", async (client) => {
   console.log(`${client.user?.tag} connected`);
-  await Settings.getInstance().loadAll(
-    path.resolve(__dirname, "..", "..", ENV.SETTINGS_FILENAME),
-    client
-  );
-  await createGuild({ discordId: Settings.getInstance().get("guild").id });
+  
   schedule.scheduleJob(contestScheduleJob.schedule, contestScheduleJob.onTick);
   schedule.scheduleJob(refreshLeaderboardJob.schedule, refreshLeaderboardJob.onTick);
   schedule.scheduleJob(refreshStaffLeaderboardJob.schedule, refreshStaffLeaderboardJob.onTick);
 });
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 (async () => {
   await PointsManager.getInstance().loadCsv(path.resolve(__dirname, "..", "..", "ppe_data.csv"));
   // await PointsManager.getInstance().loadCsv(path.resolve(__dirname, "..", "..", "druid_ppe_data.csv"));
   await client.login(ENV.DISCORD_TOKEN);
-  
-
+  await sleep(1000);
+  await Settings.getInstance().loadAll(
+    path.resolve(__dirname, "..", "..", ENV.SETTINGS_FILENAME),
+    client
+  );
+  await createGuild({ discordId: Settings.getInstance().get("guild").id });
   const handlersDir = join(__dirname, "./handlers");
   readdirSync(handlersDir).forEach((handler) => {
     if (handler.endsWith(".js")) {
