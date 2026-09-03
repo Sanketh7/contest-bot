@@ -236,8 +236,9 @@ export class Settings {
   private async loadChannels(jsonData: JsonData) {
     const guild = this.get("guild");
 
+    const channels = await guild.channels.fetch();
     const byName = (name: string): TextChannel | null => {
-      const channel = guild.channels.cache.find((c) => c.name === name);
+      const channel = channels.find((c) => c.name === name);
       if (channel && channel instanceof TextChannel) {
         return channel;
       }
