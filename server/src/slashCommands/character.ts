@@ -334,7 +334,7 @@ const command: SlashCommand = {
     )
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("setActive")
+        .setName("set-active")
         .setDescription(descriptions.subcommands.setActive.description)
         .addNumberOption((option) =>
           option
@@ -387,7 +387,7 @@ const command: SlashCommand = {
         return await handleCharacterSubmissions(interaction, true);
       case "submissions":
         return await handleCharacterSubmissions(interaction, false);
-      case "setActive":
+      case "set-active":
         return await handleCharacterSetActive(interaction);
       case "create":
         return await handleCreateCharacter(interaction);
