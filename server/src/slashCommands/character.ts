@@ -151,6 +151,21 @@ const handleCharacterSetActive = async (
       content: "Character not found.",
     });
   }
+  const contest = await getContest(character.contestId);
+  if (!contest) {
+    return await interaction.editReply({
+      content: "Could not find contest",
+    });
+  }
+  if (isActive) {
+    const maybeActiveCharacter = await getActiveCharacterByUserId(character.userId, contest);
+    if (maybeActiveCharacter) {
+      return await interaction.editReply({
+        content: `User already has an active character (ID: ${maybeActiveCharacter.id}).`,
+        embeds: [buildCharacterEmbed("Red", "truncate", maybeActiveCharacter)],
+      });
+    }
+  }
   await updateCharacterActivity(character, isActive);
   return await interaction.editReply({
     content: `Character ${character.id} set as active=${isActive}.`,
