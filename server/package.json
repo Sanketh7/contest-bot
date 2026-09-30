@@ -39,6 +39,7 @@
     "pg-promise": "^11.5.4",
     "prisma": "^5.10.2",
     "prisma-extension-soft-delete": "^1.0.1",
-    "table": "^6.8.1"
+    "table": "^6.8.1",
+    "uuid": "^14.0.2"
   }
 }
