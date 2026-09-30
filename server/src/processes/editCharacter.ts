@@ -112,6 +112,7 @@ export class EditCharacterProcess extends Process<Contest> {
         filter: (i) => i.customId === cancelButtonCustomId && i.user.id === this.user.id,
         time: DEFAULT_TIMEOUT_MS,
       });
+      // @ts-ignore
       const p2 = this.message.channel.awaitMessages({
         filter,
         max: 1,
@@ -154,7 +155,9 @@ export class EditCharacterProcess extends Process<Contest> {
             i.user.id === this.user.id,
           time: DEFAULT_TIMEOUT_MS,
         });
+        // @ts-ignore
         const keywordsMessagePromise = this.message.channel.awaitMessages({
+          // @ts-ignore
           filter: (m) => m.author.id === this.user.id && m.content.length > 0,
           max: 1,
           time: DEFAULT_TIMEOUT_MS,

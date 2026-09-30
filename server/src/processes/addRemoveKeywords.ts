@@ -97,7 +97,9 @@ export class AddRemoveKeywordsProcess extends Process<Contest | null> {
             i.user.id === this.user.id,
           time: DEFAULT_TIMEOUT_MS,
         });
+        // @ts-ignore
         const keywordsMessagePromise = this.message.channel.awaitMessages({
+          // @ts-ignore
           filter: (m) => m.author.id === this.user.id && m.content.length > 0,
           max: 1,
           time: DEFAULT_TIMEOUT_MS,
