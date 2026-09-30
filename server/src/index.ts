@@ -25,7 +25,7 @@ const sleep = (ms: number): Promise<void> => {
   return new Promise<void>((resolve) => setTimeout(resolve, ms));
 };
 
-client.once("ready", async (client) => {
+client.once("clientReady", async (client) => {
   console.log(`${client.user?.tag} connected`);
   await sleep(10000);
   schedule.scheduleJob(contestScheduleJob.schedule, contestScheduleJob.onTick);
