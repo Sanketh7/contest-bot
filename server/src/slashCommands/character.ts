@@ -359,17 +359,17 @@ const command: SlashCommand = {
             .setDescription(descriptions.subcommands.create.options.target)
             .setRequired(true)
         )
-        .addNumberOption((option) =>
-          option
-            .setName("contest-id")
-            .setDescription(descriptions.subcommands.create.options.contestId)
-            .setRequired(false)
-        )
         .addStringOption((option) =>
           option
             .setName("rotmg-class")
             .setDescription(descriptions.subcommands.create.options.rotmgClass)
             .setRequired(true)
+        )
+        .addNumberOption((option) =>
+          option
+            .setName("contest-id")
+            .setDescription(descriptions.subcommands.create.options.contestId)
+            .setRequired(false)
         )
         .addStringOption((option) =>
           option
