@@ -1,4 +1,69 @@
 "Item Name",Short Name,Knight,Warrior,Paladin,Assassin,Rogue,Trickster,Archer,Huntress,Mystic,Wizard,Necromancer,Ninja,Samurai,Priest,Sorcerer,Bard,Summoner,Kensei,Druid,Category
+Sun's Judgement,Suns Judgement,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15,10,10,10,Alien Gear- Bow
+Blazon Bow,,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15,15,15,Alien Gear- Bow
+Shiny Blazon Bow,,20,20,20,20,20,20,25,25,20,20,20,20,20,20,20,25,20,20,20,Alien Gear- Bow
+Shiny Sun's Judgement,Shiny Suns Judgement,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15,15,15,Alien Gear- Bow
+Neo Sun's Judgement,,20,20,20,20,20,20,25,25,20,20,20,20,20,20,20,25,20,20,20,Alien Gear- Bow
+Laser Rifle,,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15,10,10,10,Alien Gear- Bow
+Neo Laser Rifle,,20,20,20,20,20,20,25,25,20,20,20,20,20,20,20,25,20,20,20,Alien Gear- Bow
+Neo Blazon Bow,,25,25,25,25,25,25,30,30,25,25,25,25,25,25,25,30,25,25,25,Alien Gear- Bow
+Dueling Daggers,,15,15,15,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15,Alien Gear- Dagger
+Corrosion Cutter,,20,20,20,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,Alien Gear- Dagger
+Shiny Dueling Daggers,,20,20,20,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,Alien Gear- Dagger
+Shiny Corrosion Cutter,,25,25,25,30,30,30,25,25,25,25,25,25,25,25,25,25,25,25,25,Alien Gear- Dagger
+Neo Corrosion Cutter,,30,30,30,35,35,35,30,30,30,30,30,30,30,30,30,30,30,30,30,Alien Gear- Dagger
+Neo Dueling Daggers,,25,25,25,30,30,30,25,25,25,25,25,25,25,25,25,25,25,25,25,Alien Gear- Dagger
+Heavy Protective Matrix,Heavy Matrix,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15,15,20,15,Alien Gear- Heavy Armor
+Shiny Heavy Protective Matrix,,25,25,25,20,20,20,20,20,20,20,20,20,25,20,20,20,20,25,20,Alien Gear- Heavy Armor
+Neo Heavy Protective Matrix,,30,30,30,25,25,25,25,25,25,25,25,25,30,25,25,25,25,30,25,Alien Gear- Heavy Armor
+Fire Blade,,15,15,15,15,15,15,15,15,15,15,15,20,20,15,15,15,15,20,15,Alien Gear- Katana
+Moonbeam Blade,,15,15,15,15,15,15,15,15,15,15,15,25,25,15,15,15,15,25,15,Alien Gear- Katana
+Shiny Fire Blade,,20,20,20,20,20,20,20,20,20,20,20,25,25,20,20,20,20,25,20,Alien Gear- Katana
+Shiny Moonbeam Blade,,20,20,20,20,20,20,20,20,20,20,20,30,30,20,20,20,20,30,20,Alien Gear- Katana
+Neo Fire Blade,,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25,25,30,25,Alien Gear- Katana
+Neo Moonbeam Blade,,25,25,25,25,25,25,25,25,25,25,25,35,35,25,25,25,25,35,25,Alien Gear- Katana
+Fitted Protective Matrix,Fitted Matrix,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15,20,Alien Gear- Leather Armor
+Shiny Fitted Protective Matrix,,20,20,20,25,25,25,25,25,20,20,20,25,20,20,20,20,20,20,25,Alien Gear- Leather Armor
+Neo Fitted Protective Matrix,,25,25,25,30,30,30,30,30,25,25,25,30,25,25,25,25,25,25,30,Alien Gear- Leather Armor
+Malogia Essence,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Alien Gear- Miscellaneous
+Untaris Essence,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Alien Gear- Miscellaneous
+Forax Essence,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Alien Gear- Miscellaneous
+Katalund Essence,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Alien Gear- Miscellaneous
+Neo Essence,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Alien Gear- Miscellaneous
+Alien Core: Power,Power Core,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Alien Gear- Ring
+Alien Core: Corrosion,Corrosion Core,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Alien Gear- Ring
+Alien Core: Warp,Warp Core,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Alien Gear- Ring
+Alien Core: Dark Matter,Dark Matter Core,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Alien Gear- Ring
+Neo Alien Core: Power,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Alien Gear- Ring
+Neo Alien Core: Corrosion,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Alien Gear- Ring
+Neo Alien Core: Warp,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Alien Gear- Ring
+Neo Alien Core: Dark Matter,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Alien Gear- Ring
+Loaded Core,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Alien Gear- Ring
+Neo Loaded Core,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Alien Gear- Ring
+Entropy Reactor,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Alien Gear- Ring
+Neo Entropy Reactor,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Alien Gear- Ring
+Neo Reality Reactor,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Alien Gear- Ring
+Magic Protective Matrix,Magic Matrix,15,15,15,15,15,15,15,15,20,20,20,15,15,20,20,20,20,15,15,Alien Gear- Robe
+Shiny Magic Protective Matrix,,20,20,20,20,20,20,20,20,25,25,25,20,20,25,25,25,25,20,20,Alien Gear- Robe
+Neo Magic Protective Matrix,,25,25,25,25,25,25,25,25,30,30,30,25,25,30,30,30,30,25,25,Alien Gear- Robe
+Comet of Calamity,,20,20,20,20,20,20,20,20,25,25,25,20,20,20,20,20,20,20,20,Alien Gear- Staff
+Foramite Staff,,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10,10,10,Alien Gear- Staff
+Shiny Foramite Staff,,15,15,15,15,15,15,15,15,20,20,20,15,15,15,15,15,15,15,15,Alien Gear- Staff
+Shiny Comet of Calamity,,25,25,25,25,25,25,25,25,30,30,30,25,25,25,25,25,25,25,25,Alien Gear- Staff
+Neo Comet of Calamity,,30,30,30,30,30,30,30,30,35,35,35,30,30,30,30,30,30,30,30,Alien Gear- Staff
+Neo Foramite Staff,,20,20,20,20,20,20,20,20,25,25,25,20,20,20,20,20,20,20,20,Alien Gear- Staff
+Acidic Slasher,,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Alien Gear- Sword
+Gaseous Glaive,,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Alien Gear- Sword
+Shiny Gaseous Glaive,,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Alien Gear- Sword
+Shiny Acidic Slasher,,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Alien Gear- Sword
+Neo Acidic Slasher,,30,30,30,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Alien Gear- Sword
+Neo Gaseous Glaive,,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Alien Gear- Sword
+Snowblind Wand,,15,15,15,15,15,15,15,15,15,15,15,15,15,25,25,15,25,15,25,Alien Gear- Wand
+Warlord Wand,,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10,15,10,15,Alien Gear- Wand
+Shiny Snowblind Wand,,20,20,20,20,20,20,20,20,20,20,20,20,20,30,30,20,30,20,30,Alien Gear- Wand
+Shiny Warlord Wand,,15,15,15,15,15,15,15,15,15,15,15,15,15,20,20,15,20,15,20,Alien Gear- Wand
+Neo Snowblind Wand,,25,25,25,25,25,25,25,25,25,25,25,25,25,35,35,25,35,25,35,Alien Gear- Wand
+Neo Warlord Wand,,20,20,20,20,20,20,20,20,20,20,20,20,20,25,25,20,25,20,25,Alien Gear- Wand
 Bow of Mystical Energy,T13 Bow,10,10,10,10,10,10,20,20,10,10,10,10,10,10,10,20,10,10,10,Bow
 Leaf Bow,,10,10,10,10,10,10,20,20,10,10,10,10,10,10,10,20,10,10,10,Bow
 Doom Bow,DBow,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15,10,10,10,Bow
@@ -10,8 +75,6 @@ Ancient Doom Bow,Ancient DBow,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,15,15
 Deathless Crossbow,,10,10,10,10,10,10,25,20,10,10,10,10,10,10,10,20,10,10,10,Bow
 Bow of Covert Havens,Covert,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,5,0,0,0,Bow
 Robobow,,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15,10,10,10,Bow
-Sun's Judgement,Suns Judgement,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15,10,10,10,Bow
-Blazon Bow,,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15,15,15,Bow
 Brilliance Bow,,7,7,7,7,7,7,12,12,7,7,7,7,7,7,7,12,7,7,7,Bow
 Butter Bow,,7,7,7,7,7,7,12,12,7,7,7,7,7,7,7,12,7,7,7,Bow
 Predator Bow,Oryx Bow,10,10,10,10,10,10,20,20,10,10,10,10,10,10,10,20,10,10,10,Bow
@@ -50,7 +113,6 @@ Transdimensional Bow,,10,10,10,10,10,10,20,20,10,10,10,10,10,10,10,20,10,10,10,B
 Bow of Nightmares,,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,5,0,0,0,Bow
 Electric Guitar,,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,20,10,10,10,Bow
 Shiny Garland Bow,,10,10,10,10,10,10,20,20,10,10,10,10,10,10,10,20,10,10,10,Bow
-Shiny Blazon Bow,,20,20,20,20,20,20,25,25,20,20,20,20,20,20,20,25,20,20,20,Bow
 Shiny Coral Bow,,20,20,20,20,20,20,25,25,20,20,20,20,20,20,20,25,20,20,20,Bow
 Shiny Clockwork Repeater,,25,25,25,25,25,25,30,30,25,25,25,25,25,25,25,30,25,25,25,Bow
 Shiny Makakoyumi,,30,30,30,30,30,30,40,40,30,30,30,30,30,30,30,40,30,30,30,Bow
@@ -62,6 +124,13 @@ Bow of the Morning Star,,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15,10,10,1
 Shiny Thousand Shot,Shiny TShot,20,20,20,20,20,25,25,25,20,20,20,20,20,20,20,20,20,20,20,Bow
 Shiny Spider Silk Bow,,15,15,15,15,15,15,23,23,15,15,15,15,15,15,15,23,15,15,15,Bow
 Frozen Whisper,,25,25,25,25,25,25,30,30,25,25,25,25,25,25,25,30,25,25,25,Bow
+Shiny B.O.W.,,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15,15,15,Bow
+Crest of the Rising Sun,,25,25,25,25,25,25,30,30,25,25,25,25,25,25,25,30,25,25,25,Bow
+Baked Bow,,7,7,7,7,7,7,12,12,7,7,7,7,7,7,7,12,7,7,7,Bow
+Shiny Celestial Recurve,,30,30,30,30,30,30,40,40,30,30,30,30,30,30,30,40,30,30,30,Bow
+Cold Front,,25,25,25,25,25,25,35,35,25,25,25,25,25,25,25,35,25,25,25,Bow
+Venerable Doom Bow,,10,10,10,10,10,10,15,15,10,10,10,10,10,10,10,15,10,10,10,Bow
+Retrowinds Bow,,10,10,10,10,10,10,20,20,10,10,10,10,10,10,10,20,10,10,10,Bow
 Cloak of the Planewalker,Planewalker,10,10,10,10,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Cloak
 Cloak of Bloody Surprises,Bloody Cloak,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35,35,35,35,Cloak
 Ghastly Drape,,10,10,10,10,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Cloak
@@ -81,6 +150,8 @@ Cloak of the Deep,,25,25,25,25,40,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Cloa
 Shiny Cloak of Cubic Enigma,,17,17,17,17,23,17,17,17,17,17,17,17,17,17,17,17,17,17,17,Cloak
 Shiny Cloak of Refraction,,20,20,20,20,35,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Cloak
 Shiny Cloak of Bloody Surprises,,40,40,40,40,55,40,40,40,40,40,40,40,40,40,40,40,40,40,40,Cloak
+Spectre Cloak,,10,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Cloak
+Shiny Cloak of the Deep,,30,30,30,30,45,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Cloak
 Dagger of Sinister Deeds,T13 Dagger,10,10,10,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
 Spirit Dagger,,10,10,10,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
 Dirk of Cronus,CDirk,35,35,35,50,50,50,35,35,35,35,35,35,35,35,35,35,35,35,35,Dagger
@@ -92,8 +163,6 @@ Corruption Cutter,,15,15,15,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15,Dagg
 Dagger of Foul Malevolence,Foul,0,0,0,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,Dagger
 Bone Dagger,,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,Dagger
 Sunshine Shiv,,10,10,10,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
-Dueling Daggers,,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,15,15,15,15,Dagger
-Corrosion Cutter,,20,20,20,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,Dagger
 Mister Mango,,10,10,10,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
 Bounty Hunter's Dagger,Oryx Dagger,10,10,10,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
 Toxin Tooth,Sew Dag,5,5,5,15,10,10,5,5,5,5,5,5,5,5,5,5,5,5,5,Dagger
@@ -125,7 +194,6 @@ Crescent Dagger,,10,10,10,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
 Reliable Pugio,,10,10,10,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
 Dagger of the Terrible Talon,,0,0,0,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,Dagger
 Shiny Evergreen Dagger,,10,10,10,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
-Shiny Dueling Daggers,,20,20,20,20,20,20,25,25,20,20,20,20,20,15,15,20,15,15,15,Dagger
 Shiny Spirit Dagger,,15,15,15,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15,Dagger
 Shiny Queen's Stinger,,25,25,25,30,30,30,25,25,25,25,25,25,25,25,25,25,25,25,25,Dagger
 Shiny Poison Fang Dagger,,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,Dagger
@@ -133,6 +201,13 @@ Chicken Leg of Doom,,5,5,5,10,10,10,5,5,5,5,5,5,5,5,5,5,5,5,5,Dagger
 Marionette Ravager,,10,10,10,18,18,18,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
 Shiny Marionette Ravager,,15,15,15,23,23,23,15,15,15,15,15,15,15,15,15,15,15,15,15,Dagger
 Shiny Chain Dagger,Steamworks Dagger,25,25,25,35,35,35,25,25,25,25,25,25,25,25,25,25,25,25,25,Dagger
+Shiny Bone Dagger,,6,6,6,7,7,7,6,6,6,6,6,6,6,6,6,6,6,6,6,Dagger
+Ashen Talon,,20,20,20,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,Dagger
+Dagger of the Hasteful Rabbit,,0,0,0,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,Dagger
+Groovy Mango,,10,10,10,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
+Phantom Sickle,,10,10,10,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
+Venerable Spirit Dagger,,10,10,10,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
+Retrowinds Dagger,,10,10,10,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,Dagger
 Bloodshed Blades,t12 dual blades,0,0,0,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,Dual Blade
 Moonstone Blades,t13 dual blades,10,10,10,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,Dual Blade
 Soulforged Blades,t14 dual blades,15,15,15,25,25,25,15,15,15,15,15,15,15,15,15,15,15,15,15,Dual Blade
@@ -296,8 +371,6 @@ Hard Mode Spectral Penitentiary,HM Spectral,15,15,15,15,15,15,15,15,15,15,15,15,
 Hard Mode Moonlight Village (no Umi),HM MV,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Dungeon Completes
 Hard Mode Kitsune Umi,HM Umi,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,Dungeon Completes
 Hard Mode Shatters,HM Shatts,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,Dungeon Completes
-Advanced Steamworks,HM Steamworks,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Dungeon Completes
-Advanced Nest,HM Nest,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
 5 Ice Citadel Completes,5 Ice Citadels,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
 15 Ice Citadel Completes,15 Ice Citadels,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
 30 Ice Citadel Completes,30 Ice Citadels,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Dungeon Completes
@@ -307,6 +380,36 @@ Advanced Nest,HM Nest,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,D
 25 Infernal Abyss of Demons,25 Infernal Abyss Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
 10 Heroic Undead Lair,10 Heroic Undead Lair Completes,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
 25 Heroic Undead Lair,25 Heroic Undead Lair Completes,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+5 Plagued Nests,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
+15 Plagued Nests,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+30 Plagued Nests,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Dungeon Completes
+50 Plagued Nests,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+75 Plagued Nests,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Dungeon Completes
+5 Advanced Steamworks,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
+15 Advanced Steamworks,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+30 Advanced Steamworks,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Dungeon Completes
+50 Advanced Steamworks,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+75 Advanced Steamworks,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Dungeon Completes
+5 Neo Malogia,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
+15 Neo Malogia,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+30 Neo Malogia,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Dungeon Completes
+50 Neo Malogia,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+75 Neo Malogia,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Dungeon Completes
+5 Neo Forax,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
+15 Neo Forax,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+30 Neo Forax,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Dungeon Completes
+50 Neo Forax,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+75 Neo Forax,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Dungeon Completes
+5 Neo Katalund,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
+15 Neo Katalund,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+30 Neo Katalund,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Dungeon Completes
+50 Neo Katalund,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+75 Neo Katalund,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Dungeon Completes
+5 Neo Untaris,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Dungeon Completes
+15 Neo Untaris,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Dungeon Completes
+30 Neo Untaris,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Dungeon Completes
+50 Neo Untaris,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Dungeon Completes
+75 Neo Untaris,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Dungeon Completes
 Gatling Shots Engraving,Gatling Shots,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Engraving
 Iron Plating Engraving,Iron Plating,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Engraving
 Heavy Hitter Engraving,Heavy Hitter,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Engraving
@@ -364,6 +467,7 @@ Fame Bonus Enemy of the Court,FB Enemy of the Court,10,10,10,10,10,10,10,10,10,1
 Fame Bonus Epic Battles,FB Epic Battles,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Fame Bonus
 Fame Bonus Far Out,FB Far Out,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Fame Bonus
 Fame Bonus Hero of the Nexus,FB Hero of the Nexus,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Fame Bonus
+Fame Bonus Farther Out,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Fame Bonus
 Barnacle Basher,,50,50,50,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,Flail
 Celebrant Flail,t12 flail,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,Flail
 Divine Flail,t13 flail,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Flail
@@ -387,7 +491,6 @@ Breastplate of New Life,Bplate,30,30,30,25,25,25,25,25,25,25,25,25,30,25,25,25,2
 Fairy Plate,Fplate,15,15,20,10,10,10,10,10,10,10,10,10,15,10,10,10,10,15,10,Heavy Armor
 Zaarvox's Heart,Zaavoxs Heart,15,20,15,10,10,10,10,10,10,10,10,10,15,10,10,10,10,15,10,Heavy Armor
 Kamishimo,,20,20,20,15,15,15,15,15,15,15,15,15,25,15,15,15,15,25,15,Heavy Armor
-Heavy Protective Matrix,Heavy Matrix,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15,15,20,15,Heavy Armor
 Fungal Breastplate,,18,18,18,13,13,13,13,13,13,13,13,13,18,13,13,13,13,18,13,Heavy Armor
 Aegis Armor,Oryx Heavy Armor,20,20,20,10,10,10,10,10,10,10,10,10,20,10,10,10,10,20,10,Heavy Armor
 Naval Uniform,Davy Armor,10,15,10,5,5,5,5,5,5,5,5,5,10,5,5,5,5,10,5,Heavy Armor
@@ -432,6 +535,10 @@ Berserker's Breastplate,,15,15,15,10,10,10,10,10,10,10,10,10,15,10,10,10,10,15,1
 Retainer's Battlesuit,,15,15,15,10,10,10,10,10,10,10,10,10,20,10,10,10,10,15,10,Heavy Armor
 Shiny Breastplate of New Life,Shiny Bplate,35,35,35,30,30,30,30,30,30,30,30,30,35,30,30,30,30,35,30,Heavy Armor
 Hull of the Tundra,,15,15,15,10,10,10,10,10,10,10,10,10,15,10,10,10,10,15,10,Heavy Armor
+Shiny Berserker's Breastplate,Shiny Berserkers Breastplate,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15,15,20,15,Heavy Armor
+Barnacle Shell,,35,35,35,25,25,25,25,25,25,25,25,25,35,25,25,25,25,35,25,Heavy Armor
+Venerable Resurrected Warrior's Armor,,20,20,20,15,15,15,15,15,15,15,15,15,20,15,15,15,15,20,15,Heavy Armor
+Retrowinds Heavy Armor,,15,15,15,10,10,10,10,10,10,10,10,10,15,10,10,10,10,15,10,Heavy Armor
 Hivemaster Helm,Bee Helm,25,30,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Helm
 Helm of the Juggernaut,Jugg,35,50,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,Helm
 Helm of Draconic Dominance,Dragonhelm,15,25,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Helm
@@ -454,6 +561,8 @@ Shiny Vanguard's Visage,Shiny Vanguards Visage,30,40,30,30,30,30,30,30,30,30,30,
 Helm of the Swift Bunny,,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Helm
 Bubblegum Bucket,,20,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Helm
 Adamantine Helm,,10,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Helm
+Shiny Tipsy Topper,,20,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Helm
+Shiny Adamantine Helm,,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Helm
 Sadamune,T13 Katana,10,10,10,10,10,10,10,10,10,10,10,20,20,10,10,10,10,20,10,Katana
 Ray Katana,,30,30,30,30,30,30,30,30,30,30,30,40,40,30,30,30,30,40,30,Katana
 Celestial Blade,Sullen Blade,20,20,20,20,20,20,20,20,20,20,20,30,30,20,20,20,20,30,20,Katana
@@ -464,8 +573,6 @@ Reikoku,,15,15,15,15,15,15,15,15,15,15,15,25,20,15,15,15,15,20,15,Katana
 Masamune,T12 Katana,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,5,0,Katana
 Krathana,,20,20,20,20,20,20,20,20,20,20,20,25,25,20,20,20,20,25,20,Katana
 Arbiters Wrath,,10,10,10,10,10,10,10,10,10,10,10,15,15,10,10,10,10,15,10,Katana
-Fire Blade,,15,15,15,15,15,15,15,15,15,15,15,20,20,15,15,15,15,20,15,Katana
-Moonbeam Blade,,15,15,15,15,15,15,15,15,15,15,15,25,25,15,15,15,15,25,15,Katana
 Blade of Ages,,7,7,7,7,7,7,7,7,7,7,7,12,12,7,7,7,7,12,7,Katana
 Blade of the Assailant,Oryx Katana,10,10,10,10,10,10,10,10,10,10,10,20,20,10,10,10,10,20,10,Katana
 Quartz Cutter,Crystal Katana,15,15,15,15,15,15,15,15,15,15,15,25,20,15,15,15,15,20,15,Katana
@@ -499,13 +606,18 @@ Legions Odachi,,10,10,10,10,10,10,10,10,10,10,10,20,20,10,10,10,10,20,10,Katana
 Corrupted Cleaver,,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,5,0,Katana
 Thunder Mallet,,15,15,15,15,15,15,15,15,15,15,15,25,20,15,15,15,15,20,15,Katana
 Shiny Candy Katana,,10,10,10,10,10,10,10,10,10,10,10,20,20,10,10,10,10,20,10,Katana
-Shiny Fire Blade,,20,20,20,20,20,20,20,20,20,20,20,25,25,20,20,20,20,25,20,Katana
 Shiny Celestial Blade,,25,25,25,25,25,25,25,25,25,25,25,35,35,25,25,25,25,35,25,Katana
 Shiny Valor,,30,30,30,30,30,30,30,30,30,30,30,35,35,30,30,30,30,35,30,Katana
 Kyuuketsuki Hitogoroshi,,10,10,10,10,10,10,10,10,10,10,10,18,18,10,10,10,10,18,10,Katana
 Shiny Socket Blade,Enhanced Void Blade,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25,25,30,25,Katana
 Iceborn Arsenal,,10,10,10,10,10,10,10,10,10,10,10,15,20,10,10,10,10,15,10,Katana
 Winter's Dire Kiss,,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25,25,30,25,Katana
+Blade of Blooming,,10,10,10,10,10,10,10,10,10,10,10,15,15,10,10,10,10,15,10,Katana
+Sovereign Cinder-Blade,,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25,25,30,25,Katana
+Shiny Kyuuketsuki Hitogoroshi,,15,15,15,15,15,15,15,15,15,15,15,23,23,23,15,15,15,23,15,Katana
+Shiny Bloodbath Blade,,30,30,30,30,30,30,30,30,30,30,30,40,40,30,30,30,30,40,30,Katana
+Venerable Doku No Ken,,15,15,15,15,15,15,15,15,15,15,15,20,20,15,15,15,15,20,15,Katana
+Retrowinds Katana,,10,10,10,10,10,10,10,10,10,10,10,20,20,10,10,10,10,20,10,Katana
 Leaf Dragon Hide Armor,Leaf Hide,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15,20,Leather Armor
 Harlequin Armor,Harlie,10,10,10,15,15,15,15,15,10,10,10,15,10,10,10,10,10,10,15,Leather Armor
 Spectral Cloth Armor,Spectral,10,10,10,15,15,15,15,15,10,10,10,15,10,10,10,10,10,10,15,Leather Armor
@@ -523,7 +635,6 @@ Hirejou Tenne,,10,10,10,15,15,15,15,15,10,10,10,20,10,10,10,10,10,10,15,Leather 
 Wyrmhide Armor,Wyrmhide,10,10,10,15,15,15,15,15,10,10,10,15,10,10,10,10,10,10,15,Leather Armor
 Wraith's Brigandine,Wraiths Brigandine,10,10,10,20,20,20,25,20,10,10,10,20,10,10,10,10,10,10,25,Leather Armor
 Hydra Skin Armor,Hydra,0,0,0,5,5,5,5,5,0,0,0,5,0,0,0,0,0,0,5,Leather Armor
-Fitted Protective Matrix,Fitted Matrix,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15,20,Leather Armor
 Luxurious Leather,,7,7,7,12,12,12,12,12,7,7,7,12,7,7,7,7,7,7,12,Leather Armor
 Squadron Sheathing,Oryx Hide Armor,10,10,10,20,20,20,20,20,10,10,10,20,10,10,10,10,10,10,20,Leather Armor
 Acidic Armor,Snake ST Armor,5,5,5,15,10,10,10,5,5,5,5,10,5,5,5,5,5,5,10,Leather Armor
@@ -570,6 +681,12 @@ Eggshell Carapace,,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15,20,Leat
 Painted Eggshell Armor,,5,5,5,10,10,10,10,10,5,5,5,10,5,5,5,5,5,5,10,Leather Armor
 Shiny Leaf Dragon Hide Armor,,20,20,20,25,25,25,25,25,20,20,20,25,20,20,20,20,20,20,25,Leather Armor
 Shiny Snakeskin Armor,,6,6,6,8,8,8,8,8,6,6,6,8,6,6,6,6,6,6,8,Leather Armor
+Shiny Armor of Nil,,25,25,25,35,35,35,35,35,25,25,25,35,25,25,25,25,25,25,35,Leather Armor
+Shiny Spectral Cloth Armor,,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15,20,Leather Armor
+Shiny Cackling Straitjacket,,25,25,25,35,35,35,35,35,25,25,25,35,25,25,25,25,25,25,35,Leather Armor
+Reaper's Shroud,,10,10,10,15,15,15,15,15,10,10,10,15,10,10,10,10,10,10,15,Leather Armor
+Venerable Coral Silk Armor,,8,8,8,13,13,13,13,13,8,8,8,13,8,8,8,8,8,8,13,Leather Armor
+Retrowinds Leather Armor,,10,10,10,15,15,15,15,15,10,10,10,15,10,10,10,10,10,10,15,Leather Armor
 Longbow of the Endless Sky,t12 longbow,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,5,0,0,0,Longbow
 Longbow of the Morning Spirit,t13 longbow,10,10,10,10,10,10,20,20,10,10,10,10,10,10,10,20,10,10,10,Longbow
 Longbow of Midnight Diamond,t14 longbow,15,15,15,15,15,15,25,25,15,15,15,15,15,15,15,25,15,15,15,Longbow
@@ -600,6 +717,9 @@ Inferno Pick,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10,Lute
 Shiny Motivational Megaphone,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,35,20,20,20,Lute
 Shiny Pharaoh's Requiem,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,Lute
 Shiny Noble Mandolin,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,40,30,30,30,Lute
+Piper's Pan Flute,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10,Lute
+Obsidian Lyre,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,40,25,25,25,Lute
+The Triangle,,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,18,12,12,12,Lute
 Mace of the North Pole,t6 reskin mace,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,Mace
 B.O.O.M.,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,Mace
 Sovereign Mace,T6 Mace,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,Mace
@@ -622,6 +742,9 @@ Shiny Mace of the Depths,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,25,15,
 Shiny Incubation Mace,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,40,30,30,Mace
 Chocolate Egg Mace,,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,18,13,13,Mace
 Shiny Mace of the Celestial Forest,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,Mace
+Minotaur Mace,,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,50,35,35,Mace
+Big Berdtha,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,Mace
+Shiny Mace of the Pumpkin Effigy,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,45,30,30,Mace
 Backpack Drop,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Miscellaneous
 Adventurer's Belt,Adventurers Belt,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Miscellaneous
 Kogbold Enhancement Core,Enhancement Core,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Miscellaneous
@@ -647,6 +770,7 @@ Shiny Beekeeper's Flamethrower,Shiny Flamethrower,30,30,30,30,30,30,30,30,30,30,
 Morning Star of the Hero,Hero Morning Star,10,10,10,10,10,10,10,10,10,10,10,10,10,20,20,10,20,10,20,Morning Star
 The North Star,,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,5,0,5,Morning Star
 Chocolate Ovipositor,,5,5,5,5,5,5,5,5,5,5,5,5,5,15,15,5,15,5,15,Morning Star
+Morning Square,,5,5,5,5,5,5,5,5,5,5,5,5,5,10,10,5,10,5,10,Morning Star
 Orb of Aether,Aether,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,Orb
 Enchantment Orb,,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,10,10,10,10,Orb
 Orb of Conflict,Conflict,35,35,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,Orb
@@ -670,6 +794,9 @@ Shiny Orb of Aether,,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,20,20,20,20,Or
 Shiny Orb of Sweet Demise,,7,7,7,7,7,7,7,7,12,7,7,7,7,7,7,7,7,7,7,Orb
 Vision of Draconis,,20,20,20,20,20,20,20,20,30,20,20,20,20,20,20,20,20,20,20,Orb
 Shiny Vision of Draconis,,25,25,25,25,25,25,25,25,35,25,25,25,25,25,25,25,25,25,25,Orb
+Shiny Orb of Conflict,,40,40,40,40,40,40,40,40,55,40,40,40,40,40,40,40,40,40,40,Orb
+Entrancing Hourglass,,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,Orb
+Titan's Heart,,3,3,3,3,3,3,3,3,8,3,3,3,3,3,3,3,3,3,3,Orb
 Rare Pet Egg Drop,Rare Pet Egg,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Pet Egg
 Legendary Pet Egg Drop,Legendary Pet Egg,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Pet Egg
 Sprite Star Egg,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Pet Egg
@@ -707,6 +834,7 @@ Shiny Murky Toxin,,20,20,20,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Pois
 Shiny Mighty Stein,,25,25,25,40,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Poison
 Shiny Bottled Medusozoan,,20,20,20,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Poison
 Spirit's Bane,,10,10,10,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Poison
+Shiny Pollen Incendiary,,30,30,30,45,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Poison
 Prism of Dancing Swords,,10,10,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,Prism
 Prism of Dire Instability,,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,Prism
 Brain of the Golem,Brain,15,15,15,15,15,25,15,15,15,15,15,15,15,15,15,15,15,15,15,Prism
@@ -729,6 +857,8 @@ Shiny Prism of Dancing Swords,,15,15,15,15,15,25,15,15,15,15,15,15,15,15,15,15,1
 Shiny Ghostly Prism,,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,Prism
 Shiny Gambler's Fate,,25,25,25,25,25,35,25,25,25,25,25,25,25,25,25,25,25,25,25,Prism
 Ase's Echo,,10,10,10,10,10,15,10,10,10,10,10,10,10,10,10,10,10,10,10,Prism
+Shiny Ase's Echo,,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,Prism
+Rectangular Prism,,25,25,25,25,25,40,25,25,25,25,25,25,25,25,25,25,25,25,25,Prism
 Red Beehemoth Quiver,Red Bee Quiver,35,35,35,35,35,35,40,35,35,35,35,35,35,35,35,35,35,35,35,Quiver
 Blue Beehemoth Quiver,Blue Bee Quiver,35,35,35,35,35,35,40,35,35,35,35,35,35,35,35,35,35,35,35,Quiver
 Yellow Beehemoth Quiver,Yellow Bee Quiver,35,35,35,35,35,35,40,35,35,35,35,35,35,35,35,35,35,35,35,Quiver
@@ -760,6 +890,9 @@ Fresh Breeze Quiver,,5,5,5,5,5,5,15,5,5,5,5,5,5,5,5,5,5,5,5,Quiver
 Shiny Cocoon Quiver,,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,Quiver
 Shiny Blue Beehemoth Quiver,Blue Bee Quiver,40,40,40,40,40,40,45,40,40,40,40,40,40,40,40,40,40,40,40,Quiver
 Shiny Quiver of Thunder,,40,40,40,40,40,40,55,40,40,40,40,40,40,40,40,40,40,40,40,Quiver
+Shiny Green Beehemoth Quiver,,40,40,40,40,40,40,45,40,40,40,40,40,40,40,40,40,40,40,40,Quiver
+Shiny Red Beehemoth Quiver,,40,40,40,40,40,40,45,40,40,40,40,40,40,40,40,40,40,40,40,Quiver
+Shiny Yellow Beehemoth Quiver,,40,40,40,40,40,40,45,40,40,40,40,40,40,40,40,40,40,40,40,Quiver
 Bloodstone Ring,,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Ring
 Ring of Unbound Health,UBHP,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Ring
 Ring of Unbound Attack,UBATT,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Ring
@@ -795,10 +928,6 @@ Hivemind Circlet,,5,5,5,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Ring
 Akuma's Tear,Akumas Tear,6,6,6,6,6,6,6,6,6,6,6,6,10,6,6,6,6,10,6,Ring
 Heavenly Magatama,,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,10,Ring
 Revenant Ring,,6,6,6,6,6,6,10,6,6,6,6,6,6,6,6,6,6,6,6,Ring
-Alien Core: Power,Power Core,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Ring
-Alien Core: Corrosion,Corrosion Core,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Ring
-Alien Core: Warp,Warp Core,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Ring
-Alien Core: Dark Matter,Dark Matter Core,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Ring
 Ring of Decades,Deca,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,Ring
 Locked Reactor,Reactor,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,Ring
 Crystallised Mist,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Ring
@@ -980,6 +1109,22 @@ Shiny Fairy Ring,,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,Ring
 Shiny Ring of the Sphinx,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Ring
 Shiny Ring of Divine Faith,,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,Ring
 Frozen Heart,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Ring
+Heart of the Eternal Pyre,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Ring
+Shiny Coral Ring,,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,Ring
+Elderfrost Heirloom,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Ring
+Ring of Cubed Wisdom,,10,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10,Ring
+Shiny Captain's Ring,Shiny Captains Ring,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,Ring
+Shiny Ring of Cubed Wisdom,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Ring
+Shiny Omnipotence Ring,,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,Ring
+Soul Necklace,,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,Ring
+Tiki Pendant,,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,Ring
+Shiny Adventurer's Scarf,,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,Ring
+Babel Blocks,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Ring
+Venerable Ring of the Pyramid,,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,Ring
+Venerable Ring of the Nile,,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,Ring
+Venerable Ring of the Sphinx,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Ring
+Decades Chronicle,,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,Ring
+Bronze Pocketwatch,,10,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10,Ring
 Tlatoani's Shroud,Tlatoanis Shroud,20,20,20,20,20,20,20,20,25,25,25,20,20,25,25,25,25,20,20,Robe
 Water Dragon Silk Robe,Water Silk,20,20,20,20,20,20,20,20,25,25,25,20,20,25,25,25,25,20,20,Robe
 Robe of the Mad Scientist,Mad Robe,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15,15,10,10,Robe
@@ -991,7 +1136,6 @@ Toga Picta,Toga,15,15,15,15,15,15,15,15,20,20,25,15,15,20,20,20,20,15,15,Robe
 Garment of the Beast,,15,15,15,15,15,15,15,15,20,20,20,15,15,20,20,20,20,15,15,Robe
 Robe of the Star Mother,Star Mother,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15,15,10,10,Robe
 Robe of the Grand Sorcerer,GSorc,0,0,0,0,0,0,0,0,5,5,5,0,0,5,5,5,5,0,0,Robe
-Magic Protective Matrix,Magic Matrix,15,15,15,15,15,15,15,15,20,20,20,15,15,20,20,20,20,15,15,Robe
 Judge's Robe,Oryx Robe,10,10,10,10,10,10,10,10,20,20,20,10,10,20,20,20,20,10,10,Robe
 Esben's Shaman Attire,Esben Robe,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15,15,10,10,Robe
 Molten Mantle,Aby Robe,10,10,10,10,10,10,10,10,20,15,15,10,10,15,15,15,15,10,10,Robe
@@ -1046,6 +1190,12 @@ Chocolate Glazed Robe,,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15,20,10,10,
 Shiny Robe of the Tlatoani,,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,Robe
 Shiny Chasuble of Holy Light,Shiny Manor Robe,5,5,5,5,5,5,5,5,8,8,8,5,5,8,8,8,8,5,5,Robe
 Shiny Tlatoani's Shroud,,25,25,25,25,25,25,25,25,30,30,30,25,25,30,30,30,30,25,25,Robe
+Shiny Woodland Robe,,6,6,6,6,6,6,6,6,7,7,7,6,6,7,7,7,7,6,6,Robe
+Shiny Wretched Rags,,25,25,25,25,25,25,25,25,35,35,35,25,25,35,35,35,35,25,25,Robe
+Ritualistic Pa'u,,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15,15,10,10,Robe
+Shifting Shroud,,25,25,25,25,25,25,25,25,35,35,35,25,25,35,35,35,35,25,25,Robe
+Venerable Robe of the Mad Scientist,,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15,15,10,10,Robe
+Retrowinds Robe,,10,10,10,10,10,10,10,10,15,15,15,10,10,15,15,15,15,10,10,Robe
 Scepter of Fulmination,Fulmi,15,15,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,Scepter
 Scepter of Devastation,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,Scepter
 Cnidaria Rod,Reef Scepter,15,15,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,Scepter
@@ -1069,6 +1219,7 @@ Shiny Scepter of Rust,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,35,25,25,25,25,
 Eggsponential Scepter,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,Scepter
 Shiny Scepter of Fulmination,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,Scepter
 Shiny Honey Scepter,,7,7,7,7,7,7,7,7,7,7,7,7,7,7,10,7,7,7,7,Scepter
+Wrathful Conduit,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,40,25,25,25,25,Scepter
 Seal of Blasphemous Prayer,Oreo,35,35,50,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,Seal
 Marble Seal,Mseal,20,20,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Seal
 Seal of the Enchanted Forest,Fairyseal,10,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Seal
@@ -1090,6 +1241,7 @@ Carrot Cake Crest,,15,15,25,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Seal
 Shiny Marble Seal,,25,25,30,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Seal
 Shiny Sandstone Seal,Shiny Ruins Seal,5,5,10,5,5,5,5,5,5,5,5,1,5,5,5,5,5,5,5,Seal
 Symbol of the Lost,,13,13,18,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,Seal
+Shiny Doom's Emblem,,30,30,45,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Seal
 Spellbound Soulthief Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,Set Token
 Killbilly Warrior Set Token,,1,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
 Alchemist Assassin Set Token,,1,1,1,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
@@ -1104,6 +1256,11 @@ Astral Arcanist Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
 Spellbound Soulthief Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
 Undersea Phantom Wizard Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
 Plague Doctor Priest Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
+Ancestral Shaman Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
+Spectral Rogue Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
+Ancestral Shaman Bard Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
+Spectral Rogue Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
+Ancestral Shaman Bard Set Token,,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Set Token
 Great Shinobi Sheath,T6 Sheath,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,Sheath
 Sonic Wave Sheath,T7 Sheath,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,30,10,Sheath
 Volcanic Sheath,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,15,10,Sheath
@@ -1124,6 +1281,7 @@ Shiny Kaiken,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,25,20,Sheath
 Shiny Labyrinth Dweller's Sheath,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,30,25,Sheath
 S.H.E.A.T.H.,,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,15,7,Sheath
 Snowman's Sheath,T6 Christmas Sheath,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,Sheath
+Shiny S.H.E.A.T.H.,,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,20,12,Sheath
 Colossus Shield,t6 shield,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,Shield
 Shield of Flowing Clarity,,30,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Shield
 Shield of Ogmur,Ogmur,50,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,Shield
@@ -1150,6 +1308,20 @@ Shiny Spiteful Scutum,,30,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,
 Shiny Snakeskin Shield,,9,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,Shield
 Shiny Oryx's Escutcheon,,45,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,Shield
 Esoteric Buckler,Scutum Reskin,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Shield
+Shiny Shield of Ogmur,,55,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,Shield
+Shiny Cavalry Lance,,45,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Shield
+Sigil of the Horse,t6 sigil,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,Sigil
+Sigil of the Rhino,t7 sigil,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,30,Sigil
+Sharktooth Sigil,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,20,Sigil
+Silken Sigil,,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,18,Sigil
+Draconic Insignia,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,25,Sigil
+Crystalline Sigil,,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,28,Sigil
+Swarmlord's Sigil,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,25,Sigil
+Hawkmaster Sigil,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,20,Sigil
+Sigil of the Rubber Duck,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10,Sigil
+Shiny Swarmlord's Sigil,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,30,Sigil
+Shiny Sharktooth Sigil,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,25,Sigil
+Skeletal Sigilpede,,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,40,Sigil
 Toaster Pet Skin,Machine Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
 Mini Crystal Steed,Crystal Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
 Mini Sphinx,Sphinx Pet Skin,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
@@ -1333,6 +1505,33 @@ Frost Prince Summoner Skin,Frost Prince,10,10,10,10,10,10,10,10,10,10,10,10,10,1
 Jingle Bell Goat Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Skin
 Green Nisse Pet Skin,Green Nisse,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Skin
 Blue Nisse Pet Skin,Blue Nisse,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Skin
+Ladybug pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Cursed Raven pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Ghastly Penguin Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Penitent Frog Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Bogged Panda Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Pirate Queen Slurp Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Robobuddy pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Skelephant pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Chilly Parka Necromancer Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Great Shark pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Festival Enjoyer Kensei Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Calamity Crab pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Evil Ghost Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Red Hot Scarab Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Silver Doe Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Bunny Magician Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Penguin Bunny Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Skin
+Mini Flying Stheno Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Skin
+Lovebird Pet Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Skin
+Easter Egg Trickster Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Swimsuit Assassin Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Skin
+Holy Guide Priest Skin,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Skin
+Red Panda Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Forest Harpy Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Turtle Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Forest Happy Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
+Good Mask Spirit Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
 Skullish Remains of Esben,Esben Skull,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,10,10,Skull
 Sealed Crystal Skull,Crystal Skull,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,20,20,Skull
 Skull of Endless Torment,Shaitains Skull,25,25,25,25,25,25,25,25,25,25,30,25,25,25,25,25,25,25,25,Skull
@@ -1357,6 +1556,11 @@ Shiny Perennial Cranium,,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15,15,1
 Shiny Brain Cube,,25,25,25,25,25,25,25,25,25,25,35,25,25,25,25,25,25,25,25,Skull
 Shiny Cracked Crystal Skull,,6,6,6,6,6,6,6,6,6,6,8,6,6,6,6,6,6,6,6,Skull
 Maw of Malignance,,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,10,10,Skull
+Shiny Sealed Crystal Skull,,25,25,25,25,25,25,25,25,25,25,30,25,25,25,25,25,25,25,25,Skull
+Shiny Maw of Malignance,,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,Skull
+Shiny Skull of Restless Souls,,30,30,30,30,30,30,30,30,30,30,45,30,30,30,30,30,30,30,30,Skull
+Fossilized Skull,,25,25,25,25,25,25,25,25,25,25,40,25,25,25,25,25,25,25,25,Skull
+Solo Ice Citadel,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Solo Dungeon Complete
 Solo Spectral Penitentiary,Solo Spectral,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Solo Dungeon Completes
 Solo Hard Mode Spectral Penitentiary,Solo HM Spectral,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,Solo Dungeon Completes
 Solo Kogbold Steamworks,Solo Steamworks,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Solo Dungeon Completes
@@ -1370,7 +1574,8 @@ Solo Cultist Hideout (+ Lost Halls),Solo Cult,15,15,15,15,15,15,15,15,15,15,15,1
 Solo Fungal + Crystal Cavern,Solo Fungal + Crystal,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,Solo Dungeon Completes
 Solo Oryx Sanctuary,Solo Oryx 3,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,Solo Dungeon Completes
 Solo Advanced Steamworks,Solo HM Steamworks,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,Solo Dungeon Completes
-Solo Advanced Nest,Solo HM Nest,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,Solo Dungeon Completes
+Solo Plagued Nest,Solo HM Nest,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,Solo Dungeon Completes
+Solo Void,,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,Solo Dungeon Completes
 Penetrating Blast Spell,Thicket Spell,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15,15,15,15,Spell
 Tablet of the King's Avatar,Tablet,35,35,35,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,Spell
 Recurring Terror Spell,Parasite Spell,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,Spell
@@ -1400,6 +1605,8 @@ Shiny Genesis Spell,,30,30,30,30,30,30,30,30,30,40,30,30,30,30,30,30,30,30,30,Sp
 Shiny Jade Storm,,35,35,35,35,35,35,35,35,35,40,35,35,35,35,35,35,35,35,35,Spell
 Esben's Vows,,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,10,10,10,Spell
 Shiny Wandering Souls Spell,Shiny UDL Spell,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,Spell
+Shiny Vitamine Buster,,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,20,20,20,Spell
+Shiny Runes of Knowledge,,30,30,30,30,30,30,30,30,30,45,30,30,30,30,30,30,30,30,30,Spell
 Spellblade of the Sun,t12 spellblade,0,0,0,0,0,0,0,0,5,5,5,0,0,0,0,0,0,0,0,Spellblade
 Spellblade of the Heavens Light,t13 spellblade,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10,10,10,Spellblade
 Spellblade of the Everlasting Death,t14 spellblade,15,15,15,15,15,15,15,15,25,25,25,15,15,15,15,15,15,15,15,Spellblade
@@ -1422,8 +1629,6 @@ Edictum Praetoris,,15,15,15,15,15,15,15,15,20,20,25,15,15,15,15,15,15,15,15,Staf
 Staff of the Cosmic Whole,Cosmic,0,0,0,0,0,0,0,0,5,5,5,0,0,0,0,0,0,0,0,Staff
 Staff of the Vital Unity,T13 Staff,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10,10,10,Staff
 KoalaPOW,,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10,10,10,Staff
-Comet of Calamity,,20,20,20,20,20,20,20,20,25,25,25,20,20,20,20,20,20,20,20,Staff
-Foramite Staff,,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10,10,10,Staff
 K.I.D.D. Force,KIDD Force,10,10,10,10,10,10,10,10,15,15,15,10,10,10,10,10,10,10,10,Staff
 Oppressor's Staff,Oryx Staff,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10,10,10,Staff
 Staff of Eruption,Shaitan Staff,10,10,10,10,10,10,10,10,20,15,15,10,10,10,10,10,10,10,10,Staff
@@ -1460,7 +1665,6 @@ Staff of the Eclipse,,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10,10,10,S
 Deathmask Staff,,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10,10,10,Staff
 Staff of Horrific Knowledge,,0,0,0,0,0,0,0,0,5,5,5,0,0,0,0,0,0,0,0,Staff
 Shiny Sleigh Bell Staff,,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10,10,10,Staff
-Shiny Foramite Staff,,15,15,15,15,15,15,15,15,20,20,20,15,15,15,15,15,15,15,15,Staff
 Shiny Mechanical Kogbold Limb,,35,35,35,35,35,35,35,35,40,40,40,35,35,35,35,35,35,30,35,Staff
 Shiny Bogwood Crook,,15,15,15,15,15,15,15,15,20,20,20,15,15,15,15,15,15,15,15,Staff
 Anatis Staff,,5,5,5,5,5,5,5,5,10,10,10,5,5,5,5,5,5,5,5,Staff
@@ -1468,6 +1672,13 @@ Jailer's Scythe,,25,25,25,25,25,25,25,25,35,35,35,25,25,25,25,25,25,25,25,Staff
 Shiny Jailer's Scythe,,30,30,30,30,30,30,30,30,40,40,40,30,30,30,30,30,30,30,30,Staff
 Elder Heartwood Staff,,10,10,10,10,10,10,10,10,18,18,18,10,10,10,10,10,10,10,10,Staff
 Frostfall Rod,,25,25,25,25,25,25,25,25,30,30,30,25,25,25,25,25,25,25,25,Staff
+Bloom-Fire Scepter,,25,25,25,25,25,25,25,25,30,30,30,25,25,25,25,25,25,25,25,Staff
+Shiny Spirit Staff,,15,15,15,15,15,15,15,15,20,20,20,15,15,15,15,15,15,15,15,Staff
+Shiny Staff of Unholy Sacrifice,,30,30,30,30,30,30,30,30,35,35,35,30,30,30,30,30,30,30,30,Staff
+Shiny Torrential Staff,,30,30,30,30,30,30,30,30,40,40,40,30,30,30,30,30,30,30,30,Staff
+Venerable Staff of the Crystal Serpent,,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,Staff
+Staff of Rich History,,10,10,10,10,10,10,10,10,18,18,18,10,10,10,10,10,10,10,10,Staff
+Retrowinds Staff,,10,10,10,10,10,10,10,10,20,20,20,10,10,10,10,10,10,10,10,Staff
 Kageboshi,,35,35,35,35,35,35,35,35,35,35,35,50,35,35,35,35,35,35,35,Star
 Midnight Star,,20,20,20,20,20,20,20,20,20,20,20,30,20,20,20,20,20,20,20,Star
 Daybreak Chakram,Jugg Star,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,20,Star
@@ -1493,6 +1704,7 @@ Enchanted Chisel,,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,20,Star
 Shiny Ballistic Star,,20,20,20,20,20,20,20,20,20,20,20,30,20,20,20,20,20,20,20,Star
 Combcutter Kunai,,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15,15,Star
 Igneous Starblossom,,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,Star
+Shiny Igneous Starblossom,,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,Star
 Defense Maxed,Def Max,10,7,8,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,Stats
 Attack Maxed,Att Max,2,9,3,8,6,8,9,9,6,9,9,7,9,5,8,5,4,6,5,Stats
 Dexterity Maxed,Dex Max,6,6,5,9,9,9,5,5,7,9,5,8,6,4,8,8,9,7,8,Stats
@@ -1513,8 +1725,6 @@ Indomptable,Indomptable,15,20,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 Doctor Swordsworth,,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Sword
 Sword of Acclaim,Acclaim,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,Sword
 Silex's Hammer,Silexs Hammer,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Sword
-Acidic Slasher,,20,20,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Sword
-Gaseous Glaive,,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Sword
 MMace MMurderer,Mace Murderer,13,13,13,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,Sword
 Keychain Cutlass,,50,50,50,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,Sword
 Henchman's Claymore,Oryx Sword,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Sword
@@ -1559,6 +1769,11 @@ Eternal Echo,,40,40,40,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Sword
 Shiny Spectral Sword,Shiny UDL Sword,23,23,23,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Sword
 Heartsteel Claymore,,10,10,10,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,Sword
 Icebreaker Maul,,30,30,30,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Sword
+Blade of Eternal Rebirth,,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Sword
+Shiny Pirate's Artillery,,40,40,40,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Sword
+General's Arsenal,,35,35,35,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,Sword
+Venerable Ancient Stone Sword,,15,15,15,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Sword
+Retrowinds Sword,,20,20,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Sword
 Skyslash Tachi,t12 tachi,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,5,0,Tachi
 Sunset Tachi,t13 tachi,10,10,10,10,10,10,10,10,10,10,10,20,20,10,10,10,10,20,10,Tachi
 Godslayer Tachi,t14 tachi,15,15,15,15,15,15,15,15,15,15,15,25,25,15,15,15,15,25,15,Tachi
@@ -1572,6 +1787,7 @@ Shiny Brambletooth Tachi,,15,15,15,15,15,15,15,15,15,15,15,20,20,15,15,15,15,20,
 Bunny Ear Tachi,,5,5,5,5,5,5,5,5,5,5,5,15,15,5,5,5,5,15,5,Tachi
 Shiny Burial Blades,,25,25,25,25,25,25,25,25,25,25,25,35,35,25,25,25,25,35,25,Tachi
 Shiny Tools of the Tarnished,,25,25,25,25,25,25,25,25,25,25,25,35,35,25,25,25,25,35,25,Tachi
+Rift Rippers,,25,25,25,25,25,25,25,25,25,25,25,35,35,25,25,25,25,35,25,Tachi
 Tome of Purification,Puri,20,20,20,20,20,20,20,20,20,20,20,20,20,30,20,20,20,20,20,Tome
 Tome of Pain,TPain,10,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,Tome
 Tome of Holy Protection,Prot,15,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,Tome
@@ -1596,6 +1812,10 @@ Evolutionary Records,,25,25,25,25,25,25,25,25,25,25,25,25,25,40,25,25,25,25,25,T
 Tome of Piracy,,20,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,Tome
 Shiny Chaotic Scripture,,35,35,35,35,35,35,35,35,35,35,35,35,35,45,35,35,35,35,35,Tome
 Botany Book,,20,20,20,20,20,20,20,20,20,20,20,20,20,30,20,20,20,20,20,Tome
+Shiny Tome of Pain,,15,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,Tome
+Shiny Necronomicon,,15,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,Tome
+Shiny Evolutionary Records,,30,30,30,30,30,30,30,30,30,30,30,30,30,45,30,30,30,30,30,Tome
+Scary Stories,,25,25,25,25,25,25,25,25,25,25,25,25,25,40,25,25,25,25,25,Tome
 Coral Venom Trap,Ctrap,15,15,15,15,15,15,15,25,15,15,15,15,15,15,15,15,15,15,15,Trap
 Trap of the Vile Spirit,Vile Trap,35,35,35,35,35,35,35,50,35,35,35,35,35,35,35,35,35,35,35,Trap
 Honeytomb Snare,,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,10,10,10,10,Trap
@@ -1620,17 +1840,19 @@ Shiny Ocular Entrapment,,20,20,20,20,20,20,20,35,20,20,20,20,20,20,20,20,20,20,2
 Shiny Trap of the Vile Spirit,,40,40,40,40,40,40,40,55,40,40,40,40,40,40,40,40,40,40,40,Trap
 Shiny Coral Venom Trap,,20,20,20,20,20,20,20,30,20,20,20,20,20,20,20,20,20,20,20,Trap
 Mouse Trap,,7,7,7,7,7,7,7,12,7,7,7,7,7,7,7,7,7,7,7,Trap
+Shiny Cave Dweller Trap,,20,20,20,20,20,20,20,35,20,20,20,20,20,20,20,20,20,20,20,Trap
+Shiny Sulfuric Stone,,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,15,Trap
 Wakizashi of Eastern Winds,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,25,20,Wakizashi
-Wakizashi of Crossing Fires,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,25,20,Wakizashi
-Ryu's Blade,Ryus Blade,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25,25,30,25,Wakizashi
-Royal Wakizashi,T6 Waki,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,10,0,Wakizashi
+Wakizashi of Crossing Fires,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,Wakizashi
+Ryu's Blade,Ryus Blade,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25,25,25,25,Wakizashi
+Royal Wakizashi,T6 Waki,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,Wakizashi
 Ronin's Wakizashi,Ronins Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5,5,5,Wakizashi
 Fractured Gemstone Wakizashi,Gemstone Waki,15,15,15,15,15,15,15,15,15,15,15,15,30,15,15,15,15,15,15,Wakizashi
-NSFWakizashi,April Fools Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5,10,5,Wakizashi
-Peppermint Wakizashi,t6 reskin wakizashi,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,10,0,Wakizashi
-Amaterasu,oryx wakizashi,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15,25,15,Wakizashi
-Watarimono,,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10,10,20,10,Wakizashi
-Virtuous Wakizashi,T7 Waki,10,10,10,10,10,10,10,10,10,10,10,10,30,10,10,10,10,30,10,Wakizashi
+NSFWakizashi,April Fools Wakizashi,5,5,5,5,5,5,5,5,5,5,5,5,10,5,5,5,5,5,5,Wakizashi
+Peppermint Wakizashi,t6 reskin wakizashi,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,Wakizashi
+Amaterasu,oryx wakizashi,15,15,15,15,15,15,15,15,15,15,15,15,25,15,15,15,15,15,15,Wakizashi
+Watarimono,,10,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,Wakizashi
+Virtuous Wakizashi,T7 Waki,10,10,10,10,10,10,10,10,10,10,10,10,30,10,10,10,10,10,10,Wakizashi
 Shadow Serpent Sidearm,,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,Wakizashi
 Sentinel's Sidearm,Sentinels Sidearm,25,25,25,25,25,25,25,25,25,25,25,25,35,25,25,25,25,25,25,Wakizashi
 Kogbold Multitool,Multitool,35,35,35,35,35,35,35,35,35,35,35,35,50,35,35,35,35,35,35,Wakizashi
@@ -1638,11 +1860,13 @@ Shiny Wakizashi of Eastern Winds,,25,25,25,25,25,25,25,25,25,25,25,25,30,25,25,2
 Shiny Sentinel's Sidearm,Shiny Sentinels Sidearm,30,30,30,30,30,30,30,30,30,30,30,30,45,30,30,30,30,30,30,Wakizashi
 Shiny Kogbold Multitool,,40,40,40,40,40,40,40,40,40,40,40,40,55,40,40,40,40,40,40,Wakizashi
 Shiny Fractured Gemstone Wakizashi,,20,20,20,20,20,20,20,20,20,20,20,20,35,20,20,20,20,20,20,Wakizashi
-Sakura Wakizashi,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,25,20,Wakizashi
+Sakura Wakizashi,,20,20,20,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,Wakizashi
 Esben's Twisted Heart,,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,Wakizashi
 Shiny Esben's Twisted Heart,,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,Wakizashi
 Sublimation Sidearm,,13,13,13,13,13,13,13,13,13,13,13,13,18,13,13,13,13,13,13,Wakizashi
 Shiny Ronin's Wakizashi,,10,10,10,10,10,10,10,10,10,10,10,10,15,10,10,10,10,10,10,Wakizashi
+Shiny Shadow Serpent Sidearm,,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,Wakizashi
+Shiny Wakizashi of Crossing Fires,,25,25,25,25,25,25,25,25,25,25,25,25,30,25,25,25,25,25,25,Wakizashi
 Wand of Evocation,T13 Wand,10,10,10,10,10,10,10,10,10,10,10,10,10,20,20,10,20,10,20,Wand
 Conducting Wand,Conducting,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10,15,10,15,Wand
 Wand of the Fallen,Fallen Wand,15,15,15,15,15,15,15,15,15,15,15,15,15,25,25,15,25,15,25,Wand
@@ -1652,8 +1876,6 @@ Wand of Geb,Geb Wand,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10,15,10,15,Wa
 Crystal Wand,CWand,15,15,15,15,15,15,15,15,15,15,15,15,15,20,20,15,20,15,20,Wand
 Wand of Recompense,Recomp,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,5,0,5,Wand
 Spicy Wand of Spice,,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10,15,10,15,Wand
-Snowblind Wand,,15,15,15,15,15,15,15,15,15,15,15,15,15,25,25,15,25,15,25,Wand
-Warlord Wand,,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10,15,10,15,Wand
 Caduceus of Current Craziness,,7,7,7,7,7,7,7,7,7,7,7,7,7,12,12,7,12,7,12,Wand
 Tyrant's Wand,Oryx Wand,10,10,10,10,10,10,10,10,10,10,10,10,10,20,20,10,20,10,20,Wand
 Soul's Guidance,Souls Guidance,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10,15,10,15,Wand
@@ -1700,67 +1922,12 @@ Shiny Sprite Wand,,6,6,6,6,6,6,6,6,6,6,6,6,6,9,9,6,9,6,9,Wand
 Wand of Hidden Knowledge,,10,10,10,10,10,10,10,10,10,10,10,10,10,18,18,10,18,10,18,Wand
 Caduceus of Enlightened Chaos,,7,7,7,7,7,7,7,7,7,7,7,7,7,12,12,7,12,7,12,Wand
 Shiny Deliverance,,25,25,25,25,25,25,25,25,25,25,25,25,25,35,35,25,35,25,35,Wand
-Sigil of the Horse,t6 sigil,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,Sigil
-Sigil of the Rhino,t7 sigil,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,30,Sigil
-Sharktooth Sigil,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,20,Sigil
-Silken Sigil,,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,18,Sigil
-Draconic Insignia,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,25,Sigil
-Crystalline Sigil,,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,28,Sigil
-Swarmlord's Sigil,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,25,Sigil
-Hawkmaster Sigil,,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,20,Sigil
-Sigil of the Rubber Duck,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10,Sigil
-Heart of the Eternal Pyre,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Ring
-Ladybug pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Cursed Raven pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Bloom-Fire Scepter,,25,25,25,25,25,25,25,25,30,30,30,25,25,25,25,25,25,25,25,Staff
-Ghastly Penguin Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Penitent Frog Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Blade of Blooming,,10,10,10,10,10,10,10,10,10,10,10,15,15,10,10,10,10,15,10,Katana
-Shiny Green Beehemoth Quiver,,40,40,40,40,40,40,45,40,40,40,40,40,40,40,40,40,40,40,40,Quiver
-Shiny Red Beehemoth Quiver,,40,40,40,40,40,40,45,40,40,40,40,40,40,40,40,40,40,40,40,Quiver
-Shiny Yellow Beehemoth Quiver,,40,40,40,40,40,40,45,40,40,40,40,40,40,40,40,40,40,40,40,Quiver
-Shiny Orb of Conflict,,40,40,40,40,40,40,40,40,55,40,40,40,40,40,40,40,40,40,40,Orb
-Shiny Armor of Nil,,25,25,25,35,35,35,35,35,25,25,25,35,25,25,25,25,25,25,35,Leather Armor
-Shiny Sealed Crystal Skull,,25,25,25,25,25,25,25,25,25,25,30,25,25,25,25,25,25,25,25,Skull
-Shiny Coral Ring,,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,Ring
-Shiny Bone Dagger,,6,6,6,7,7,7,6,6,6,6,6,6,6,6,6,6,6,6,6,Dagger
-Shiny Cave Dweller Trap,,20,20,20,20,20,20,20,35,20,20,20,20,20,20,20,20,20,20,20,Trap
-Shiny B.O.W.,,15,15,15,15,15,15,20,20,15,15,15,15,15,15,15,20,15,15,15,Bow
-Shiny Spectral Cloth Armor,,15,15,15,20,20,20,20,20,15,15,15,20,15,15,15,15,15,15,20,Leather Armor
-Shiny Ase's Echo,,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,Prism
-Shiny S.H.E.A.T.H.,,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,20,12,Sheath
-Shiny Tome of Pain,,15,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,Tome
-Shiny Woodland Robe,,6,6,6,6,6,6,6,6,7,7,7,6,6,7,7,7,7,6,6,Robe
 Solar Flare Igniter,,25,25,25,25,25,25,25,25,25,25,25,25,25,30,30,25,30,25,30,Wand
-Ashen Talon,,20,20,20,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,Dagger
-Sovereign Cinder-Blade,,25,25,25,25,25,25,25,25,25,25,25,30,30,25,25,25,25,30,25,Katana
-Bogged Panda Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Pirate Queen Slurp Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Robobuddy pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Skelephant pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Elderfrost Heirloom,,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,Ring
-Chilly Parka Necromancer Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Great Shark pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Festival Enjoyer Kensei Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Calamity Crab pet skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Evil Ghost Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Blade of Eternal Rebirth,,25,25,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Sword
-Red Hot Scarab Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Crest of the Rising Sun,,25,25,25,25,25,25,30,30,25,25,25,25,25,25,25,30,25,25,25,Bow
-Shiny Tipsy Topper,,20,25,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Helm
-Solo Ice Citadel,,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,Solo Dungeon Complete
-Silver Doe Pet Skin,,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,Skin
-Shiny Necronomicon,,15,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,Tome
-Shiny Igneous Starblossom,,10,10,10,10,10,10,10,10,10,10,10,20,10,10,10,10,10,10,10,Star
-Shiny Spirit Staff,,15,15,15,15,15,15,15,15,20,20,20,15,15,15,15,15,15,15,15,Staff
-Shiny Wretched Rags,,25,25,25,25,25,25,25,25,35,35,35,25,25,35,35,35,35,25,25,Robe
-Shiny Staff of Unholy Sacrifice,,30,30,30,30,30,30,30,30,35,35,35,30,30,30,30,30,30,30,30,Staff
-Shiny Vitamine Buster,,20,20,20,20,20,20,20,20,20,25,20,20,20,20,20,20,20,20,20,Spell
-Shiny Shadow Serpent Sidearm,,15,15,15,15,15,15,15,15,15,15,15,15,20,15,15,15,15,15,15,Wakizashi
-Shiny Sulfuric Stone,,15,15,15,15,15,15,15,20,15,15,15,15,15,15,15,15,15,15,15,Trap
-Shiny Adamantine Helm,,15,20,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,Helm
 Shiny Wand of Hidden Knowledge,,15,15,15,15,15,15,15,15,15,15,15,15,15,23,23,15,23,15,23,Wand
 Wand of Egg-cellence,,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,5,0,5,Wand
-Dagger of the Hasteful Rabbit,,0,0,0,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,Dagger
-Morning Square,,,,,,,,,,,,,,,,,,,,,Morning Star
-The Triangle,,,,,,,,,,,,,,,,,,,,,
+Eggstatic Conductor,,10,10,10,10,10,10,10,10,10,10,10,10,10,15,15,10,15,10,15,Wand
+Shiny Crystal Wand,,20,20,20,20,20,20,20,20,20,20,20,20,20,25,25,20,25,20,25,Wand
+Ravenous Wand,,25,25,25,25,25,25,25,25,25,25,25,25,25,35,35,25,35,25,35,Wand
+Venerable Crystal Wand,,15,15,15,15,15,15,15,15,15,15,15,15,15,20,20,15,20,15,20,Wand
+Retrowinds Wand,,10,10,10,10,10,10,10,10,10,10,10,10,10,20,20,10,20,10,20,Wand
+Miniature Alien Generator,,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
