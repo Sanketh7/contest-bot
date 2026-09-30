@@ -22,7 +22,7 @@ import { formatKeywordsForDisplay, formatPointsForDisplay } from "../util";
 import { Contest } from "@prisma/client";
 import { RotmgClass, CharacterModifier } from "../types";
 import { ROTMG_CLASSES, CHARACTER_MODIFIERS } from "../constants";
-import { v4 as uuidv4 } from "uuid";
+import { randomUUID } from "node:crypto";
 
 const descriptions = {
   description: "Character info.",
@@ -223,8 +223,8 @@ const handleCreateCharacter = async (
       { name: "Class", value: rotmgClass },
       { name: "Modifiers", value: formatKeywordsForDisplay(modifiers) }
     );
-  const confirmButtonCustomId = uuidv4();
-  const cancelButtonCustomId = uuidv4();
+  const confirmButtonCustomId = randomUUID();
+  const cancelButtonCustomId = randomUUID();
   const confirmButton = new ButtonBuilder()
     .setCustomId(confirmButtonCustomId)
     .setLabel("Confirm")
