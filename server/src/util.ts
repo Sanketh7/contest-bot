@@ -20,6 +20,8 @@ export const checkAcl = async (user: User, acls: Set<AclGroup>): Promise<boolean
       ok = ok || member.roles.cache.has(Settings.getInstance().getRole("admin").id);
     } else if (acl === "Moderator") {
       ok = ok || member.roles.cache.has(Settings.getInstance().getRole("moderator").id);
+    } else if (acl === "Officer") {
+      ok = ok || member.roles.cache.has(Settings.getInstance().getRole("officer").id);
     } else if (acl === "Contest Staff") {
       ok = ok || member.roles.cache.has(Settings.getInstance().getRole("contestStaff").id);
     } else if (acl === "Contestant") {

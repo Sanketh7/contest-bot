@@ -9,6 +9,7 @@ type JsonData = {
   roles: {
     admin: string;
     moderator: string;
+    officer: string;
     contestStaff: string;
     contestant: string;
   };
@@ -36,6 +37,7 @@ type ResolvedData = {
   roles?: {
     admin?: Role;
     moderator?: Role;
+    officer?: Role;
     contestStaff?: Role;
     contestant?: Role;
   };
@@ -208,7 +210,7 @@ export class Settings {
   private async loadRoles(jsonData: JsonData) {
     const guild = this.get("guild");
 
-    for (const name of ["admin", "contestStaff", "moderator", "contestant"] as const) {
+    for (const name of ["admin", "contestStaff", "moderator", "officer", "contestant"] as const) {
       const role = guild.roles.cache.find((r) => r.name === jsonData.roles[name]);
       this.setRole(name, role);
     }

@@ -4,6 +4,7 @@
   "roles": {
     "admin": "Administrator",
     "moderator": "Moderator",
+    "officer": "Officer",
     "contestStaff": "Contest Staff",
     "contestant": "Contestant"
   },
