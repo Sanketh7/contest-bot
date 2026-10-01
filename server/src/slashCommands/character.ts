@@ -300,9 +300,9 @@ const command: SlashCommand = {
   subcommandAcl: {
     view: ["Contestant"],
     submissions: ["Contestant"],
-    setActive: ["Contest Staff", "Moderator", "Admin"],
+    setActive: ["Contest Staff", "Moderator", "Officer", "Admin"],
     allSubmissions: ["Contest Staff", "Moderator", "Admin"],
-    create: ["Contest Staff", "Moderator", "Admin"],
+    create: ["Contest Staff", "Moderator", "Officer", "Admin"],
   },
   descriptions,
   command: new SlashCommandBuilder()

@@ -52,8 +52,8 @@ const handleKeywordsAddRemove = async (
 const command: SlashCommand = {
   defaultAcl: ["Admin"],
   subcommandAcl: {
-    add: ["Contest Staff"],
-    remove: ["Contest Staff"],
+    add: ["Contest Staff", "Moderator", "Officer", "Admin"],
+    remove: ["Contest Staff", "Moderator", "Officer", "Admin"],
   },
   descriptions,
   command: new SlashCommandBuilder()
